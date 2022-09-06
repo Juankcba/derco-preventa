@@ -53,8 +53,6 @@ const HomePage: NextPage<PropsWithChildren<Props>> = ({ versions }) => {
   );
 };
 
-export default HomePage;
-
 export async function getStaticProps() {
   const { data } = await cmsApi.get<VersionResponse>("/versions");
 
@@ -64,3 +62,5 @@ export async function getStaticProps() {
     props: { versions },
   };
 }
+
+export default HomePage;
