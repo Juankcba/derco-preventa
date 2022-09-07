@@ -20,7 +20,7 @@ const VersionCard: FC<Props> = ({ version }) => {
     <Grid xs={12} sm={6} md={3} xl={3} key={version.id}>
       <Card isHoverable isPressable onClick={onClick}>
         <Card.Header>
-          <Row justify="flex-start" css={{ gap: "16px", height: "50px" }}>
+          <Row justify="flex-start" css={{ gap: "16px", height: "70px" }}>
             <Image
               src={`https://dercocenter-cl-static-prod.s3.amazonaws.com/assets/brands-logos/${version.model.brandName
                 .toLowerCase()

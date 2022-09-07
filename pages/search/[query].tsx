@@ -20,8 +20,9 @@ const SearchPage: NextPage<Props> = ({ products, foundProducts, query }) => {
     <Layout title="Busqueda | DercoCenter">
       <Grid.Container css={{ marginTop: "5px" }} gap={2}>
         {foundProducts ? (
-          <Text h2 css={{ mb: 1, textTransform: "capitalize" }}>
-            Término: {query}
+          <Text h2 css={{ mb: 1 }}>
+            Resultado de busqueda : {" "}
+            <span style={{ textTransform: "uppercase" }}>{query}</span>
           </Text>
         ) : (
           <Box>
@@ -66,6 +67,9 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   let products: any[] = versionsData.filter(
     (version: any) =>
       version.name.toLowerCase().includes(query.toLowerCase()) ||
+      version.model.carClass.filter((mcc: string) =>
+        mcc.toLowerCase().includes(query.toLowerCase())
+      ).length > 0 ||
       version.model.name.toLowerCase().includes(query.toLowerCase()) ||
       version.model.brandName.toLowerCase() == query.toLowerCase() ||
       version.transmission == query.toLowerCase()
