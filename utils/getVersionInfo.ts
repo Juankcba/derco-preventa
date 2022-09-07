@@ -1,4 +1,4 @@
-import { cmsApi } from "../components/apis"
+import { cmsApi } from "../apis"
 import { Model, Version } from '../interfaces';
 
 

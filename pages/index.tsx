@@ -2,7 +2,7 @@ import { useEffect, useMemo } from "react";
 import { NextPage, GetStaticProps } from "next";
 import Head from "next/head";
 import Image from "next/image";
-import { cmsApi } from "../components/apis";
+import { cmsApi } from "../apis";
 import { Layout } from "../components/Layouts";
 import { Version, VersionResponse } from "../interfaces";
 import { PropsWithChildren, useState } from "react";

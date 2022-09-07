@@ -11,7 +11,7 @@ import {
 
 import { Layout } from "../../../components/Layouts";
 import { getVersionInfo } from "../../../utils";
-import { cmsApi } from "../../../components/apis";
+import { cmsApi } from "../../../apis";
 import { Grid, Text, Row } from "@nextui-org/react";
 import CarsColors from "../../../components/cars/CarsColors";
 import Image from "next/image";
