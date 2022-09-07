@@ -10,6 +10,7 @@ import { Box } from "../ui/Box";
 interface Props {
   title?: string;
   pageDescription?: string;
+  image?: string;
 }
 
 const origin = typeof window === "undefined" ? "" : window.location.origin;
@@ -18,6 +19,7 @@ export const Layout: FC<PropsWithChildren<Props>> = ({
   children,
   title,
   pageDescription,
+  image,
 }) => {
   const { theme } = useTheme();
   return (
@@ -30,14 +32,17 @@ export const Layout: FC<PropsWithChildren<Props>> = ({
         <title>{title || "PokemonApp"}</title>
         <meta name="author" content="Soho" />
         <meta name="description" content={pageDescription || ` | ${title}`} />
-        <meta name="keywords" content={`${title}, pokemon, pokedex`} />
+        <meta name="keywords" content={`${title}, autos, dercocenter`} />
 
         <meta property="og:title" content={`${title}`} />
         <meta
           property="og:description"
-          content={pageDescription || `Esta es la página sobre ${title}`}
+          content={pageDescription || `${title}`}
         />
-        <meta property="og:image" content={`${origin}/img/banner.png`} />
+        <meta
+          property="og:image"
+          content={image || `${origin}/assets/img/dercocenter.svg`}
+        />
       </Head>
 
       <NavBar />
