@@ -33,6 +33,9 @@ const NavBar = () => {
     if (router.asPath.includes(`/search/${searchTerms}`)) {
       setLoading(false);
     }
+    setTimeout(function () {
+      setLoading(false);
+    }, 2000);
   }, [router, searchTerms]);
 
   return (
