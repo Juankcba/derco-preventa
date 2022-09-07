@@ -26,7 +26,7 @@ const CarPage: NextPage<Props> = ({ model }) => {
     <Layout
       title={`${model.name} | DercoCenter - ${model.brand.name}`}
       pageDescription={model.description}
-      image={model.defaultVersion.image.url}
+      image={model.defaultVersion.imageUrl}
     >
       <Grid.Container gap={2} justify="center" css={{ marginTop: "20px" }}>
         {model.colors.length > 0 && (

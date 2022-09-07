@@ -22,6 +22,7 @@ export const Layout: FC<PropsWithChildren<Props>> = ({
   image,
 }) => {
   const { theme } = useTheme();
+  console.log("image", image);
   return (
     <Box
       css={{
@@ -39,10 +40,7 @@ export const Layout: FC<PropsWithChildren<Props>> = ({
           property="og:description"
           content={pageDescription || `${title}`}
         />
-        <meta
-          property="og:image"
-          content={image || `${origin}/assets/img/dercocenter.svg`}
-        />
+        <meta property="og:image" content={image || `${origin}/logo.png`} />
       </Head>
 
       <NavBar />

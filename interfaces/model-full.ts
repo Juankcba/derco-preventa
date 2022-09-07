@@ -82,6 +82,7 @@ export interface DefaultVersion {
     remoteID: number;
     minPrice: number;
     imageURL: string;
+    imageUrl: string;
     showPriceWithoutIva: boolean;
     pricesCount: number;
     convertedMinPrice: number;
