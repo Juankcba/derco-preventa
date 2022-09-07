@@ -32,6 +32,22 @@ const Filters: FC<Props> = ({ setFilter, filters }) => {
     { key: "Eléctrico", name: "Híbrido y Eléctrico" },
   ];
 
+  const filtrosBrand = [
+    { key: "todos-brand", name: "Todos" },
+    { key: "Changan", name: "Changan" },
+    { key: "GreatWall", name: "Great Wall" },
+    { key: "Haval", name: "Haval" },
+    { key: "Jac", name: "JAC" },
+    { key: "Mazda", name: "Mazda" },
+    { key: "Renault", name: "Renault" },
+    { key: "Suzuki", name: "Suzuki" },
+  ];
+  const filtrosTransmision = [
+    { key: "todos-transmision", name: "Todos" },
+    { key: "automatica", name: "Automatica" },
+    { key: "manual", name: "Manual" },
+  ];
+
   useMemo(() => {
     console.log("component", filters);
     let auxFilters = filters;
@@ -65,6 +81,38 @@ const Filters: FC<Props> = ({ setFilter, filters }) => {
           }
         });
         aux.push(filtersCategory);
+
+        auxFilters = aux;
+      }
+    }
+    if (filtersBrand != "") {
+      if (auxFilters.length === 0) {
+        auxFilters = [filtersBrand];
+      } else {
+        let aux: string[] = [];
+
+        auxFilters.forEach((filtro) => {
+          if (!filtrosBrand.find((fc) => fc.key === filtro)) {
+            aux.push(filtro);
+          }
+        });
+        aux.push(filtersBrand);
+
+        auxFilters = aux;
+      }
+    }
+    if (filterTransmission != "") {
+      if (auxFilters.length === 0) {
+        auxFilters = [filterTransmission];
+      } else {
+        let aux: string[] = [];
+
+        auxFilters.forEach((filtro) => {
+          if (!filtrosBrand.find((fc) => fc.key === filtro)) {
+            aux.push(filtro);
+          }
+        });
+        aux.push(filterTransmission);
 
         auxFilters = aux;
       }
@@ -103,27 +151,30 @@ const Filters: FC<Props> = ({ setFilter, filters }) => {
               </Dropdown>
               <Dropdown>
                 <Dropdown.Button flat css={{ textTransform: "capitalize" }}>
-                  {filtersBrand ? filtersBrand : "Marca"}
+                  {filtersBrand != "todos-brand" && filtersBrand
+                    ? filtersBrand
+                    : "Marca"}
                 </Dropdown.Button>
                 <Dropdown.Menu
                   aria-label="Brands Actions"
                   selectionMode="single"
                   selectedKeys={[filtersBrand]}
                   onAction={(actionKey: any) => setFiltersBrand(actionKey)}
+                  items={filtrosBrand}
                 >
-                  <Dropdown.Item key="">Todos</Dropdown.Item>
-                  <Dropdown.Item key="suzuki">Suzuki</Dropdown.Item>
-                  <Dropdown.Item key="mazda">Mazda</Dropdown.Item>
-                  <Dropdown.Item key="renault">Renault</Dropdown.Item>
-                  <Dropdown.Item key="haval">Haval</Dropdown.Item>
-                  <Dropdown.Item key="greatWall">GreatWall</Dropdown.Item>
-                  <Dropdown.Item key="changan">Changan</Dropdown.Item>
-                  <Dropdown.Item key="jac">JAC</Dropdown.Item>
+                  {filtrosBrand.map((filtro) => (
+                    <Dropdown.Item key={filtro.key}>
+                      {filtro.name}
+                    </Dropdown.Item>
+                  ))}
                 </Dropdown.Menu>
               </Dropdown>
               <Dropdown>
                 <Dropdown.Button flat css={{ textTransform: "capitalize" }}>
-                  {filterTransmission ? filterTransmission : "Transmision"}
+                  {filterTransmission != "todos-transmision" &&
+                  filterTransmission
+                    ? filterTransmission
+                    : "Transmision"}
                 </Dropdown.Button>
                 <Dropdown.Menu
                   aria-label="Transmision Actions"
@@ -132,10 +183,13 @@ const Filters: FC<Props> = ({ setFilter, filters }) => {
                   onAction={(actionKey: any) =>
                     setFilterTransmission(actionKey)
                   }
+                  items={filtrosTransmision}
                 >
-                  <Dropdown.Item key="">Todos</Dropdown.Item>
-                  <Dropdown.Item key="manual">Manual</Dropdown.Item>
-                  <Dropdown.Item key="automatica">Automatica</Dropdown.Item>
+                  {filtrosTransmision.map((filtro) => (
+                    <Dropdown.Item key={filtro.key}>
+                      {filtro.name}
+                    </Dropdown.Item>
+                  ))}
                 </Dropdown.Menu>
               </Dropdown>
             </Row>

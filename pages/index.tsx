@@ -29,6 +29,21 @@ const HomePage: NextPage<PropsWithChildren<Props>> = ({ versions }) => {
     { key: "Comercial", name: "Comercial" },
     { key: "Eléctrico", name: "Híbrido y Eléctrico" },
   ];
+  const filtrosBrand = [
+    { key: "todos-brand", name: "Todos" },
+    { key: "Changan", name: "Changan" },
+    { key: "GreatWall", name: "Great Wall" },
+    { key: "Haval", name: "Haval" },
+    { key: "Jac", name: "JAC" },
+    { key: "Mazda", name: "Mazda" },
+    { key: "Renault", name: "Renault" },
+    { key: "Suzuki", name: "Suzuki" },
+  ];
+  const filtrosTransmision = [
+    { key: "todos-transmision", name: "Todos" },
+    { key: "automatica", name: "Automatica" },
+    { key: "manual", name: "Manual" },
+  ];
   useMemo(() => {
     let auxResultados: Version[] = versions;
 
@@ -56,6 +71,26 @@ const HomePage: NextPage<PropsWithChildren<Props>> = ({ versions }) => {
             });
             auxResultados = aux;
           }
+        }
+      }
+      if (filtrosBrand.find((fb) => fb.key === filtro)) {
+        if (filtro != "todos-brand") {
+          let aux = auxResultados.filter((auxV) => {
+            console.log(auxV.model.brandName);
+            if (auxV.model.brandName === filtro) return auxV;
+            else return null;
+          });
+          auxResultados = aux;
+        }
+      }
+      if (filtrosTransmision.find((fb) => fb.key === filtro)) {
+        if (filtro != "todos-transmision") {
+          let aux = auxResultados.filter((auxV) => {
+            console.log(auxV.transmission);
+            if (auxV.transmission === filtro) return auxV;
+            else return null;
+          });
+          auxResultados = aux;
         }
       }
     });
