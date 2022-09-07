@@ -102,6 +102,7 @@ export enum CarClass {
     Sedán = "Sedán",
     Suv = "SUV",
     Van = "Van",
+    Eléctrico = "Eléctrico",
 }
 
 export interface Price {
