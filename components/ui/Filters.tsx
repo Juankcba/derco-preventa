@@ -15,32 +15,16 @@ interface Props {
 }
 
 const Filters: FC<Props> = ({ setFilter, filters }) => {
-  const [filtersCategory, setFiltersCategory] = useState(new Set([]));
+  const [filtersCategory, setFiltersCategory] = useState("");
 
-  const [filtersBrand, setFiltersBrand] = useState(new Set([]));
+  const [filtersBrand, setFiltersBrand] = useState("");
+  const [filterTransmission, setFilterTransmission] = useState("");
 
-  const [sort, setSort] = useState(new Set(["asc"]));
-
-  const selectedValue = useMemo(
-    () => Array.from(sort).join(", ").replaceAll("_", " "),
-
-    [sort]
-  );
-
-  const selectedBrandValue = useMemo(
-    () => Array.from(filtersBrand).join(", ").replaceAll("_", " "),
-    [filtersBrand]
-  );
-
-  const selectedCategoryValue = useMemo(
-    () => Array.from(filtersCategory).join(", ").replaceAll("_", " "),
-    [filtersCategory]
-  );
+  const [sort, setSort] = useState("asc");
 
   useMemo(() => {
-    const sortValue = Array.from(sort).join(", ").replaceAll("_", " ");
     console.log("component", filters);
-    if (sortValue === "asc") {
+    if (sort === "asc") {
       setFilter(
         filters.length > 0
           ? filters.map((f: string) => {
@@ -70,14 +54,15 @@ const Filters: FC<Props> = ({ setFilter, filters }) => {
             <Row justify={"flex-start"} css={{ gap: "10px" }}>
               <Dropdown>
                 <Dropdown.Button flat css={{ textTransform: "capitalize" }}>
-                  {selectedCategoryValue ? selectedCategoryValue : "Categoria"}
+                  {filtersCategory ? filtersCategory : "Categoria"}
                 </Dropdown.Button>
                 <Dropdown.Menu
                   aria-label="Categories Actions"
                   selectionMode="single"
-                  selectedKeys={filtersCategory}
-                  onSelectionChange={setFiltersCategory}
+                  selectedKeys={[filtersCategory]}
+                  onAction={(actionKey: any) => setFiltersCategory(actionKey)}
                 >
+                  <Dropdown.Item key="">Todos</Dropdown.Item>
                   <Dropdown.Item key="citicar">Citicar</Dropdown.Item>
                   <Dropdown.Item key="hatchback">Hatchback</Dropdown.Item>
                   <Dropdown.Item key="sedan">Sedán</Dropdown.Item>
@@ -93,14 +78,15 @@ const Filters: FC<Props> = ({ setFilter, filters }) => {
               </Dropdown>
               <Dropdown>
                 <Dropdown.Button flat css={{ textTransform: "capitalize" }}>
-                  {selectedBrandValue ? selectedBrandValue : "Marca"}
+                  {filtersBrand ? filtersBrand : "Marca"}
                 </Dropdown.Button>
                 <Dropdown.Menu
                   aria-label="Brands Actions"
                   selectionMode="single"
-                  selectedKeys={filtersBrand}
-                  onSelectionChange={setFiltersBrand}
+                  selectedKeys={[filtersBrand]}
+                  onAction={(actionKey: any) => setFiltersBrand(actionKey)}
                 >
+                  <Dropdown.Item key="">Todos</Dropdown.Item>
                   <Dropdown.Item key="suzuki">Suzuki</Dropdown.Item>
                   <Dropdown.Item key="mazda">Mazda</Dropdown.Item>
                   <Dropdown.Item key="renault">Renault</Dropdown.Item>
@@ -111,14 +97,20 @@ const Filters: FC<Props> = ({ setFilter, filters }) => {
                 </Dropdown.Menu>
               </Dropdown>
               <Dropdown>
-                <Dropdown.Button flat>Modelo</Dropdown.Button>
-                <Dropdown.Menu aria-label="Static Actions">
-                  <Dropdown.Item key="new">New file</Dropdown.Item>
-                  <Dropdown.Item key="copy">Copy link</Dropdown.Item>
-                  <Dropdown.Item key="edit">Edit file</Dropdown.Item>
-                  <Dropdown.Item key="delete" color="error">
-                    Delete file
-                  </Dropdown.Item>
+                <Dropdown.Button flat css={{ textTransform: "capitalize" }}>
+                  {filterTransmission ? filterTransmission : "Transmision"}
+                </Dropdown.Button>
+                <Dropdown.Menu
+                  aria-label="Transmision Actions"
+                  selectedKeys={[filterTransmission]}
+                  selectionMode="single"
+                  onAction={(actionKey: any) =>
+                    setFilterTransmission(actionKey)
+                  }
+                >
+                  <Dropdown.Item key="">Todos</Dropdown.Item>
+                  <Dropdown.Item key="manual">Manual</Dropdown.Item>
+                  <Dropdown.Item key="automatica">Automatica</Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
             </Row>
@@ -133,15 +125,15 @@ const Filters: FC<Props> = ({ setFilter, filters }) => {
           >
             <Dropdown>
               <Dropdown.Button flat>
-                {selectedValue === "asc"
-                  ? "Ordenar por mayor"
-                  : "Ordenar por menor"}
+                {sort === "asc" ? "Ordenar por mayor" : "Ordenar por menor"}
               </Dropdown.Button>
               <Dropdown.Menu
                 aria-label="Ordenar Actions"
                 selectionMode="single"
-                selectedKeys={sort}
-                onSelectionChange={setSort}
+                selectedKeys={[sort]}
+                onAction={(actionKey: any) => {
+                  setSort(actionKey);
+                }}
               >
                 <Dropdown.Item key="dsc">Ordenar por menor</Dropdown.Item>
                 <Dropdown.Item key="asc">Ordenar por mayor</Dropdown.Item>
