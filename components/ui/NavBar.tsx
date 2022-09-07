@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
   Navbar,
   Button,
@@ -7,6 +7,8 @@ import {
   Dropdown,
   Avatar,
   Input,
+  Loading,
+  Row,
 } from "@nextui-org/react";
 import { AuthContext } from "../../context";
 import NextLink from "next/link";
@@ -15,6 +17,7 @@ import { useRouter } from "next/router";
 import { SearchIcon } from "./SearchIcon";
 const NavBar = () => {
   const [searchTerms, setSearchTerms] = useState("");
+  const [loading, setLoading] = useState(false);
   const { user, isLoggedIn, logout } = useContext(AuthContext);
   const router = useRouter();
   const navigateTo = (url: string) => {
@@ -22,9 +25,16 @@ const NavBar = () => {
   };
   const onSearchTerms = () => {
     if (searchTerms.trim().length === 0) return;
-
+    setLoading(true);
     router.push(`/search/${searchTerms}`);
   };
+
+  useEffect(() => {
+    if (router.asPath.includes(`/search/${searchTerms}`)) {
+      setLoading(false);
+    }
+  }, [router, searchTerms]);
+
   return (
     <Navbar maxWidth="fluid" isBordered variant="sticky">
       <Navbar.Brand>
@@ -49,28 +59,31 @@ const NavBar = () => {
           }}
           onClick={onSearchTerms}
         >
-          <Input
-            clearable
-            onKeyPress={(e) => (e.key === "Enter" ? onSearchTerms() : null)}
-            contentLeft={
-              <SearchIcon fill="var(--nextui-colors-accents6)" size={16} />
-            }
-            contentLeftStyling={false}
-            value={searchTerms}
-            onChange={(e) => setSearchTerms(e.target.value)}
-            css={{
-              w: "100%",
-              "@xsMax": {
-                mw: "300px",
-              },
-              "& .nextui-input-content--left": {
-                h: "100%",
-                ml: "$4",
-                dflex: "center",
-              },
-            }}
-            placeholder="Buscar..."
-          />
+          <Row justify="flex-start" align="center">
+            <Input
+              clearable
+              onKeyPress={(e) => (e.key === "Enter" ? onSearchTerms() : null)}
+              contentLeft={
+                <SearchIcon fill="var(--nextui-colors-accents6)" size={16} />
+              }
+              contentLeftStyling={false}
+              value={searchTerms}
+              onChange={(e) => setSearchTerms(e.target.value)}
+              css={{
+                w: "100%",
+                "@xsMax": {
+                  mw: "300px",
+                },
+                "& .nextui-input-content--left": {
+                  h: "100%",
+                  ml: "$4",
+                  dflex: "center",
+                },
+              }}
+              placeholder="Buscar..."
+            />
+            {loading && <Loading size="xs" css={{ paddingLeft: "20px" }} />}
+          </Row>
         </Navbar.Item>
         {!isLoggedIn && (
           <Navbar.Item>
@@ -117,26 +130,6 @@ const NavBar = () => {
                 <NextLink href="/profile">
                   <Link>Mi Perfil</Link>
                 </NextLink>
-              </Dropdown.Item>
-
-              <Dropdown.Item
-                key="analytics"
-                withDivider
-                css={user?.role === "admin" ? {} : { display: "none" }}
-              >
-                Analytics
-              </Dropdown.Item>
-              <Dropdown.Item
-                key="system"
-                css={user?.role === "admin" ? {} : { display: "none" }}
-              >
-                System
-              </Dropdown.Item>
-              <Dropdown.Item
-                key="configurations"
-                css={user?.role === "admin" ? {} : { display: "none" }}
-              >
-                Configurations
               </Dropdown.Item>
 
               <Dropdown.Item

@@ -65,9 +65,10 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
 
   let products: any[] = versionsData.filter(
     (version: any) =>
-      version.name.toLowerCase() == query ||
-      version.model.name.toLowerCase() == query.toLowerCase() ||
-      version.model.brandName.toLowerCase() == query.toLowerCase()
+      version.name.toLowerCase().includes(query.toLowerCase()) ||
+      version.model.name.toLowerCase().includes(query.toLowerCase()) ||
+      version.model.brandName.toLowerCase() == query.toLowerCase() ||
+      version.transmission == query.toLowerCase()
   );
 
   const foundProducts = products.length > 0;
