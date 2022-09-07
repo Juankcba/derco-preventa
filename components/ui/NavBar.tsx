@@ -35,7 +35,7 @@ const NavBar = () => {
     }
     setTimeout(function () {
       setLoading(false);
-    }, 2000);
+    }, 5000);
   }, [router, searchTerms]);
 
   return (
