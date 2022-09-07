@@ -87,7 +87,7 @@ export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
       if (axios.isAxiosError(error)) {
         return {
           hasError: true,
-          message: error.response?.data.message,
+          message: "No se pudo crear el usuario - intente de nuevo",
         };
       }
 
