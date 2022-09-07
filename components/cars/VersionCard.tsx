@@ -17,7 +17,7 @@ const VersionCard: FC<Props> = ({ version }) => {
   };
 
   return (
-    <Grid xs={6} sm={3} md={3} xl={2} key={version.id}>
+    <Grid xs={12} sm={6} md={3} xl={3} key={version.id}>
       <Card isHoverable isPressable onClick={onClick}>
         <Card.Header>
           <Row justify="flex-start" css={{ gap: "16px", height: "50px" }}>
@@ -40,7 +40,7 @@ const VersionCard: FC<Props> = ({ version }) => {
           </Row>
         </Card.Header>
         <Card.Body css={{ p: 1 }}>
-          <Card.Image src={version.image.url} width="100%" height={140} />
+          <Card.Image src={version.image.url} width="100%" height={200} />
         </Card.Body>
         <Card.Footer>
           <Row justify="flex-start" css={{ flexDirection: "column" }}>
