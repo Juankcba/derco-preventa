@@ -3,6 +3,7 @@ export interface VersionResponse {
 }
 
 export interface Version {
+    [x: string]: any;
     SpecialSaleImage: null;
     benefits: any[];
     cae: null | string;

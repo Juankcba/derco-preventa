@@ -7,6 +7,7 @@ import { Version, VersionResponse } from "../interfaces";
 import { PropsWithChildren } from "react";
 
 import { Grid, Card, Text, Row } from "@nextui-org/react";
+import VersionCard from "../components/cars/VersionCard";
 
 interface Props {
   versions: Version[];
@@ -15,36 +16,13 @@ interface Props {
 const HomePage: NextPage<PropsWithChildren<Props>> = ({ versions }) => {
   console.log("data", versions);
 
-  const onClick = () => {
-    console.log("click");
-  };
   return (
     <Layout title="CiberMonday | DercoCenter">
       <Grid.Container>
         <Grid xs={12} className="content-result">
           <Grid.Container gap={2} justify="flex-start">
             {versions.map((version) => (
-              <Grid xs={6} sm={3} md={3} xl={2} key={version.id}>
-                <Card isHoverable isPressable onClick={onClick}>
-                  <Card.Body css={{ p: 1 }}>
-                    <Card.Image
-                      src={version.image.url}
-                      width="100%"
-                      height={140}
-                    />
-                  </Card.Body>
-                  <Card.Footer>
-                    <Row justify="flex-start" css={{ flexDirection: "column" }}>
-                      <Text h2 size={16}>
-                        {version.name}
-                      </Text>
-                      <Text h3 size={14}>
-                        {version.model.name}
-                      </Text>
-                    </Row>
-                  </Card.Footer>
-                </Card>
-              </Grid>
+              <VersionCard key={version.id} version={version} />
             ))}
           </Grid.Container>
         </Grid>
