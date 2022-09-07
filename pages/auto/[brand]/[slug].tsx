@@ -5,21 +5,33 @@ import {
   Model,
   Version,
   VersionResponse,
+  ModelResponse,
   ModelFull,
 } from "../../../interfaces";
 
 import { Layout } from "../../../components/Layouts";
 import { getVersionInfo } from "../../../utils";
 import { cmsApi } from "../../../components/apis";
+import { Grid, Text } from "@nextui-org/react";
+import CarsColors from "../../../components/cars/CarsColors";
 
 interface Props {
-  model: Model;
+  model: ModelResponse;
 }
 
 const CarPage: NextPage<Props> = ({ model }) => {
+  console.log(model);
   return (
-    <Layout title="Ficha">
-      <h1>Ficha {model.name}</h1>
+    <Layout
+      title={`${model.name} | DercoCenter - ${model.brand.name}`}
+      pageDescription={model.description}
+    >
+      <Grid.Container css={{ marginTop: "20px" }}>
+        <Grid xs={12} sm={6} css={{ gap: "16px" }}>
+          <CarsColors colors={model.colors} />
+          <Text h1>{model.name}</Text>
+        </Grid>
+      </Grid.Container>
     </Layout>
   );
 };

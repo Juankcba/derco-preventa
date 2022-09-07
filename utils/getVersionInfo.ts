@@ -9,9 +9,7 @@ export const getVersionInfo = async (pathUrl: string) => {
 
         console.log("dato de get", data)
         return {
-            id: data.id,
-            name: data.name,
-            slug: data.slug,
+            ...data
         }
     } catch (error) {
         return null;
