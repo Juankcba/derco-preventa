@@ -12,8 +12,9 @@ import {
 import { Layout } from "../../../components/Layouts";
 import { getVersionInfo } from "../../../utils";
 import { cmsApi } from "../../../components/apis";
-import { Grid, Text } from "@nextui-org/react";
+import { Grid, Text, Row } from "@nextui-org/react";
 import CarsColors from "../../../components/cars/CarsColors";
+import Image from "next/image";
 
 interface Props {
   model: ModelResponse;
@@ -26,10 +27,24 @@ const CarPage: NextPage<Props> = ({ model }) => {
       title={`${model.name} | DercoCenter - ${model.brand.name}`}
       pageDescription={model.description}
     >
-      <Grid.Container css={{ marginTop: "20px" }}>
-        <Grid xs={12} sm={6} css={{ gap: "16px" }}>
-          {model.colors.length > 0 && <CarsColors colors={model.colors} />}
-          <Text h1>{model.name}</Text>
+      <Grid.Container gap={2} justify="center" css={{ marginTop: "20px" }}>
+        {model.colors.length > 0 && (
+          <Grid xs={12} md={7}>
+            <CarsColors colors={model.colors} />
+          </Grid>
+        )}
+        <Grid xs={12} md={5}>
+          <Row gap={2} css={{ maxHeight: "120px" }}>
+            <Image
+              src={`https://dercocenter-cl-static-prod.s3.amazonaws.com/assets/brands-logos/${model.brand.slug}/logo-vertical-colors.svg`}
+              alt={model.name}
+              height={65}
+              width={102}
+            />
+            <Text h1 css={{ paddingLeft: "16px" }}>
+              {model.name}
+            </Text>
+          </Row>
         </Grid>
       </Grid.Container>
     </Layout>
