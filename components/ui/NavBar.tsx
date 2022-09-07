@@ -6,16 +6,24 @@ import {
   Text,
   Dropdown,
   Avatar,
+  Input,
 } from "@nextui-org/react";
 import { AuthContext } from "../../context";
 import NextLink from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { SearchIcon } from "./SearchIcon";
 const NavBar = () => {
+  const [searchTerms, setSearchTerms] = useState("");
   const { user, isLoggedIn, logout } = useContext(AuthContext);
   const router = useRouter();
   const navigateTo = (url: string) => {
     router.push(url);
+  };
+  const onSearchTerms = () => {
+    if (searchTerms.trim().length === 0) return;
+
+    router.push(`/search/${searchTerms}`);
   };
   return (
     <Navbar maxWidth="fluid" isBordered variant="sticky">
@@ -32,6 +40,38 @@ const NavBar = () => {
         </NextLink>
       </Navbar.Brand>
       <Navbar.Content hideIn="sm" css={{}}>
+        <Navbar.Item
+          css={{
+            "@smMax": {
+              w: "100%",
+              jc: "center",
+            },
+          }}
+          onClick={onSearchTerms}
+        >
+          <Input
+            clearable
+            onKeyPress={(e) => (e.key === "Enter" ? onSearchTerms() : null)}
+            contentLeft={
+              <SearchIcon fill="var(--nextui-colors-accents6)" size={16} />
+            }
+            contentLeftStyling={false}
+            value={searchTerms}
+            onChange={(e) => setSearchTerms(e.target.value)}
+            css={{
+              w: "100%",
+              "@xsMax": {
+                mw: "300px",
+              },
+              "& .nextui-input-content--left": {
+                h: "100%",
+                ml: "$4",
+                dflex: "center",
+              },
+            }}
+            placeholder="Buscar..."
+          />
+        </Navbar.Item>
         {!isLoggedIn && (
           <Navbar.Item>
             <Button
@@ -56,6 +96,7 @@ const NavBar = () => {
                 />
               </Dropdown.Trigger>
             </Navbar.Item>
+
             <Dropdown.Menu
               aria-label="User menu actions"
               color="secondary"
