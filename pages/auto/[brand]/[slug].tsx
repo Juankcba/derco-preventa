@@ -28,7 +28,7 @@ const CarPage: NextPage<Props> = ({ model }) => {
     >
       <Grid.Container css={{ marginTop: "20px" }}>
         <Grid xs={12} sm={6} css={{ gap: "16px" }}>
-          <CarsColors colors={model.colors} />
+          {model.colors.length > 0 && <CarsColors colors={model.colors} />}
           <Text h1>{model.name}</Text>
         </Grid>
       </Grid.Container>

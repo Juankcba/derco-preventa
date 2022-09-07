@@ -6,24 +6,26 @@ interface Props {
   colors: Color[];
 }
 const CarsColors: FC<Props> = ({ colors }) => {
-  const [selectedColor, setSelectedColor] = useState(colors[0].name);
+  const [selectedColor, setSelectedColor] = useState(colors[0] || null);
   return (
     <Card>
       <Card.Body css={{ p: 0 }}>
-        <Card.Image
-          src={colors.filter((c) => c.name === selectedColor)[0].imageSrc}
-          objectFit="contain"
-          width="100%"
-          height={350}
-          alt={selectedColor}
-        />
+        {selectedColor && (
+          <Card.Image
+            src={selectedColor.imageSrc}
+            objectFit="contain"
+            width="100%"
+            height={350}
+            alt={selectedColor.name}
+          />
+        )}
       </Card.Body>
       <Card.Footer>
         <Button.Group css={{ margin: "0 auto" }}>
-          {colors.map((color) => (
+          {colors.map((color, index) => (
             <Button
-              onClick={() => setSelectedColor(color.name)}
-              key={color.name}
+              onClick={() => setSelectedColor(color)}
+              key={index}
               css={{
                 backgroundColor: color.hexadecimal1,
               }}
