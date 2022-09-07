@@ -16,35 +16,64 @@ interface Props {
 
 const Filters: FC<Props> = ({ setFilter, filters }) => {
   const [filtersCategory, setFiltersCategory] = useState("");
-
   const [filtersBrand, setFiltersBrand] = useState("");
   const [filterTransmission, setFilterTransmission] = useState("");
-
   const [sort, setSort] = useState("asc");
+
+  const filtrosCategory = [
+    { key: "todos-carClass", name: "Todos" },
+    { key: "Citycar", name: "Citicar" },
+    { key: "Hatchback", name: "Hatchback" },
+    { key: "Sedán", name: "Sedán" },
+    { key: "SUV", name: "SUV" },
+    { key: "Van", name: "VAN" },
+    { key: "Camioneta", name: "Camioneta" },
+    { key: "Comercial", name: "Comercial" },
+    { key: "Eléctrico", name: "Híbrido y Eléctrico" },
+  ];
 
   useMemo(() => {
     console.log("component", filters);
+    let auxFilters = filters;
     if (sort === "asc") {
-      setFilter(
+      auxFilters =
         filters.length > 0
           ? filters.map((f: string) => {
               if (f === "asc") return "dsc";
               else return f;
             })
-          : ["dsc"]
-      );
+          : ["dsc"];
     } else {
-      setFilter(
+      auxFilters =
         filters.length > 0
           ? filters.map((f: string) => {
               if (f === "dsc") return "asc";
               else return f;
             })
-          : ["asc"]
-      );
+          : ["asc"];
     }
+
+    if (filtersCategory != "") {
+      if (auxFilters.length === 0) {
+        auxFilters = [filtersCategory];
+      } else {
+        let aux: string[] = [];
+
+        auxFilters.forEach((filtro) => {
+          if (!filtrosCategory.find((fc) => fc.key === filtro)) {
+            aux.push(filtro);
+          }
+        });
+        aux.push(filtersCategory);
+
+        auxFilters = aux;
+      }
+    }
+
+    setFilter(auxFilters);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sort]);
+  }, [sort, filtersCategory, filtersBrand, filterTransmission]);
 
   return (
     <Card>
@@ -54,26 +83,22 @@ const Filters: FC<Props> = ({ setFilter, filters }) => {
             <Row justify={"flex-start"} css={{ gap: "10px" }}>
               <Dropdown>
                 <Dropdown.Button flat css={{ textTransform: "capitalize" }}>
-                  {filtersCategory ? filtersCategory : "Categoria"}
+                  {filtersCategory != "todos-carClass" && filtersCategory
+                    ? filtersCategory
+                    : "Categoria"}
                 </Dropdown.Button>
                 <Dropdown.Menu
                   aria-label="Categories Actions"
                   selectionMode="single"
                   selectedKeys={[filtersCategory]}
                   onAction={(actionKey: any) => setFiltersCategory(actionKey)}
+                  items={filtrosCategory}
                 >
-                  <Dropdown.Item key="">Todos</Dropdown.Item>
-                  <Dropdown.Item key="citicar">Citicar</Dropdown.Item>
-                  <Dropdown.Item key="hatchback">Hatchback</Dropdown.Item>
-                  <Dropdown.Item key="sedan">Sedán</Dropdown.Item>
-                  <Dropdown.Item key="suv">SUV</Dropdown.Item>
-                  <Dropdown.Item key="van">Van</Dropdown.Item>
-                  <Dropdown.Item key="deportivo">Deportivo</Dropdown.Item>
-                  <Dropdown.Item key="camioneta">Camioneta</Dropdown.Item>
-                  <Dropdown.Item key="comercial">Comercial</Dropdown.Item>
-                  <Dropdown.Item key="hibrido">
-                    Híbrido y Eléctrico
-                  </Dropdown.Item>
+                  {filtrosCategory.map((filtro) => (
+                    <Dropdown.Item key={filtro.key}>
+                      {filtro.name}
+                    </Dropdown.Item>
+                  ))}
                 </Dropdown.Menu>
               </Dropdown>
               <Dropdown>

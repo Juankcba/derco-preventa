@@ -18,22 +18,68 @@ interface Props {
 const HomePage: NextPage<PropsWithChildren<Props>> = ({ versions }) => {
   const [resultados, setResultados] = useState<Version[]>([]);
   const [filters, setFilter] = useState<string[]>([]);
+  const filtrosCategory = [
+    { key: "todos-carClass", name: "Todos" },
+    { key: "Citycar", name: "Citicar" },
+    { key: "Hatchback", name: "Hatchback" },
+    { key: "Sedán", name: "Sedán" },
+    { key: "SUV", name: "SUV" },
+    { key: "Van", name: "VAN" },
+    { key: "Camioneta", name: "Camioneta" },
+    { key: "Comercial", name: "Comercial" },
+    { key: "Eléctrico", name: "Híbrido y Eléctrico" },
+  ];
   useMemo(() => {
-    console.log("filters", filters);
-    if (filters.filter((f) => f == "asc").length > 0) {
-      setResultados(versions.sort((a, b) => a.minPrice - b.minPrice));
+    let auxResultados: Version[] = versions;
+
+    filters.forEach((filtro) => {
+      if (filtrosCategory.find((fc) => fc.key === filtro)) {
+        if (filtro != "todos-carClass") {
+          if (filtro != "Eléctrico") {
+            let aux = auxResultados.filter((auxV) => {
+              if (auxV.model.carClass.filter((mcC) => mcC == filtro).length > 0)
+                return auxV;
+              else return null;
+            });
+            auxResultados = aux;
+          }
+          if (filtro == "Eléctrico") {
+            let aux = auxResultados.filter((auxV) => {
+              if (
+                auxV.model.carClass.filter((mcC) => mcC === "Eléctrico")
+                  .length > 0 ||
+                auxV.model.carClass.filter((mcC) => mcC === "Híbrido").length >
+                  0
+              )
+                return auxV;
+              else return null;
+            });
+            auxResultados = aux;
+          }
+        }
+      }
+    });
+
+    if (filters.filter((f) => f === "asc").length > 0) {
+      setResultados(auxResultados.sort((a, b) => a.minPrice - b.minPrice));
     }
-    if (filters.filter((f) => f == "dsc").length > 0) {
-      setResultados(versions.sort((a, b) => b.minPrice - a.minPrice));
+    if (filters.filter((f) => f === "dsc").length > 0) {
+      setResultados(auxResultados.sort((a, b) => b.minPrice - a.minPrice));
     }
+
+    //setResultados(auxResultados);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters, versions]);
 
   return (
     <Layout title="CiberMonday | DercoCenter">
       <Grid.Container>
-        <Grid xs={12} css={{ marginTop: "20px" }}>
+        <Grid xs={12} css={{ marginTop: "20px", flexDirection: "column" }}>
           <Filters setFilter={setFilter} filters={filters} />
+          <Text h4>Resultados: {resultados.length}</Text>
         </Grid>
+
         <Grid xs={12} className="content-result">
           {resultados.length > 0 ? (
             <Grid.Container gap={2} justify="flex-start">
