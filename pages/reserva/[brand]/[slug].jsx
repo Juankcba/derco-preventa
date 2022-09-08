@@ -27,17 +27,17 @@ import CarsColorsPreventa from "../../../components/cars/CarsColorsPreventa";
 
 import { IPUser } from "../../../interfaces/user";
 
-import PreventaStep1 from "./../../../components/preventa/step1";
-import PreventaStep2 from "./../../../components/preventa/step2";
-import PreventaStep3 from "./../../../components/preventa/step3";
+import PreventaStep1 from "../../../components/preventa/step1";
+import PreventaStep2 from "../../../components/preventa/step2";
+import PreventaStep3 from "../../../components/preventa/step3";
 
-interface Props {
-  model: ModelResponse;
-}
+// interface Props {
+//   model: ModelResponse;
+// }
 
-const CarPage: NextPage<Props> = ({ model }) => {
+const CarPage = ({ model }) => {
   const [step, setStep] = useState(1);
-  const [user, setUser] = useState<IPUser>({
+  const [user, setUser] = useState({
     rut: "",
     name: "",
     lastname: "",
@@ -45,7 +45,7 @@ const CarPage: NextPage<Props> = ({ model }) => {
     email: "",
   });
 
-  const [selectedColor, setColor] = useState<String>("");
+  const [selectedColor, setColor] = useState("");
 
   return (
     <Layout
@@ -118,7 +118,7 @@ const CarPage: NextPage<Props> = ({ model }) => {
 };
 
 export async function getStaticPaths() {
-  const { data } = await cmsApi.get<Version[]>("/versions");
+  const { data } = await cmsApi.get("/versions");
 
   const patchUrls = data.map((version) => ({
     slug: version.model.slug,
@@ -126,7 +126,7 @@ export async function getStaticPaths() {
   }));
 
   return {
-    paths: patchUrls.map((path: any) => ({
+    paths: patchUrls.map((path) => ({
       params: { ...path },
     })),
     fallback: false, // can also be true or 'blocking'
@@ -134,8 +134,8 @@ export async function getStaticPaths() {
 }
 
 // `getStaticPaths` requires using `getStaticProps`
-export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const { slug, brand } = params as { slug: string; brand: string };
+export const getStaticProps = async ({ params }) => {
+  const { slug, brand } = params;
 
   const model = await getVersionInfo(`/models/brand/${brand}/slug/${slug}`);
 
