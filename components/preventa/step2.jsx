@@ -15,6 +15,9 @@ import { currency } from "../../utils";
 import { Formik, Field } from "formik";
 import * as Yup from "yup";
 import MaskedInput from "react-text-mask";
+import createRutMask from "text-mask-rut";
+
+const rutMask = createRutMask();
 
 import { phoneNumberMask } from "./../../utils/validations";
 import { validateRut } from "../../utils/rut";
@@ -91,7 +94,7 @@ const PreventaStep2 = ({ model, setStep, user, setUser }) => {
                       render={({ field }) => (
                         <MaskedInput
                           {...field}
-                          mask={[/9[9.999.99]/, "-", /[9|K|k]/]}
+                          mask={rutMask}
                           id="rut"
                           onChange={handleChange}
                           onBlur={handleBlur}
