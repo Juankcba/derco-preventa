@@ -24,10 +24,12 @@ import {
 import CarsColors from "../../../components/cars/CarsColors";
 import Image from "next/image";
 import CarsColorsPreventa from "../../../components/cars/CarsColorsPreventa";
-import PreventaStep1 from "../../../components/preventa/step1";
-import PreventaStep2 from "../../../components/preventa/step2";
+
 import { IPUser } from "../../../interfaces/user";
-import PreventaStep3 from "../../../components/preventa/step3";
+
+import PreventaStep1 from "./../../../components/preventa/step1";
+import PreventaStep2 from "./../../../components/preventa/step2";
+import PreventaStep3 from "./../../../components/preventa/step3";
 
 interface Props {
   model: ModelResponse;

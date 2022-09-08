@@ -15,3 +15,19 @@ export const isEmail = (email: string): string | undefined => {
         : 'El correo no parece ser válido';
 }
 
+
+export const phoneNumberMask = [
+    "(",
+    /[1-9]/,
+    /\d/,
+    ")",
+    " ",
+    /\d/,
+    /\d/,
+    /\d/,
+    "-",
+    /\d/,
+    /\d/,
+    /\d/,
+    /\d/,
+];

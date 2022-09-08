@@ -14,16 +14,16 @@ import CarsColorsPreventa from "../cars/CarsColorsPreventa";
 import { ModelResponse, IPUser } from "../../interfaces";
 import { currency } from "../../utils";
 import { useForm } from "react-hook-form";
-interface Props {
-  model: ModelResponse;
-  setStep: (arg: number) => void;
-  user: IPUser;
-  setUser: (arg: IPUser) => void;
-  selectedColor: String;
-}
+// interface Props {
+//   model: ModelResponse;
+//   setStep: (arg: number) => void;
+//   user: IPUser;
+//   setUser: (arg: IPUser) => void;
+//   selectedColor: String;
+// }
 
-const PreventaStep3: FC<Props> = ({ model, setStep, user, selectedColor }) => {
-  const handleStep = (data: FormData) => {
+const PreventaStep3 = ({ model, setStep, user, selectedColor }) => {
+  const handleStep = (data) => {
     setStep(3);
   };
   const [versionSelected, setVersionSelected] = useState("");
@@ -54,7 +54,7 @@ const PreventaStep3: FC<Props> = ({ model, setStep, user, selectedColor }) => {
                 aria-label="Categories Actions"
                 selectionMode="single"
                 selectedKeys={[versionSelected]}
-                onAction={(actionKey: any) => setVersionSelected(actionKey)}
+                onAction={(actionKey) => setVersionSelected(actionKey)}
                 items={model.versions}
               >
                 {model.versions.map((version) => (

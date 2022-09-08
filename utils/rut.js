@@ -88,7 +88,14 @@ function filterRutKeys(event, rut) {
   }
 }
 
+function formatCliente(value) {
+  return value
+    .replace(/[^0-9]/g, "")
+    .replace(/^(\d{1,2})(\d{3})(\d{3})(\w{1})$/, "$1.$2.$3-$4");
+}
+
 export {
+  formatCliente,
   formatRut,
   filterRutQuantity,
   validateRut,
