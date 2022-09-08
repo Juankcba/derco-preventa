@@ -43,7 +43,7 @@ const CarPage: NextPage<Props> = ({ model }) => {
     email: "",
   });
 
-  const [selectedColor, setColor] = useState<String>(model.colors[0].name);
+  const [selectedColor, setColor] = useState<String>("");
 
   return (
     <Layout
@@ -134,7 +134,6 @@ export async function getStaticPaths() {
 // `getStaticPaths` requires using `getStaticProps`
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { slug, brand } = params as { slug: string; brand: string };
-  console.log(params);
 
   const model = await getVersionInfo(`/models/brand/${brand}/slug/${slug}`);
 
