@@ -8,3 +8,12 @@ export interface IUser {
     createdAt?: string;
     updatedAt?: string;
 }
+
+export interface IPUser {
+    name: string;
+    email: string;
+    rut: string;
+    lastname: string;
+    phone: string;
+
+}

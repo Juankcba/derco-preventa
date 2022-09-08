@@ -76,7 +76,6 @@ const HomePage: NextPage<PropsWithChildren<Props>> = ({ versions }) => {
       if (filtrosBrand.find((fb) => fb.key === filtro)) {
         if (filtro != "todos-brand") {
           let aux = auxResultados.filter((auxV) => {
-            console.log(auxV.model.brandName);
             if (auxV.model.brandName === filtro) return auxV;
             else return null;
           });
@@ -86,7 +85,6 @@ const HomePage: NextPage<PropsWithChildren<Props>> = ({ versions }) => {
       if (filtrosTransmision.find((fb) => fb.key === filtro)) {
         if (filtro != "todos-transmision") {
           let aux = auxResultados.filter((auxV) => {
-            console.log(auxV.transmission);
             if (auxV.transmission === filtro) return auxV;
             else return null;
           });
