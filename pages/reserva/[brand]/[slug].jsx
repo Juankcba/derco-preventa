@@ -15,6 +15,7 @@ import { cmsApi } from "../../../apis";
 import {
   Grid,
   Text,
+  Link,
   Row,
   Card,
   Input,
@@ -24,7 +25,7 @@ import {
 import CarsColors from "../../../components/cars/CarsColors";
 import Image from "next/image";
 import CarsColorsPreventa from "../../../components/cars/CarsColorsPreventa";
-
+import NextLink from "next/link";
 import { IPUser } from "../../../interfaces/user";
 
 import PreventaStep1 from "../../../components/preventa/step1";
@@ -111,7 +112,17 @@ const CarPage = ({ model }) => {
             </Card>
           </Grid>
         )}
-        <Grid xs={12} md={5}></Grid>
+        <Grid
+          xs={12}
+          md={5}
+          justify={"flex-start"}
+          css={{ flexDirection: "column" }}
+        >
+          <Text h1>Este Auto no tiene Colores activados</Text>
+          <NextLink href="/" passHref>
+            <Link>Volver al Inicio</Link>
+          </NextLink>
+        </Grid>
       </Grid.Container>
     </Layout>
   );
