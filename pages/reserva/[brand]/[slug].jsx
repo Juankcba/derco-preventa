@@ -55,7 +55,7 @@ const CarPage = ({ model }) => {
       image={model.defaultVersion.imageUrl}
     >
       <Grid.Container gap={2} justify="center" css={{ marginTop: "20px" }}>
-        {model.colors.length > 0 ? (
+        {model?.colors?.length > 0 ? (
           <Grid xs={12}>
             <Card css={{ w: "100%", h: "100%" }}>
               <Card.Header>
@@ -121,12 +121,6 @@ const CarPage = ({ model }) => {
             <Text h1>Este Auto no tiene Colores activados</Text>
             <NextLink href="/" passHref>
               <Link>Volver al Inicio</Link>
-            </NextLink>
-            <NextLink
-              href={`/auto/${model.brandName.toLowerCase()}/${model.slug}`}
-              passHref
-            >
-              <Link>Ir a la ficha</Link>
             </NextLink>
           </Grid>
         )}
