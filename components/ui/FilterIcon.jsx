@@ -6,7 +6,6 @@ export const FilterIcon = () => {
       viewBox="0 0 17 16"
       fill="currenteColor"
       xmlns="http://www.w3.org/2000/svg"
-      {...props}
     >
       <path
         d="M7.387 11.0619H3.18652"
