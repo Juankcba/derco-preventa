@@ -14,7 +14,7 @@ import BannerHome from "../components/cyber/bannerHome";
 import ListProducts from "../components/cyber/ListProducts";
 import ListMantenciones from "../components/cyber/ListMantenciones";
 import { Mantencion, MantencionResponse } from "../interfaces/mantencion-full";
-import SelectedFilterGeneral from "../components/cyber/selectedFilterGeneral";
+
 import ModalFilters from "../components/cyber/ModalFilters";
 
 interface Props {
@@ -41,7 +41,7 @@ const HomePage: NextPage<PropsWithChildren<Props>> = ({ versions }) => {
         <Grid xs={12} justify={"center"} css={{ marginTop: "20px" }}>
           <BannerHome />
         </Grid>
-        <Grid xs justify={"center"} css={{ marginTop: "20px"}}>
+        <Grid xs justify={"center"} css={{ marginTop: "20px" }}>
           {/* <SelectedFilterGeneral
             selectedFilter={selectedFilter}
             setSelectedFilter={setSelectedFilter}

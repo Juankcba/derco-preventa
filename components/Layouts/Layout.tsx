@@ -7,7 +7,7 @@ import Link from "next/link";
 import NavBarCustom from "../ui/NavBar";
 import { Box } from "../ui/Box";
 import { UiContext } from "../../context";
-import { FilelterIcon } from "./../ui/FilterIcon";
+import { FilterIcon } from "./../ui/FilterIcon";
 
 interface Props {
   title?: string;
@@ -84,7 +84,7 @@ export const Layout: FC<PropsWithChildren<Props>> = ({
             onClick={handler}
             css={{ width: "100%" }}
             className="btn-primary"
-            iconRight={<FilelterIcon fill="currentColor" />}
+            iconRight={<FilterIcon />}
           >
             Ver Filtros
           </Button>
