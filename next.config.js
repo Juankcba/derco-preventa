@@ -6,6 +6,7 @@ const nextConfig = {
     domains: [
       "dercocenter-api.s3.us-east-1.amazonaws.com",
       "dercocenter-cl-static-prod.s3.amazonaws.com",
+      "dercocenter-cl-cms-dev.s3.amazonaws.com",
     ],
   },
 };

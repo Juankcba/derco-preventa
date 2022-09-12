@@ -1,11 +1,13 @@
-import { FC, PropsWithChildren } from "react";
+import { FC, PropsWithChildren, useContext } from "react";
 import Head from "next/head";
 
-import { Container, Text, useTheme } from "@nextui-org/react";
+import { Text, useTheme, Navbar, Button } from "@nextui-org/react";
 import Image from "next/image";
 import Link from "next/link";
-import NavBar from "../ui/NavBar";
+import NavBarCustom from "../ui/NavBar";
 import { Box } from "../ui/Box";
+import { UiContext } from "../../context";
+import { FilelterIcon } from "./../ui/FilterIcon";
 
 interface Props {
   title?: string;
@@ -22,7 +24,12 @@ export const Layout: FC<PropsWithChildren<Props>> = ({
   image,
 }) => {
   const { theme } = useTheme();
-  console.log("image", image);
+  const { setVisible } = useContext(UiContext);
+
+  const handler = () => {
+    setVisible(true);
+  };
+
   return (
     <Box
       css={{
@@ -43,7 +50,7 @@ export const Layout: FC<PropsWithChildren<Props>> = ({
         <meta property="og:image" content={image || `${origin}/logo.png`} />
       </Head>
 
-      <NavBar />
+      <NavBarCustom />
 
       <main
         style={{
@@ -69,6 +76,20 @@ export const Layout: FC<PropsWithChildren<Props>> = ({
           </Link>
         </div>
       </footer>
+      <Navbar variant="sticky" css={{ bottom: 0 }}>
+        <Navbar.Content css={{ width: "100%" }}>
+          <Button
+            auto
+            shadow
+            onClick={handler}
+            css={{ width: "100%" }}
+            className="btn-primary"
+            iconRight={<FilelterIcon fill="currentColor" />}
+          >
+            Ver Filtros
+          </Button>
+        </Navbar.Content>
+      </Navbar>
     </Box>
   );
 };

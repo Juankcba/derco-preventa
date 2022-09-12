@@ -4,13 +4,16 @@ import "../styles/globals.scss";
 import { NextUIProvider } from "@nextui-org/react";
 import { ligthTheme } from "../themes";
 import { AuthProvider } from "../context";
+import { UiProvider } from "../context/ui";
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return (
     <SessionProvider session={session}>
       <AuthProvider>
-        <NextUIProvider theme={ligthTheme}>
-          <Component {...pageProps} />
-        </NextUIProvider>
+        <UiProvider>
+          <NextUIProvider theme={ligthTheme}>
+            <Component {...pageProps} />
+          </NextUIProvider>
+        </UiProvider>
       </AuthProvider>
     </SessionProvider>
   );

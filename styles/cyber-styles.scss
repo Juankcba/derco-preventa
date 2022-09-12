@@ -6,18 +6,32 @@
   justify-content: center;
   gap: 16px;
   margin-bottom: 8px;
+  width: 100%;
 }
 .cyber-card {
   border-radius: 12px 0 12px 12px;
 
   padding: 0px;
-  min-height: 500px;
+  min-height: 460px;
+  width: 270px;
+  @media screen and (min-width: 360px) and (max-width: 1100px) {
+    min-width: 160px;
+    max-width: 160px;
+  }
+  @media screen and (min-width: 11001px) {
+    min-width: 100%;
+  }
+  @media screen and (min-width: 1285px) {
+    min-height: 600px;
+  }
 
   .cyber-card-header {
     display: flex;
     flex-direction: column;
-    height: 423px;
+    height: 400px;
     width: 100%;
+    padding: 0;
+
     .cyber-badge {
       position: absolute;
       right: 0;
@@ -34,6 +48,17 @@
       font-size: 14px;
       padding: 18px;
     }
+  }
+  .cyber-card-body {
+    position: absolute;
+    bottom: 36px;
+    border-radius: 12px;
+    z-index: 1000;
+    left: 0;
+    border-radius: 0 0 12px 12px;
+    height: 320px;
+    background-color: white;
+    padding: 0 16px 16px;
     .title {
       font-family: "Lato";
       font-style: normal;
@@ -50,20 +75,22 @@
       line-height: 12px;
       color: #57585c;
     }
-  }
-  .cyber-card-body {
-    position: absolute;
-    bottom: 36px;
-    border-radius: 12px;
-    z-index: 1000;
-    left: 0;
-    border-radius: 0 0 12px 12px;
-    height: 200px;
-    background-color: white;
-    padding: 0 16px 16px;
     .spacer-grey {
-        height: 1px;
+      height: 1px;
       border: 1px solid #f6f5f5;
+    }
+    .prices-card {
+      min-height: 155px;
+    }
+    .disclaimer {
+      font-style: italic;
+      font-weight: 400;
+      font-size: 10px;
+      line-height: 60%;
+      display: flex;
+      align-items: flex-end;
+      color: #57585c;
+      margin-top: 6px;
     }
   }
   .cyber-card-footer {
