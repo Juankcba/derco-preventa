@@ -47,6 +47,7 @@ export const Layout: FC<PropsWithChildren<Props>> = ({
 
       <main
         style={{
+          backgroundColor: "#262626",
           padding: "0px 20px",
           minHeight: "84vh",
         }}

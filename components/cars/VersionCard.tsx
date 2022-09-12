@@ -1,10 +1,19 @@
 import { FC } from "react";
 import { useRouter } from "next/router";
 
-import { Button, Card, Grid, Row, Text } from "@nextui-org/react";
+import {
+  Badge,
+  Button,
+  Card,
+  Grid,
+  Row,
+  Spacer,
+  Text,
+} from "@nextui-org/react";
 import { Version } from "../../interfaces";
 import Image from "next/image";
 import { currency } from "../../utils";
+
 interface Props {
   version: Version;
 }
@@ -23,31 +32,33 @@ const VersionCard: FC<Props> = ({ version }) => {
 
   return (
     <Grid xs={12} sm={6} md={3} xl={3} key={version.id}>
-      <Card isHoverable isPressable>
-        <Card.Header onClick={onClick}>
-          <Row justify="flex-start" css={{ gap: "16px", height: "70px" }}>
-            <Image
+      <Card isHoverable isPressable className="cyber-card">
+        <Card.Header onClick={onClick} className="cyber-card-header">
+          <div className="cyber-badge">35%</div>
+          <Card.Image src={version.image.url} width="100%" height={200} />
+
+          {/* <Image
               src={`https://dercocenter-cl-static-prod.s3.amazonaws.com/assets/brands-logos/${version.model.brandName
                 .toLowerCase()
                 .replace(" ", "-")}/logo-vertical-colors.svg`}
               alt={version.model.name}
               height={65}
               width={102}
-            />
-            <Row justify="flex-start" css={{ flexDirection: "column" }}>
-              <Text h2 size={16} css={{ marginBottom: 0 }}>
-                {version.name}
-              </Text>
-              <Text h3 size={14}>
-                {version.model.name}
-              </Text>
-            </Row>
+            /> */}
+          <Row justify={"flex-start"} css={{ flexDirection: "column" }}>
+            <Text h2 className="title">
+              <span style={{ textTransform: "uppercase" }}>
+                {version.model.brandName}
+              </span>{" "}
+              | {version.name}
+            </Text>
+            <Text h3 className="subtitle">
+              {version.model.name}
+            </Text>
           </Row>
         </Card.Header>
-        <Card.Body css={{ p: 1 }}>
-          <Card.Image src={version.image.url} width="100%" height={200} />
-        </Card.Body>
-        <Card.Footer>
+        <Card.Body className="cyber-card-body">
+          <Spacer y={1} className="spacer-grey" />
           <Row justify="flex-start" css={{ flexDirection: "column" }}>
             <Text h2 size={16} css={{ marginBottom: 0 }}>
               Desde
@@ -55,15 +66,20 @@ const VersionCard: FC<Props> = ({ version }) => {
             <Text h3 size={20} color="#e0102c">
               {currency.format(version.minPrice)}
             </Text>
+            <Button
+              type="button"
+              light
+              css={{ backgroundColor: "#e0102c", color: "white" }}
+              onClick={onClickReserva}
+            >
+              Reservar
+            </Button>
           </Row>
-          <Button
-            type="button"
-            light
-            css={{ backgroundColor: "#e0102c", color: "white" }}
-            onClick={onClickReserva}
-          >
-            Reservar
-          </Button>
+        </Card.Body>
+        <Card.Footer className="cyber-card-footer">
+          <Text h3 size={14} className="text-content">
+            {version.model.name}
+          </Text>
         </Card.Footer>
       </Card>
     </Grid>

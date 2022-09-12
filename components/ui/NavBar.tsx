@@ -52,6 +52,14 @@ const NavBar = () => {
           </Link>
         </NextLink>
       </Navbar.Brand>
+
+      <Navbar.Content enableCursorHighlight>
+        <NextLink href={"/"} passHref>
+          <Navbar.Link itemCss={{ fontSize: "22px" }}>
+            Cyber DercoCenter
+          </Navbar.Link>
+        </NextLink>
+      </Navbar.Content>
       <Navbar.Content hideIn="sm" css={{}}>
         <Navbar.Item
           css={{
@@ -149,6 +157,7 @@ const NavBar = () => {
           </Dropdown>
         )}
       </Navbar.Content>
+      <Navbar.Toggle showIn="xs" />
     </Navbar>
   );
 };

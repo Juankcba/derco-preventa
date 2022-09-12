@@ -1,0 +1,88 @@
+* {
+  font-family: "Lato", sans-serif;
+}
+.cyber-logos {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 8px;
+}
+.cyber-card {
+  border-radius: 12px 0 12px 12px;
+
+  padding: 0px;
+  min-height: 500px;
+
+  .cyber-card-header {
+    display: flex;
+    flex-direction: column;
+    height: 423px;
+    width: 100%;
+    .cyber-badge {
+      position: absolute;
+      right: 0;
+      top: 0;
+      z-index: 1000;
+      background: #e0102c;
+      border-radius: 0px 0px 0px 16px;
+      width: 65px;
+      height: 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-size: 14px;
+      padding: 18px;
+    }
+    .title {
+      font-family: "Lato";
+      font-style: normal;
+      font-weight: 400;
+      font-size: 0.875rem;
+      line-height: 17px;
+      color: #191919;
+    }
+    .subtitle {
+      font-family: "Lato";
+      font-style: normal;
+      font-weight: 400;
+      font-size: 0.625rem;
+      line-height: 12px;
+      color: #57585c;
+    }
+  }
+  .cyber-card-body {
+    position: absolute;
+    bottom: 36px;
+    border-radius: 12px;
+    z-index: 1000;
+    left: 0;
+    border-radius: 0 0 12px 12px;
+    height: 200px;
+    background-color: white;
+    padding: 0 16px 16px;
+    .spacer-grey {
+        height: 1px;
+      border: 1px solid #f6f5f5;
+    }
+  }
+  .cyber-card-footer {
+    position: absolute;
+    z-index: 100;
+    bottom: 0px;
+    height: 60px;
+    left: 0;
+    background-color: red;
+    border-radius: 0 0 12px 12px;
+    .text-content {
+      padding-top: 20px;
+      margin: 0px;
+      width: 100%;
+      text-align: center;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+    }
+  }
+}
