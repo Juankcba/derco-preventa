@@ -26,9 +26,10 @@ import { Mantencion, MantencionResponse } from "../interfaces/mantencion-full";
 import ModalFilters from "../components/cyber/ModalFilters";
 import SelectedFilterGeneral from "../components/cyber/SelectedFilterGeneral";
 import { FilterContext } from "../context/filters/filterContext";
-import BannerHome from "../components/cyber/BannerHome";
+
 import BannerDream from "../components/cyber/BannerDream";
 import BrandsFinder from "../components/cyber/BrandsFinder";
+import BannerHome from "../components/cyber/BannerHome";
 
 interface Props {
   versions: Version[];
