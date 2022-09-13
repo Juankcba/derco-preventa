@@ -46,7 +46,13 @@ const HomePage: NextPage<PropsWithChildren<Props>> = ({ versions }) => {
       category: "Citycar",
       price: 270000,
     },
-    { id: 2, name: "Mantencion", kms: 10000, category: "Suv", price: 270000 },
+    {
+      id: 2,
+      name: "Mantencion",
+      kms: 10000,
+      category: "Camioneta",
+      price: 270000,
+    },
     { id: 3, name: "Mantencion", kms: 20000, category: "Sedán", price: 270000 },
     {
       id: 4,
