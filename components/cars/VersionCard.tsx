@@ -36,17 +36,16 @@ const VersionCard: FC<Props> = ({ version }) => {
     <Card isHoverable isPressable className="cyber-card">
       <Card.Header className="cyber-card-header">
         <div className="cyber-badge">35%</div>
-        <Spacer css={{ marginTop: "20px" }} />
 
         <Card.Image
           src={version.image.url}
           width="100%"
-          height={170}
+          height={126}
           alt={version.image.url}
           objectFit="contain"
           css={{
             "@mdMax": {
-              height: "76px",
+              height: "78px",
               objectFit: "scale-down",
             },
           }}
@@ -79,7 +78,7 @@ const VersionCard: FC<Props> = ({ version }) => {
             {version.model.name}
           </Text>
         </Row>
-        <Spacer y={1} className="spacer-grey" />
+        <div className="card-spacer-1"></div>
         <Row
           justify="flex-start"
           css={{ flexDirection: "column" }}
@@ -117,7 +116,6 @@ const VersionCard: FC<Props> = ({ version }) => {
               width: "100%",
               backgroundColor: "#e0102c",
               color: "white",
-              marginTop: "16px",
             }}
             onClick={onClickReserva}
           >

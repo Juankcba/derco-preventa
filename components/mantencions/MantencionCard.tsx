@@ -25,16 +25,16 @@ const MantencionCard: FC<Props> = ({ mantencion }) => {
     <Card isHoverable isPressable className="cyber-card">
       <Card.Header className="cyber-card-header">
         <div className="cyber-badge">35%</div>
-        <Spacer css={{ marginTop: "20px" }} />
 
         <Card.Image
           src={`/assets/img/mantenciones/${mantencion.category}.svg`}
           width="100%"
-          height={170}
+          height={126}
           alt={mantencion.name}
           objectFit="contain"
           css={{
             "@mdMax": {
+              marginTop: "20px",
               height: "76px",
               objectFit: "scale-down",
             },
@@ -65,7 +65,7 @@ const MantencionCard: FC<Props> = ({ mantencion }) => {
             {mantencion.kms} km
           </Text>
         </Row>
-        <Spacer y={1} className="spacer-grey" />
+        <div className="card-spacer-1"></div>
         <Row
           justify="flex-start"
           css={{ flexDirection: "column" }}
@@ -95,7 +95,6 @@ const MantencionCard: FC<Props> = ({ mantencion }) => {
               width: "100%",
               backgroundColor: "#e0102c",
               color: "white",
-              marginTop: "16px",
             }}
             onClick={onClickReserva}
           >

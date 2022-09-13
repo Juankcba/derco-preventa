@@ -29,18 +29,29 @@ const SelectedFilterGeneral: FC = () => {
           Consigue <strong> mantención</strong> para tu auto
         </Text>
       )}
-      <Container css={{ paddingTop: "20px" }}>
+      <Container
+        css={{
+          paddingTop: "20px",
+          "@mdMin": {
+            display: "none",
+          },
+        }}
+      >
         <Row className="btn-group">
           <Button
             type="button"
-            className={!isMantenciones ? "btn-active" : "btn-deactive"}
+            className={
+              !isMantenciones ? "btn-active group" : "btn-deactive group"
+            }
             onClick={() => handleClick(false)}
           >
             Vehículos
           </Button>
           <Button
             type="button"
-            className={isMantenciones ? "btn-active" : "btn-deactive"}
+            className={
+              isMantenciones ? "btn-active group" : "btn-deactive group"
+            }
             onClick={() => handleClick(true)}
           >
             Mantenciones

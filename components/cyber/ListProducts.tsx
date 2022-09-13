@@ -22,7 +22,17 @@ const ListProducts: FC<Props> = ({ versions }) => {
     setIndex(indexData);
   };
   return (
-    <Grid.Container gap={2} justify="flex-start" css={{ padding: 0 }}>
+    <Grid.Container
+      gap={2}
+      justify="flex-start"
+      css={{
+        padding: 0,
+        "@mdMin": {
+          maxWidth: "1080px",
+          margin: "0 auto",
+        },
+      }}
+    >
       {versiones.map((version: Version) => (
         <Grid
           xs
