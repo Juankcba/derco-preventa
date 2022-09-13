@@ -15,9 +15,10 @@ import {
 
 import NavBarCustom from "../ui/NavBar";
 import { Box } from "../ui/Box";
-import { UiContext } from "../../context";
-import { FilterIcon } from "./../ui/FilterIcon";
+
 import Footer from "../ui/Footer";
+import NavBar from "../ui/NavBar";
+import FilterNavBar from "./../ui/FilterNavBar";
 
 interface Props {
   title?: string;
@@ -34,11 +35,6 @@ export const Layout: FC<PropsWithChildren<Props>> = ({
   image,
 }) => {
   const { theme } = useTheme();
-  const { setVisible } = useContext(UiContext);
-
-  const handler = () => {
-    setVisible(true);
-  };
 
   return (
     <Box
@@ -73,19 +69,7 @@ export const Layout: FC<PropsWithChildren<Props>> = ({
       </main>
       <Footer />
 
-      <Navbar isBordered variant="sticky" css={{ bottom: 0 }}>
-        <Navbar.Content css={{ width: "100%" }}>
-          <Button
-            auto
-            onClick={handler}
-            css={{ width: "100%" }}
-            className="btn-primary"
-            iconRight={<FilterIcon />}
-          >
-            Ver Filtros
-          </Button>
-        </Navbar.Content>
-      </Navbar>
+      <FilterNavBar />
     </Box>
   );
 };
