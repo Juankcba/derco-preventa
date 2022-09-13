@@ -123,7 +123,13 @@ const ModalFilters: FC = () => {
             <Text h4>Categorías</Text>
             <Grid.Container gap={0.5}>
               {categorias.map((categoria) => (
-                <Grid xs={3} key={categoria.id}>
+                <Grid
+                  xs={3}
+                  md={1}
+                  key={categoria.id}
+                  css={{ flexDirection: "column" }}
+                  justify="center"
+                >
                   <Badge
                     onClick={() => handleFilterCategory(categoria.id)}
                     disableOutline
@@ -145,6 +151,8 @@ const ModalFilters: FC = () => {
                       className="filter-card-category"
                       onClick={() => handleFilterCategory(categoria.id)}
                       css={{
+                        width: "100%",
+                        margin: "0 auto",
                         border:
                           categorySelected.filter((c) => c === categoria.id)
                             .length > 0
@@ -168,11 +176,14 @@ const ModalFilters: FC = () => {
             </Grid.Container>
           </div>
           <div>
-            <Text h4>Marcas</Text>
+            <Text h4 css={{ marginTop: "16px" }}>
+              Marcas
+            </Text>
             <Grid.Container gap={0.5}>
               {marcas.map((marca) => (
                 <Grid
                   xs={3}
+                  md={1}
                   key={marca.id}
                   css={{ flexDirection: "column" }}
                   justify="center"
@@ -214,7 +225,9 @@ const ModalFilters: FC = () => {
             </Grid.Container>
           </div>
           <div>
-            <Text h4>Tipo de combustible</Text>
+            <Text h4 css={{ marginTop: "16px" }}>
+              Tipo de combustible
+            </Text>
             <Radio.Group
               orientation="horizontal"
               onChange={setCombustibleSelected}

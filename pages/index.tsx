@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useContext } from "react";
 import { NextPage, GetStaticProps } from "next";
 import Head from "next/head";
 import Image from "next/image";
@@ -18,30 +18,57 @@ import {
 } from "@nextui-org/react";
 import VersionCard from "../components/cars/VersionCard";
 import Filters from "../components/ui/Filters";
-import BannerHome from "../components/cyber/bannerHome";
+
 import ListProducts from "../components/cyber/ListProducts";
 import ListMantenciones from "../components/cyber/ListMantenciones";
 import { Mantencion, MantencionResponse } from "../interfaces/mantencion-full";
 
 import ModalFilters from "../components/cyber/ModalFilters";
 import SelectedFilterGeneral from "../components/cyber/SelectedFilterGeneral";
+import { FilterContext } from "../context/filters/filterContext";
+import BannerHome from "../components/cyber/bannerHome";
 
 interface Props {
   versions: Version[];
 }
 
 const HomePage: NextPage<PropsWithChildren<Props>> = ({ versions }) => {
-  const [selectedFilter, setSelectedFilter] = useState<boolean>(true);
-
   const [visible, setVisible] = useState<boolean>(false);
+  const { isMantenciones } = useContext(FilterContext);
+
   const mantenciones: Mantencion[] = [
-    { id: 1, name: "Mantencion", kms: 10000, category: "Citycar" },
-    { id: 2, name: "Mantencion", kms: 10000, category: "Citycar" },
-    { id: 3, name: "Mantencion", kms: 10000, category: "Citycar" },
-    { id: 4, name: "Mantencion", kms: 10000, category: "Citycar" },
-    { id: 5, name: "Mantencion", kms: 10000, category: "Citycar" },
-    { id: 6, name: "Mantencion", kms: 10000, category: "Citycar" },
-    { id: 7, name: "Mantencion", kms: 10000, category: "Citycar" },
+    {
+      id: 1,
+      name: "Mantencion",
+      kms: 30000,
+      category: "Citycar",
+      price: 270000,
+    },
+    { id: 2, name: "Mantencion", kms: 10000, category: "Suv", price: 270000 },
+    { id: 3, name: "Mantencion", kms: 20000, category: "Sedán", price: 270000 },
+    {
+      id: 4,
+      name: "Mantencion",
+      kms: 40000,
+      category: "Camioneta",
+      price: 270000,
+    },
+    {
+      id: 5,
+      name: "Mantencion",
+      kms: 20000,
+      category: "Citycar",
+      price: 270000,
+    },
+    { id: 6, name: "Mantencion", kms: 30000, category: "Suv", price: 270000 },
+    { id: 7, name: "Mantencion", kms: 40000, category: "Sedán", price: 270000 },
+    {
+      id: 8,
+      name: "Mantencion",
+      kms: 10000,
+      category: "Camioneta",
+      price: 270000,
+    },
   ];
 
   return (
@@ -49,17 +76,14 @@ const HomePage: NextPage<PropsWithChildren<Props>> = ({ versions }) => {
       <BannerHome />
       <Grid.Container css={{ margin: "0" }}>
         <Grid xs={12} justify={"center"} css={{ paddingTop: "20px" }}>
-          <SelectedFilterGeneral
-            selectedFilter={selectedFilter}
-            setSelectedFilter={setSelectedFilter}
-          />
+          <SelectedFilterGeneral />
         </Grid>
       </Grid.Container>
       <Container justify={"center"} css={{ marginTop: "20px" }}>
-        {selectedFilter ? (
-          <ListProducts versions={versions} />
-        ) : (
+        {isMantenciones ? (
           <ListMantenciones manteciones={mantenciones} />
+        ) : (
+          <ListProducts versions={versions} />
         )}
       </Container>
 

@@ -1,22 +1,19 @@
-import React, { FC } from "react";
+import React, { FC, useState, useEffect, useContext } from "react";
 import { Text, Button, Row, Container } from "@nextui-org/react";
 import { currency } from "../../utils";
 import { Box } from "../ui/Box";
-interface Props {
-  selectedFilter: Boolean;
-  setSelectedFilter: (arg: boolean) => void;
-}
+import { FilterContext } from "../../context/filters/filterContext";
 
-const SelectedFilterGeneral: FC<Props> = ({
-  selectedFilter,
-  setSelectedFilter,
-}) => {
+const SelectedFilterGeneral: FC = () => {
+  const { isMantenciones, setMantencionesState } = useContext(FilterContext);
+
   const handleClick = (state: boolean) => {
-    setSelectedFilter(state);
+    setMantencionesState(state);
   };
+
   return (
     <Container css={{ padding: 0 }}>
-      {selectedFilter ? (
+      {isMantenciones ? (
         <Text
           className="text-reserva"
           css={{ color: "white", textAlign: "center" }}
@@ -25,7 +22,10 @@ const SelectedFilterGeneral: FC<Props> = ({
           {currency.format(200000)}
         </Text>
       ) : (
-        <Text css={{ color: "white", textAlign: "center" }}>
+        <Text
+          className="text-reserva"
+          css={{ color: "white", textAlign: "center" }}
+        >
           Consigue <strong> mantención</strong> para tu auto
         </Text>
       )}
@@ -33,15 +33,15 @@ const SelectedFilterGeneral: FC<Props> = ({
         <Row className="btn-group">
           <Button
             type="button"
-            className={selectedFilter ? "btn-active" : "btn-deactive"}
-            onClick={() => handleClick(true)}
+            className={!isMantenciones ? "btn-active" : "btn-deactive"}
+            onClick={() => handleClick(false)}
           >
             Vehículos
           </Button>
           <Button
             type="button"
-            className={!selectedFilter ? "btn-active" : "btn-deactive"}
-            onClick={() => handleClick(false)}
+            className={isMantenciones ? "btn-active" : "btn-deactive"}
+            onClick={() => handleClick(true)}
           >
             Mantenciones
           </Button>

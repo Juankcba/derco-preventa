@@ -1,5 +1,17 @@
-import { Card, Grid, Row, Text } from "@nextui-org/react";
-import React, { FC } from "react";
+import { FC } from "react";
+import { useRouter } from "next/router";
+
+import {
+  Badge,
+  Button,
+  Card,
+  Grid,
+  Row,
+  Spacer,
+  Text,
+} from "@nextui-org/react";
+import Image from "next/image";
+import { currency } from "../../utils";
 import { Mantencion } from "../../interfaces";
 
 interface Props {
@@ -7,36 +19,111 @@ interface Props {
 }
 
 const MantencionCard: FC<Props> = ({ mantencion }) => {
+  const stock = Math.floor(Math.random() * 2);
+  const onClickReserva = () => {};
   return (
-    <Grid xs={6} sm={6} md={3} xl={4} key={mantencion.id}>
-      <Card isHoverable isPressable className="cyber-card">
-        <Card.Header className="cyber-card-header">
-          <div className="cyber-badge">35%</div>
-          <Card.Image
-            src="/assets/img/cyber/mantention.svg"
-            width="100%"
-            height={200}
-          />
-          <Row justify={"flex-start"} css={{ flexDirection: "column" }}>
-            <Text h2 className="title">
-              {mantencion.name}
-            </Text>
-            <Text h3 className="subtitle">
-              {mantencion.kms} km
-            </Text>
-            <Text h3 className="subtitle">
-              Categoria {mantencion.category}
-            </Text>
-          </Row>
-        </Card.Header>
-        <Card.Body className="cyber-card-body"></Card.Body>
-        <Card.Footer className="cyber-card-footer">
-          <Text h3 size={14} className="text-content">
-            Quedan 20u en stock
+    <Card isHoverable isPressable className="cyber-card">
+      <Card.Header className="cyber-card-header">
+        <div className="cyber-badge">35%</div>
+        <Spacer css={{ marginTop: "20px" }} />
+
+        <Card.Image
+          src={`/assets/img/mantenciones/${mantencion.category}.svg`}
+          width="100%"
+          height={170}
+          alt={mantencion.name}
+          objectFit="contain"
+          css={{
+            "@mdMax": {
+              height: "76px",
+              objectFit: "scale-down",
+            },
+          }}
+        />
+
+        {/* <Image
+              src={`https://dercocenter-cl-static-prod.s3.amazonaws.com/assets/brands-logos/${version.model.brandName
+                .toLowerCase()
+                .replace(" ", "-")}/logo-vertical-colors.svg`}
+              alt={version.model.name}
+              height={65}
+              width={102}
+            /> */}
+      </Card.Header>
+      <Card.Body className="cyber-card-body">
+        <Row
+          justify={"flex-start"}
+          css={{
+            flexDirection: "column",
+            height: "100%",
+          }}
+        >
+          <Text h2 className="title">
+            {mantencion.name}
           </Text>
-        </Card.Footer>
-      </Card>
-    </Grid>
+          <Text h3 className="subtitle">
+            {mantencion.kms} km
+          </Text>
+        </Row>
+        <Spacer y={1} className="spacer-grey" />
+        <Row
+          justify="flex-start"
+          css={{ flexDirection: "column" }}
+          className="prices-card"
+        >
+          <Text className="price-primary" color="#e0102c">
+            {currency.format(mantencion.price * (1 - 0.35))}*
+          </Text>
+          <Text className="price-before">
+            Antes{" "}
+            <span
+              style={{ textDecoration: "line-through", paddingLeft: "0.25rem" }}
+            >
+              {currency.format(mantencion.price)}
+            </span>
+          </Text>
+        </Row>
+        <Row
+          justify="flex-start"
+          css={{ flexDirection: "column", width: "100%" }}
+        >
+          <Button
+            auto
+            type="button"
+            light
+            css={{
+              width: "100%",
+              backgroundColor: "#e0102c",
+              color: "white",
+              marginTop: "16px",
+            }}
+            onClick={onClickReserva}
+          >
+            Reservar
+          </Button>
+          <Text className="disclaimer">*Incluye IVA y Bono marca.</Text>
+        </Row>
+      </Card.Body>
+      <Card.Footer
+        className="cyber-card-footer"
+        css={{ bgColor: stock == 0 ? "#57585C" : "#E0102C" }}
+      >
+        {stock == 0 ? (
+          <Text
+            h3
+            size={14}
+            className="text-content"
+            css={{ color: "#A4A4A6" }}
+          >
+            (Stock agotado)
+          </Text>
+        ) : (
+          <Text h3 size={14} className="text-content" css={{ color: "#fff" }}>
+            Quedan 20u en stock.
+          </Text>
+        )}
+      </Card.Footer>
+    </Card>
   );
 };
 

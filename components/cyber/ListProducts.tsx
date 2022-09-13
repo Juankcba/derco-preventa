@@ -28,7 +28,12 @@ const ListProducts: FC<Props> = ({ versions }) => {
           xs
           md={3}
           key={version.id}
-          css={{ paddingLeft: 0, paddingRight: "8px" }}
+          css={{
+            display: "flex",
+            justifyContent: "center",
+            paddingLeft: 0,
+            paddingRight: "8px",
+          }}
         >
           <VersionCard version={version} />
         </Grid>

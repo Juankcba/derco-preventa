@@ -9,4 +9,5 @@ export interface Mantencion {
     name: string;
     kms: number;
     category: string;
+    price: number;
 }
