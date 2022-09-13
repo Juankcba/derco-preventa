@@ -15,7 +15,17 @@ const ListMantenciones: FC<Props> = ({ manteciones }) => {
     setIndex(indexData);
   };
   return (
-    <Grid.Container gap={2} justify="flex-start" css={{ padding: 0 }}>
+    <Grid.Container
+      gap={2}
+      justify="flex-start"
+      css={{
+        padding: 0,
+        "@mdMin": {
+          maxWidth: "1080px",
+          margin: "0 auto",
+        },
+      }}
+    >
       {matencions.map((mantencion: Mantencion) => (
         <Grid
           xs
