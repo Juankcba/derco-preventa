@@ -1,11 +1,11 @@
 import { Text, Button, Grid, Image } from "@nextui-org/react";
-import React from "react";
+import React, { FC } from "react";
 import { Box } from "../ui/Box";
 import { currency } from "../../utils";
-import { FC } from "react";
+
 import NextImage from "next/image";
 
-const BannerHome: FC = () => {
+const BannerHome = () => {
   return (
     <Grid.Container className="banner-cyber">
       <Grid

@@ -30,7 +30,6 @@ import { FilterContext } from "../context/filters/filterContext";
 import BannerDream from "../components/cyber/BannerDream";
 import BrandsFinder from "../components/cyber/BrandsFinder";
 import BannerHome from "../components/cyber/BannerHome";
-
 interface Props {
   versions: Version[];
 }
