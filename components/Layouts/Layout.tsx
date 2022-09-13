@@ -55,7 +55,7 @@ export const Layout: FC<PropsWithChildren<Props>> = ({
       <main
         style={{
           backgroundColor: "#262626",
-          padding: "0px 20px",
+          padding: 0,
           minHeight: "84vh",
         }}
       >
@@ -80,7 +80,6 @@ export const Layout: FC<PropsWithChildren<Props>> = ({
         <Navbar.Content css={{ width: "100%" }}>
           <Button
             auto
-            shadow
             onClick={handler}
             css={{ width: "100%" }}
             className="btn-primary"

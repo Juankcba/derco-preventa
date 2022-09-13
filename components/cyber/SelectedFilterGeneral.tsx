@@ -18,7 +18,8 @@ const SelectedFilterGeneral: FC<Props> = ({
     <Box>
       {selectedFilter ? (
         <Text css={{ color: "white", textAlign: "center" }}>
-          Todas las reservas son por {currency.format(200000)}
+          Todas las reservas son <span className="span-solo">SOLO</span> por{" "}
+          {currency.format(200000)}
         </Text>
       ) : (
         <Text css={{ color: "white", textAlign: "center" }}>

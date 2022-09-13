@@ -16,6 +16,7 @@ import ListMantenciones from "../components/cyber/ListMantenciones";
 import { Mantencion, MantencionResponse } from "../interfaces/mantencion-full";
 
 import ModalFilters from "../components/cyber/ModalFilters";
+import SelectedFilterGeneral from "../components/cyber/SelectedFilterGeneral";
 
 interface Props {
   versions: Version[];
@@ -37,22 +38,22 @@ const HomePage: NextPage<PropsWithChildren<Props>> = ({ versions }) => {
 
   return (
     <Layout title="CiberMonday | DercoCenter">
-      <Grid.Container>
+      <BannerHome />
+      <Grid.Container css={{ margin: "0px 20px" }}>
         <Grid xs={12} justify={"center"} css={{ marginTop: "20px" }}>
-          <BannerHome />
-        </Grid>
-        <Grid xs justify={"center"} css={{ marginTop: "20px" }}>
-          {/* <SelectedFilterGeneral
+          <SelectedFilterGeneral
             selectedFilter={selectedFilter}
             setSelectedFilter={setSelectedFilter}
-          /> */}
+          />
+        </Grid>
+        <Grid xs justify={"center"} css={{ marginTop: "20px" }}>
+          {selectedFilter ? (
+            <ListProducts versions={versions} />
+          ) : (
+            <ListMantenciones manteciones={mantenciones} />
+          )}
         </Grid>
       </Grid.Container>
-      {selectedFilter ? (
-        <ListProducts versions={versions} />
-      ) : (
-        <ListMantenciones manteciones={mantenciones} />
-      )}
 
       <ModalFilters />
     </Layout>

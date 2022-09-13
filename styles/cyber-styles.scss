@@ -1,6 +1,26 @@
 * {
   font-family: "Lato", sans-serif;
 }
+
+.span-solo {
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 900;
+  font-size: 20px;
+  line-height: 24px;
+  text-align: center;
+  color: #e0102c;
+}
+.banner-cyber {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 132px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-image: url("https://github.com/nextui-org/nextui/blob/next/apps/docs/public/nextui-banner.jpeg?raw=true");
+}
 .cyber-logos {
   display: flex;
   justify-content: center;

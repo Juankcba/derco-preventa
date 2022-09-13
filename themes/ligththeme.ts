@@ -6,6 +6,8 @@ export const ligthTheme = createTheme({
         fonts: {
             Lato: "'Lato', sans-serif"
         },
-        colors: {}, // override dark theme colors
+        colors: {
+            primary: '#E0102C'
+        }, // override dark theme colors
     }
 });

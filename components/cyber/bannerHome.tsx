@@ -1,13 +1,13 @@
-import { Text, Button, Grid } from "@nextui-org/react";
+import { Text, Button, Grid, Image } from "@nextui-org/react";
 import React from "react";
 import { Box } from "../ui/Box";
 import { currency } from "../../utils";
 import { FC } from "react";
-import Image from "next/image";
+import NextImage from "next/image";
 
 const BannerHome: FC = () => {
   return (
-    <Grid.Container>
+    <Grid.Container className="banner-cyber">
       <Grid
         md={6}
         css={{
@@ -17,7 +17,9 @@ const BannerHome: FC = () => {
           },
         }}
       >
-        <Text h1 css={{ color: "white", textAlign: "left" }}>CyberDerco</Text>
+        <Text h1 css={{ color: "white", textAlign: "left" }}>
+          CyberDerco
+        </Text>
         <Text h3 css={{ color: "white", textAlign: "left" }}>
           Nuestro sueño es que vos encuentres el tuyo
         </Text>
@@ -33,13 +35,13 @@ const BannerHome: FC = () => {
         }}
       >
         <div className="cyber-logos">
-          <Image
+          <NextImage
             src="/assets/img/cyber/coin.svg"
             height={64}
             width={64}
             alt="cyber-coin"
           />
-          <Image
+          <NextImage
             src="/assets/img/cyber/cyber.svg"
             height={70}
             width={205}
@@ -47,17 +49,6 @@ const BannerHome: FC = () => {
             style={{ marginLeft: "16px" }}
           />
         </div>
-      </Grid>
-      <Grid
-        css={{
-          "@mdMin": {
-            display: "none",
-          },
-        }}
-      >
-        <Text css={{ color: "white", textAlign: "center" }}>
-          ¡Del 3 al 5 de Octubre!
-        </Text>
       </Grid>
     </Grid.Container>
   );
