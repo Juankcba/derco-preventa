@@ -15,7 +15,10 @@ const BrandsFinder = () => {
         Visita nuestras marcas para mas vehículo
       </Text>
       <Button css={{ margin: "0 auto" }}>¿Como comprar en CyberDerco?</Button>
-      <Grid.Container gap={2}>
+      <Grid.Container
+        gap={2}
+        css={{ "@mdMin": { maxWidth: "800px", margin: "0 auto" } }}
+      >
         <Grid xs={6} md={4} justify="center">
           <NextLink href="https://www.suzuki.cl" passHref>
             <Link target="_blank">
