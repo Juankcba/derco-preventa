@@ -1,0 +1,11 @@
+.mySwiper-home-dreams {
+  margin-top: 40px;
+  .swiper-wrapper {
+    @media screen and (min-width: 1200px) {
+      justify-content: center;
+    }
+  }
+  .swiper-slide {
+    height: 330px;
+  }
+}

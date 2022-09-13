@@ -27,6 +27,7 @@ import ModalFilters from "../components/cyber/ModalFilters";
 import SelectedFilterGeneral from "../components/cyber/SelectedFilterGeneral";
 import { FilterContext } from "../context/filters/filterContext";
 import BannerHome from "../components/cyber/bannerHome";
+import BannerDream from "../components/cyber/BannerDream";
 
 interface Props {
   versions: Version[];
@@ -86,6 +87,7 @@ const HomePage: NextPage<PropsWithChildren<Props>> = ({ versions }) => {
           <ListProducts versions={versions} />
         )}
       </Container>
+      <BannerDream />
 
       <ModalFilters />
     </Layout>
