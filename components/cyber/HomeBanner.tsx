@@ -5,7 +5,7 @@ import { currency } from "../../utils";
 
 import NextImage from "next/image";
 
-const BannerHome = () => {
+const HomeBanner = () => {
   return (
     <Grid.Container className="banner-cyber">
       <Grid
@@ -54,4 +54,4 @@ const BannerHome = () => {
   );
 };
 
-export default BannerHome;
+export default HomeBanner;

@@ -29,7 +29,7 @@ import { FilterContext } from "../context/filters/filterContext";
 
 import BannerDream from "../components/cyber/BannerDream";
 import BrandsFinder from "../components/cyber/BrandsFinder";
-import BannerHome from "../components/cyber/BannerHome";
+import HomeBanner from "../components/cyber/HomeBanner";
 interface Props {
   versions: Version[];
 }
@@ -75,7 +75,7 @@ const HomePage: NextPage<PropsWithChildren<Props>> = ({ versions }) => {
 
   return (
     <Layout title="CiberMonday | DercoCenter">
-      <BannerHome />
+      <HomeBanner />
       <Grid.Container css={{ margin: "0" }}>
         <Grid xs={12} justify={"center"} css={{ paddingTop: "20px" }}>
           <SelectedFilterGeneral />
