@@ -59,7 +59,7 @@ const MantencionCard: FC<Props> = ({ mantencion }) => {
           }}
         >
           <Text h2 className="title">
-            {mantencion.name}
+            {mantencion.name} {mantencion.category}
           </Text>
           <Text h3 className="subtitle">
             {mantencion.kms} km

@@ -52,7 +52,7 @@ const HomePage: NextPage<PropsWithChildren<Props>> = ({ versions }) => {
       id: 4,
       name: "Mantencion",
       kms: 40000,
-      category: "Camioneta",
+      category: "SUV",
       price: 270000,
     },
     {
