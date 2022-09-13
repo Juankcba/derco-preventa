@@ -42,11 +42,11 @@ const BannerDream = () => {
     },
   ]);
   return (
-    <Container css={{ padding: "20px" }}>
-      <Text h1 css={{ color: "white" }}>
+    <Container css={{ padding: "20px" }} className="dreams-section">
+      <Text h1 className="title">
         ¡Movemos tus sueños!
       </Text>
-      <Text h4 css={{ color: "white" }}>
+      <Text h4 className="subtitle">
         Beneficios pensados exclusivamente para ti
       </Text>
       <Swiper
