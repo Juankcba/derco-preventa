@@ -7,7 +7,8 @@ export const ligthTheme = createTheme({
             Lato: "'Lato', sans-serif"
         },
         colors: {
-            primary: '#E0102C'
+            primary: '#E0102C',
+            secondary: '#F6F5F5'
         }, // override dark theme colors
     }
 });

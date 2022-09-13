@@ -103,7 +103,6 @@ const ModalFilters: FC = () => {
     setMarcasSelected(aux);
   };
 
-  console.log("aux", categorySelected, marcasSelected);
   return (
     <Modal
       scroll
