@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Text, Button } from "@nextui-org/react";
+import { Text, Button, Row, Container } from "@nextui-org/react";
 import { currency } from "../../utils";
 import { Box } from "../ui/Box";
 interface Props {
@@ -15,34 +15,39 @@ const SelectedFilterGeneral: FC<Props> = ({
     setSelectedFilter(state);
   };
   return (
-    <Box>
+    <Container css={{ padding: 0 }}>
       {selectedFilter ? (
-        <Text css={{ color: "white", textAlign: "center" }}>
+        <Text
+          className="text-reserva"
+          css={{ color: "white", textAlign: "center" }}
+        >
           Todas las reservas son <span className="span-solo">SOLO</span> por{" "}
           {currency.format(200000)}
         </Text>
       ) : (
         <Text css={{ color: "white", textAlign: "center" }}>
-          Consigue la mantención para tu auto
+          Consigue <strong> mantención</strong> para tu auto
         </Text>
       )}
-      <div className="btn-group">
-        <Button
-          type="button"
-          className={selectedFilter ? "btn-active" : "btn-deactive"}
-          onClick={() => handleClick(true)}
-        >
-          Vehículos
-        </Button>
-        <Button
-          type="button"
-          className={!selectedFilter ? "btn-active" : "btn-deactive"}
-          onClick={() => handleClick(false)}
-        >
-          Mantenciones
-        </Button>
-      </div>
-    </Box>
+      <Container css={{ paddingTop: "20px" }}>
+        <Row className="btn-group">
+          <Button
+            type="button"
+            className={selectedFilter ? "btn-active" : "btn-deactive"}
+            onClick={() => handleClick(true)}
+          >
+            Vehículos
+          </Button>
+          <Button
+            type="button"
+            className={!selectedFilter ? "btn-active" : "btn-deactive"}
+            onClick={() => handleClick(false)}
+          >
+            Mantenciones
+          </Button>
+        </Row>
+      </Container>
+    </Container>
   );
 };
 

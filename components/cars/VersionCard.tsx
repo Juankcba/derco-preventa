@@ -30,16 +30,18 @@ const VersionCard: FC<Props> = ({ version }) => {
     );
   };
 
+  const stock = Math.floor(Math.random() * 2);
+
   return (
     <Card isHoverable isPressable className="cyber-card">
-      <Card.Header onClick={onClick} className="cyber-card-header">
+      <Card.Header className="cyber-card-header">
         <div className="cyber-badge">35%</div>
         <Spacer css={{ marginTop: "20px" }} />
 
         <Card.Image
           src={version.image.url}
           width="100%"
-          height={200}
+          height={170}
           alt={version.image.url}
           objectFit="contain"
           css={{
@@ -83,18 +85,23 @@ const VersionCard: FC<Props> = ({ version }) => {
           css={{ flexDirection: "column" }}
           className="prices-card"
         >
-          <Text h3 size={20} color="#e0102c">
+          <Text className="price-primary" color="#e0102c">
             {currency.format(version.minPrice * (1 - 0.35))}*
           </Text>
-          <Text>
+          <Text className="price-before">
             Antes{" "}
-            <span style={{ textDecoration: "line-through" }}>
+            <span
+              style={{ textDecoration: "line-through", paddingLeft: "0.25rem" }}
+            >
               {currency.format(version.prices[0].value)}
             </span>
           </Text>
           {version.prices[1].diff > 0 && (
-            <Text color="#e0102c">
-              Bono marca: <span>{currency.format(version.prices[1].diff)}</span>
+            <Text className="price-bonus" color="#e0102c">
+              Bono marca:
+              <span style={{ paddingLeft: "0.25rem" }}>
+                {currency.format(version.prices[1].diff)}
+              </span>
             </Text>
           )}
         </Row>
@@ -119,10 +126,24 @@ const VersionCard: FC<Props> = ({ version }) => {
           <Text className="disclaimer">*Incluye IVA y Bono marca.</Text>
         </Row>
       </Card.Body>
-      <Card.Footer className="cyber-card-footer">
-        <Text h3 size={14} className="text-content">
-          {version.model.name}
-        </Text>
+      <Card.Footer
+        className="cyber-card-footer"
+        css={{ bgColor: stock == 0 ? "#57585C" : "#E0102C" }}
+      >
+        {stock == 0 ? (
+          <Text
+            h3
+            size={14}
+            className="text-content"
+            css={{ color: "#A4A4A6" }}
+          >
+            (Stock agotado)
+          </Text>
+        ) : (
+          <Text h3 size={14} className="text-content" css={{ color: "#fff" }}>
+            Quedan 20u en stock.
+          </Text>
+        )}
       </Card.Footer>
     </Card>
   );

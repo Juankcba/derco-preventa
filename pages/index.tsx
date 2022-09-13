@@ -7,7 +7,15 @@ import { Layout } from "../components/Layouts";
 import { Version, VersionResponse } from "../interfaces";
 import { PropsWithChildren, useState } from "react";
 
-import { Grid, Card, Text, Row, Button, Navbar } from "@nextui-org/react";
+import {
+  Grid,
+  Card,
+  Text,
+  Row,
+  Button,
+  Navbar,
+  Container,
+} from "@nextui-org/react";
 import VersionCard from "../components/cars/VersionCard";
 import Filters from "../components/ui/Filters";
 import BannerHome from "../components/cyber/bannerHome";
@@ -39,21 +47,21 @@ const HomePage: NextPage<PropsWithChildren<Props>> = ({ versions }) => {
   return (
     <Layout title="CiberMonday | DercoCenter">
       <BannerHome />
-      <Grid.Container css={{ margin: "0px 20px" }}>
-        <Grid xs={12} justify={"center"} css={{ marginTop: "20px" }}>
+      <Grid.Container css={{ margin: "0" }}>
+        <Grid xs={12} justify={"center"} css={{ paddingTop: "20px" }}>
           <SelectedFilterGeneral
             selectedFilter={selectedFilter}
             setSelectedFilter={setSelectedFilter}
           />
         </Grid>
-        <Grid xs justify={"center"} css={{ marginTop: "20px" }}>
-          {selectedFilter ? (
-            <ListProducts versions={versions} />
-          ) : (
-            <ListMantenciones manteciones={mantenciones} />
-          )}
-        </Grid>
       </Grid.Container>
+      <Container justify={"center"} css={{ marginTop: "20px" }}>
+        {selectedFilter ? (
+          <ListProducts versions={versions} />
+        ) : (
+          <ListMantenciones manteciones={mantenciones} />
+        )}
+      </Container>
 
       <ModalFilters />
     </Layout>
