@@ -7,7 +7,7 @@ export const DownloadIcon = () => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <circle cx="8.5" cy="8" r="7.25" stroke="#E0102C" stroke-width="1.5" />
+      <circle cx="8.5" cy="8" r="7.25" stroke="#E0102C" strokeWidth="1.5" />
       <line
         x1="8.58333"
         y1="4.75"
