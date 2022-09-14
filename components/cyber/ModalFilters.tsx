@@ -27,6 +27,8 @@ const ModalFilters: FC = () => {
     isDiesel,
     filterBrand,
     filterMantenciones,
+    setIndex,
+    setIndexMant,
     setFilterBrand,
     setFilterCombustible,
     setFilterCarClass,
@@ -133,6 +135,8 @@ const ModalFilters: FC = () => {
     setFilterCombustible(combustibleSelected);
     setFilterCarClass(categorySelected);
     setFilterMantenciones(mantencionesSelected);
+    setIndexMant(1);
+    setIndex(1);
     closeHandler();
   };
 
@@ -163,7 +167,7 @@ const ModalFilters: FC = () => {
               <Text h4>
                 {isMantenciones ? "¿Qué auto tienes?" : "Categorías"}
               </Text>
-              <Grid.Container gap={0.5} css={{ maxWidth: "340px" }}>
+              <Grid.Container gap={0.5} css={{ maxWidth: "390px" }}>
                 {categorias.map((categoria) => (
                   <Grid
                     xs={3}
@@ -171,6 +175,8 @@ const ModalFilters: FC = () => {
                     css={{
                       flexDirection: "column",
                       width: "72px",
+                      maxW: "88px",
+                      maxH: "88px",
                       height: "72px",
                     }}
                     justify="center"
@@ -259,7 +265,7 @@ const ModalFilters: FC = () => {
                 <Text h4 css={{ "@mdMax": { marginTop: "16px" } }}>
                   Marcas
                 </Text>
-                <Grid.Container gap={0.5} css={{ maxWidth: "340px" }}>
+                <Grid.Container gap={0.5} css={{ maxWidth: "390px" }}>
                   {marcas.map((marca) => (
                     <Grid
                       xs={3}

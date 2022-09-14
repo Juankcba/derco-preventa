@@ -43,7 +43,7 @@ const FilterNavBar = () => {
         <Grid.Container justify="flex-start">
           <Grid xs={1}>
             <Dropdown>
-              <Dropdown.Button flat light>
+              <Dropdown.Button light>
                 {order == "dsc" ? "Menor Precio" : "Mayor Precio"}
               </Dropdown.Button>
               <Dropdown.Menu

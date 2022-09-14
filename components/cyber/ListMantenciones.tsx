@@ -1,19 +1,41 @@
-import React, { useEffect, useState, useMemo, FC } from "react";
+import React, { useEffect, useState, useMemo, FC, useContext } from "react";
 import { Mantencion } from "../../interfaces";
 import { Grid, Card, Text, Row, styled, Button } from "@nextui-org/react";
 
 import MantencionCard from "./../mantencions/MantencionCard";
+
+import { FilterContext } from "../../context/filters/filterContext";
 interface Props {
   manteciones: Mantencion[];
 }
 
 const ListMantenciones: FC<Props> = ({ manteciones }) => {
+  const { order, indexOfMantenciones, setIndexMant } =
+    useContext(FilterContext);
   const [matencions, setMantencions] = useState(manteciones.slice(0, 4));
-  const [index, setIndex] = useState(1);
+
+  useEffect(() => {
+    if (order === "dsc") {
+      setMantencions(
+        matencions
+          .sort((a, b) => a.minPrice - b.minPrice)
+          .slice(0, 4 * indexOfMantenciones)
+      );
+    } else {
+      setMantencions(
+        matencions
+          .sort((a, b) => b.minPrice - a.minPrice)
+          .slice(0, 4 * indexOfMantenciones)
+      );
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [order, indexOfMantenciones]);
+
   const handleMore = () => {
-    let indexData = index + 1;
-    setMantencions(manteciones.slice(0, 4 * indexData));
-    setIndex(indexData);
+    let indexData = indexOfMantenciones + 1;
+
+    setIndexMant(indexData);
   };
   return (
     <Grid.Container

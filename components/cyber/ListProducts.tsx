@@ -15,27 +15,29 @@ interface Props {
 }
 
 const ListProducts: FC<Props> = ({ versions }) => {
-  const { order } = useContext(FilterContext);
+  const { order, indexOfCards, setIndex } = useContext(FilterContext);
   const [versiones, setVersiones] = useState(versions.slice(0, 4));
-  const [index, setIndex] = useState(1);
 
   useEffect(() => {
     if (order === "dsc") {
       setVersiones(
-        versions.sort((a, b) => a.minPrice - b.minPrice).slice(0, 4 * index)
+        versions
+          .sort((a, b) => a.minPrice - b.minPrice)
+          .slice(0, 4 * indexOfCards)
       );
     } else {
       setVersiones(
-        versions.sort((a, b) => b.minPrice - a.minPrice).slice(0, 4 * index)
+        versions
+          .sort((a, b) => b.minPrice - a.minPrice)
+          .slice(0, 4 * indexOfCards)
       );
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [order, index]);
+  }, [order, indexOfCards]);
 
   const handleMore = () => {
-    let indexData = index + 1;
-    setVersiones(versions.slice(0, 4 * indexData));
+    let indexData = indexOfCards + 1;
     setIndex(indexData);
   };
   return (
