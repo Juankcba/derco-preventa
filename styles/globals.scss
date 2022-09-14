@@ -1,0 +1,204 @@
+@import "./btn-styles.scss";
+@import "./cyber-styles.scss";
+@import "./swipper-styles.scss";
+* {
+  font-family: "Lato" !important;
+}
+
+.filter-card-category {
+  padding: 16px 6px 5px;
+  width: 72px;
+  height: 72px;
+
+  @media screen and (min-width: 768px) {
+    width: 72px;
+    height: 72px;
+  }
+}
+.filter-avatar {
+  background: #f6f5f5 !important;
+  .nextui-avatar-bg {
+    background: #f6f5f5 !important;
+  }
+  img {
+    padding: 6px;
+    background: #f6f5f5 !important;
+    object-fit: contain;
+  }
+}
+.img-name {
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 13px;
+  width: 100%;
+  text-align: center;
+  color: #000000;
+}
+.dreams-section {
+  .card-post {
+    max-width: 240px;
+    min-height: 200px;
+
+    .title {
+      font-family: "Lato";
+      font-style: normal;
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 125%;
+      color: #191919;
+    }
+    .description {
+      font-family: "Lato";
+      font-style: normal;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 16px;
+      color: #57585c;
+    }
+  }
+  .title {
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 25px;
+    line-height: 32px;
+    text-align: left;
+    color: #ffffff;
+    width: 100%;
+    margin-bottom: 0;
+    @media screen and (min-width: 1281px) {
+      text-align: center;
+    }
+  }
+  .subtitle {
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    letter-spacing: 0.01em;
+    color: #ffffff;
+    @media screen and (min-width: 1281px) {
+      text-align: center;
+    }
+  }
+}
+.banner-finder {
+  .title {
+    width: 100%;
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 800;
+    font-size: 14px;
+    line-height: 17px;
+    letter-spacing: 0.01em;
+    color: #f6f5f5;
+    text-align: center;
+    margin-bottom: 16px;
+  }
+  .subtitle {
+    width: 100%;
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    letter-spacing: 0.01em;
+    color: #f6f5f5;
+    text-align: center;
+    margin-bottom: 24px;
+  }
+}
+
+.navbar-filter-bottom {
+  .nextui-navbar-container {
+    background: white !important;
+  }
+}
+
+.footer-container {
+  background: #191919;
+  padding: 40px 24px;
+  height: fit-content;
+  .title {
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0.01em;
+    color: #ffffff;
+    margin-bottom: 4px;
+  }
+  .subtitle {
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 24px;
+    color: #ffffff;
+  }
+  .phone-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 21px;
+    @media screen and (min-width: 1282px) {
+      flex-direction: column;
+    }
+  }
+  .link-content {
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 30px;
+    color: #a4a4a6;
+  }
+  .socials {
+    display: flex;
+    flex-direction: column;
+    margin: 20px 0;
+
+    @media screen and (min-width: 1282px) {
+      margin: 0;
+    }
+    .social-links {
+      font-family: "Lato";
+      font-style: normal;
+      font-weight: 700;
+      font-size: 16px;
+      line-height: 24px;
+      letter-spacing: 0.01em;
+      color: #ffffff;
+    }
+  }
+  .spacer-2 {
+    width: 100%;
+    border: 1px solid #a4a4a6;
+    margin: 20px auto;
+    @media screen and (min-width: 1282px) {
+      display: none;
+    }
+  }
+  .spacer-1 {
+    height: 1px;
+    width: 100%;
+    background: #a4a4a6;
+    margin: 0 auto;
+    @media screen and (min-width: 1282px) {
+      margin-top: 20px;
+    }
+  }
+  .text-copy {
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+
+    color: #a4a4a6;
+    margin: 24px 0;
+  }
+}
