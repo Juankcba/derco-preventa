@@ -5,6 +5,8 @@ export interface filterState {
   filterCarClass: number[];
   filterBrand: number[];
   filterMantenciones: string;
+  indexOfCards: number;
+  indexOfMantenciones: number;
   order: string;
   isDiesel: boolean;
 }
@@ -14,6 +16,8 @@ const FILTERS_INITIAL_STATE: filterState = {
   filterCarClass: [],
   filterBrand: [],
   filterMantenciones: "10mil",
+  indexOfCards: 1,
+  indexOfMantenciones: 1,
   order: "dsc",
   isDiesel: true,
 };
@@ -57,6 +61,18 @@ export const FilterProvider: FC<PropsWithChildren> = ({ children }) => {
       payload: state,
     });
   };
+  const setIndex = (state: number) => {
+    dispatch({
+      type: "[Filters] - Update Index Cards",
+      payload: state,
+    });
+  };
+  const setIndexMant = (state: number) => {
+    dispatch({
+      type: "[Filters] - Update Index Cards Mantenciones",
+      payload: state,
+    });
+  };
 
   return (
     <FilterContext.Provider
@@ -69,6 +85,8 @@ export const FilterProvider: FC<PropsWithChildren> = ({ children }) => {
         setFilterBrand,
         setFilterCombustible,
         setFilterOrder,
+        setIndex,
+        setIndexMant,
         setFilterMantenciones,
       }}
     >

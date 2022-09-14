@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useMemo, FC } from "react";
 import { Mantencion } from "../../interfaces";
 import { Grid, Card, Text, Row, styled, Button } from "@nextui-org/react";
+
 import MantencionCard from "./../mantencions/MantencionCard";
 interface Props {
   manteciones: Mantencion[];

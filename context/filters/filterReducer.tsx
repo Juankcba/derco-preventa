@@ -24,6 +24,14 @@ type FilterActionType =
   | {
       type: "[Filters] - Update Mantenciones Filter";
       payload: string;
+    }
+  | {
+      type: "[Filters] - Update Index Cards";
+      payload: number;
+    }
+  | {
+      type: "[Filters] - Update Index Cards Mantenciones";
+      payload: number;
     };
 
 export const filterReducer = (
@@ -61,6 +69,16 @@ export const filterReducer = (
       return {
         ...state,
         filterMantenciones: action.payload,
+      };
+    case "[Filters] - Update Index Cards":
+      return {
+        ...state,
+        indexOfCards: action.payload,
+      };
+    case "[Filters] - Update Index Cards Mantenciones":
+      return {
+        ...state,
+        indexOfMantenciones: action.payload,
       };
 
     default:
