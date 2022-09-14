@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, FC } from "react";
+import React, { useEffect, useMemo, FC, useContext } from "react";
 import { NextPage, GetStaticProps } from "next";
 
 import { Version, VersionResponse } from "../../interfaces";
@@ -8,14 +8,31 @@ import { Grid, Card, Text, Row, styled, Button } from "@nextui-org/react";
 import { cmsApi } from "../../apis";
 import Filters from "../ui/Filters";
 import VersionCard from "./../cars/VersionCard";
+import { FilterContext } from "./../../context/filters/filterContext";
 
 interface Props {
   versions: Version[];
 }
 
 const ListProducts: FC<Props> = ({ versions }) => {
+  const { order } = useContext(FilterContext);
   const [versiones, setVersiones] = useState(versions.slice(0, 4));
   const [index, setIndex] = useState(1);
+
+  useEffect(() => {
+    if (order === "dsc") {
+      setVersiones(
+        versions.sort((a, b) => a.minPrice - b.minPrice).slice(0, 4 * index)
+      );
+    } else {
+      setVersiones(
+        versions.sort((a, b) => b.minPrice - a.minPrice).slice(0, 4 * index)
+      );
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [order, index]);
+
   const handleMore = () => {
     let indexData = index + 1;
     setVersiones(versions.slice(0, 4 * indexData));

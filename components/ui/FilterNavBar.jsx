@@ -10,6 +10,7 @@ import {
   Link,
   Row,
   Spacer,
+  Dropdown,
 } from "@nextui-org/react";
 
 import { UiContext, FilterContext } from "../../context";
@@ -17,7 +18,8 @@ import { FilterIcon } from "./FilterIcon";
 
 const FilterNavBar = () => {
   const { setVisible } = useContext(UiContext);
-  const { isMantenciones, setMantencionesState } = useContext(FilterContext);
+  const { isMantenciones, order, setFilterOrder, setMantencionesState } =
+    useContext(FilterContext);
 
   const handleClick = (state) => {
     setMantencionesState(state);
@@ -40,9 +42,20 @@ const FilterNavBar = () => {
       >
         <Grid.Container justify="flex-start">
           <Grid xs={1}>
-            <select>
-              <option>Holi</option>
-            </select>
+            <Dropdown>
+              <Dropdown.Button flat light>
+                {order == "dsc" ? "Menor Precio" : "Mayor Precio"}
+              </Dropdown.Button>
+              <Dropdown.Menu
+                aria-label="Order Actions"
+                selectionMode="single"
+                selectedKeys={order}
+                onSelectionChange={(e) => setFilterOrder(e.currentKey)}
+              >
+                <Dropdown.Item key="dsc">Menor precio</Dropdown.Item>
+                <Dropdown.Item key="asc">Mayor precio</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
           </Grid>
           <Grid xs={4}>
             <Row className="btn-group">
