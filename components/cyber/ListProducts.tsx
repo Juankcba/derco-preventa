@@ -10,7 +10,7 @@ import Filters from "../ui/Filters";
 import VersionCard from "./../cars/VersionCard";
 import { FilterContext } from "./../../context/filters/filterContext";
 import { categorias, marcas } from "../../database/constants";
-import { Version } from "../../interfaces/version-full";
+
 interface Props {
   versions: Version[];
 }
