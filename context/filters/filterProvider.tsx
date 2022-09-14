@@ -19,7 +19,7 @@ const FILTERS_INITIAL_STATE: filterState = {
   indexOfCards: 1,
   indexOfMantenciones: 1,
   order: "dsc",
-  isDiesel: true,
+  isDiesel: false,
 };
 
 export const FilterProvider: FC<PropsWithChildren> = ({ children }) => {

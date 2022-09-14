@@ -9,32 +9,119 @@ import { cmsApi } from "../../apis";
 import Filters from "../ui/Filters";
 import VersionCard from "./../cars/VersionCard";
 import { FilterContext } from "./../../context/filters/filterContext";
-
+import { categorias, marcas } from "../../database/constants";
+import { Version } from "../../interfaces/version-full";
 interface Props {
   versions: Version[];
 }
 
 const ListProducts: FC<Props> = ({ versions }) => {
-  const { order, indexOfCards, setIndex } = useContext(FilterContext);
+  const {
+    order,
+    filterCarClass,
+    filterBrand,
+    isDiesel,
+    indexOfCards,
+    setIndex,
+  } = useContext(FilterContext);
   const [versiones, setVersiones] = useState(versions.slice(0, 4));
 
   useEffect(() => {
+    let auxResultados: Version[] = versions;
+    console.log("filters", filterCarClass);
+
+    if (filterCarClass.length > 0) {
+      let categoriasFilter: string[] = [];
+      categorias.forEach((element) => {
+        filterCarClass.forEach((id) => {
+          if (element.id === id) {
+            categoriasFilter.push(element.name);
+          }
+        });
+      });
+
+      let aux: Version[] = [];
+
+      auxResultados.forEach((auxV) => {
+        categoriasFilter.forEach((filtro) => {
+          if (auxV.model.carClass.filter((mcC) => mcC === filtro).length > 0) {
+            aux.push(auxV);
+          }
+        });
+      });
+      auxResultados = aux;
+    }
+    if (filterBrand.length > 0) {
+      let brandsFilter: string[] = [];
+      marcas.forEach((element) => {
+        filterBrand.forEach((id) => {
+          if (element.id === id) {
+            brandsFilter.push(element.name);
+          }
+        });
+      });
+
+      let aux: Version[] = [];
+
+      auxResultados.forEach((auxV) => {
+        brandsFilter.forEach((filtro) => {
+          if (auxV.model.brandName === filtro) {
+            aux.push(auxV);
+          }
+        });
+      });
+      console.log(
+        "brandsFilter",
+        brandsFilter,
+        versions.map((v) => v.model.brandName)
+      );
+      auxResultados = aux;
+    }
+    if (filterBrand.length > 0) {
+      let brandsFilter: string[] = [];
+      marcas.forEach((element) => {
+        filterBrand.forEach((id) => {
+          if (element.id === id) {
+            brandsFilter.push(element.name);
+          }
+        });
+      });
+
+      let aux: Version[] = [];
+
+      auxResultados.forEach((auxV) => {
+        brandsFilter.forEach((filtro) => {
+          if (auxV.model.brandName === filtro) {
+            aux.push(auxV);
+          }
+        });
+      });
+
+      auxResultados = aux;
+    }
+
+    if (isDiesel) {
+      auxResultados = auxResultados.filter((auxV) => auxV.fuel == "diesel");
+    } else {
+      auxResultados = auxResultados.filter((auxV) => auxV.fuel != "diesel");
+    }
+
     if (order === "dsc") {
       setVersiones(
-        versions
+        auxResultados
           .sort((a, b) => a.minPrice - b.minPrice)
           .slice(0, 4 * indexOfCards)
       );
     } else {
       setVersiones(
-        versions
+        auxResultados
           .sort((a, b) => b.minPrice - a.minPrice)
           .slice(0, 4 * indexOfCards)
       );
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [order, indexOfCards]);
+  }, [order, indexOfCards, filterCarClass, filterBrand, isDiesel]);
 
   const handleMore = () => {
     let indexData = indexOfCards + 1;
