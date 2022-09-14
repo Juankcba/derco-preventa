@@ -1,0 +1,19 @@
+.modal-custom {
+  max-width: 100vw;
+  width: 1200px;
+  min-width: 90vw;
+  justify-self: center;
+  margin: 0 auto;
+  vertical-align: bottom;
+  .nextui-backdrop-content {
+    max-width: 1200px !important;
+  }
+  @media screen and (max-width: 1281px) {
+    max-height: 98vh;
+    max-width: 100vw;
+    top: -1vh;
+    left: 0;
+    padding: 0;
+    margin: 0;
+  }
+}

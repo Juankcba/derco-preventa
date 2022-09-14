@@ -49,6 +49,7 @@ const ListProducts: FC<Props> = ({ versions }) => {
           }
         });
       });
+
       auxResultados = aux;
     }
     if (filterBrand.length > 0) {
@@ -56,7 +57,7 @@ const ListProducts: FC<Props> = ({ versions }) => {
       marcas.forEach((element) => {
         filterBrand.forEach((id) => {
           if (element.id === id) {
-            brandsFilter.push(element.name);
+            brandsFilter.push(element.slug);
           }
         });
       });
@@ -65,7 +66,8 @@ const ListProducts: FC<Props> = ({ versions }) => {
 
       auxResultados.forEach((auxV) => {
         brandsFilter.forEach((filtro) => {
-          if (auxV.model.brandName === filtro) {
+          if (auxV.model.brandName == filtro) {
+            console.log("este");
             aux.push(auxV);
           }
         });
@@ -73,33 +75,12 @@ const ListProducts: FC<Props> = ({ versions }) => {
       console.log(
         "brandsFilter",
         brandsFilter,
-        versions.map((v) => v.model.brandName)
+        auxResultados.filter((v) => v.model.brandName == brandsFilter[0])
       );
       auxResultados = aux;
     }
-    if (filterBrand.length > 0) {
-      let brandsFilter: string[] = [];
-      marcas.forEach((element) => {
-        filterBrand.forEach((id) => {
-          if (element.id === id) {
-            brandsFilter.push(element.name);
-          }
-        });
-      });
 
-      let aux: Version[] = [];
-
-      auxResultados.forEach((auxV) => {
-        brandsFilter.forEach((filtro) => {
-          if (auxV.model.brandName === filtro) {
-            aux.push(auxV);
-          }
-        });
-      });
-
-      auxResultados = aux;
-    }
-
+    console.log("aUx", auxResultados);
     if (isDiesel) {
       auxResultados = auxResultados.filter((auxV) => auxV.fuel == "diesel");
     } else {

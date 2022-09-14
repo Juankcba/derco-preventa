@@ -97,8 +97,8 @@ const ModalFilters: FC = () => {
 
   return (
     <Modal
-      scroll
-      fullScreen
+      fullScreen={window?.screen?.width <= 1281 ? true : false}
+      width="100%"
       closeButton
       aria-labelledby="filters"
       aria-describedby="modal-filters"
