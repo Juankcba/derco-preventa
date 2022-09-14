@@ -231,7 +231,9 @@ const ModalFilters: FC = () => {
                   width: "100%",
                 }}
               >
-                <Text h4>¿Que mantención te corresponde?</Text>
+                <Text h4 css={{ "@mdMax": { marginTop: "16px" } }}>
+                  ¿Que mantención te corresponde?
+                </Text>
                 <Radio.Group
                   orientation="horizontal"
                   onChange={setMantencionesSelected}
@@ -254,7 +256,7 @@ const ModalFilters: FC = () => {
                   width: "100%",
                 }}
               >
-                <Text h4 css={{ marginTop: "16px" }}>
+                <Text h4 css={{ "@mdMax": { marginTop: "16px" } }}>
                   Marcas
                 </Text>
                 <Grid.Container gap={0.5} css={{ maxWidth: "340px" }}>
@@ -313,7 +315,7 @@ const ModalFilters: FC = () => {
                   width: "100%",
                 }}
               >
-                <Text h4 css={{ marginTop: "16px" }}>
+                <Text h4 css={{ "@mdMax": { marginTop: "16px" } }}>
                   Tipo de combustible
                 </Text>
                 <Radio.Group
