@@ -227,7 +227,7 @@ const ModalFilters: FC = () => {
               ¿Que mantención te corresponde?
             </Text>
             <Radio.Group
-              orientation={!modalMobile && "horizontal"}
+              orientation={!modalMobile ? "horizontal" : "vertical"}
               onChange={handleMantenciones}
               value={mantencionesSelected}
             >
