@@ -10,8 +10,14 @@ interface Props {
 }
 
 const ListMantenciones: FC<Props> = ({ manteciones }) => {
-  const { order, indexOfMantenciones, resultadosMantenciones, setIndexMant } =
-    useContext(FilterContext);
+  const {
+    scrollChange,
+    order,
+    indexOfMantenciones,
+    resultadosMantenciones,
+    setScrollChange,
+    setIndexMant,
+  } = useContext(FilterContext);
   const [matencions, setMantencions] = useState(manteciones.slice(0, 4));
 
   useEffect(() => {
@@ -33,8 +39,12 @@ const ListMantenciones: FC<Props> = ({ manteciones }) => {
   }, [order, indexOfMantenciones]);
 
   useEffect(() => {
-    window?.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-  }, [resultadosMantenciones]);
+    if (scrollChange) {
+      window?.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+      setScrollChange(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [scrollChange]);
 
   const handleMore = () => {
     let indexData = indexOfMantenciones + 1;
@@ -69,7 +79,11 @@ const ListMantenciones: FC<Props> = ({ manteciones }) => {
         </Grid>
       ))}
       <Grid xs={12} justify="center" css={{ marginTop: "16px" }}>
-        <Button onClick={handleMore} className="btn-secondary">
+        <Button
+          onClick={handleMore}
+          color="secondary"
+          className="btn-secondary"
+        >
           Ver más
         </Button>
       </Grid>
