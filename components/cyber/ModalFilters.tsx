@@ -39,6 +39,7 @@ const ModalFilters: FC = () => {
     setFilterCombustible,
     setFilterCarClass,
     setFilterMantenciones,
+    setScrollChange,
   } = useContext(FilterContext);
   const [categorySelected, setCategorySelected] = useState(
     filterCarClass as number[]
@@ -63,6 +64,7 @@ const ModalFilters: FC = () => {
   const closeHandler = () => {
     if (resultadosVersiones.length > 0) {
       setVisible(false);
+      setScrollChange(true);
     }
   };
 

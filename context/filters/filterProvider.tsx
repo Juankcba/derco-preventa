@@ -2,6 +2,7 @@ import { FC, useEffect, useReducer, PropsWithChildren } from "react";
 import { Mantencion, Version } from "../../interfaces";
 import { filterReducer, FilterContext } from "./";
 export interface filterState {
+  scrollChange: boolean;
   resultadosVersiones: Version[];
   resultadosMantenciones: Mantencion[];
   isMantenciones: boolean;
@@ -15,6 +16,7 @@ export interface filterState {
 }
 
 const FILTERS_INITIAL_STATE: filterState = {
+  scrollChange: false,
   resultadosVersiones: [],
   resultadosMantenciones: [],
   isMantenciones: false,
@@ -90,6 +92,12 @@ export const FilterProvider: FC<PropsWithChildren> = ({ children }) => {
       payload: state,
     });
   };
+  const setScrollChange = (state: boolean) => {
+    dispatch({
+      type: "[Filters] - Update Scroll State",
+      payload: state,
+    });
+  };
 
   return (
     <FilterContext.Provider
@@ -107,6 +115,7 @@ export const FilterProvider: FC<PropsWithChildren> = ({ children }) => {
         setIndex,
         setIndexMant,
         setFilterMantenciones,
+        setScrollChange,
       }}
     >
       {children}

@@ -23,6 +23,8 @@ const ListProducts: FC<Props> = ({ versions }) => {
     isDiesel,
     indexOfCards,
     resultadosVersiones,
+    scrollChange,
+    setScrollChange,
     setResultadosVersiones,
     setIndex,
   } = useContext(FilterContext);
@@ -104,8 +106,12 @@ const ListProducts: FC<Props> = ({ versions }) => {
   }, [order, indexOfCards, filterCarClass, filterBrand, isDiesel]);
 
   useEffect(() => {
-    window?.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-  }, [resultadosVersiones]);
+    if (scrollChange) {
+      window?.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+      setScrollChange(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [scrollChange]);
 
   const handleMore = () => {
     let indexData = indexOfCards + 1;

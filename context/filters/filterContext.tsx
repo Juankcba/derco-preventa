@@ -2,6 +2,7 @@ import { createContext } from "react";
 import { Mantencion, Version } from "../../interfaces";
 
 interface ContextProps {
+  scrollChange: boolean;
   resultadosVersiones: Version[];
   resultadosMantenciones: Mantencion[];
   isMantenciones: boolean;
@@ -14,6 +15,7 @@ interface ContextProps {
   order: string;
 
   // Methods
+  setScrollChange: (state: boolean) => void;
   setResultadosVersiones: (state: Version[]) => void;
   setResultadosMantenciones: (state: Mantencion[]) => void;
   setMantencionesState: (state: boolean) => void;

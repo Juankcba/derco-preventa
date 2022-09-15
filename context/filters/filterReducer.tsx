@@ -41,6 +41,10 @@ type FilterActionType =
   | {
       type: "[Filters] - Update Resultados Mantenciones";
       payload: Mantencion[];
+    }
+  | {
+      type: "[Filters] - Update Scroll State";
+      payload: boolean;
     };
 
 export const filterReducer = (
@@ -98,6 +102,11 @@ export const filterReducer = (
       return {
         ...state,
         resultadosMantenciones: action.payload,
+      };
+    case "[Filters] - Update Scroll State":
+      return {
+        ...state,
+        scrollChange: action.payload,
       };
 
     default:
