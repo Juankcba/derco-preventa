@@ -10,7 +10,7 @@ interface Props {
 }
 
 const ListMantenciones: FC<Props> = ({ manteciones }) => {
-  const { order, indexOfMantenciones, setIndexMant } =
+  const { order, indexOfMantenciones, resultadosMantenciones, setIndexMant } =
     useContext(FilterContext);
   const [matencions, setMantencions] = useState(manteciones.slice(0, 4));
 
@@ -31,6 +31,10 @@ const ListMantenciones: FC<Props> = ({ manteciones }) => {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [order, indexOfMantenciones]);
+
+  useEffect(() => {
+    window?.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  }, [resultadosMantenciones]);
 
   const handleMore = () => {
     let indexData = indexOfMantenciones + 1;

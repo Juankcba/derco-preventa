@@ -43,6 +43,7 @@ const VersionCard: FC<Props> = ({ version }) => {
           height={126}
           alt={version.image.url}
           objectFit="contain"
+          id={version.image.url}
           css={{
             "@mdMax": {
               height: "78px",
@@ -97,9 +98,17 @@ const VersionCard: FC<Props> = ({ version }) => {
           </Text>
           {version.prices[1].diff > 0 && (
             <Text className="price-bonus" color="#e0102c">
-              Bono marca:
+              Bono cyber:
               <span style={{ paddingLeft: "0.25rem" }}>
                 {currency.format(version.prices[1].diff)}
+              </span>
+            </Text>
+          )}
+          {version.prices[2].diff > 0 && (
+            <Text className="price-bonus" color="#e0102c">
+              Bono financiamiento:
+              <span style={{ paddingLeft: "0.25rem" }}>
+                {currency.format(version.prices[2].diff)}
               </span>
             </Text>
           )}
@@ -111,7 +120,8 @@ const VersionCard: FC<Props> = ({ version }) => {
           <Button
             auto
             type="button"
-            light
+            color="primary"
+            disabled={stock == 0 ? true : false}
             css={{
               width: "100%",
               backgroundColor: "#e0102c",

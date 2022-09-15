@@ -9,29 +9,10 @@ const HomeBanner = () => {
   return (
     <Grid.Container className="banner-cyber">
       <Grid
-        md={6}
-        css={{
-          flexDirection: "column",
-          "@mdMax": {
-            display: "none",
-          },
-        }}
-      >
-        <Text h1 css={{ color: "white", textAlign: "left" }}>
-          CyberDerco
-        </Text>
-        <Text h3 css={{ color: "white", textAlign: "left" }}>
-          Nuestro sueño es que vos encuentres el tuyo
-        </Text>
-      </Grid>
-      <Grid
         xs={12}
-        md={6}
         css={{
-          "@mdMax": {
-            width: "100%",
-            justifyContent: "flex-end",
-          },
+          width: "100%",
+          justifyContent: "center",
         }}
       >
         <div className="cyber-logos">

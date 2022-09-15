@@ -22,6 +22,7 @@ const ListProducts: FC<Props> = ({ versions }) => {
     filterBrand,
     isDiesel,
     indexOfCards,
+    resultadosVersiones,
     setResultadosVersiones,
     setIndex,
   } = useContext(FilterContext);
@@ -102,6 +103,10 @@ const ListProducts: FC<Props> = ({ versions }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [order, indexOfCards, filterCarClass, filterBrand, isDiesel]);
 
+  useEffect(() => {
+    window?.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  }, [resultadosVersiones]);
+
   const handleMore = () => {
     let indexData = indexOfCards + 1;
     setIndex(indexData);
@@ -112,6 +117,7 @@ const ListProducts: FC<Props> = ({ versions }) => {
       justify="flex-start"
       css={{
         padding: 0,
+        "@mdMax": { maxWidth: "340px", margin: "0 auto" },
         "@mdMin": {
           maxWidth: "1080px",
           margin: "0 auto",
@@ -133,7 +139,13 @@ const ListProducts: FC<Props> = ({ versions }) => {
           <VersionCard version={version} />
         </Grid>
       ))}
-      <Grid xs={12} justify="center" css={{ marginTop: "16px" }}>
+      <Grid
+        xs={12}
+        justify="center"
+        css={{
+          marginTop: "16px",
+        }}
+      >
         {versiones.length > 0 && (
           <Button
             onClick={handleMore}
