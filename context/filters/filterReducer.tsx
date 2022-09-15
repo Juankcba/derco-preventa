@@ -92,7 +92,7 @@ export const filterReducer = (
     case "[Filters] - Update Resultados Versiones":
       return {
         ...state,
-        resultados: action.payload,
+        resultadosVersiones: action.payload,
       };
     case "[Filters] - Update Resultados Mantenciones":
       return {

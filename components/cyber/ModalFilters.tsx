@@ -32,6 +32,7 @@ const ModalFilters: FC = () => {
     isDiesel,
     filterBrand,
     filterMantenciones,
+    resultadosVersiones,
     setIndex,
     setIndexMant,
     setFilterBrand,
@@ -76,6 +77,7 @@ const ModalFilters: FC = () => {
       }
     }
     setCategorySelected(aux);
+    setFilterCarClass(aux);
   };
   const handleFilterBrand = (id: number) => {
     let aux = [];
@@ -89,20 +91,24 @@ const ModalFilters: FC = () => {
       }
     }
     setMarcasSelected(aux);
+    setFilterBrand(aux);
   };
   const handleCombustible = (state: any) => {
     if (state == "diesel") {
       setCombustibleSelected(true);
+      setFilterCombustible(true);
     } else {
       setCombustibleSelected(false);
+      setFilterCombustible(false);
     }
   };
 
+  const handleMantenciones = (state: string) => {
+    setMantencionesSelected(state);
+    setFilterMantenciones(state);
+  };
+
   const handleFilters = () => {
-    setFilterBrand(marcasSelected);
-    setFilterCombustible(combustibleSelected);
-    setFilterCarClass(categorySelected);
-    setFilterMantenciones(mantencionesSelected);
     setIndexMant(1);
     setIndex(1);
     closeHandler();
@@ -211,7 +217,7 @@ const ModalFilters: FC = () => {
             </Text>
             <Radio.Group
               orientation="horizontal"
-              onChange={setMantencionesSelected}
+              onChange={handleMantenciones}
               value={mantencionesSelected}
             >
               <Radio value="10mil">10mil Km</Radio>
@@ -317,9 +323,9 @@ const ModalFilters: FC = () => {
             auto
             onClick={closeHandler}
             className="btn-primary big"
-            iconRight={<FilterIcon />}
+            isDisabled={resultadosVersiones.length === 0 ? true : false}
           >
-            Ver Filtros
+            Ver ({resultadosVersiones.length}) Autos
           </Button>
         </Grid>
       </Grid.Container>

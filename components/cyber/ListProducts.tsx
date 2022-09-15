@@ -22,9 +22,12 @@ const ListProducts: FC<Props> = ({ versions }) => {
     filterBrand,
     isDiesel,
     indexOfCards,
+    setResultadosVersiones,
     setIndex,
   } = useContext(FilterContext);
   const [versiones, setVersiones] = useState(versions.slice(0, 4));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useMemo(() => setResultadosVersiones(versions), [versions]);
 
   useEffect(() => {
     let auxResultados: Version[] = versions;
@@ -100,6 +103,7 @@ const ListProducts: FC<Props> = ({ versions }) => {
           .slice(0, 4 * indexOfCards)
       );
     }
+    setResultadosVersiones(auxResultados);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [order, indexOfCards, filterCarClass, filterBrand, isDiesel]);

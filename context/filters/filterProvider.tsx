@@ -2,7 +2,7 @@ import { FC, useEffect, useReducer, PropsWithChildren } from "react";
 import { Mantencion, Version } from "../../interfaces";
 import { filterReducer, FilterContext } from "./";
 export interface filterState {
-  resultados: Version[];
+  resultadosVersiones: Version[];
   resultadosMantenciones: Mantencion[];
   isMantenciones: boolean;
   filterCarClass: number[];
@@ -15,7 +15,7 @@ export interface filterState {
 }
 
 const FILTERS_INITIAL_STATE: filterState = {
-  resultados: [],
+  resultadosVersiones: [],
   resultadosMantenciones: [],
   isMantenciones: false,
   filterCarClass: [],
@@ -78,7 +78,7 @@ export const FilterProvider: FC<PropsWithChildren> = ({ children }) => {
       payload: state,
     });
   };
-  const setResultados = (state: Version[]) => {
+  const setResultadosVersiones = (state: Version[]) => {
     dispatch({
       type: "[Filters] - Update Resultados Versiones",
       payload: state,
@@ -97,7 +97,7 @@ export const FilterProvider: FC<PropsWithChildren> = ({ children }) => {
         ...state,
 
         // Methods
-        setResultados,
+        setResultadosVersiones,
         setResultadosMantenciones,
         setMantencionesState,
         setFilterCarClass,
