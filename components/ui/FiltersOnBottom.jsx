@@ -12,7 +12,7 @@ const FiltersOnBottom = () => {
   };
 
   return (
-    <Grid.Container justify="flex-start">
+    <Grid.Container justify="flex-start" css={{ alignContent: "center" }}>
       <Grid xs={1}>
         <Dropdown>
           <Dropdown.Button light>

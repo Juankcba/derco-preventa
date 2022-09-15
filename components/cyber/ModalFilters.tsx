@@ -120,25 +120,24 @@ const ModalFilters: FC = () => {
   return (
     <Container
       justify="flex-start"
-      css={{ padding: "0 20px 20px", flexDirection: "column" }}
+      css={{ padding: "10px 1px 20px", flexDirection: "column" }}
     >
-      <div className="modal-top-spacer"></div>
       <div
         style={{
+          width: "100%",
+          paddingRight: "20px",
           display: "flex",
           justifyContent: "flex-end",
-          padding: "0",
         }}
       >
-        <Button
-          icon={<CloseIcon fill="currentColor" />}
-          light
-          onClick={closeHandler}
-        ></Button>
+        <CloseIcon onClick={closeHandler} />
       </div>
-      <Text h1>Filtros</Text>
-      <Text>Puedes seleccionar mas de una opción de filtro.</Text>
-      <Grid.Container>
+
+      <Grid.Container css={{ padding: "20px 40px 40px" }}>
+        <Grid xs={12} css={{ flexDirection: "column" }}>
+          <Text h1>Filtros</Text>
+          <Text>Puedes seleccionar mas de una opción de filtro.</Text>
+        </Grid>
         <Grid
           xs={12}
           md={4}
@@ -312,10 +311,12 @@ const ModalFilters: FC = () => {
           </Grid>
         )}
       </Grid.Container>
-      <div className="spacer-1"></div>
+
       <Grid.Container
         css={{
-          padding: "20px 0",
+          padding: "16px 10px",
+          border: "1px solid #000",
+          borderRadius: "14px",
         }}
       >
         <Grid

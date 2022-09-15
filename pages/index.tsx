@@ -81,7 +81,10 @@ const HomePage: NextPage<PropsWithChildren<Props>> = ({ versions }) => {
   ];
 
   return (
-    <Layout title="CiberMonday | DercoCenter">
+    <Layout
+      title="CiberMonday | DercoCenter"
+      titleNavbar="Preguntas Frecuentes"
+    >
       <HomeBanner />
       <Grid.Container css={{ margin: "0" }}>
         <Grid xs={12} justify={"center"} css={{ paddingTop: "20px" }}>

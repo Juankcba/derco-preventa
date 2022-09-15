@@ -33,8 +33,8 @@ const SelectedFilterGeneral: FC = () => {
           className="text-reserva"
           css={{ color: "white", textAlign: "center" }}
         >
-          Todas las reservas son <span className="span-solo">SOLO</span> por{" "}
-          {currency.format(200000)}
+          Todas las reservas son <span className="span-solo red">SOLO</span> por{" "}
+          <span className="span-solo">{currency.format(200000)}</span>
         </Text>
       ) : (
         <>
@@ -42,7 +42,8 @@ const SelectedFilterGeneral: FC = () => {
             className="text-reserva"
             css={{ color: "white", textAlign: "center" }}
           >
-            Consigue <strong> mantención</strong> para tu auto
+            Consigue <strong className="span-solo"> mantención</strong> para tu
+            auto
           </Text>
           <Button
             color="secondary"

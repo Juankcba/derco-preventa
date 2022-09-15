@@ -57,6 +57,7 @@ const ListMantenciones: FC<Props> = ({ manteciones }) => {
       justify="flex-start"
       css={{
         padding: 0,
+        "@mdMax": { maxWidth: "340px", margin: "0 auto" },
         "@mdMin": {
           maxWidth: "1080px",
           margin: "0 auto",

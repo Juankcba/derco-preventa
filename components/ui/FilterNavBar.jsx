@@ -16,7 +16,7 @@ import {
 import { UiContext, FilterContext } from "../../context";
 import { FilterIcon } from "./FilterIcon";
 import ModalFilters from "../cyber/ModalFilters";
-import { Drawer } from "@mui/material";
+import { Drawer, SwipeableDrawer } from "@mui/material";
 import FiltersOnBottom from "./FiltersOnBottom";
 
 const FilterNavBar = () => {
@@ -32,6 +32,10 @@ const FilterNavBar = () => {
     setVisible(!isModalOpen);
   };
 
+  const iOS =
+    typeof navigator !== "undefined" &&
+    /iPad|iPhone|iPod/.test(navigator.userAgent);
+
   return (
     <Navbar
       isBordered
@@ -41,9 +45,16 @@ const FilterNavBar = () => {
     >
       {isModalOpen && (
         <Navbar.Content>
-          <Drawer anchor={"bottom"} open={true} onClose={handler}>
+          <SwipeableDrawer
+            disableBackdropTransition={!iOS}
+            disableDiscovery={iOS}
+            anchor={"bottom"}
+            open={true}
+            onClose={handler}
+            className="nav-drawer-bottom"
+          >
             <ModalFilters />
-          </Drawer>
+          </SwipeableDrawer>
         </Navbar.Content>
       )}
       <Navbar.Content
@@ -53,7 +64,9 @@ const FilterNavBar = () => {
         <FiltersOnBottom />
       </Navbar.Content>
 
-      <Navbar.Content css={{ width: "100%", "@mdMin": { width: "200px" } }}>
+      <Navbar.Content
+        css={{ width: "100%", padding: "0 10px", "@mdMin": { width: "200px" } }}
+      >
         <Button
           auto
           onClick={handler}

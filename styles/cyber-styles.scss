@@ -22,7 +22,14 @@
   font-size: 20px;
   line-height: 24px;
   text-align: center;
-  color: #e0102c;
+  
+  &.red{
+    color: #e0102c;
+  }
+  @media screen and (min-width: 1280px) {
+    font-size: 32px;
+    line-height: 38px;
+  }
 }
 .banner-cyber {
   padding: 0;

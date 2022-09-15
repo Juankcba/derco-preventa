@@ -24,6 +24,7 @@ interface Props {
   title?: string;
   pageDescription?: string;
   image?: string;
+  titleNavbar?: string;
 }
 
 const origin = typeof window === "undefined" ? "" : window.location.origin;
@@ -31,6 +32,7 @@ const origin = typeof window === "undefined" ? "" : window.location.origin;
 export const Layout: FC<PropsWithChildren<Props>> = ({
   children,
   title,
+  titleNavbar,
   pageDescription,
   image,
 }) => {
@@ -43,7 +45,7 @@ export const Layout: FC<PropsWithChildren<Props>> = ({
       }}
     >
       <Head>
-        <title>{title || "PokemonApp"}</title>
+        <title>{title || "DercoCenter"}</title>
         <meta name="author" content="Soho" />
         <meta name="description" content={pageDescription || ` | ${title}`} />
         <meta name="keywords" content={`${title}, autos, dercocenter`} />
@@ -56,7 +58,7 @@ export const Layout: FC<PropsWithChildren<Props>> = ({
         <meta property="og:image" content={image || `${origin}/logo.png`} />
       </Head>
 
-      <NavBarCustom />
+      <NavBarCustom titlePage={titleNavbar} />
 
       <main
         style={{
