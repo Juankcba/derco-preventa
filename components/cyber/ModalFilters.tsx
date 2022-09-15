@@ -45,6 +45,16 @@ const ModalFilters: FC = () => {
   const [combustibleSelected, setCombustibleSelected] = useState(
     isDiesel as boolean
   );
+  const [modalMobile , setModalMobile] = useState(true as boolean)
+
+  useEffect(() => {
+    if(window?.screen?.width <= 1281){
+      setModalMobile(true)
+    }else{
+      setModalMobile(false)
+    }
+  }, [])
+  
 
   const closeHandler = () => {
     setVisible(false);
@@ -97,7 +107,7 @@ const ModalFilters: FC = () => {
 
   return (
     <Modal
-      fullScreen={window?.screen?.width <= 1281 ? true : false}
+      fullScreen={modalMobile}
       width="100%"
       closeButton
       aria-labelledby="filters"
