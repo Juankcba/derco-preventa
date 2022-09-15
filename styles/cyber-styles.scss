@@ -22,8 +22,8 @@
   font-size: 20px;
   line-height: 24px;
   text-align: center;
-  
-  &.red{
+
+  &.red {
     color: #e0102c;
   }
   @media screen and (min-width: 1280px) {
@@ -260,4 +260,13 @@
       align-items: flex-end;
     }
   }
+}
+
+.radio-filter {
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 24px;
+  color: #000000;
 }

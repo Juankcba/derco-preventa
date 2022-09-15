@@ -17,3 +17,32 @@
     margin: 0;
   }
 }
+
+.title-modal-filter {
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 29px;
+  color: #191919;
+  margin-bottom: 0;
+
+  @media screen and (min-width: 1820px) {
+    font-size: 24px;
+    line-height: 29px;
+  }
+}
+
+.subtitle-modal-filter {
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  letter-spacing: 0.01em;
+  color: #57585c;
+  @media screen and (min-width: 1820px) {
+    font-size: 16px;
+    line-height: 19px;
+  }
+}

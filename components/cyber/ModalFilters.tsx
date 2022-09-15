@@ -54,7 +54,7 @@ const ModalFilters: FC = () => {
   const [modalMobile, setModalMobile] = useState(true as boolean);
 
   useEffect(() => {
-    if (window?.screen?.width <= 1281) {
+    if (window?.screen?.availWidth <= 1281) {
       setModalMobile(true);
     } else {
       setModalMobile(false);
@@ -133,10 +133,19 @@ const ModalFilters: FC = () => {
         <CloseIcon onClick={closeHandler} />
       </div>
 
-      <Grid.Container css={{ padding: "20px 40px 40px" }}>
+      <Grid.Container
+        css={{
+          padding: "20px 40px 40px",
+          "@mdMax": { padding: "12px 24px 24px" },
+        }}
+      >
         <Grid xs={12} css={{ flexDirection: "column" }}>
-          <Text h1>Filtros</Text>
-          <Text>Puedes seleccionar mas de una opción de filtro.</Text>
+          <Text h1 className="title-modal-filter">
+            Filtros
+          </Text>
+          <Text className="subtitle-modal-filter">
+            Puedes seleccionar mas de una opción de filtro.
+          </Text>
         </Grid>
         <Grid
           xs={12}
@@ -218,7 +227,7 @@ const ModalFilters: FC = () => {
               ¿Que mantención te corresponde?
             </Text>
             <Radio.Group
-              orientation="horizontal"
+              orientation={!modalMobile && "horizontal"}
               onChange={handleMantenciones}
               value={mantencionesSelected}
             >
@@ -314,15 +323,26 @@ const ModalFilters: FC = () => {
 
       <Grid.Container
         css={{
-          padding: "16px 10px",
-          border: "1px solid #000",
-          borderRadius: "14px",
+          padding: "0px 10px 16px",
         }}
       >
         <Grid
           xs={0}
+          md={12}
+          css={{
+            width: "100%",
+            height: "18px",
+            borderTop: "2px solid #F6F5F5;",
+          }}
+        ></Grid>
+        <Grid
+          xs={0}
           md={9}
-          css={{ width: "100%", "@mdMin": { display: "none" } }}
+          css={{
+            width: "100%",
+
+            "@mdMin": { display: "none" },
+          }}
         >
           <FiltersOnBottom />
         </Grid>
