@@ -31,7 +31,6 @@ const ListProducts: FC<Props> = ({ versions }) => {
 
   useEffect(() => {
     let auxResultados: Version[] = versions;
-    console.log("filters", filterCarClass);
 
     if (filterCarClass.length > 0) {
       let categoriasFilter: string[] = [];
@@ -75,15 +74,10 @@ const ListProducts: FC<Props> = ({ versions }) => {
           }
         });
       });
-      console.log(
-        "brandsFilter",
-        brandsFilter,
-        auxResultados.filter((v) => v.model.brandName == brandsFilter[0])
-      );
+
       auxResultados = aux;
     }
 
-    console.log("aUx", auxResultados);
     if (isDiesel) {
       auxResultados = auxResultados.filter((auxV) => auxV.fuel == "diesel");
     } else {
@@ -140,9 +134,15 @@ const ListProducts: FC<Props> = ({ versions }) => {
         </Grid>
       ))}
       <Grid xs={12} justify="center" css={{ marginTop: "16px" }}>
-        <Button onClick={handleMore} className="btn-secondary">
-          Ver más
-        </Button>
+        {versiones.length > 0 && (
+          <Button
+            onClick={handleMore}
+            color="secondary"
+            className="btn-secondary"
+          >
+            Ver más
+          </Button>
+        )}
       </Grid>
     </Grid.Container>
   );

@@ -8,7 +8,11 @@ export const ligthTheme = createTheme({
         },
         colors: {
             primary: '#E0102C',
-            secondary: '#F6F5F5'
+            secondary: '#F6F5F5',
+
+            primaryDisabled: '#EBEBEB',
+            //colordisable-button
+
         }, // override dark theme colors
     }
 });

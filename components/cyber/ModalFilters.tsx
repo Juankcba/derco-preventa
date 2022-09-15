@@ -61,8 +61,9 @@ const ModalFilters: FC = () => {
   }, []);
 
   const closeHandler = () => {
-    setVisible(false);
-    console.log("closed");
+    if (resultadosVersiones.length > 0) {
+      setVisible(false);
+    }
   };
 
   const handleFilterCategory = (id: number) => {
@@ -315,15 +316,20 @@ const ModalFilters: FC = () => {
           padding: "20px 0",
         }}
       >
-        <Grid xs={9} css={{ width: "100%", "@mdMax": { display: "none" } }}>
+        <Grid
+          xs={0}
+          md={9}
+          css={{ width: "100%", "@mdMin": { display: "none" } }}
+        >
           <FiltersOnBottom />
         </Grid>
-        <Grid xs={3}>
+        <Grid xs={12} md={3} css={{ width: "100%" }}>
           <Button
             auto
             onClick={closeHandler}
             className="btn-primary big"
-            isDisabled={resultadosVersiones.length === 0 ? true : false}
+            css={{ width: "100%" }}
+            disabled={resultadosVersiones.length == 0 ? true : false}
           >
             Ver ({resultadosVersiones.length}) Autos
           </Button>
