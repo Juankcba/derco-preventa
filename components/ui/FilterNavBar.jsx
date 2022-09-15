@@ -15,9 +15,12 @@ import {
 
 import { UiContext, FilterContext } from "../../context";
 import { FilterIcon } from "./FilterIcon";
+import ModalFilters from "../cyber/ModalFilters";
+import { Drawer } from "@mui/material";
+import FiltersOnBottom from "./FiltersOnBottom";
 
 const FilterNavBar = () => {
-  const { setVisible } = useContext(UiContext);
+  const { isModalOpen, setVisible } = useContext(UiContext);
   const { isMantenciones, order, setFilterOrder, setMantencionesState } =
     useContext(FilterContext);
 
@@ -26,7 +29,7 @@ const FilterNavBar = () => {
   };
 
   const handler = () => {
-    setVisible(true);
+    setVisible(!isModalOpen);
   };
 
   return (
@@ -36,51 +39,20 @@ const FilterNavBar = () => {
       css={{ bottom: "24px", background: "transparent" }}
       className="navbar-filter-bottom"
     >
+      {isModalOpen && (
+        <Navbar.Content>
+          <Drawer anchor={"bottom"} open={true} onClose={handler}>
+            <ModalFilters />
+          </Drawer>
+        </Navbar.Content>
+      )}
       <Navbar.Content
         hideIn="xs"
         css={{ width: "100%", "@mdMax": { display: "none" } }}
       >
-        <Grid.Container justify="flex-start">
-          <Grid xs={1}>
-            <Dropdown>
-              <Dropdown.Button light>
-                {order == "dsc" ? "Menor Precio" : "Mayor Precio"}
-              </Dropdown.Button>
-              <Dropdown.Menu
-                aria-label="Order Actions"
-                selectionMode="single"
-                selectedKeys={order}
-                onSelectionChange={(e) => setFilterOrder(e.currentKey)}
-              >
-                <Dropdown.Item key="dsc">Menor precio</Dropdown.Item>
-                <Dropdown.Item key="asc">Mayor precio</Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
-          </Grid>
-          <Grid xs={4}>
-            <Row className="btn-group">
-              <Button
-                type="button"
-                className={
-                  !isMantenciones ? "btn-active group" : "btn-deactive group"
-                }
-                onClick={() => handleClick(false)}
-              >
-                Vehículos
-              </Button>
-              <Button
-                type="button"
-                className={
-                  isMantenciones ? "btn-active group" : "btn-deactive group"
-                }
-                onClick={() => handleClick(true)}
-              >
-                Mantenciones
-              </Button>
-            </Row>
-          </Grid>
-        </Grid.Container>
+        <FiltersOnBottom />
       </Navbar.Content>
+
       <Navbar.Content css={{ width: "100%", "@mdMin": { width: "200px" } }}>
         <Button
           auto

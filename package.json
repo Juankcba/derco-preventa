@@ -9,6 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.4",
+    "@emotion/styled": "^11.10.4",
+    "@mui/icons-material": "^5.10.3",
+    "@mui/material": "^5.10.5",
     "@nextui-org/react": "^1.0.0-beta.10",
     "@types/bcryptjs": "^2.4.2",
     "@types/js-cookie": "^3.0.2",

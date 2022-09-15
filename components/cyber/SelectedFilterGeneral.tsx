@@ -13,7 +13,7 @@ const SelectedFilterGeneral: FC = () => {
 
   return (
     <Container css={{ padding: 0 }}>
-      {isMantenciones ? (
+      {!isMantenciones ? (
         <Text
           className="text-reserva"
           css={{ color: "white", textAlign: "center" }}

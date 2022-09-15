@@ -30,6 +30,7 @@ import { FilterContext } from "../context/filters/filterContext";
 import BannerDream from "../components/cyber/BannerDream";
 import BrandsFinder from "../components/cyber/BrandsFinder";
 import HomeBanner from "../components/cyber/HomeBanner";
+import { Typography } from "@mui/material";
 interface Props {
   versions: Version[];
 }
@@ -96,8 +97,6 @@ const HomePage: NextPage<PropsWithChildren<Props>> = ({ versions }) => {
       </Container>
       <BannerDream />
       <BrandsFinder />
-
-      <ModalFilters />
     </Layout>
   );
 };

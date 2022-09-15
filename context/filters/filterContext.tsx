@@ -1,6 +1,9 @@
 import { createContext } from "react";
+import { Mantencion, Version } from "../../interfaces";
 
 interface ContextProps {
+  resultados: Version[];
+  resultadosMantenciones: Mantencion[];
   isMantenciones: boolean;
   filterCarClass: number[];
   filterBrand: number[];
@@ -11,6 +14,8 @@ interface ContextProps {
   order: string;
 
   // Methods
+  setResultados: (state: Version[]) => void;
+  setResultadosMantenciones: (state: Mantencion[]) => void;
   setMantencionesState: (state: boolean) => void;
   setFilterCarClass: (state: number[]) => void;
   setFilterBrand: (state: number[]) => void;

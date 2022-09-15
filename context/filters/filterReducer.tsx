@@ -1,3 +1,4 @@
+import { Mantencion, Version } from "../../interfaces";
 import { filterState } from "./";
 
 type FilterActionType =
@@ -32,6 +33,14 @@ type FilterActionType =
   | {
       type: "[Filters] - Update Index Cards Mantenciones";
       payload: number;
+    }
+  | {
+      type: "[Filters] - Update Resultados Versiones";
+      payload: Version[];
+    }
+  | {
+      type: "[Filters] - Update Resultados Mantenciones";
+      payload: Mantencion[];
     };
 
 export const filterReducer = (
@@ -79,6 +88,16 @@ export const filterReducer = (
       return {
         ...state,
         indexOfMantenciones: action.payload,
+      };
+    case "[Filters] - Update Resultados Versiones":
+      return {
+        ...state,
+        resultados: action.payload,
+      };
+    case "[Filters] - Update Resultados Mantenciones":
+      return {
+        ...state,
+        resultadosMantenciones: action.payload,
       };
 
     default:
