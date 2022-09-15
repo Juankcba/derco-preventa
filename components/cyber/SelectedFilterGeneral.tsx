@@ -1,9 +1,10 @@
 import React, { FC, useState, useEffect, useContext } from "react";
-import { Text, Button, Row, Container, Modal } from "@nextui-org/react";
+import { Text, Button, Row, Container, Modal, Link } from "@nextui-org/react";
 import { currency } from "../../utils";
 import { Box } from "../ui/Box";
 import { FilterContext } from "../../context/filters/filterContext";
 import { CarIcon } from "./../ui/CarIcon";
+import NextLink from "next/link";
 
 const SelectedFilterGeneral: FC = () => {
   const { isMantenciones, setMantencionesState } = useContext(FilterContext);
@@ -152,7 +153,10 @@ const SelectedFilterGeneral: FC = () => {
             deben realizar la siguiente mantención.
           </Text>
 
-          <div className=" fit btn-primary red big auto">
+          <div
+            className=" fit btn-primary red big auto"
+            onClick={() => handlerModal(false)}
+          >
             Verificar mi Manteción
           </div>
 
@@ -163,9 +167,14 @@ const SelectedFilterGeneral: FC = () => {
             Para agendar mantenciones de 40.000km o más puedes realizar tu
             consulta o agendar un turno en nuestra web:
           </Text>
-          <div className=" fit btn-primary-outline  auto">
-            Mantención de 40.000km o más
-          </div>
+          <NextLink
+            passHref
+            href="https://serviciotecnico.dercocenter.cl/ReservaHora.aspx"
+          >
+            <Link target="_blank" className="fit btn-primary-outline auto">
+              Mantención de 40.000km o más
+            </Link>
+          </NextLink>
         </Modal.Body>
       </Modal>
     </Container>
