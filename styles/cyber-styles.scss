@@ -160,6 +160,20 @@
     @media screen and (min-width: 1280px) {
       height: 248px;
     }
+    .title-matencion {
+      font-family: "Lato";
+      font-style: normal;
+      font-weight: 400;
+      font-size: 13px;
+      line-height: 16px;
+      color: #191919;
+      margin-bottom: 0;
+
+      @media screen and (min-width: 1280px) {
+        font-size: 19px;
+        line-height: 23px;
+      }
+    }
     .title {
       font-family: "Lato";
       font-style: normal;

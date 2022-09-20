@@ -1,4 +1,4 @@
-import { Mantencion, Version } from "../../interfaces";
+import { Auto, Mantencion, Version } from "../../interfaces";
 import { filterState } from "./";
 
 type FilterActionType =
@@ -36,11 +36,11 @@ type FilterActionType =
     }
   | {
       type: "[Filters] - Update Resultados Versiones";
-      payload: Version[];
+      payload: Auto[];
     }
   | {
       type: "[Filters] - Update Resultados Mantenciones";
-      payload: Mantencion[];
+      payload: Auto[];
     }
   | {
       type: "[Filters] - Update Scroll State";

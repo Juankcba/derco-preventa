@@ -1,15 +1,15 @@
 import React, { useEffect, useState, useMemo, FC, useContext } from "react";
-import { Mantencion } from "../../interfaces";
+import { Auto, Mantencion } from "../../interfaces";
 import { Grid, Card, Text, Row, styled, Button } from "@nextui-org/react";
 
 import MantencionCard from "./../mantencions/MantencionCard";
 
 import { FilterContext } from "../../context/filters/filterContext";
 interface Props {
-  manteciones: Mantencion[];
+  mantenciones: Auto[];
 }
 
-const ListMantenciones: FC<Props> = ({ manteciones }) => {
+const ListMantenciones: FC<Props> = ({ mantenciones }) => {
   const {
     scrollChange,
     order,
@@ -18,20 +18,22 @@ const ListMantenciones: FC<Props> = ({ manteciones }) => {
     setScrollChange,
     setIndexMant,
   } = useContext(FilterContext);
-  const [matencions, setMantencions] = useState(manteciones.slice(0, 4));
+  const [matencions, setMantencions] = useState(mantenciones.slice(0, 2));
+
+  console.log("mante", mantenciones);
 
   useEffect(() => {
     if (order === "dsc") {
       setMantencions(
         matencions
-          .sort((a, b) => a.minPrice - b.minPrice)
-          .slice(0, 4 * indexOfMantenciones)
+          .sort((a, b) => a.brand_price - b.brand_price)
+          .slice(0, 2 * indexOfMantenciones)
       );
     } else {
       setMantencions(
         matencions
-          .sort((a, b) => b.minPrice - a.minPrice)
-          .slice(0, 4 * indexOfMantenciones)
+          .sort((a, b) => b.brand_price - a.brand_price)
+          .slice(0, 2 * indexOfMantenciones)
       );
     }
 
@@ -51,6 +53,7 @@ const ListMantenciones: FC<Props> = ({ manteciones }) => {
 
     setIndexMant(indexData);
   };
+  if (mantenciones.length === 0) return null;
   return (
     <Grid.Container
       gap={2}
@@ -64,11 +67,11 @@ const ListMantenciones: FC<Props> = ({ manteciones }) => {
         },
       }}
     >
-      {matencions.map((mantencion: Mantencion) => (
+      {matencions.map((mantencion: Auto) => (
         <Grid
           xs
           md={3}
-          key={mantencion.id}
+          key={mantencion.sap}
           css={{
             display: "flex",
             justifyContent: "center",

@@ -1,10 +1,10 @@
 import { FC, useEffect, useReducer, PropsWithChildren } from "react";
-import { Mantencion, Version } from "../../interfaces";
+import { Auto, Mantencion, Version } from "../../interfaces";
 import { filterReducer, FilterContext } from "./";
 export interface filterState {
   scrollChange: boolean;
-  resultadosVersiones: Version[];
-  resultadosMantenciones: Mantencion[];
+  resultadosVersiones: Auto[];
+  resultadosMantenciones: Auto[];
   isMantenciones: boolean;
   filterCarClass: number[];
   filterBrand: number[];
@@ -80,13 +80,13 @@ export const FilterProvider: FC<PropsWithChildren> = ({ children }) => {
       payload: state,
     });
   };
-  const setResultadosVersiones = (state: Version[]) => {
+  const setResultadosVersiones = (state: Auto[]) => {
     dispatch({
       type: "[Filters] - Update Resultados Versiones",
       payload: state,
     });
   };
-  const setResultadosMantenciones = (state: Mantencion[]) => {
+  const setResultadosMantenciones = (state: Auto[]) => {
     dispatch({
       type: "[Filters] - Update Resultados Mantenciones",
       payload: state,

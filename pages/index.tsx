@@ -2,7 +2,7 @@ import { useEffect, useMemo, useContext } from "react";
 import { NextPage, GetStaticProps } from "next";
 import Head from "next/head";
 import Image from "next/image";
-import { cmsApi } from "../apis";
+import { cmsApi, storeApi } from "../apis";
 import { Layout } from "../components/Layouts";
 import { Version, VersionResponse } from "../interfaces";
 import { PropsWithChildren, useState } from "react";
@@ -31,54 +31,59 @@ import BannerDream from "../components/cyber/BannerDream";
 import BrandsFinder from "../components/cyber/BrandsFinder";
 import HomeBanner from "../components/cyber/HomeBanner";
 import { Typography } from "@mui/material";
+import { Auto, StoreResponse } from "../interfaces/store-full";
 interface Props {
-  versions: Version[];
+  cars: Auto[];
+  mantencions: Auto[];
 }
 
-const HomePage: NextPage<PropsWithChildren<Props>> = ({ versions }) => {
+const HomePage: NextPage<PropsWithChildren<Props>> = ({
+  cars,
+  mantencions,
+}) => {
   const [visible, setVisible] = useState<boolean>(false);
   const { isMantenciones } = useContext(FilterContext);
 
-  const mantenciones: Mantencion[] = [
-    {
-      id: 1,
-      name: "Mantencion",
-      kms: 30000,
-      category: "Citycar",
-      price: 270000,
-    },
-    {
-      id: 2,
-      name: "Mantencion",
-      kms: 10000,
-      category: "Camioneta",
-      price: 270000,
-    },
-    { id: 3, name: "Mantencion", kms: 20000, category: "Sedán", price: 270000 },
-    {
-      id: 4,
-      name: "Mantencion",
-      kms: 40000,
-      category: "SUV",
-      price: 270000,
-    },
-    {
-      id: 5,
-      name: "Mantencion",
-      kms: 20000,
-      category: "Citycar",
-      price: 270000,
-    },
-    { id: 6, name: "Mantencion", kms: 30000, category: "Suv", price: 270000 },
-    { id: 7, name: "Mantencion", kms: 40000, category: "Sedán", price: 270000 },
-    {
-      id: 8,
-      name: "Mantencion",
-      kms: 10000,
-      category: "Camioneta",
-      price: 270000,
-    },
-  ];
+  // const mantenciones: Mantencion[] = [
+  //   {
+  //     id: 1,
+  //     name: "Mantencion",
+  //     kms: 30000,
+  //     category: "Citycar",
+  //     price: 270000,
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "Mantencion",
+  //     kms: 10000,
+  //     category: "Camioneta",
+  //     price: 270000,
+  //   },
+  //   { id: 3, name: "Mantencion", kms: 20000, category: "Sedán", price: 270000 },
+  //   {
+  //     id: 4,
+  //     name: "Mantencion",
+  //     kms: 40000,
+  //     category: "SUV",
+  //     price: 270000,
+  //   },
+  //   {
+  //     id: 5,
+  //     name: "Mantencion",
+  //     kms: 20000,
+  //     category: "Citycar",
+  //     price: 270000,
+  //   },
+  //   { id: 6, name: "Mantencion", kms: 30000, category: "Suv", price: 270000 },
+  //   { id: 7, name: "Mantencion", kms: 40000, category: "Sedán", price: 270000 },
+  //   {
+  //     id: 8,
+  //     name: "Mantencion",
+  //     kms: 10000,
+  //     category: "Camioneta",
+  //     price: 270000,
+  //   },
+  // ];
 
   return (
     <Layout
@@ -93,9 +98,9 @@ const HomePage: NextPage<PropsWithChildren<Props>> = ({ versions }) => {
       </Grid.Container>
       <Container justify={"center"} css={{ marginTop: "20px" }}>
         {isMantenciones ? (
-          <ListMantenciones manteciones={mantenciones} />
+          <ListMantenciones mantenciones={mantencions} />
         ) : (
-          <ListProducts versions={versions} />
+          <ListProducts versions={cars} />
         )}
       </Container>
       <BannerDream />
@@ -105,12 +110,19 @@ const HomePage: NextPage<PropsWithChildren<Props>> = ({ versions }) => {
 };
 
 export async function getStaticProps() {
-  const { data } = await cmsApi.get<VersionResponse>("/versions");
+  //const { data } = await cmsApi.get<VersionResponse>("/versions");
+  const {
+    data: { autos, mantenciones },
+  } = await storeApi.get<StoreResponse>(
+    `/pre-order/cyber-dc/${process.env.NEXT_PUBLIC_PREVENTA}/cars`
+  );
 
-  const versions: VersionResponse = data;
+  //const versions: VersionResponse = data;
+  const mantencions: Auto[] = mantenciones;
+  const cars: Auto[] = autos;
 
   return {
-    props: { versions },
+    props: {  cars, mantencions },
     revalidate: 1,
   };
 }

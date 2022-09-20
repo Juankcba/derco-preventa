@@ -10,24 +10,20 @@ import {
   Spacer,
   Text,
 } from "@nextui-org/react";
-import { Version } from "../../interfaces";
+import { Auto, Version } from "../../interfaces";
 import Image from "next/image";
 import { currency } from "../../utils";
 
 interface Props {
-  version: Version;
+  version: Auto;
 }
 const VersionCard: FC<Props> = ({ version }) => {
   const router = useRouter();
   const onClick = () => {
-    router.push(
-      `/auto/${version.model.brandName.toLowerCase()}/${version.model.slug}`
-    );
+    router.push(`/auto/${version.brand_slug.toLowerCase()}/${version.sap}`);
   };
   const onClickReserva = () => {
-    router.push(
-      `/reserva/${version.model.brandName.toLowerCase()}/${version.model.slug}`
-    );
+    router.push(`/reserva/${version.brand_slug.toLowerCase()}/${version.sap}`);
   };
 
   const stock = Math.floor(Math.random() * 2);
@@ -35,15 +31,15 @@ const VersionCard: FC<Props> = ({ version }) => {
   return (
     <Card isHoverable isPressable className="cyber-card">
       <Card.Header className="cyber-card-header">
-        <div className="cyber-badge">35%</div>
+        {/* <div className="cyber-badge">35%</div> */}
 
         <Card.Image
-          src={version.image.url}
+          src={version.image_url}
           width="100%"
           height={126}
-          alt={version.image.url}
+          alt={version.image_url}
           objectFit="contain"
-          id={version.image.url}
+          id={version.image_url}
           css={{
             "@mdMax": {
               height: "78px",
@@ -71,12 +67,12 @@ const VersionCard: FC<Props> = ({ version }) => {
         >
           <Text h2 className="title">
             <span style={{ textTransform: "uppercase" }}>
-              {version.model.brandName}
+              {version.brand_name}
             </span>{" "}
-            | {version.name}
+            | {version.version_name}
           </Text>
           <Text h3 className="subtitle">
-            {version.model.name}
+            {version.model_name}
           </Text>
         </Row>
         <div className="card-spacer-1"></div>
@@ -86,29 +82,29 @@ const VersionCard: FC<Props> = ({ version }) => {
           className="prices-card"
         >
           <Text className="price-primary" color="#e0102c">
-            {currency.format(version.minPrice * (1 - 0.35))}*
+            {currency.format(version.brand_price)}*
           </Text>
           <Text className="price-before">
             Antes{" "}
             <span
               style={{ textDecoration: "line-through", paddingLeft: "0.25rem" }}
             >
-              {currency.format(version.prices[0].value)}
+              {currency.format(version.list_price)}
             </span>
           </Text>
-          {version.prices[1].diff > 0 && (
+          {version.brand_price > 0 && (
             <Text className="price-bonus" color="#e0102c">
               Bono cyber:
               <span style={{ paddingLeft: "0.25rem" }}>
-                {currency.format(version.prices[1].diff)}
+                {currency.format(version.list_price - version.brand_price)}
               </span>
             </Text>
           )}
-          {version.prices[2].diff > 0 && (
+          {version.financial_price > 0 && (
             <Text className="price-bonus" color="#e0102c">
               Bono financiamiento:
               <span style={{ paddingLeft: "0.25rem" }}>
-                {currency.format(version.prices[2].diff)}
+                {currency.format(version.list_price - version.financial_price)}
               </span>
             </Text>
           )}
@@ -133,15 +129,18 @@ const VersionCard: FC<Props> = ({ version }) => {
           </Button>
           <Text className="disclaimer">
             *Incluye IVA, Bono cyber{" "}
-            {version.prices[2].diff > 0 && "y Bono financiamiento."}
+            {version.financial_price > 0 && "y Bono financiamiento."}
           </Text>
         </Row>
       </Card.Body>
       <Card.Footer
         className="cyber-card-footer"
-        css={{ bgColor: stock == 0 ? "#57585C" : "#E0102C" }}
+        css={{
+          bgColor:
+            parseInt(version.stock_availabe, 10) == 0 ? "#57585C" : "#E0102C",
+        }}
       >
-        {stock == 0 ? (
+        {parseInt(version.stock_availabe, 10) == 0 ? (
           <Text
             h3
             size={14}
@@ -152,7 +151,7 @@ const VersionCard: FC<Props> = ({ version }) => {
           </Text>
         ) : (
           <Text h3 size={14} className="text-content" css={{ color: "#fff" }}>
-            Quedan 20u en stock.
+            Quedan {version.stock_availabe}u en stock.
           </Text>
         )}
       </Card.Footer>

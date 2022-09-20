@@ -1,10 +1,10 @@
 import { createContext } from "react";
-import { Mantencion, Version } from "../../interfaces";
+import { Auto, Mantencion, Version } from "../../interfaces";
 
 interface ContextProps {
   scrollChange: boolean;
-  resultadosVersiones: Version[];
-  resultadosMantenciones: Mantencion[];
+  resultadosVersiones: Auto[];
+  resultadosMantenciones: Auto[];
   isMantenciones: boolean;
   filterCarClass: number[];
   filterBrand: number[];
@@ -16,8 +16,8 @@ interface ContextProps {
 
   // Methods
   setScrollChange: (state: boolean) => void;
-  setResultadosVersiones: (state: Version[]) => void;
-  setResultadosMantenciones: (state: Mantencion[]) => void;
+  setResultadosVersiones: (state: Auto[]) => void;
+  setResultadosMantenciones: (state: Auto[]) => void;
   setMantencionesState: (state: boolean) => void;
   setFilterCarClass: (state: number[]) => void;
   setFilterBrand: (state: number[]) => void;

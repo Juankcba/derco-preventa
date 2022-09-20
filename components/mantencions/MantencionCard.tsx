@@ -12,10 +12,10 @@ import {
 } from "@nextui-org/react";
 import Image from "next/image";
 import { currency } from "../../utils";
-import { Mantencion } from "../../interfaces";
+import { Auto, Mantencion } from "../../interfaces";
 
 interface Props {
-  mantencion: Mantencion;
+  mantencion: Auto;
 }
 
 const MantencionCard: FC<Props> = ({ mantencion }) => {
@@ -24,13 +24,18 @@ const MantencionCard: FC<Props> = ({ mantencion }) => {
   return (
     <Card isHoverable isPressable className="cyber-card mantencion">
       <Card.Header className="cyber-card-header mantencion">
-        <div className="cyber-badge">35%</div>
+        <div className="cyber-badge">
+          {((mantencion.brand_price - mantencion.list_price) /
+            mantencion.list_price) *
+            -100}
+          %
+        </div>
 
         <Card.Image
-          src={`/assets/img/mantenciones/${mantencion.category}.svg`}
+          src={`/assets/img/mantenciones/${mantencion.class_name}.svg`}
           width="100%"
           height={73}
-          alt={mantencion.name}
+          alt={mantencion.class_name}
           objectFit="contain"
           css={{
             "@mdMax": {
@@ -58,11 +63,11 @@ const MantencionCard: FC<Props> = ({ mantencion }) => {
             height: "100%",
           }}
         >
-          <Text h2 className="title">
-            {mantencion.name} {mantencion.category}
+          <Text h2 className="title-matencion">
+            Mantención {mantencion.class_name}
           </Text>
           <Text h3 className="subtitle">
-            {mantencion.kms} km
+            {mantencion.version_name} km
           </Text>
         </Row>
         <div className="card-spacer-1"></div>
@@ -72,14 +77,14 @@ const MantencionCard: FC<Props> = ({ mantencion }) => {
           className="prices-card mantencion"
         >
           <Text className="price-primary" color="#e0102c">
-            {currency.format(mantencion.price * (1 - 0.35))}
+            {currency.format(mantencion.brand_price)}
           </Text>
           <Text className="price-before">
             Antes{" "}
             <span
               style={{ textDecoration: "line-through", paddingLeft: "0.25rem" }}
             >
-              {currency.format(mantencion.price)}
+              {currency.format(mantencion.list_price)}
             </span>
           </Text>
         </Row>
@@ -105,9 +110,14 @@ const MantencionCard: FC<Props> = ({ mantencion }) => {
       </Card.Body>
       <Card.Footer
         className="cyber-card-footer"
-        css={{ bgColor: stock == 0 ? "#57585C" : "#E0102C" }}
+        css={{
+          bgColor:
+            parseInt(mantencion.stock_availabe, 10) == 0
+              ? "#57585C"
+              : "#E0102C",
+        }}
       >
-        {stock == 0 ? (
+        {parseInt(mantencion.stock_availabe, 10) == 0 ? (
           <Text
             h3
             size={14}
@@ -118,7 +128,7 @@ const MantencionCard: FC<Props> = ({ mantencion }) => {
           </Text>
         ) : (
           <Text h3 size={14} className="text-content" css={{ color: "#fff" }}>
-            Quedan 20u en stock.
+            Quedan {mantencion.stock_availabe} en stock.
           </Text>
         )}
       </Card.Footer>

@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, FC, useContext } from "react";
 import { NextPage, GetStaticProps } from "next";
 
-import { Version, VersionResponse } from "../../interfaces";
+import { Auto, Version, VersionResponse } from "../../interfaces";
 import { PropsWithChildren, useState } from "react";
 
 import { Grid, Card, Text, Row, styled, Button } from "@nextui-org/react";
@@ -12,7 +12,7 @@ import { FilterContext } from "./../../context/filters/filterContext";
 import { categorias, marcas } from "../../database/constants";
 
 interface Props {
-  versions: Version[];
+  versions: Auto[];
 }
 
 const ListProducts: FC<Props> = ({ versions }) => {
@@ -33,7 +33,7 @@ const ListProducts: FC<Props> = ({ versions }) => {
   useMemo(() => setResultadosVersiones(versions), [versions]);
 
   useEffect(() => {
-    let auxResultados: Version[] = versions;
+    let auxResultados: Auto[] = versions;
 
     if (filterCarClass.length > 0) {
       let categoriasFilter: string[] = [];
@@ -45,11 +45,11 @@ const ListProducts: FC<Props> = ({ versions }) => {
         });
       });
 
-      let aux: Version[] = [];
+      let aux: Auto[] = [];
 
       auxResultados.forEach((auxV) => {
         categoriasFilter.forEach((filtro) => {
-          if (auxV.model.carClass.filter((mcC) => mcC === filtro).length > 0) {
+          if (auxV.class_name === filtro) {
             aux.push(auxV);
           }
         });
@@ -67,11 +67,11 @@ const ListProducts: FC<Props> = ({ versions }) => {
         });
       });
 
-      let aux: Version[] = [];
+      let aux: Auto[] = [];
 
       auxResultados.forEach((auxV) => {
         brandsFilter.forEach((filtro) => {
-          if (auxV.model.brandName == filtro) {
+          if (auxV.brand_name == filtro) {
             console.log("este");
             aux.push(auxV);
           }
@@ -82,21 +82,25 @@ const ListProducts: FC<Props> = ({ versions }) => {
     }
 
     if (isDiesel) {
-      auxResultados = auxResultados.filter((auxV) => auxV.fuel == "diesel");
+      auxResultados = auxResultados.filter(
+        (auxV) => auxV.fuel_name == "diesel"
+      );
     } else {
-      auxResultados = auxResultados.filter((auxV) => auxV.fuel != "diesel");
+      auxResultados = auxResultados.filter(
+        (auxV) => auxV.fuel_name != "diesel"
+      );
     }
 
     if (order === "dsc") {
       setVersiones(
         auxResultados
-          .sort((a, b) => a.minPrice - b.minPrice)
+          .sort((a, b) => a.brand_price - b.brand_price)
           .slice(0, 4 * indexOfCards)
       );
     } else {
       setVersiones(
         auxResultados
-          .sort((a, b) => b.minPrice - a.minPrice)
+          .sort((a, b) => b.brand_price - a.brand_price)
           .slice(0, 4 * indexOfCards)
       );
     }
@@ -130,11 +134,11 @@ const ListProducts: FC<Props> = ({ versions }) => {
         },
       }}
     >
-      {versiones.map((version: Version) => (
+      {versiones.map((version: Auto) => (
         <Grid
           xs
           md={3}
-          key={version.id}
+          key={version.sap}
           css={{
             display: "flex",
             justifyContent: "center",
