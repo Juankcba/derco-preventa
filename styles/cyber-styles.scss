@@ -65,7 +65,7 @@
   }
 
   @media screen and (min-width: 1285px) {
-    min-height: 411px;
+    min-height: 421px;
     padding: 16px;
   }
   .card-spacer-1 {
@@ -124,12 +124,12 @@
     z-index: 1000;
     left: 0;
     border-radius: 0 0 12px 12px;
-    height: 172px;
+    height: 187px;
     background-color: white;
     padding: 0 16px 16px;
 
     @media screen and (min-width: 1280px) {
-      height: 230px;
+      height: 248px;
     }
     .title {
       font-family: "Lato";
@@ -228,17 +228,18 @@
       }
     }
     .disclaimer {
+      height: 24px;
       font-style: italic;
       font-weight: 400;
       font-size: 10px;
-      line-height: 60%;
+      line-height: 100%;
       display: flex;
       align-items: flex-end;
       color: #57585c;
       margin-top: 8px;
       @media screen and (min-width: 1280px) {
         font-size: 14px;
-        line-height: 60%;
+        line-height: 100%;
       }
     }
   }

@@ -131,7 +131,10 @@ const VersionCard: FC<Props> = ({ version }) => {
           >
             Reservar
           </Button>
-          <Text className="disclaimer">*Incluye IVA y Bono marca.</Text>
+          <Text className="disclaimer">
+            *Incluye IVA, Bono cyber{" "}
+            {version.prices[2].diff > 0 && "y Bono financiamiento."}
+          </Text>
         </Row>
       </Card.Body>
       <Card.Footer
