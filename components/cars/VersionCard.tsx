@@ -104,7 +104,7 @@ const VersionCard: FC<Props> = ({ version }) => {
             <Text className="price-bonus" color="#e0102c">
               Bono financiamiento:
               <span style={{ paddingLeft: "0.25rem" }}>
-                {currency.format(version.list_price - version.financial_price)}
+                {currency.format(version.brand_price - version.financial_price)}
               </span>
             </Text>
           )}
@@ -117,7 +117,7 @@ const VersionCard: FC<Props> = ({ version }) => {
             auto
             type="button"
             color="primary"
-            disabled={stock == 0 ? true : false}
+            disabled={parseInt(version.stock_availabe, 10) == 0 ? true : false}
             css={{
               width: "100%",
               backgroundColor: "#e0102c",
