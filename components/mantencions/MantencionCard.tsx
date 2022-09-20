@@ -22,20 +22,20 @@ const MantencionCard: FC<Props> = ({ mantencion }) => {
   const stock = Math.floor(Math.random() * 2);
   const onClickReserva = () => {};
   return (
-    <Card isHoverable isPressable className="cyber-card">
-      <Card.Header className="cyber-card-header">
+    <Card isHoverable isPressable className="cyber-card mantencion">
+      <Card.Header className="cyber-card-header mantencion">
         <div className="cyber-badge">35%</div>
 
         <Card.Image
           src={`/assets/img/mantenciones/${mantencion.category}.svg`}
           width="100%"
-          height={126}
+          height={73}
           alt={mantencion.name}
           objectFit="contain"
           css={{
             "@mdMax": {
-              marginTop: "20px",
-              height: "76px",
+              marginTop: "7px",
+              height: "44px",
               objectFit: "scale-down",
             },
           }}
@@ -50,7 +50,7 @@ const MantencionCard: FC<Props> = ({ mantencion }) => {
               width={102}
             /> */}
       </Card.Header>
-      <Card.Body className="cyber-card-body">
+      <Card.Body className="cyber-card-body mantencion">
         <Row
           justify={"flex-start"}
           css={{
@@ -69,10 +69,10 @@ const MantencionCard: FC<Props> = ({ mantencion }) => {
         <Row
           justify="flex-start"
           css={{ flexDirection: "column" }}
-          className="prices-card"
+          className="prices-card mantencion"
         >
           <Text className="price-primary" color="#e0102c">
-            {currency.format(mantencion.price * (1 - 0.35))}*
+            {currency.format(mantencion.price * (1 - 0.35))}
           </Text>
           <Text className="price-before">
             Antes{" "}
@@ -100,7 +100,7 @@ const MantencionCard: FC<Props> = ({ mantencion }) => {
           >
             Reservar
           </Button>
-          <Text className="disclaimer">*Incluye IVA y Bono marca.</Text>
+          {/* <Text className="disclaimer">*Incluye IVA y Bono marca.</Text> */}
         </Row>
       </Card.Body>
       <Card.Footer
