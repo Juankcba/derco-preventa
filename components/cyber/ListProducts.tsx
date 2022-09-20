@@ -158,7 +158,7 @@ const ListProducts: FC<Props> = ({ versions }) => {
       >
         {versiones.length > 0 && (
           <Button
-            onClick={handleMore}
+            onPress={handleMore}
             color="secondary"
             className="btn-secondary"
           >

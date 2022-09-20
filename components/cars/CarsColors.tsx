@@ -8,7 +8,7 @@ interface Props {
 const CarsColors: FC<Props> = ({ colors }) => {
   const [selectedColor, setSelectedColor] = useState(colors[0] || null);
   function invertHex(hex: string) {
-    console.log("hex", hex)
+    console.log("hex", hex);
     return (Number(`0x1${hex}`) ^ 0xffffff)
       .toString(16)
       .substr(1)
@@ -34,7 +34,7 @@ const CarsColors: FC<Props> = ({ colors }) => {
         >
           {colors.map((color, index) => (
             <Button
-              onClick={() => setSelectedColor(color)}
+              onPress={() => setSelectedColor(color)}
               key={index}
               css={{
                 backgroundColor: color.hexadecimal1

@@ -1,17 +1,17 @@
 import { Button, Card, Row, Text } from "@nextui-org/react";
 import { FC, useState } from "react";
 import React from "react";
-import { Color } from "../../interfaces";
+import { StoreColor } from "../../interfaces";
 interface Props {
-  colors: Color[];
+  colors: StoreColor[];
   setColor: (arg: String) => void;
 }
 const CarsColorsPreventa: FC<Props> = ({ colors, setColor }) => {
-  const [selectedColor, setSelectedColor] = useState(colors[0] || null);
+  const [selectedColor, setSelectedColor] = useState<any>(colors[0] || null);
 
-  const handleChange = (color: React.SetStateAction<Color>) => {
+  const handleChange = (color: StoreColor) => {
     setSelectedColor(color);
-    setColor(color.name);
+    setColor(color.color_name);
   };
 
   function invertHex(hex: string) {
@@ -25,7 +25,7 @@ const CarsColorsPreventa: FC<Props> = ({ colors, setColor }) => {
     <Row justify={"center"} css={{ flexDirection: "column", p: 0, w: "100%" }}>
       {selectedColor && (
         <Card.Image
-          src={selectedColor.imageSrc}
+          src={selectedColor.image}
           objectFit="contain"
           width="100%"
           height={350}
@@ -38,25 +38,25 @@ const CarsColorsPreventa: FC<Props> = ({ colors, setColor }) => {
       >
         {colors.map((color, index) => (
           <Button
-            onClick={() => {
+            onPress={() => {
               handleChange(color);
             }}
             key={index}
             css={{
-              backgroundColor: color.hexadecimal1
-                ? color.hexadecimal1
+              backgroundColor: color.color_hex
+                ? color.color_hex
                 : Math.floor(Math.random() * 16777215).toString(16),
             }}
           >
             <Text
               css={{
                 "@xsMax": { display: "none" },
-                color: color.hexadecimal1
-                  ? `#${invertHex(color.hexadecimal1.split("#")[1])}`
+                color: color.color_hex
+                  ? `#${invertHex(color.color_hex.split("#")[1])}`
                   : "#000",
               }}
             >
-              {color.name}
+              {color.color_name}
             </Text>
           </Button>
         ))}

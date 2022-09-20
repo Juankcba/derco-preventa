@@ -19,8 +19,14 @@ interface Props {
 }
 
 const MantencionCard: FC<Props> = ({ mantencion }) => {
-  const stock = Math.floor(Math.random() * 2);
-  const onClickReserva = () => {};
+  const router = useRouter();
+  const onClickReserva = () => {
+    router.push(
+      `/reserva/mantencion/${mantencion.brand_slug.toLowerCase()}/${
+        mantencion.version_slug
+      }`
+    );
+  };
   return (
     <Card isHoverable isPressable className="cyber-card mantencion">
       <Card.Header className="cyber-card-header mantencion">
@@ -101,7 +107,7 @@ const MantencionCard: FC<Props> = ({ mantencion }) => {
               backgroundColor: "#e0102c",
               color: "white",
             }}
-            onClick={onClickReserva}
+            onPress={onClickReserva}
           >
             Reservar
           </Button>

@@ -349,7 +349,7 @@ const ModalFilters: FC = () => {
         <Grid xs={12} md={3} css={{ width: "100%" }}>
           <Button
             auto
-            onClick={closeHandler}
+            onPress={closeHandler}
             className="btn-primary big"
             css={{ width: "100%" }}
             disabled={resultadosVersiones.length == 0 ? true : false}

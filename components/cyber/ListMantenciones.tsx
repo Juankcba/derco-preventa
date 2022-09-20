@@ -84,7 +84,7 @@ const ListMantenciones: FC<Props> = ({ mantenciones }) => {
       ))}
       <Grid xs={12} justify="center" css={{ marginTop: "16px" }}>
         <Button
-          onClick={handleMore}
+          onPress={handleMore}
           color="secondary"
           className="btn-secondary"
         >

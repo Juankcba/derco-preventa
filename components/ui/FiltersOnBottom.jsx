@@ -36,7 +36,7 @@ const FiltersOnBottom = () => {
             className={
               !isMantenciones ? "btn-active group" : "btn-deactive group"
             }
-            onClick={() => handleClick(false)}
+            onPress={() => handleClick(false)}
           >
             Vehículos
           </Button>
@@ -45,7 +45,7 @@ const FiltersOnBottom = () => {
             className={
               isMantenciones ? "btn-active group" : "btn-deactive group"
             }
-            onClick={() => handleClick(true)}
+            onPress={() => handleClick(true)}
           >
             Mantenciones
           </Button>

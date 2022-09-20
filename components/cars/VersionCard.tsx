@@ -23,7 +23,11 @@ const VersionCard: FC<Props> = ({ version }) => {
     router.push(`/auto/${version.brand_slug.toLowerCase()}/${version.sap}`);
   };
   const onClickReserva = () => {
-    router.push(`/reserva/${version.brand_slug.toLowerCase()}/${version.sap}`);
+    router.push(
+      `/reserva/auto/${version.brand_slug.toLowerCase()}/${
+        version.version_slug
+      }`
+    );
   };
 
   const stock = Math.floor(Math.random() * 2);
@@ -123,7 +127,7 @@ const VersionCard: FC<Props> = ({ version }) => {
               backgroundColor: "#e0102c",
               color: "white",
             }}
-            onClick={onClickReserva}
+            onPress={onClickReserva}
           >
             Reservar
           </Button>

@@ -1,17 +1,8 @@
 import React, { useState, useMemo, useEffect } from "react";
 
-import { GetStaticProps, NextPage, GetStaticPaths } from "next";
-import {
-  Model,
-  Version,
-  VersionResponse,
-  ModelResponse,
-  ModelFull,
-} from "../../../interfaces";
-
-import { Layout } from "../../../components/Layouts";
-import { getVersionInfo, currency } from "../../../utils";
-import { cmsApi } from "../../../apis";
+import { Layout, PreventaLayout } from "../../../../components/Layouts";
+import { getVersionInfo, currency } from "../../../../utils";
+import { cmsApi, storeApi } from "../../../../apis";
 import {
   Grid,
   Text,
@@ -22,21 +13,21 @@ import {
   Spacer,
   Button,
 } from "@nextui-org/react";
-import CarsColors from "../../../components/cars/CarsColors";
+import CarsColors from "../../../../components/cars/CarsColors";
 import Image from "next/image";
-import CarsColorsPreventa from "../../../components/cars/CarsColorsPreventa";
+import CarsColorsPreventa from "../../../../components/cars/CarsColorsPreventa";
 import NextLink from "next/link";
-import { IPUser } from "../../../interfaces/user";
 
-import PreventaStep1 from "../../../components/preventa/step1";
-import PreventaStep2 from "../../../components/preventa/step2";
-import PreventaStep3 from "../../../components/preventa/step3";
+import PreventaStep1 from "../../../../components/preventa/step1";
+import PreventaStep2 from "../../../../components/preventa/step2";
+import PreventaStep3 from "../../../../components/preventa/step3";
+import { getVersionStoreInfo } from "../../../../utils/getVersionStoreInfo";
 
 // interface Props {
-//   model: ModelResponse;
+//   model: Auto;
 // }
 
-const CarPage = ({ model }) => {
+const CarPage = ({ models }) => {
   const [step, setStep] = useState(1);
   const [user, setUser] = useState({
     rut: "",
@@ -46,38 +37,53 @@ const CarPage = ({ model }) => {
     email: "",
   });
 
+  const [model, setModel] = useState({});
+  const [colors, setColors] = useState([]);
   const [selectedColor, setColor] = useState("");
 
+  useEffect(() => {
+    if (models.length > 0) {
+      setModel(models[0]);
+      setColors(
+        models.map((model) => ({
+          color_hex: model.color_hex,
+          color_id: model.color_id,
+          color_name: model.color_name,
+          color_slug: model.color_slug,
+          image: model.image_url,
+        }))
+      );
+    }
+  }, [models]);
+
+  console.log("colors", colors);
+
   return (
-    <Layout
-      title={`${model.name} | DercoCenter - ${model.brand.name}`}
-      pageDescription={model.description}
-      image={model.defaultVersion.imageUrl}
+    <PreventaLayout
+      title={`${model.model_name} | DercoCenter - ${model.brand_name}`}
+      image={model.image_url}
     >
       <Grid.Container gap={2} justify="center" css={{ marginTop: "20px" }}>
-        {model?.colors?.length > 0 ? (
+        {colors?.length > 0 ? (
           <Grid xs={12}>
             <Card css={{ w: "100%", h: "100%" }}>
               <Card.Header>
                 <Row gap={2} css={{ maxHeight: "120px" }}>
                   <Image
-                    src={`https://dercocenter-cl-static-prod.s3.amazonaws.com/assets/brands-logos/${model.brand.slug}/logo-vertical-colors.svg`}
-                    alt={model.name}
+                    src={`https://dercocenter-cl-static-prod.s3.amazonaws.com/assets/brands-logos/${model.brand_slug}/logo-vertical-colors.svg`}
+                    alt={model.model_name}
                     height={65}
                     width={102}
                   />
                   <Text h1 css={{ paddingLeft: "16px" }}>
-                    {model.name}
+                    {model.model_name}
                   </Text>
                 </Row>
               </Card.Header>
               <Card.Body>
                 <Grid.Container css={{ w: "100%", h: "100%" }}>
                   <Grid xs={12} sm={6}>
-                    <CarsColorsPreventa
-                      colors={model.colors}
-                      setColor={setColor}
-                    />
+                    <CarsColorsPreventa colors={colors} setColor={setColor} />
                   </Grid>
                   <Grid xs={12} sm={6}>
                     {step == 1 && (
@@ -125,33 +131,40 @@ const CarPage = ({ model }) => {
           </Grid>
         )}
       </Grid.Container>
-    </Layout>
+    </PreventaLayout>
   );
 };
 
 export async function getStaticPaths() {
-  const { data } = await cmsApi.get("/versions");
+  const {
+    data: { autos },
+  } = await storeApi.get(
+    `/pre-order/cyber-dc/${process.env.NEXT_PUBLIC_PREVENTA}/cars`
+  );
 
-  const patchUrls = data.map((version) => ({
-    slug: version.model.slug,
-    brand: version.model.brandName.toLowerCase().replace(" ", "-"),
+  const patchUrls = autos.map((version) => ({
+    version_slug: version.version_slug,
+    brand_slug: version.brand_slug,
   }));
+
+  console.log(patchUrls);
 
   return {
     paths: patchUrls.map((path) => ({
       params: { ...path },
     })),
+    // { fallback: false } means other routes should 404
     fallback: false, // can also be true or 'blocking'
   };
 }
 
 // `getStaticPaths` requires using `getStaticProps`
 export const getStaticProps = async ({ params }) => {
-  const { slug, brand } = params;
+  const { version_slug, brand_slug } = params;
 
-  const model = await getVersionInfo(`/models/brand/${brand}/slug/${slug}`);
+  const models = await getVersionStoreInfo(`A2L412FSH`);
 
-  if (!model) {
+  if (!models) {
     return {
       redirect: {
         destination: "/",
@@ -162,8 +175,8 @@ export const getStaticProps = async ({ params }) => {
 
   return {
     // Passed to the page component as props
-    props: { model },
-    revalidate: 86400,
+    props: { models },
+    revalidate: 60,
   };
 };
 
