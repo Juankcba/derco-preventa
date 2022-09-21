@@ -1,5 +1,5 @@
 import { Box, MenuItem, TextField } from "@mui/material";
-import { Row, Text, Button } from "@nextui-org/react";
+import { Row, Text, Button, Grid } from "@nextui-org/react";
 import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -47,15 +47,52 @@ const FormPersonal = () => {
 
   return (
     <form onSubmit={formik.handleSubmit}>
-      <TextField
-        fullWidth
-        required
-        id="preventa-cars-pie"
-        name="pie"
-        label="Pie"
-        onChange={formik.handleChange}
-        value={formik.values.pie}
-      />
+      <Grid.Container gap={2} css={{ p: 0, width: "100%" }}>
+        <Grid xs={12}>
+          <TextField
+            fullWidth
+            required
+            id="preventa-cars-pie"
+            name="rut"
+            label="RUT"
+            onChange={formik.handleChange}
+            value={formik.values.rut}
+          />
+        </Grid>
+        <Grid xs={12}>
+          <TextField
+            fullWidth
+            required
+            id="preventa-cars-name"
+            name="name"
+            label="Nombre"
+            onChange={formik.handleChange}
+            value={formik.values.pie}
+          />
+        </Grid>
+        <Grid xs={12}>
+          <TextField
+            fullWidth
+            required
+            id="preventa-cars-pie"
+            name="lastname"
+            label="Apellido"
+            onChange={formik.handleChange}
+            value={formik.values.pie}
+          />
+        </Grid>
+        <Grid xs={12}>
+          <TextField
+            fullWidth
+            required
+            id="preventa-cars-pie"
+            name="pie"
+            label="Pie"
+            onChange={formik.handleChange}
+            value={formik.values.pie}
+          />
+        </Grid>
+      </Grid.Container>
     </form>
   );
 };

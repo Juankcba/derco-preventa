@@ -1,5 +1,5 @@
 import { Box, MenuItem, TextField } from "@mui/material";
-import { Row, Text, Button } from "@nextui-org/react";
+import { Row, Text, Button, Grid } from "@nextui-org/react";
 import React, { useState } from "react";
 import { useFormik } from "formik";
 const currencies = [
@@ -49,9 +49,9 @@ const FormCredito = () => {
     initialValues: {
       pie: "",
       terms: "",
-      nacionality: "Chilena",
+      nacionality: "",
       income: 0,
-      workType: "Dependiente",
+      workType: "",
       workYears: 2,
     },
     onSubmit: (values) => {
@@ -102,16 +102,10 @@ const FormCredito = () => {
             </Button>
           </Row>
 
-          <Box
-            component="form"
-            sx={{
-              "& .MuiTextField-root": { m: 1, width: "47%" },
-            }}
-            noValidate
-            autoComplete="off"
-          >
-            <div>
+          <Grid.Container gap={1}>
+            <Grid xs={12} md={6}>
               <TextField
+                fullWidth
                 required
                 id="preventa-cars-pie"
                 name="pie"
@@ -119,7 +113,10 @@ const FormCredito = () => {
                 onChange={formik.handleChange}
                 value={formik.values.pie}
               />
+            </Grid>
+            <Grid xs={12} md={6}>
               <TextField
+                fullWidth
                 required
                 id="preventa-cars-terms"
                 label="Plazo"
@@ -127,7 +124,10 @@ const FormCredito = () => {
                 onChange={formik.handleChange}
                 value={formik.values.terms}
               />
+            </Grid>
+            <Grid xs={12} md={6}>
               <TextField
+                fullWidth
                 id="outlined-select-nacionality"
                 select
                 label="Nacionalidad"
@@ -145,7 +145,10 @@ const FormCredito = () => {
                   </MenuItem>
                 ))}
               </TextField>
+            </Grid>
+            <Grid xs={12} md={6}>
               <TextField
+                fullWidth
                 id="outlined-select-work-type"
                 select
                 label="Tipo de trabajo"
@@ -162,7 +165,10 @@ const FormCredito = () => {
                   </MenuItem>
                 ))}
               </TextField>
+            </Grid>
+            <Grid xs={12} md={6}>
               <TextField
+                fullWidth
                 required
                 id="outlined-disabled"
                 label="Ingreso mensual"
@@ -170,7 +176,10 @@ const FormCredito = () => {
                 onChange={formik.handleChange}
                 value={formik.values.income}
               />
+            </Grid>
+            <Grid xs={12} md={6}>
               <TextField
+                fullWidth
                 id="outlined-select-work-type"
                 select
                 label="Años trabajados"
@@ -188,8 +197,8 @@ const FormCredito = () => {
                   </MenuItem>
                 ))}
               </TextField>
-            </div>
-          </Box>
+            </Grid>
+          </Grid.Container>
         </>
       )}
     </form>

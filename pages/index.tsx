@@ -122,8 +122,8 @@ export async function getStaticProps() {
   const cars: Auto[] = autos;
 
   return {
-    props: {  cars, mantencions },
-    revalidate: 1,
+    props: { cars, mantencions },
+    revalidate: 60,
   };
 }
 
