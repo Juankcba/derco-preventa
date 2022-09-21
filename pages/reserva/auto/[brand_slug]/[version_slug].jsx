@@ -53,6 +53,13 @@ const CarPage = ({ models }) => {
           image: model.image_url,
         }))
       );
+      setColor({
+        color_hex: models[0].color_hex,
+        color_id: models[0].color_id,
+        color_name: models[0].color_name,
+        color_slug: models[0].color_slug,
+        image: models[0].image_url,
+      });
     }
   }, [models]);
 
@@ -63,61 +70,109 @@ const CarPage = ({ models }) => {
       title={`${model.model_name} | DercoCenter - ${model.brand_name}`}
       image={model.image_url}
     >
-      <Grid.Container gap={2} justify="center" css={{ marginTop: "20px" }}>
-        {colors?.length > 0 ? (
-          <Grid xs={12}>
-            <Card css={{ w: "100%", h: "100%" }}>
-              <Card.Header>
-                <Row gap={2} css={{ maxHeight: "120px" }}>
-                  <Image
-                    src={`https://dercocenter-cl-static-prod.s3.amazonaws.com/assets/brands-logos/${model.brand_slug}/logo-vertical-colors.svg`}
-                    alt={model.model_name}
-                    height={65}
-                    width={102}
-                  />
-                  <Text h1 css={{ paddingLeft: "16px" }}>
-                    {model.model_name}
+      {colors?.length > 0 ? (
+        <Grid.Container
+          gap={2}
+          justify="center"
+          css={{ padding: "16px 24px", "@mdMin": { padding: "40px 100px" } }}
+        >
+          <Grid xs={12} md={7} css={{ padding: " 30px 12px 0px " }}>
+            <Grid.Container>
+              <Grid xs={4}>
+                <Image
+                  src={`https://dercocenter-cl-static-prod.s3.amazonaws.com/assets/brands-logos/${model.brand_slug}/logo-vertical-colors.svg`}
+                  alt={model.model_name}
+                  height={65}
+                  width={102}
+                />
+              </Grid>
+              <Grid xs={8}>
+                <Row className="preventa-prices">
+                  <Text className="price-primary">
+                    {currency.format(model.brand_price)}*
+                  </Text>
+                  <Text className="price-before">
+                    Antes <span>{currency.format(model.list_price)}</span>
+                  </Text>
+                  <Text className="price-bonos">
+                    Bono cyber: {currency.format(model.brand_price)}
+                  </Text>
+                  <Text className="price-bonos">
+                    Bono financiamiento: {currency.format(model.brand_price)}
                   </Text>
                 </Row>
-              </Card.Header>
-              <Card.Body>
-                <Grid.Container css={{ w: "100%", h: "100%" }}>
-                  <Grid xs={12} sm={6}>
-                    <CarsColorsPreventa colors={colors} setColor={setColor} />
-                  </Grid>
-                  <Grid xs={12} sm={6}>
-                    {step == 1 && (
-                      <PreventaStep1
-                        model={model}
-                        setStep={setStep}
-                        setUser={setUser}
-                        user={user}
-                      />
-                    )}
-                    {step == 2 && (
-                      <PreventaStep2
-                        model={model}
-                        setStep={setStep}
-                        setUser={setUser}
-                        user={user}
-                      />
-                    )}
-                    {step == 3 && (
-                      <PreventaStep3
-                        model={model}
-                        setStep={setStep}
-                        setUser={setUser}
-                        user={user}
-                        selectedColor={selectedColor}
-                      />
-                    )}
-                  </Grid>
-                </Grid.Container>
-              </Card.Body>
-              <Card.Footer>Footer</Card.Footer>
-            </Card>
+              </Grid>
+              <Grid xs={12}>
+                <div
+                  style={{
+                    width: "100%",
+                    display: "flex",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Image
+                    src={selectedColor.image}
+                    objectFit="contain"
+                    objectPosition="center"
+                    width={649}
+                    height={360}
+                    alt={selectedColor.name}
+                  />
+                </div>
+              </Grid>
+
+              <Grid
+                xs={12}
+                justify="flex-end"
+                css={{ flexDirection: "column" }}
+              >
+                <Text
+                  className="preventa-disclaimer"
+                  css={{ textAlign: "end" }}
+                >
+                  *Modelo en imagen corresponde a {model.brand_name}{" "}
+                  {model.model_name}
+                </Text>
+                <div>
+                  <Button css={{ marginLeft: "auto" }}>
+                    Descargar Ficha técnica
+                  </Button>
+                </div>
+              </Grid>
+            </Grid.Container>
           </Grid>
-        ) : (
+
+          <Grid xs={12} md={5}>
+            {step == 1 && (
+              <PreventaStep3
+                model={model}
+                setStep={setStep}
+                setUser={setUser}
+                setColor={setColor}
+                colors={colors}
+                user={user}
+              />
+            )}
+            {step == 2 && (
+              <PreventaStep1
+                model={model}
+                setStep={setStep}
+                setUser={setUser}
+                user={user}
+              />
+            )}
+            {step == 3 && (
+              <PreventaStep2
+                model={model}
+                setStep={setStep}
+                setUser={setUser}
+                user={user}
+              />
+            )}
+          </Grid>
+        </Grid.Container>
+      ) : (
+        <Grid.Container>
           <Grid
             xs={12}
             md={5}
@@ -129,8 +184,8 @@ const CarPage = ({ models }) => {
               <Link>Volver al Inicio</Link>
             </NextLink>
           </Grid>
-        )}
-      </Grid.Container>
+        </Grid.Container>
+      )}
     </PreventaLayout>
   );
 };

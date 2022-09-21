@@ -62,7 +62,7 @@ export const PreventaLayout: FC<PropsWithChildren<Props>> = ({
 
       <main
         style={{
-          backgroundColor: "#262626",
+          backgroundColor: "#F6F5F5",
           padding: 0,
           minHeight: "100vh",
         }}
