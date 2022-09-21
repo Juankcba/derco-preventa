@@ -233,7 +233,7 @@ export const getStaticProps = async ({ params }) => {
   return {
     // Passed to the page component as props
     props: { models },
-    revalidate: 60,
+    revalidate: 1,
   };
 };
 

@@ -3,7 +3,7 @@ import React from "react";
 
 const SelectColor = ({ colors, setColor }) => {
   return (
-    <Grid.Container css={{ width: "503px" }}>
+    <Grid.Container css={{ width: "100%" }}>
       {colors.map((color) => (
         <Grid
           xs={2}

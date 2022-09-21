@@ -102,7 +102,7 @@ const FormCredito = () => {
             </Button>
           </Row>
 
-          <Grid.Container gap={1}>
+          <Grid.Container gap={1} css={{ p: 0, maxWidth: "99%" }}>
             <Grid xs={12} md={6}>
               <TextField
                 fullWidth

@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useState, useEffect } from "react";
 import {
   Grid,
   Text,
@@ -22,10 +22,13 @@ import {
   FormControl,
   InputLabel,
   MenuItem,
-  Select,
   TextField,
   Box,
+  ListSubheader,
 } from "@mui/material";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
+import { cesApi, storeApi } from "../../apis";
+
 // interface Props {
 //   model: ModelResponse;
 //   setStep: (arg: number) => void;
@@ -45,35 +48,78 @@ const PreventaStep3 = ({
   const handleStep = (data) => {
     setStep(2);
   };
-  const [consecionario, setConsecionario] = useState(null);
+  const [consecionario, setConsecionario] = useState([]);
+  const [ces, setCes] = useState("");
+
+  const getCesData = async () => {
+    try {
+      // await storeApi
+      //   .get(`/pre-order/${model.model_slug}/subsidiaries`)
+      //   .then((response) => {
+      //     console.log("response", response);
+      //   });
+      await cesApi
+        .get(`/pre-order/new-haval-dargo/subsidiaries`)
+        .then((response) => {
+          if (response.status == 200) {
+            setConsecionario(response.data);
+          }
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getCesData();
+  }, []);
 
   return (
-    <Card css={{ w: "100%", h: "100%", p: "32px", maxWidth: "503px" }}>
-      <Card.Body css={{ p: 0 }}>
+    <Card
+      css={{
+        w: "100%",
+        h: "100%",
+        p: "32px",
+        overflow: "hidden",
+        maxWidth: "503px",
+      }}
+    >
+      <Card.Body css={{ p: 0, overflow: "hidden" }}>
         <CardHeader model={model} title={"Por $200.000 reserva tu"} />
         <Card.Divider css={{ margin: "24px 0" }}></Card.Divider>
         <SelectColor setColor={setColor} colors={colors} />
         <Card.Divider css={{ margin: "24px 0" }}></Card.Divider>
         <Text>Selecciona tu concesionario</Text>
-        <FormControl fullWidth>
-          <InputLabel id="concesionario-select">Concesionario*</InputLabel>
+        <FormControl sx={{ m: 1, minWidth: 120 }}>
+          <InputLabel htmlFor="grouped-concesionario-select">
+            Concesionario
+          </InputLabel>
           <Select
-            labelId="concesionario-select"
-            id="concesionario-simple-select"
-            value={consecionario}
+            native
+            defaultValue=""
+            id="grouped-concesionario-select"
             label="Concesionario*"
-            onChange={setConsecionario}
+            value={ces}
+            onChange={(e) => setCes(e.target.value)}
           >
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
+            <option value={""} disabled>
+              Seleccione una opción
+            </option>
+            {consecionario.length > 0 &&
+              consecionario.map((region, index) => (
+                <optgroup label={region.name} key={`region-${index + 1}`}>
+                  {region.subsidiaries.map((sub) => (
+                    <option value={sub.id} key={sub.id}>
+                      {sub.name}
+                    </option>
+                  ))}
+                </optgroup>
+              ))}
           </Select>
         </FormControl>
-
         <FormCredito />
         <Card.Divider css={{ margin: "24px 0" }}></Card.Divider>
         <Button onPress={() => handleStep()}>Siguiente</Button>
-
         <Card.Divider css={{ margin: "24px 0" }}></Card.Divider>
         <HelperSwipper />
       </Card.Body>
