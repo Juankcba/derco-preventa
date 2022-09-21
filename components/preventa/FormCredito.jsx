@@ -105,7 +105,7 @@ const FormCredito = () => {
           <Box
             component="form"
             sx={{
-              "& .MuiTextField-root": { m: 1, width: "34ch" },
+              "& .MuiTextField-root": { m: 1, width: "47%" },
             }}
             noValidate
             autoComplete="off"

@@ -17,6 +17,7 @@ import { useForm } from "react-hook-form";
 import SelectColor from "./SelectColor";
 import FormCredito from "./FormCredito";
 import HelperSwipper from "./HelperSwipper";
+import CardHeader from "./CardHeader";
 import {
   FormControl,
   InputLabel,
@@ -42,18 +43,14 @@ const PreventaStep3 = ({
   colors,
 }) => {
   const handleStep = (data) => {
-    setStep(3);
+    setStep(2);
   };
   const [consecionario, setConsecionario] = useState(null);
 
   return (
-    <Card css={{ w: "100%", h: "100%", p: "32px" }}>
+    <Card css={{ w: "100%", h: "100%", p: "32px", maxWidth: "503px" }}>
       <Card.Body css={{ p: 0 }}>
-        <Text>Por $200.000 reserva tu</Text>
-        <Text>
-          {model.brand_name} | {model.model_name}
-        </Text>
-        <Text>{model.version_name}</Text>
+        <CardHeader model={model} title={"Por $200.000 reserva tu"} />
         <Card.Divider css={{ margin: "24px 0" }}></Card.Divider>
         <SelectColor setColor={setColor} colors={colors} />
         <Card.Divider css={{ margin: "24px 0" }}></Card.Divider>
@@ -75,8 +72,8 @@ const PreventaStep3 = ({
 
         <FormCredito />
         <Card.Divider css={{ margin: "24px 0" }}></Card.Divider>
-        <Button>Siguiente</Button>
-        <Button>Volver</Button>
+        <Button onPress={() => handleStep()}>Siguiente</Button>
+
         <Card.Divider css={{ margin: "24px 0" }}></Card.Divider>
         <HelperSwipper />
       </Card.Body>

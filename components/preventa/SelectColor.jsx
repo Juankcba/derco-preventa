@@ -24,6 +24,7 @@ const SelectColor = ({ colors, setColor }) => {
                 ? color.color_hex
                 : Math.floor(Math.random() * 16777215).toString(16),
             }}
+            onClick={() => setColor(color)}
           >
             <Text
               className="color-btn"

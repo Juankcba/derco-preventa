@@ -21,6 +21,8 @@ const rutMask = createRutMask();
 
 import { phoneNumberMask } from "./../../utils/validations";
 import { validateRut } from "../../utils/rut";
+import CardHeader from "./CardHeader";
+import FormPersonal from "./FormPersonal";
 
 // interface Props {
 //   model: ModelResponse;
@@ -37,194 +39,17 @@ import { validateRut } from "../../utils/rut";
 // };
 
 const PreventaStep2 = ({ model, setStep, user, setUser }) => {
-  let regex = /^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/g;
   return (
-    <Card css={{ w: "100%", h: "100%" }}>
-      <Card.Body css={{ overflowY: "hidden" }}>
-        <Text h1>Ahora necesitamos tus datos</Text>
-        <Text h4>El {model.name} te espera</Text>
-        <Spacer y={1.2} />
-        <Formik
-          initialValues={{ ...user }}
-          onSubmit={(values, { setSubmitting }) => {
-            setUser({ ...user, rut: values.rut });
-            setStep(3);
-          }}
-          validationSchema={Yup.object().shape({
-            name: Yup.string()
-              .min(3, "El nombre debe de tener al menos 3 caracteres")
-              .max(100, "Has superado la cantidad de caracteres")
-              .matches(regex, "Ingrese un nombre válido")
-              .required("El nombre es requerido"),
-            lastname: Yup.string()
-              .min(3, "El apellido debe de tener al menos 3 caracteres")
-              .matches(regex, "Ingrese un apellido válido")
-              .max(100, "Has superado la cantidad de caracteres")
-              .required("El apellido es requerido"),
-            email: Yup.string()
-              .max(100, "Has superado la cantidad de caracteres")
-              .email("Email inválido")
-              .required("El email es requerido"),
-            phone: Yup.string().required("El teléfono es requerido"),
-            rut: Yup.string()
-              .min(9, "El RUT debe de tener al menos 9 caracteres")
-              .required("El RUT es requerido")
-              .test((val) => validateRut(val)),
-          })}
-        >
-          {(props) => {
-            const {
-              values,
-              touched,
-              errors,
-              dirty,
-              isSubmitting,
-              handleChange,
-              handleBlur,
-              handleSubmit,
-              handleReset,
-            } = props;
-
-            return (
-              <form onSubmit={handleSubmit}>
-                <Grid.Container gap={4} css={{ w: "100%", h: "100%" }}>
-                  <Grid>
-                    <Field
-                      name="rut"
-                      render={({ field }) => (
-                        <MaskedInput
-                          {...field}
-                          mask={rutMask}
-                          id="rut"
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          render={(ref, props) => (
-                            <Input
-                              bordered
-                              labelPlaceholder="RUT"
-                              clearable
-                              color="default"
-                              helperColor={"error"}
-                              initialValue={values.rut}
-                              helperText={
-                                errors.rut && touched.rut ? errors.rut : ""
-                              }
-                              ref={ref}
-                              {...props}
-                            />
-                          )}
-                        />
-                      )}
-                    />
-                  </Grid>
-                  <Grid>
-                    <Field
-                      name="name"
-                      render={({ ref, field }) => (
-                        <Input
-                          id="name"
-                          bordered
-                          labelPlaceholder="NOMBRE"
-                          clearable
-                          color="default"
-                          helperColor={"error"}
-                          initialValue={values.name}
-                          helperText={
-                            errors.name && touched.name ? errors.name : ""
-                          }
-                          ref={ref}
-                          {...field}
-                        />
-                      )}
-                    />
-                  </Grid>
-                  <Grid>
-                    <Field
-                      name="lastname"
-                      render={({ ref, field }) => (
-                        <Input
-                          bordered
-                          labelPlaceholder="APELLIDO"
-                          clearable
-                          color="default"
-                          helperColor={"error"}
-                          initialValue={values.lastname}
-                          helperText={
-                            errors.lastname && touched.lastname
-                              ? errors.lastname
-                              : ""
-                          }
-                          ref={ref}
-                          {...field}
-                        />
-                      )}
-                    />
-                  </Grid>
-                  <Grid>
-                    <Field
-                      name="phone"
-                      render={({ field }) => (
-                        <MaskedInput
-                          {...field}
-                          mask={phoneNumberMask}
-                          id="phone"
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          render={(ref, props) => (
-                            <Input
-                              bordered
-                              labelPlaceholder="TELÉFONO"
-                              clearable
-                              color="default"
-                              helperColor={"error"}
-                              initialValue={values.phone}
-                              helperText={
-                                errors.phone && touched.phone
-                                  ? errors.phone
-                                  : ""
-                              }
-                              ref={ref}
-                              {...props}
-                            />
-                          )}
-                        />
-                      )}
-                    />
-                  </Grid>
-                  <Grid>
-                    <Field
-                      name="email"
-                      render={({ ref, field }) => (
-                        <Input
-                          bordered
-                          labelPlaceholder="EMAIL"
-                          clearable
-                          color="default"
-                          type={"email"}
-                          helperColor={"error"}
-                          initialValue={values.email}
-                          helperText={
-                            errors.email && touched.email ? errors.email : ""
-                          }
-                          ref={ref}
-                          {...field}
-                        />
-                      )}
-                    />
-                  </Grid>
-                  <Grid xs={8}>
-                    <Button
-                      type="submit"
-                      disabled={!dirty || errors.length > 0}
-                    >
-                      Continuar
-                    </Button>
-                  </Grid>
-                </Grid.Container>
-              </form>
-            );
-          }}
-        </Formik>
+    <Card css={{ w: "100%", h: "100%", p: "32px", maxWidth: "503px" }}>
+      <Card.Body css={{ p: 0 }}>
+        <CardHeader model={model} title={"Reserva tu"} />
+        <Card.Divider css={{ margin: "24px 0" }}></Card.Divider>
+        <Text>Ingresa tus datos personales</Text>
+        <Text>
+          Para inscribirte en la reserva necesitamos datos de contacto.
+        </Text>
+        <FormPersonal user={user} setUser={setUser} />
+        <Card.Divider css={{ margin: "24px 0" }}></Card.Divider>
       </Card.Body>
     </Card>
   );

@@ -65,7 +65,7 @@ const CarPage = ({ models }) => {
     }
   }, [models]);
 
-  console.log("colors", colors);
+  console.log("colors", selectedColor);
 
   return (
     <PreventaLayout
@@ -76,7 +76,14 @@ const CarPage = ({ models }) => {
         <Grid.Container
           gap={2}
           justify="center"
-          css={{ padding: "16px 24px", "@mdMin": { padding: "40px 100px" } }}
+          css={{
+            padding: "16px 24px",
+            "@mdMin": {
+              padding: "40px 0px",
+              margin: "0 auto",
+              maxWidth: "1240px",
+            },
+          }}
         >
           <Grid xs={12} md={7} css={{ padding: " 30px 12px 0px " }}>
             <Grid.Container css={{ maxHeight: "625px" }}>
@@ -155,15 +162,8 @@ const CarPage = ({ models }) => {
                 user={user}
               />
             )}
+
             {step == 2 && (
-              <PreventaStep1
-                model={model}
-                setStep={setStep}
-                setUser={setUser}
-                user={user}
-              />
-            )}
-            {step == 3 && (
               <PreventaStep2
                 model={model}
                 setStep={setStep}
