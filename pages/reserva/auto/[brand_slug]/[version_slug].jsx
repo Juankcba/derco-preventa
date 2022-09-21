@@ -50,6 +50,7 @@ const CarPage = ({ models }) => {
           color_id: model.color_id,
           color_name: model.color_name,
           color_slug: model.color_slug,
+          stock: model.stock_availabe,
           image: model.image_url,
         }))
       );
@@ -58,6 +59,7 @@ const CarPage = ({ models }) => {
         color_id: models[0].color_id,
         color_name: models[0].color_name,
         color_slug: models[0].color_slug,
+        stock: model.stock_availabe,
         image: models[0].image_url,
       });
     }
@@ -217,7 +219,7 @@ export async function getStaticPaths() {
 export const getStaticProps = async ({ params }) => {
   const { version_slug, brand_slug } = params;
 
-  const models = await getVersionStoreInfo(`A2L412FSH`);
+  const models = await getVersionStoreInfo(version_slug);
 
   if (!models) {
     return {

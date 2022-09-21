@@ -25,7 +25,16 @@ const SelectColor = ({ colors, setColor }) => {
                 : Math.floor(Math.random() * 16777215).toString(16),
             }}
           >
-            <Text css={{ textAlign: "center", lineHeight: "40px" }}>0</Text>
+            <Text
+              className="color-btn"
+              css={{
+                textAlign: "center",
+                lineHeight: "40px",
+                color: color.color_hex.indexOf("#F") ? "#FFFFFF" : "#000",
+              }}
+            >
+              {color.stock}
+            </Text>
           </div>
           <Text className="label-reserva-colors" css={{ maxWidth: "40px" }}>
             {color.color_name}

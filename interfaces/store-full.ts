@@ -54,6 +54,7 @@ export interface StoreCar {
 
 
 export interface StoreColor {
+    stock_availabe: number,
     color_hex: string;
     color_id: number;
     color_name: string;
