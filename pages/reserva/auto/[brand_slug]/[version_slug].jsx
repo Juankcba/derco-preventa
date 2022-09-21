@@ -79,7 +79,7 @@ const CarPage = ({ models }) => {
           css={{ padding: "16px 24px", "@mdMin": { padding: "40px 100px" } }}
         >
           <Grid xs={12} md={7} css={{ padding: " 30px 12px 0px " }}>
-            <Grid.Container>
+            <Grid.Container css={{ maxHeight: "625px" }}>
               <Grid xs={4}>
                 <Image
                   src={`https://dercocenter-cl-static-prod.s3.amazonaws.com/assets/brands-logos/${model.brand_slug}/logo-vertical-colors.svg`}

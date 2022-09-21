@@ -61,6 +61,10 @@
   width: 100%;
   max-width: 240px;
   margin: 0 auto;
+  &.flex-start {
+    justify-content: flex-start;
+    margin: 8px 0 24px;
+  }
 }
 
 .btn-primary {

@@ -15,6 +15,8 @@ import { ModelResponse, IPUser } from "../../interfaces";
 import { currency } from "../../utils";
 import { useForm } from "react-hook-form";
 import SelectColor from "./SelectColor";
+import FormCredito from "./FormCredito";
+import HelperSwipper from "./HelperSwipper";
 import {
   FormControl,
   InputLabel,
@@ -43,33 +45,10 @@ const PreventaStep3 = ({
     setStep(3);
   };
   const [consecionario, setConsecionario] = useState(null);
-  const [currency, setCurrency] = React.useState("EUR");
-
-  const handleChange = (event) => {
-    setCurrency(event.target.value);
-  };
-  const currencies = [
-    {
-      value: "USD",
-      label: "$",
-    },
-    {
-      value: "EUR",
-      label: "€",
-    },
-    {
-      value: "BTC",
-      label: "฿",
-    },
-    {
-      value: "JPY",
-      label: "¥",
-    },
-  ];
 
   return (
-    <Card css={{ w: "100%", h: "100%" }}>
-      <Card.Body>
+    <Card css={{ w: "100%", h: "100%", p: "32px" }}>
+      <Card.Body css={{ p: 0 }}>
         <Text>Por $200.000 reserva tu</Text>
         <Text>
           {model.brand_name} | {model.model_name}
@@ -94,72 +73,12 @@ const PreventaStep3 = ({
           </Select>
         </FormControl>
 
-        <Text>¿Deseas evaluar un crédito en línea?</Text>
-        <Text>Tipo de crédito</Text>
-
-        <Box
-          component="form"
-          sx={{
-            "& .MuiTextField-root": { m: 1, width: "34ch" },
-          }}
-          noValidate
-          autoComplete="off"
-        >
-          <div>
-            <TextField
-              required
-              id="preventa-cars-pie"
-              label="Pie"
-              defaultValue="Pie"
-            />
-            <TextField
-              required
-              id="preventa-cars-plazo"
-              label="Plazo"
-              defaultValue="Plazo"
-            />
-            <TextField
-              required
-              id="preventa-cars-nacionalidad"
-              label="Nacionalidad"
-              defaultValue="Nacionalidad"
-            />
-            <TextField
-              id="outlined-select-currency"
-              select
-              label="Tipo de trabajo"
-              value={currency}
-              onChange={handleChange}
-              helperText="Please select your currency"
-            >
-              {currencies.map((option) => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
-                </MenuItem>
-              ))}
-            </TextField>
-            <TextField
-              required
-              id="outlined-disabled"
-              label="Ingreso mensual"
-              defaultValue="Hello World"
-            />
-            <TextField
-              id="outlined-select-currency"
-              select
-              label="Tipo de trabajo"
-              value={currency}
-              onChange={handleChange}
-              helperText="Please select your currency"
-            >
-              {currencies.map((option) => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
-                </MenuItem>
-              ))}
-            </TextField>
-          </div>
-        </Box>
+        <FormCredito />
+        <Card.Divider css={{ margin: "24px 0" }}></Card.Divider>
+        <Button>Siguiente</Button>
+        <Button>Volver</Button>
+        <Card.Divider css={{ margin: "24px 0" }}></Card.Divider>
+        <HelperSwipper />
       </Card.Body>
     </Card>
   );
