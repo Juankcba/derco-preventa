@@ -121,6 +121,7 @@ const ListProducts: FC<Props> = ({ versions }) => {
       );
     }
     setResultadosVersiones(auxResultados);
+    setVersiones(auxResultados);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [order, indexOfCards, filterCarClass, filterBrand, isDiesel]);
@@ -150,7 +151,7 @@ const ListProducts: FC<Props> = ({ versions }) => {
         },
       }}
     >
-      {resultadosVersiones.map((version: Auto) => (
+      {versiones.map((version: Auto) => (
         <Grid
           xs
           md={3}
