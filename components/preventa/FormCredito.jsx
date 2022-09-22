@@ -189,7 +189,7 @@ const FormCredito = ({ setValidate, model }) => {
         validateOnChange={true}
       >
         <Text>¿Deseas evaluar un crédito en línea?</Text>
-        <Row className="btn-group flex-start">
+        <Row className="btn-group flex-start w-50">
           <Button
             type="button"
             className={creditState ? "btn-active group" : "btn-deactive group"}

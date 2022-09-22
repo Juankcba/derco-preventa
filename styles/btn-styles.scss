@@ -65,6 +65,10 @@
     justify-content: flex-start;
     margin: 8px 0 24px;
   }
+  &.w-50 {
+    width: 50%;
+    max-width: 140px;
+  }
 }
 
 .btn-primary {
@@ -155,5 +159,10 @@
   }
   &.auto {
     margin: 24px auto;
+  }
+  &.wauto {
+    width: 245px;
+    display: flex;
+    justify-content: center;
   }
 }

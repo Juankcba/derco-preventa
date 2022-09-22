@@ -19,6 +19,7 @@ import NextLink from "next/link";
 import PreventaStep2 from "../../../../components/preventa/PaymentStep";
 import PreventaStep3 from "../../../../components/preventa/CreditStep";
 import { getVersionStoreInfo } from "../../../../utils/getVersionStoreInfo";
+import { DownloadCar } from "./../../../../components/ui/DownloadCar";
 
 // interface Props {
 //   model: Auto;
@@ -73,7 +74,6 @@ const CarPage = ({ models, regions }) => {
   useMemo(() => {
     setScrollChange(true);
   }, [step]);
-
 
   return (
     <PreventaLayout
@@ -154,7 +154,12 @@ const CarPage = ({ models, regions }) => {
                   </Text>
                   {step == 1 && (
                     <div>
-                      <Button css={{ marginLeft: "auto" }}>
+                      <Button
+                        light
+                        css={{ marginLeft: "auto" }}
+                        iconRight={<DownloadCar />}
+                        className="btn-primary-outline big wauto"
+                      >
                         Descargar Ficha técnica
                       </Button>
                     </div>
@@ -215,7 +220,7 @@ const CarPage = ({ models, regions }) => {
                   </Text>
                   <Text h6 className="subtitle">
                     1. Acepta ser contactado por Derco Chile S.A. y/o sus
-                    sociedades relacionadas, red de concesionarios y/o Sociedad
+                    sociedades relacionadas,red de concesionarios y/o Sociedad
                     de Créditos Automotrices S.A, para recibir información
                     relacionada a esta a través de medios electrónicos y/o de
                     forma telefónica, entre otros, conforme a la política de
@@ -223,7 +228,7 @@ const CarPage = ({ models, regions }) => {
                   </Text>
                   <Text h6 className="subtitle">
                     2. Autoriza expresamente a Derco Chile S.A. y/o sus
-                    sociedades relacionadas, red de concesionarios y/o Sociedad
+                    sociedades relacionadas,red de concesionarios y/o Sociedad
                     de Créditos Automotrices S.A y a las terceras entidades
                     financieras a las que ésta información les sea enviada, para
                     utilizar, almacenar y tratar la misma y verificar sus datos
@@ -231,9 +236,10 @@ const CarPage = ({ models, regions }) => {
                     sea en DICOM u otra base de datos necesarios para lograr
                     una.
                   </Text>
+
                   <Text h6 className="subtitle">
                     3. Los datos proporcionados por el usuario serán utilizados
-                    por Derco Chile S.A. y/o sus sociedades relacionadas, red de
+                    por Derco Chile S.A. y/o sus sociedades relacionadas,red de
                     concesionarios y/o Sociedad de Créditos Automotrices S.A
                     únicamente con la finalidad de que pueda comunicar éstos a
                     las distintas entidades financieras que podrían otorgar un

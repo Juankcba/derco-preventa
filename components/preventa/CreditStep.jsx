@@ -19,6 +19,7 @@ import SelectColor from "./SelectColor";
 import FormCredito from "./FormCredito";
 import HelperSwipper from "./HelperSwipper";
 import CardHeader from "./CardHeader";
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import {
   FormControl,
   InputLabel,
@@ -136,8 +137,13 @@ const PreventaStep3 = ({
         )}
         <FormCredito setValidate={setValidate} model={model} />
         <Card.Divider css={{ margin: "24px 0" }}></Card.Divider>
-        <Button disabled={!validate} onPress={() => handleStep()} className="btn-primary big">
-          Siguiente >
+        <Button
+          disabled={!validate}
+          onPress={() => handleStep()}
+          className="btn-primary big"
+          iconRight={<NavigateNextIcon fill="currentColor" />}
+        >
+          Siguiente
         </Button>
         <Card.Divider css={{ margin: "24px 0" }}></Card.Divider>
         <HelperSwipper />

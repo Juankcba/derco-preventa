@@ -25,6 +25,7 @@ import { phoneNumberMask } from "../../utils/validations";
 import { validateRut } from "../../utils/rut";
 import CardHeader from "./CardHeader";
 import FormPersonal from "./FormPersonal";
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 
 // interface Props {
 //   model: ModelResponse;
@@ -46,8 +47,10 @@ const PreventaStep2 = ({ model, setStep, user, setUser }) => {
       <Card.Body css={{ p: 0 }}>
         <CardHeader model={model} title={"Reserva tu"} />
         <Card.Divider css={{ margin: "24px 0" }}></Card.Divider>
-        <Text>Ingresa tus datos personales</Text>
-        <Text>
+        <Text h2 className="payment-header-title">
+          Ingresa tus datos personales
+        </Text>
+        <Text h3 className="payment-header-subtitle">
           Para inscribirte en la reserva necesitamos datos de contacto.
         </Text>
         <FormPersonal user={user} setUser={setUser} />
@@ -62,8 +65,12 @@ const PreventaStep2 = ({ model, setStep, user, setUser }) => {
         <Text h3 className="reserva-title-disclaimer">
           Valor reserva $200.000
         </Text>
-        <Button type="button" className="btn-primary big">
-          Paga online >
+        <Button
+          iconRight={<NavigateNextIcon fill="currentColor" />}
+          type="button"
+          className="btn-primary big"
+        >
+          Paga online
         </Button>
         <Spacer y={1} />
         <Image
