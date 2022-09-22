@@ -47,7 +47,7 @@ const VerifyMaintenance = ({ setStep }) => {
         <NextImage src="/assets/img/icon-transbank.svg" height={48} width={439} alt="cyber-coin" className="img_transbank" />
       </div>
       <div className="content_btn">
-        <Button light color="error" auto className="btn">
+        <Button light color="error" auto className="btn" onPress={() => handleStep(1)}>
           Regresar a “Verificar mantención”
         </Button>
       </div>
