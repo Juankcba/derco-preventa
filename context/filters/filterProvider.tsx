@@ -6,8 +6,8 @@ export interface filterState {
   resultadosVersiones: Auto[];
   resultadosMantenciones: Auto[];
   isMantenciones: boolean;
-  filterCarClass: number[];
-  filterBrand: number[];
+  filterCarClass: string[];
+  filterBrand: string[];
   filterMantenciones: string;
   indexOfCards: number;
   indexOfMantenciones: number;
@@ -38,13 +38,13 @@ export const FilterProvider: FC<PropsWithChildren> = ({ children }) => {
       payload: state,
     });
   };
-  const setFilterCarClass = (state: number[]) => {
+  const setFilterCarClass = (state: string[]) => {
     dispatch({
       type: "[Filters] - Update CarClass Filter",
       payload: state,
     });
   };
-  const setFilterBrand = (state: number[]) => {
+  const setFilterBrand = (state: string[]) => {
     dispatch({
       type: "[Filters] - Update Brands Filter",
       payload: state,

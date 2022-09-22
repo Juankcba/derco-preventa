@@ -19,12 +19,14 @@ import { Box } from "../ui/Box";
 import { FilterIcon } from "../ui/FilterIcon";
 import FiltersOnBottom from "./../ui/FiltersOnBottom";
 import CloseIcon from "@mui/icons-material/Close";
+import { useRouter } from "next/router";
 
 interface CateorySelected {
   id: Number[];
 }
 
 const ModalFilters: FC = () => {
+  const router = useRouter();
   const { isModalOpen, setVisible } = useContext(UiContext);
   const {
     filterCarClass,
@@ -42,9 +44,9 @@ const ModalFilters: FC = () => {
     setScrollChange,
   } = useContext(FilterContext);
   const [categorySelected, setCategorySelected] = useState(
-    filterCarClass as number[]
+    filterCarClass as string[]
   );
-  const [marcasSelected, setMarcasSelected] = useState(filterBrand as number[]);
+  const [marcasSelected, setMarcasSelected] = useState(filterBrand as string[]);
   const [mantencionesSelected, setMantencionesSelected] = useState(
     filterMantenciones as string
   );
@@ -65,48 +67,110 @@ const ModalFilters: FC = () => {
     if (resultadosVersiones.length > 0) {
       setVisible(false);
       setScrollChange(true);
+      router.push({
+        pathname: "/",
+        query: {
+          card: isMantenciones,
+          mantenciones: mantencionesSelected,
+          brands: marcasSelected,
+          categories: categorySelected,
+          combustible: combustibleSelected,
+        },
+      });
     }
   };
 
-  const handleFilterCategory = (id: number) => {
+  const handleFilterCategory = (name: string) => {
     let aux = [];
-    if (categorySelected.includes(id)) {
-      aux = categorySelected.filter((c) => c != id);
+    if (categorySelected.includes(name)) {
+      aux = categorySelected.filter((c) => c != name);
     } else {
       if (categorySelected.length > 0) {
-        aux = [...categorySelected, id];
+        aux = [...categorySelected, name];
       } else {
-        aux.push(id);
+        aux.push(name);
       }
     }
+
+    router.replace({
+      pathname: "/",
+      query: {
+        card: isMantenciones,
+        brands: marcasSelected,
+        categories: aux,
+        mantenciones: mantencionesSelected,
+        combustible: combustibleSelected,
+      },
+    });
     setCategorySelected(aux);
-    setFilterCarClass(aux);
+    //setFilterCarClass(aux);
   };
-  const handleFilterBrand = (id: number) => {
+  const handleFilterBrand = (name: string) => {
     let aux = [];
-    if (marcasSelected.includes(id)) {
-      aux = marcasSelected.filter((c) => c != id);
+    if (marcasSelected.includes(name)) {
+      aux = marcasSelected.filter((c) => c != name);
     } else {
       if (marcasSelected.length > 0) {
-        aux = [...marcasSelected, id];
+        aux = [...marcasSelected, name];
       } else {
-        aux.push(id);
+        aux.push(name);
       }
     }
+
+    router.replace({
+      pathname: "/",
+      query: {
+        brands: aux,
+        categories: categorySelected,
+        card: isMantenciones,
+        mantenciones: mantencionesSelected,
+        combustible: true,
+      },
+    });
     setMarcasSelected(aux);
-    setFilterBrand(aux);
+    //setFilterBrand(aux);
   };
   const handleCombustible = (state: any) => {
     if (state == "diesel") {
+      router.replace({
+        pathname: "/",
+        query: {
+          card: isMantenciones,
+          brands: marcasSelected,
+          categories: categorySelected,
+          mantenciones: mantencionesSelected,
+          combustible: true,
+        },
+      });
       setCombustibleSelected(true);
-      setFilterCombustible(true);
+      //setFilterCombustible(true);
     } else {
+      router.replace({
+        pathname: "/",
+        query: {
+          card: isMantenciones,
+          brands: marcasSelected,
+          categories: categorySelected,
+          mantenciones: mantencionesSelected,
+          combustible: false,
+        },
+      });
       setCombustibleSelected(false);
-      setFilterCombustible(false);
+      //setFilterCombustible(false);
     }
   };
 
   const handleMantenciones = (state: string) => {
+    router.replace({
+      pathname: "/",
+      query: {
+        card: isMantenciones,
+        brands: marcasSelected,
+        categories: categorySelected,
+        combustible: combustibleSelected,
+        mantenciones: state,
+      },
+    });
     setMantencionesSelected(state);
     setFilterMantenciones(state);
   };
@@ -116,6 +180,8 @@ const ModalFilters: FC = () => {
     setIndex(1);
     closeHandler();
   };
+
+  console.log(resultadosVersiones);
 
   return (
     <Container
@@ -128,6 +194,7 @@ const ModalFilters: FC = () => {
           paddingRight: "20px",
           display: "flex",
           justifyContent: "flex-end",
+          cursor: "pointer",
         }}
       >
         <CloseIcon onClick={closeHandler} />
@@ -168,7 +235,7 @@ const ModalFilters: FC = () => {
                 justify="center"
               >
                 <Badge
-                  onClick={() => handleFilterCategory(categoria.id)}
+                  onClick={() => handleFilterCategory(categoria.name)}
                   disableOutline
                   content="X"
                   size="xs"
@@ -176,8 +243,8 @@ const ModalFilters: FC = () => {
                   horizontalOffset="0%"
                   verticalOffset="2%"
                   isInvisible={
-                    categorySelected.filter((c) => c === categoria.id).length ==
-                    0
+                    categorySelected.filter((c) => c === categoria.name)
+                      .length == 0
                       ? true
                       : false
                   }
@@ -186,13 +253,13 @@ const ModalFilters: FC = () => {
                     variant="flat"
                     isPressable
                     className="filter-card-category"
-                    onClick={() => handleFilterCategory(categoria.id)}
+                    onClick={() => handleFilterCategory(categoria.name)}
                     css={{
                       width: "72px",
                       height: "72px",
                       margin: "0 auto",
                       border:
-                        categorySelected.filter((c) => c === categoria.id)
+                        categorySelected.filter((c) => c === categoria.name)
                           .length > 0
                           ? "3px solid #E0102C"
                           : "none",
@@ -260,7 +327,7 @@ const ModalFilters: FC = () => {
                   justify="center"
                 >
                   <Badge
-                    onClick={() => handleFilterBrand(marca.id)}
+                    onClick={() => handleFilterBrand(marca.name)}
                     content="X"
                     css={{ p: "0", color: "white", bgColor: "black" }}
                     placement="top-right"
@@ -269,21 +336,21 @@ const ModalFilters: FC = () => {
                     shape="circle"
                     size="md"
                     isInvisible={
-                      marcasSelected.filter((m) => m === marca.id).length == 0
+                      marcasSelected.filter((m) => m === marca.name).length == 0
                         ? true
                         : false
                     }
                   >
                     <Avatar
-                      onClick={() => handleFilterBrand(marca.id)}
+                      onClick={() => handleFilterBrand(marca.name)}
                       className="filter-avatar"
                       size="xl"
                       css={{
                         margin: "0 auto",
 
                         border:
-                          marcasSelected.filter((c) => c === marca.id).length >
-                          0
+                          marcasSelected.filter((c) => c === marca.name)
+                            .length > 0
                             ? "3px solid #E0102C"
                             : "none",
                       }}

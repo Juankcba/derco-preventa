@@ -8,11 +8,11 @@ type FilterActionType =
     }
   | {
       type: "[Filters] - Update CarClass Filter";
-      payload: number[];
+      payload: string[];
     }
   | {
       type: "[Filters] - Update Brands Filter";
-      payload: number[];
+      payload: string[];
     }
   | {
       type: "[Filters] - Update Combustible Filter";
