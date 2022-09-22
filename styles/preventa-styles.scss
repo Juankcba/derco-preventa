@@ -148,3 +148,90 @@
     color: #57585c;
   }
 }
+
+.subject-container {
+  background: #f6f5f5;
+  border-radius: 6px;
+  width: 100%;
+  padding: 16px;
+  display: flex;
+  justify-content: "center";
+  flex-direction: column;
+
+  .title {
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 24px;
+    width: 100%;
+    letter-spacing: 0.01em;
+    color: #e0102c;
+    text-align: center;
+    margin-bottom: 4px;
+  }
+  .subtitle {
+    text-align: center;
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    width: 100%;
+    letter-spacing: 0.01em;
+    color: #57585c;
+    margin-bottom: 0;
+    span {
+      font-weight: 700;
+    }
+  }
+}
+
+.opt-disclaimer {
+  display: flex;
+  justify-content: "flex-start";
+  flex-direction: "row";
+  align-content: "center";
+
+  h6 {
+    padding-left: 18px;
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    letter-spacing: 0.01em;
+    color: #57585c;
+    margin: 0;
+  }
+}
+.reserva-title-disclaimer {
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 29px;
+  color: #e0102c;
+  margin: 16px 0;
+}
+.disclaimer-form {
+  .title {
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    display: flex;
+    align-items: center;
+    color: #191919;
+  }
+  .subtitle {
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 14px;
+    letter-spacing: 0.01em;
+    color: #57585c;
+  }
+}

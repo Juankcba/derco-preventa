@@ -52,7 +52,7 @@ const FormPersonal = () => {
           <TextField
             fullWidth
             required
-            id="preventa-cars-pie"
+            id="preventa-cars-rut"
             name="rut"
             label="RUT"
             onChange={formik.handleChange}
@@ -65,31 +65,42 @@ const FormPersonal = () => {
             required
             id="preventa-cars-name"
             name="name"
-            label="Nombre"
+            label="Ingresa tu Nombre"
             onChange={formik.handleChange}
-            value={formik.values.pie}
+            value={formik.values.name}
           />
         </Grid>
         <Grid xs={12}>
           <TextField
             fullWidth
             required
-            id="preventa-cars-pie"
+            id="preventa-cars-lastname"
             name="lastname"
-            label="Apellido"
+            label="Ingresa tu Apellido"
             onChange={formik.handleChange}
-            value={formik.values.pie}
+            value={formik.values.lastname}
           />
         </Grid>
         <Grid xs={12}>
           <TextField
             fullWidth
             required
-            id="preventa-cars-pie"
-            name="pie"
-            label="Pie"
+            id="preventa-cars-phone"
+            name="phone"
+            label="Ingresa tu número de celular"
             onChange={formik.handleChange}
-            value={formik.values.pie}
+            value={formik.values.phone}
+          />
+        </Grid>
+        <Grid xs={12}>
+          <TextField
+            fullWidth
+            required
+            id="preventa-cars-email"
+            name="email"
+            label="Ingresa tu correo"
+            onChange={formik.handleChange}
+            value={formik.values.email}
           />
         </Grid>
       </Grid.Container>
