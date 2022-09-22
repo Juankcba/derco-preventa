@@ -150,7 +150,7 @@ const ListProducts: FC<Props> = ({ versions }) => {
         },
       }}
     >
-      {versiones.map((version: Auto) => (
+      {resultadosVersiones.map((version: Auto) => (
         <Grid
           xs
           md={3}
