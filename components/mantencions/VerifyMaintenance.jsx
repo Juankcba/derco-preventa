@@ -1,12 +1,12 @@
 import { Button } from "@nextui-org/react";
 
 const VerifyMaintenance = ({ setStep }) => {
-  const handleStep = () => {
-    setStep(2);
+  const handleStep = (value) => {
+    setStep(value);
   };
   return (
     <div className="verify_maintenance">
-      <Button className="card__header__button btn-primary big" onPress={() => handleStep()}>Pagar mantención</Button>
+      <Button className="card__header__button btn-primary big" onPress={() => handleStep(3)}>Pagar mantención</Button>
       <hr></hr>
       <div className="card__body">
         <h3 className="card__body__title">Si no estas seguro de que la mantención sea compatible con tu vehículo</h3>
@@ -22,7 +22,7 @@ const VerifyMaintenance = ({ setStep }) => {
             <option value="1">Modelo 1</option>
             <option value="2">Modelo 2</option>
           </select>
-          <Button className="button_verify btn-primary big" onPress={() => handleStep()}>Verificar mantención</Button>
+          <Button className="button_verify btn-primary big" onPress={() => handleStep(2)}>Verificar mantención</Button>
         </div>
       </div>
       <div className="card_footer">

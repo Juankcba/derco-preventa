@@ -1,14 +1,16 @@
 import { PreventaLayout } from "../../../../components/Layouts"
 import VerifyMaintenance from "../../../../components/mantencions/VerifyMaintenance";
 import ErrorVerifyMaintenance from "../../../../components/mantencions/ErrorVerifyMaintenance";
+import SuccessVerifyMaintenance from "../../../../components/mantencions/SuccessVerifyMaintenance";
 
 import React, { useState } from "react";
+import { Button } from "@nextui-org/react";
 
 const MaintenancePage = () => {
   const [step, setStep] = useState(1);
   return (
     <PreventaLayout>
-      <div className="page_reserva_mantencion">
+      <div className={`page_reserva_mantencion ${step == 3 ? 'success' : ''}`}>
         <div className="container">
           <img src="https://s3.amazonaws.com/dercocenter.cl/cyber/backgorund-page-maintenance.jpg" alt="mobile" className="img_mobile" />
           <div className="discount_mobile">
@@ -28,6 +30,7 @@ const MaintenancePage = () => {
               </div>
               {step == 1 && (<VerifyMaintenance setStep={setStep} />)}
               {step == 2 && (<ErrorVerifyMaintenance setStep={setStep} />)}
+              {step == 3 && (<SuccessVerifyMaintenance setStep={setStep} />)}
             </div>
           </div>
         </div>
