@@ -16,9 +16,6 @@ import {
 import Image from "next/image";
 
 import NextLink from "next/link";
-import PreventaStep1 from "../../../../components/preventa/step1";
-import PreventaStep2 from "../../../../components/preventa/step2";
-import PreventaStep3 from "../../../../components/preventa/step3";
 
 import { PreventaLayout } from "../../../../components/Layouts/PreventaLayout";
 import { getVersionStoreInfo } from "./../../../../utils/getVersionStoreInfo";

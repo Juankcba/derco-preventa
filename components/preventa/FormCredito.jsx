@@ -8,7 +8,7 @@ import {
   Container,
 } from "@nextui-org/react";
 import React, { useState, useEffect, useMemo, useRef } from "react";
-import { useFormik, setFieldValue, useFormikContext } from "formik";
+import { useFormik, setFieldValue, useFormikContext, Form } from "formik";
 import CurrencyTextField from "@unicef/material-ui-currency-textfield";
 import * as Yup from "yup";
 import { currency } from "../../utils";
@@ -183,7 +183,7 @@ const FormCredito = ({ setValidate, model }) => {
 
   return (
     <>
-      <form
+      <Form
         onSubmit={formik.handleSubmit}
         validateOnBlur={false}
         validateOnChange={true}
@@ -387,7 +387,7 @@ const FormCredito = ({ setValidate, model }) => {
             </Grid.Container>
           </>
         )}
-      </form>
+      </Form>
       <Container css={{ p: 0, marginTop: "20px" }}>
         {loading ? (
           <Loading />
