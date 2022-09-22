@@ -33,6 +33,9 @@ import HomeBanner from "../components/cyber/HomeBanner";
 import { Typography } from "@mui/material";
 import { Auto, StoreResponse } from "../interfaces/store-full";
 import { useRouter } from "next/router";
+import BannerDerco from "../components/cyber/BannerDerco";
+import StepsToBuy from "./../components/ui/StepsToBuy";
+
 interface Props {
   cars: Auto[];
   mantencions: Auto[];
@@ -64,8 +67,10 @@ const HomePage: NextPage<PropsWithChildren<Props>> = ({
           <ListProducts versions={cars} />
         )}
       </Container>
-      <BannerDream />
-      <BrandsFinder />
+      {/* <BannerDream />
+      <BrandsFinder /> */}
+      <BannerDerco />
+      <StepsToBuy />
     </Layout>
   );
 };

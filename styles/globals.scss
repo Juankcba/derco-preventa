@@ -214,3 +214,115 @@
   border-radius: 10px;
   margin: 4px auto 8px;
 }
+
+.banner-derco-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  .title {
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    text-align: center;
+    color: #ffffff;
+    width: 100%;
+    margin: 28px 0 0;
+  }
+  .subtitle {
+    margin: 0;
+    width: 100%;
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    text-align: center;
+    color: #ffffff;
+  }
+}
+
+.banner-steps-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  .container-img {
+    width: 100%;
+    margin: 0 auto 16px;
+    img {
+      margin: 0 auto;
+    }
+  }
+  .title {
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 900;
+    font-size: 32px;
+    line-height: 30px;
+    text-align: center;
+    color: #ffffff;
+    margin-bottom: 56px;
+  }
+  .box-title {
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 900;
+    font-size: 32px;
+    line-height: 20px;
+    color: #ffffff;
+  }
+  .box-subtitle {
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    display: flex;
+    align-items: center;
+    color: #ffffff;
+    max-width: 150px;
+    padding-left: 16px;
+  }
+  .footer-title {
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+    margin: 0 auto;
+    text-align: center;
+    color: #ffffff;
+    margin-top: 56px;
+    max-width: 330px;
+    span {
+      font-weight: 900;
+    }
+  }
+  .footer-info {
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    text-align: center;
+    letter-spacing: 0.01em;
+    color: #f6f5f5;
+    width: 100%;
+    margin: 0 auto 16px;
+  }
+}
+
+.divider-component {
+  height: 3px;
+
+  background: #393939;
+  width: 100%;
+  max-width: 1091px;
+
+  margin: 40px auto;
+}
