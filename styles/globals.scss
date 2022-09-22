@@ -6,6 +6,8 @@
 @import "./preventa-styles.scss";
 @import "./material-custom.scss";
 @import "./error-styles.scss";
+@import "./page_reserva_mantencion.scss";
+
 * {
   font-family: "Lato" !important;
 }
@@ -20,17 +22,21 @@
     height: 88px;
   }
 }
+
 .filter-avatar {
   background: #f6f5f5 !important;
+
   .nextui-avatar-bg {
     background: #f6f5f5 !important;
   }
+
   img {
     padding: 6px;
     background: #f6f5f5 !important;
     object-fit: contain;
   }
 }
+
 .img-name {
   font-family: "Lato";
   font-style: normal;
@@ -41,6 +47,7 @@
   text-align: center;
   color: #000000;
 }
+
 .dreams-section {
   .card-post {
     max-width: 240px;
@@ -54,6 +61,7 @@
       line-height: 125%;
       color: #191919;
     }
+
     .description {
       font-family: "Lato";
       font-style: normal;
@@ -63,6 +71,7 @@
       color: #57585c;
     }
   }
+
   .title {
     font-family: "Lato";
     font-style: normal;
@@ -73,10 +82,12 @@
     color: #ffffff;
     width: 100%;
     margin-bottom: 0;
+
     @media screen and (min-width: 1281px) {
       text-align: center;
     }
   }
+
   .subtitle {
     font-family: "Lato";
     font-style: normal;
@@ -85,11 +96,13 @@
     line-height: 19px;
     letter-spacing: 0.01em;
     color: #ffffff;
+
     @media screen and (min-width: 1281px) {
       text-align: center;
     }
   }
 }
+
 .banner-finder {
   .title {
     width: 100%;
@@ -103,6 +116,7 @@
     text-align: center;
     margin-bottom: 16px;
   }
+
   .subtitle {
     width: 100%;
     font-family: "Lato";
@@ -127,6 +141,7 @@
   background: #191919;
   padding: 40px 24px;
   height: fit-content;
+
   .title {
     font-family: "Lato";
     font-style: normal;
@@ -137,6 +152,7 @@
     color: #ffffff;
     margin-bottom: 4px;
   }
+
   .subtitle {
     font-family: "Lato";
     font-style: normal;
@@ -145,15 +161,18 @@
     line-height: 24px;
     color: #ffffff;
   }
+
   .phone-container {
     display: flex;
     justify-content: flex-start;
     align-items: center;
     gap: 21px;
+
     @media screen and (min-width: 1282px) {
       flex-direction: column;
     }
   }
+
   .link-content {
     font-family: "Lato";
     font-style: normal;
@@ -162,6 +181,7 @@
     line-height: 30px;
     color: #a4a4a6;
   }
+
   .socials {
     display: flex;
     flex-direction: column;
@@ -170,6 +190,7 @@
     @media screen and (min-width: 1282px) {
       margin: 0;
     }
+
     .social-links {
       font-family: "Lato";
       font-style: normal;
@@ -180,23 +201,28 @@
       color: #ffffff;
     }
   }
+
   .spacer-2 {
     width: 100%;
     border: 1px solid #a4a4a6;
     margin: 20px auto;
+
     @media screen and (min-width: 1282px) {
       display: none;
     }
   }
+
   .spacer-1 {
     height: 1px;
     width: 100%;
     background: #a4a4a6;
     margin: 0 auto;
+
     @media screen and (min-width: 1282px) {
       margin-top: 20px;
     }
   }
+
   .text-copy {
     font-family: "Lato";
     font-style: normal;
@@ -326,4 +352,21 @@
   max-width: 1091px;
 
   margin: 40px auto;
+}
+
+/** Add Examples for breakpoint mixins for mobile */
+// Extra small devices (portrait phones, less than 576px)
+@media (max-width: 575.98px) {
+}
+
+// Small devices (landscape phones, less than 768px)
+@media (max-width: 767.98px) {
+}
+
+// Medium devices (tablets, less than 992px)
+@media (max-width: 991.98px) {
+}
+
+// Large devices (desktops, less than 1200px)
+@media (max-width: 1199.98px) {
 }
