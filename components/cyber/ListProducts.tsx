@@ -4,13 +4,26 @@ import { NextPage, GetStaticProps } from "next";
 import { Auto, Version, VersionResponse } from "../../interfaces";
 import { PropsWithChildren, useState } from "react";
 
-import { Grid, Card, Text, Row, styled, Button } from "@nextui-org/react";
+import {
+  Grid,
+  Card,
+  Text,
+  Row,
+  styled,
+  Button,
+  StyledLoadingContainer,
+  Loading,
+} from "@nextui-org/react";
 import { cmsApi } from "../../apis";
 import Filters from "../ui/Filters";
 import VersionCard from "./../cars/VersionCard";
 import { FilterContext } from "./../../context/filters/filterContext";
 import { categorias, marcas } from "../../database/constants";
 import { useRouter } from "next/router";
+import { FilterIcon } from "../ui/FilterIcon";
+import { UiContext } from "../../context";
+import UpsError from "./../ui/UpsError";
+
 interface Props {
   versions: Auto[];
 }
@@ -31,7 +44,9 @@ const ListProducts: FC<Props> = ({ versions }) => {
     setFilterCarClass,
     setIndex,
   } = useContext(FilterContext);
-  const [versiones, setVersiones] = useState(versions.slice(0, 4));
+  const { isModalOpen, setVisible } = useContext(UiContext);
+  const [versiones, setVersiones] = useState<Auto[]>([]);
+  const [loading, setLoading] = useState<Boolean>(true);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useMemo(() => setResultadosVersiones(versions), [versions]);
   const router = useRouter();
@@ -64,6 +79,7 @@ const ListProducts: FC<Props> = ({ versions }) => {
   }, [router]);
 
   useEffect(() => {
+    setLoading(true);
     let auxResultados: Auto[] = versions;
 
     if (filterCarClass.length > 0) {
@@ -106,7 +122,7 @@ const ListProducts: FC<Props> = ({ versions }) => {
         (auxV) => auxV.fuel_name != "diesel"
       );
     }
-    let finalResultados = [];
+    let finalResultados: Auto[] = [];
     if (order === "dsc") {
       finalResultados = auxResultados
         .sort((a, b) => a.brand_price - b.brand_price)
@@ -118,6 +134,11 @@ const ListProducts: FC<Props> = ({ versions }) => {
     }
     setResultadosVersiones(auxResultados);
     setVersiones(finalResultados);
+    setTimeout(() => {
+      setLoading(false);
+    }, 300);
+
+    console.log("despues del filtro", finalResultados);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [order, indexOfCards, filterCarClass, filterBrand, isDiesel]);
@@ -134,6 +155,10 @@ const ListProducts: FC<Props> = ({ versions }) => {
     let indexData = indexOfCards + 1;
     setIndex(indexData);
   };
+  const handler = () => {
+    setVisible(!isModalOpen);
+  };
+
   return (
     <Grid.Container
       gap={2}
@@ -147,21 +172,28 @@ const ListProducts: FC<Props> = ({ versions }) => {
         },
       }}
     >
-      {versiones.map((version: Auto) => (
-        <Grid
-          xs
-          md={3}
-          key={version.sap}
-          css={{
-            display: "flex",
-            justifyContent: "center",
-            paddingLeft: 0,
-            paddingRight: "8px",
-          }}
-        >
-          <VersionCard version={version} />
+      {loading && (
+        <Grid xs={12} css={{ display: "flex", justifyContent: "center" }}>
+          <Loading />
         </Grid>
-      ))}
+      )}
+      {!loading &&
+        versiones.length > 0 &&
+        versiones.map((version: Auto) => (
+          <Grid
+            xs
+            md={3}
+            key={version.sap}
+            css={{
+              display: "flex",
+              justifyContent: "center",
+              paddingLeft: 0,
+              paddingRight: "8px",
+            }}
+          >
+            <VersionCard version={version} />
+          </Grid>
+        ))}
       <Grid
         xs={12}
         justify="center"
@@ -178,6 +210,7 @@ const ListProducts: FC<Props> = ({ versions }) => {
             Ver más
           </Button>
         )}
+        {!loading && versiones.length == 0 && <UpsError />}
       </Grid>
     </Grid.Container>
   );
