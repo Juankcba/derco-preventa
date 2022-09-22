@@ -73,10 +73,10 @@ const NavBar: FC<Props> = ({ titlePage }) => {
             </NextLink>
           </Navbar.Brand>
         </div>
-        <div className="nav-red">
+        {/* <div className="nav-red">
           No te preocupes, el 6 de Octubre volvemos a la normalidad y puedes
           cotizar en dercocenter.cl
-        </div>
+        </div>  */}
         <div className="nav-white">{titlePage}</div>
       </div>
     </Navbar>

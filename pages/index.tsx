@@ -32,6 +32,10 @@ import BrandsFinder from "../components/cyber/BrandsFinder";
 import HomeBanner from "../components/cyber/HomeBanner";
 import { Typography } from "@mui/material";
 import { Auto, StoreResponse } from "../interfaces/store-full";
+import { useRouter } from "next/router";
+import BannerDerco from "../components/cyber/BannerDerco";
+import StepsToBuy from "./../components/ui/StepsToBuy";
+
 interface Props {
   cars: Auto[];
   mantencions: Auto[];
@@ -42,52 +46,12 @@ const HomePage: NextPage<PropsWithChildren<Props>> = ({
   mantencions,
 }) => {
   const [visible, setVisible] = useState<boolean>(false);
-  const { isMantenciones } = useContext(FilterContext);
-
-  // const mantenciones: Mantencion[] = [
-  //   {
-  //     id: 1,
-  //     name: "Mantencion",
-  //     kms: 30000,
-  //     category: "Citycar",
-  //     price: 270000,
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "Mantencion",
-  //     kms: 10000,
-  //     category: "Camioneta",
-  //     price: 270000,
-  //   },
-  //   { id: 3, name: "Mantencion", kms: 20000, category: "Sedán", price: 270000 },
-  //   {
-  //     id: 4,
-  //     name: "Mantencion",
-  //     kms: 40000,
-  //     category: "SUV",
-  //     price: 270000,
-  //   },
-  //   {
-  //     id: 5,
-  //     name: "Mantencion",
-  //     kms: 20000,
-  //     category: "Citycar",
-  //     price: 270000,
-  //   },
-  //   { id: 6, name: "Mantencion", kms: 30000, category: "Suv", price: 270000 },
-  //   { id: 7, name: "Mantencion", kms: 40000, category: "Sedán", price: 270000 },
-  //   {
-  //     id: 8,
-  //     name: "Mantencion",
-  //     kms: 10000,
-  //     category: "Camioneta",
-  //     price: 270000,
-  //   },
-  // ];
+  const { isMantenciones, filterCarClass, isDiesel, filterBrand } =
+    useContext(FilterContext);
 
   return (
     <Layout
-      title="CiberMonday | DercoCenter"
+      title="CyberMonday | DercoCenter"
       titleNavbar="Preguntas Frecuentes"
     >
       <HomeBanner />
@@ -103,8 +67,10 @@ const HomePage: NextPage<PropsWithChildren<Props>> = ({
           <ListProducts versions={cars} />
         )}
       </Container>
-      <BannerDream />
-      <BrandsFinder />
+      {/* <BannerDream />
+      <BrandsFinder /> */}
+      <BannerDerco />
+      <StepsToBuy />
     </Layout>
   );
 };

@@ -10,7 +10,7 @@ import Filters from "../ui/Filters";
 import VersionCard from "./../cars/VersionCard";
 import { FilterContext } from "./../../context/filters/filterContext";
 import { categorias, marcas } from "../../database/constants";
-
+import { useRouter } from "next/router";
 interface Props {
   versions: Auto[];
 }
@@ -26,25 +26,48 @@ const ListProducts: FC<Props> = ({ versions }) => {
     scrollChange,
     setScrollChange,
     setResultadosVersiones,
+    setFilterBrand,
+    setFilterCombustible,
+    setFilterCarClass,
     setIndex,
   } = useContext(FilterContext);
   const [versiones, setVersiones] = useState(versions.slice(0, 4));
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useMemo(() => setResultadosVersiones(versions), [versions]);
+  const router = useRouter();
+
+  useEffect(() => {
+    const { card, categories, brands, combustible, matenciones } = router.query;
+    console.log(typeof brands);
+    if (brands && typeof brands === "string") {
+      setFilterBrand([brands]);
+    }
+    if (brands && typeof brands === "object") {
+      setFilterBrand(brands);
+    }
+    if (!brands) {
+      setFilterBrand([]);
+    }
+    if (categories && typeof categories === "string") {
+      setFilterCarClass([categories]);
+    }
+    if (categories && typeof categories === "object") {
+      setFilterCarClass(categories);
+    }
+    if (!categories) {
+      setFilterCarClass([]);
+    }
+
+    //if (brands) setFilterBrand(brands);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [router]);
 
   useEffect(() => {
     let auxResultados: Auto[] = versions;
 
     if (filterCarClass.length > 0) {
-      let categoriasFilter: string[] = [];
-      categorias.forEach((element) => {
-        filterCarClass.forEach((id) => {
-          if (element.id === id) {
-            categoriasFilter.push(element.name);
-          }
-        });
-      });
-
+      let categoriasFilter: string[] = filterCarClass;
       let aux: Auto[] = [];
 
       auxResultados.forEach((auxV) => {
@@ -58,14 +81,7 @@ const ListProducts: FC<Props> = ({ versions }) => {
       auxResultados = aux;
     }
     if (filterBrand.length > 0) {
-      let brandsFilter: string[] = [];
-      marcas.forEach((element) => {
-        filterBrand.forEach((id) => {
-          if (element.id === id) {
-            brandsFilter.push(element.slug);
-          }
-        });
-      });
+      let brandsFilter: string[] = filterBrand;
 
       let aux: Auto[] = [];
 
@@ -90,21 +106,18 @@ const ListProducts: FC<Props> = ({ versions }) => {
         (auxV) => auxV.fuel_name != "diesel"
       );
     }
-
+    let finalResultados = [];
     if (order === "dsc") {
-      setVersiones(
-        auxResultados
-          .sort((a, b) => a.brand_price - b.brand_price)
-          .slice(0, 4 * indexOfCards)
-      );
+      finalResultados = auxResultados
+        .sort((a, b) => a.brand_price - b.brand_price)
+        .slice(0, 4 * indexOfCards);
     } else {
-      setVersiones(
-        auxResultados
-          .sort((a, b) => b.brand_price - a.brand_price)
-          .slice(0, 4 * indexOfCards)
-      );
+      finalResultados = auxResultados
+        .sort((a, b) => b.brand_price - a.brand_price)
+        .slice(0, 4 * indexOfCards);
     }
     setResultadosVersiones(auxResultados);
+    setVersiones(finalResultados);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [order, indexOfCards, filterCarClass, filterBrand, isDiesel]);

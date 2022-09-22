@@ -34,7 +34,10 @@ const VersionCard: FC<Props> = ({ version }) => {
 
   return (
     <Card isHoverable isPressable className="cyber-card">
-      <Card.Header className="cyber-card-header">
+      <Card.Header
+        className="cyber-card-header"
+        onClick={() => onClickReserva()}
+      >
         {/* <div className="cyber-badge">35%</div> */}
 
         <Card.Image
@@ -118,6 +121,7 @@ const VersionCard: FC<Props> = ({ version }) => {
           css={{ flexDirection: "column", width: "100%" }}
         >
           <Button
+            id={`cyber22-cta-home-reservacion-${version.brand_name}-${version.model_name}-${version.version_name}`}
             auto
             type="button"
             color="primary"

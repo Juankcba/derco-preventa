@@ -99,6 +99,7 @@ const MantencionCard: FC<Props> = ({ mantencion }) => {
           css={{ flexDirection: "column", width: "100%" }}
         >
           <Button
+            id={`cyber22-cta-home-mantenimiento-${mantencion.brand_name}-${mantencion.class_name}-${mantencion.version_name}`}
             auto
             type="button"
             light
