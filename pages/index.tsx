@@ -67,8 +67,9 @@ const HomePage: NextPage<PropsWithChildren<Props>> = ({
           <ListProducts versions={cars} />
         )}
       </Container>
-      {/* <BannerDream />
+      {/* 
       <BrandsFinder /> */}
+      <BannerDream />
       <BannerDerco />
       <StepsToBuy />
     </Layout>
