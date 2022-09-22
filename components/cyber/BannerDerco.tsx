@@ -19,7 +19,11 @@ const BannerDerco = () => {
       <Text h3 className="subtitle">
         Probá en
       </Text>
-      <NextLink href="https://www.dercocenter.cl/" passHref>
+      <NextLink
+        href="https://www.dercocenter.cl/"
+        passHref
+        id="cyber22-cta-home-volverdercocenter"
+      >
         <Link css={{ width: "100%", margin: "16px auto" }}>
           <Button className="btn-primary big ">Dercocenter.cl</Button>
         </Link>
