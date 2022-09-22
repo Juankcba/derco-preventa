@@ -183,11 +183,7 @@ const FormCredito = ({ setValidate, model }) => {
 
   return (
     <>
-      <Form
-        onSubmit={formik.handleSubmit}
-        validateOnBlur={false}
-        validateOnChange={true}
-      >
+      <form onSubmit={formik.handleSubmit}>
         <Text>¿Deseas evaluar un crédito en línea?</Text>
         <Row className="btn-group flex-start w-50">
           <Button
@@ -387,7 +383,7 @@ const FormCredito = ({ setValidate, model }) => {
             </Grid.Container>
           </>
         )}
-      </Form>
+      </form>
       <Container css={{ p: 0, marginTop: "20px" }}>
         {loading ? (
           <Loading />
