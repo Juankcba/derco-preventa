@@ -106,22 +106,18 @@ const ListProducts: FC<Props> = ({ versions }) => {
         (auxV) => auxV.fuel_name != "diesel"
       );
     }
-    console.log("filter by brand", auxResultados);
+    let finalResultados = [];
     if (order === "dsc") {
-      setVersiones(
-        auxResultados
-          .sort((a, b) => a.brand_price - b.brand_price)
-          .slice(0, 4 * indexOfCards)
-      );
+      finalResultados = auxResultados
+        .sort((a, b) => a.brand_price - b.brand_price)
+        .slice(0, 4 * indexOfCards);
     } else {
-      setVersiones(
-        auxResultados
-          .sort((a, b) => b.brand_price - a.brand_price)
-          .slice(0, 4 * indexOfCards)
-      );
+      finalResultados = auxResultados
+        .sort((a, b) => b.brand_price - a.brand_price)
+        .slice(0, 4 * indexOfCards);
     }
     setResultadosVersiones(auxResultados);
-    setVersiones(auxResultados);
+    setVersiones(finalResultados);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [order, indexOfCards, filterCarClass, filterBrand, isDiesel]);
