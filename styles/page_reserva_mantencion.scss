@@ -6,14 +6,18 @@
   padding: 40px 100px;
   position: relative;
 
+  .container {
+    height: 100vh;
+  }
+
   &.success {
     background-size: 100% auto;
     background-position: initial;
     background-color: #EBEBEB;
-  }
 
-  .container {
-    height: 100vh;
+    .container {
+      height: auto !important;
+    }
   }
 
   .img_mobile {
@@ -23,8 +27,8 @@
   @media (max-width: 575.98px) {
     background-image: unset;
     width: 100%;
-    padding: 80px 16px 79px;
-    margin-bottom: 24px;
+    padding: 80px 16px 100px;
+    //margin-bottom: 24px;
     height: unset;
 
     .container {
