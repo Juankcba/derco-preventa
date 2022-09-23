@@ -6,19 +6,21 @@
   padding: 40px 100px;
   position: relative;
 
+  &.success {
+    background-size: 100% auto;
+    background-position: initial;
+    background-color: #F6F5F5;
+  }
+
+  &.success,
+  .success {
+    height: auto !important;
+  }
+
   .container {
     height: 100vh;
   }
 
-  &.success {
-    background-size: 100% auto;
-    background-position: initial;
-    background-color: #EBEBEB;
-
-    .container {
-      height: auto !important;
-    }
-  }
 
   .img_mobile {
     display: none;
@@ -98,10 +100,12 @@
 
       @media (max-width: 575.98px) {
         margin-bottom: unset;
+        padding: 16px;
       }
 
       .error_verify_maintenance,
       .success_verify_maintenance {
+
         .card__body .card__body__title {
           font-weight: 700;
           font-size: 20px;
@@ -142,6 +146,23 @@
             background: #EDFDF0;
             margin: 8px 0;
           }
+
+          &.result {
+            justify-content: center;
+            flex-direction: column;
+
+            .message_success__text {
+              font-weight: 400;
+              font-size: 16px;
+              line-height: 24px;
+            }
+
+            .code {
+              font-weight: 700;
+              font-size: 16px;
+              line-height: 24px;
+            }
+          }
         }
 
         .button_verify {
@@ -162,6 +183,114 @@
       }
 
       .success_verify_maintenance {
+        &.result {
+          .title {
+            font-weight: 400;
+            font-size: 20px;
+            line-height: 24px;
+            margin-top: 12px;
+            margin-bottom: 20px;
+          }
+
+          .info {
+            font-weight: 600;
+          }
+
+          .btn-primary {
+            width: 100%;
+            margin-top: 16px;
+
+            img {
+              margin-left: 4px !important;
+            }
+          }
+
+          .title_help {
+            font-weight: 700;
+            font-size: 24px;
+            line-height: 29px;
+            color: #191919;
+            margin-bottom: 4px;
+          }
+
+          .info_help {
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 17px;
+            color: #57585C;
+          }
+
+          .result_info {
+            .title {
+              font-weight: 300;
+              font-size: 14px;
+              line-height: 22px;
+              margin: 0;
+
+              .text {
+                font-weight: 700;
+              }
+            }
+
+          }
+
+          .card__body__title {
+            font-weight: 700;
+            font-size: 24px;
+            line-height: 29px;
+            color: #191919;
+            margin-bottom: 4px;
+          }
+
+          .card__body__text {
+            font-weight: 400;
+            font-size: 20px;
+            line-height: 24px;
+            margin-top: 0;
+            color: #191919;
+          }
+
+          .message_success,
+          .error {
+            .message_success__text {
+              font-weight: 700;
+              font-size: 16px;
+              line-height: 24px;
+              color: #191919;
+            }
+
+            span {
+              font-size: 16px;
+              line-height: 24px;
+              color: #191919;
+              font-weight: 400;
+            }
+          }
+
+          .error_info {
+            font-weight: 700;
+            font-size: 24px;
+            line-height: 29px;
+            margin-bottom: 8px;
+          }
+
+          .error_text {
+            font-weight: 700;
+            font-size: 24px;
+            line-height: 29px;
+            color: #E0102C;
+            margin-bottom: 16px;
+          }
+
+          .btn-primary {
+            margin-bottom: 16px;
+          }
+
+          .button_verify {
+            margin-bottom: 0;
+          }
+        }
+
         .card__body .card__body__text {
           font-weight: 400;
           font-size: 16px;
@@ -279,6 +408,28 @@
 
       .card__header {
         .card__header__title {
+          &.payment {
+            h3 {
+              font-weight: 700;
+              font-size: 24px;
+              line-height: 29px;
+              color: #191919;
+              width: 80%;
+
+              @media (max-width: 575.98px) {
+                width: 100%;
+                margin-bottom: 8px;
+              }
+            }
+
+            .card__subtitle {
+              font-weight: 400;
+              font-size: 20px;
+              line-height: 24px;
+              color: #191919;
+            }
+          }
+
           h3 {
             font-weight: 400;
             font-size: 24px;
@@ -420,6 +571,9 @@
       bottom: 0;
       left: 0;
       width: 50%;
+      padding: 24px;
+      background: #EBEBEB;
+      border-radius: 16px;
 
       @media (max-width: 575.98px) {
         display: none;

@@ -1,9 +1,11 @@
 import { Button } from "@nextui-org/react";
 import NextImage from "next/image";
 
-const VerifyMaintenance = ({ setStep }) => {
-  const handleStep = (value) => {
+const ErrorVerifyMaintenance = ({ setStep, setMsg }) => {
+  const handleStep = (value, msg = false) => {
     setStep(value);
+    setMsg(msg)
+    console.log(msg)
   };
   return (
     <div className="error_verify_maintenance">
@@ -24,10 +26,10 @@ const VerifyMaintenance = ({ setStep }) => {
         <hr></hr>
         <span className="card__body__text">¿Algún dato ingresado es incorrecto?</span> <br />
         <span className="card__body__text">Vuelve a verificar la Categoria de tu vehículo.</span>
-        <Button className="button_verify btn-primary big" onPress={() => handleStep(3)}>Volver a verificar</Button>
+        <Button className="button_verify btn-primary big" onPress={() => handleStep(3, true)}>Volver a verificar</Button>
       </div>
     </div>
   )
 }
 
-export default VerifyMaintenance
+export default ErrorVerifyMaintenance

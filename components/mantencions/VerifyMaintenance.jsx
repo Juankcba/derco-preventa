@@ -1,8 +1,10 @@
 import { Button } from "@nextui-org/react";
 
-const VerifyMaintenance = ({ setStep }) => {
-  const handleStep = (value) => {
+const VerifyMaintenance = ({ setStep, setMsg }) => {
+  const handleStep = (value, msg = false) => {
     setStep(value);
+    setMsg(msg)
+    console.log(msg)
   };
   return (
     <div className="verify_maintenance">

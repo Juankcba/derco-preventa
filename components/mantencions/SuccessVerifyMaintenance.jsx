@@ -1,7 +1,7 @@
 import { Button, Checkbox } from "@nextui-org/react";
 import NextImage from "next/image";
 
-const VerifyMaintenance = ({ setStep }) => {
+const SuccessVerifyMaintenance = ({ setStep, msg }) => {
   const handleStep = (value) => {
     setStep(value);
   };
@@ -9,16 +9,19 @@ const VerifyMaintenance = ({ setStep }) => {
     <div className="success_verify_maintenance">
       <hr></hr>
       <div className="card__body">
-        <h3 className="card__body__title">Tu [Marca] [Modelo] corresponde a la Categoría [Categoria] y a la mantención de [kilometraje].</h3>
-        <div className="message_success success">
-          <span className="message_success__text">Seleccionaste correctamente tu mantención</span>
-          <NextImage
-            src="/assets/img/check.svg"
-            height={34}
-            width={34}
-            alt="cyber-coin"
-          />
+        {msg && (<div>
+          <h3 className="card__body__title">Tu [Marca] [Modelo] corresponde a la Categoría [Categoria] y a la mantención de [kilometraje].</h3>
+          <div className="message_success success">
+            <span className="message_success__text">Seleccionaste correctamente tu mantención</span>
+            <NextImage
+              src="/assets/img/check.svg"
+              height={34}
+              width={34}
+              alt="cyber-coin"
+            />
+          </div>
         </div>
+        )}
         <span className="card__body__text">Te solicitamos los últimos datos, para que todo este listo en tu mantencion de los [kilometros]</span>
         <div className="card__body__form__success">
           <input className="form_input" type="text" placeholder="Ingresa tu Patente" />
@@ -55,4 +58,4 @@ const VerifyMaintenance = ({ setStep }) => {
   )
 }
 
-export default VerifyMaintenance
+export default SuccessVerifyMaintenance

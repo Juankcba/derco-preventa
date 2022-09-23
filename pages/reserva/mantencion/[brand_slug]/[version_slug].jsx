@@ -1,17 +1,20 @@
+import React, { useState } from "react";
+
 import { PreventaLayout } from "../../../../components/Layouts"
 import VerifyMaintenance from "../../../../components/mantencions/VerifyMaintenance";
 import ErrorVerifyMaintenance from "../../../../components/mantencions/ErrorVerifyMaintenance";
 import SuccessVerifyMaintenance from "../../../../components/mantencions/SuccessVerifyMaintenance";
+import ResultPayment from "../../../../components/mantencions/ResultPayment";
 
-import React, { useState } from "react";
 import { Button } from "@nextui-org/react";
 
 const MaintenancePage = () => {
   const [step, setStep] = useState(1);
+  const [msg, setMsg] = useState(false);
   return (
     <PreventaLayout>
-      <div className={`page_reserva_mantencion ${step == 3 ? 'success' : ''}`}>
-        <div className="container">
+      <div className={`page_reserva_mantencion ${step == 3 || step == 4 || step == 5 ? 'success' : ''}`}>
+        <div className={`container ${step == 3 || step == 4 || step == 5 ? 'success' : ''}`}>
           <img src="https://s3.amazonaws.com/dercocenter.cl/cyber/backgorund-page-maintenance.jpg" alt="mobile" className="img_mobile" />
           <div className="discount_mobile">
             <span className="discount__number">35%</span>
@@ -22,15 +25,24 @@ const MaintenancePage = () => {
                 <span className="discount__number">35%</span>
               </div>
               <div className="card__header">
-                <div className="card__header__title">
-                  <h3>Mantención Citycar 30.000km</h3>
-                  <h4>$270.000*</h4>
-                  <span className="card__header__title__discount">Antes <span>$370.000</span></span>
-                </div>
+                {(step == 1 || step == 2 || step == 3) && (
+                  <div className="card__header__title">
+                    <h3>Mantención Citycar 30.000km</h3>
+                    <h4>$270.000*</h4>
+                    <span className="card__header__title__discount">Antes <span>$370.000</span></span>
+                  </div>
+                )}
+                {step == 4 && (
+                  <div className="card__header__title payment">
+                    <h3>¡Compraste una mantención de 30.000 km!</h3>
+                    <span className="card__subtitle">Sofia Losada Luna</span>
+                  </div>
+                )}
               </div>
-              {step == 1 && (<VerifyMaintenance setStep={setStep} />)}
-              {step == 2 && (<ErrorVerifyMaintenance setStep={setStep} />)}
-              {step == 3 && (<SuccessVerifyMaintenance setStep={setStep} />)}
+              {step == 1 && (<VerifyMaintenance setStep={setStep} setMsg={setMsg} />)}
+              {step == 2 && (<ErrorVerifyMaintenance setStep={setStep} setMsg={setMsg} />)}
+              {step == 3 && (<SuccessVerifyMaintenance setStep={setStep} setMsg={setMsg} msg={msg} />)}
+              {(step == 4 || step == 5) && (<ResultPayment setStep={setStep} step={step} />)}
             </div>
             {step == 3 && (
               <div className="card_legals_desktop">
