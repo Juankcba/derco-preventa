@@ -47,7 +47,7 @@ const cuotasInteligentes = [
   { value: 48, label: "48 cuotas" },
 ];
 
-const FormCredito = ({ setValidate, model }) => {
+const FormCredito = ({ setValidate, model, setData, data }) => {
   const [creditState, setCreditState] = useState(true);
   const [smart, setSmart] = useState(true);
   const [loading, setLoading] = useState(false);
@@ -106,7 +106,7 @@ const FormCredito = ({ setValidate, model }) => {
         const finalMont = finalDate.getMonth() + 1;
         const finalDay = finalDate.getDate();
 
-        let data = {
+        let dataRequest = {
           customer: {
             identificationTypeId: 1,
             identificationValue: "111111111",
@@ -133,9 +133,16 @@ const FormCredito = ({ setValidate, model }) => {
             modifyTerm: [],
           },
         };
-        await cesApi.post("/credit-subject", data).then((response) => {
+        await cesApi.post("/credit-subject", dataRequest).then((response) => {
           if (response.data.status == "OK") {
             setResults(response.data.results);
+            setData({
+              ...data,
+              financial: {
+                financial_state: true,
+                results: response.data.results,
+              },
+            });
             setValidate(true);
           } else {
             alert("Hubo un error");
@@ -164,8 +171,10 @@ const FormCredito = ({ setValidate, model }) => {
       setLoading(false);
       setResults(null);
       setValidate(true);
+      setData({ ...data, financial: { financial_state: false, results: {} } });
     } else {
       setValidate(false);
+      setData({ ...data, financial: { financial_state: true, results: {} } });
     }
   }, [creditState]);
 

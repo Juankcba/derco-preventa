@@ -42,21 +42,13 @@ import { cesApi, storeApi } from "../../apis";
 const PreventaStep3 = ({
   model,
   setStep,
-  user,
+  data,
+  setData,
   selectedColor,
   setColor,
   colors,
   regions,
 }) => {
-  const handleStep = (data) => {
-    if (ces == "") {
-      setError(true);
-      alert("Seleccione un consecionario");
-    }
-    if (validate && ces != "") {
-      setStep(2);
-    }
-  };
   const [consecionario, setConsecionario] = useState(regions || []);
   const [error, setError] = useState(false);
   const [validate, setValidate] = useState(false);
@@ -90,6 +82,17 @@ const PreventaStep3 = ({
       setError(false);
     }
   }, [ces]);
+
+  const handleStep = () => {
+    if (ces == "") {
+      setError(true);
+      alert("Seleccione un consecionario");
+    }
+    if (validate && ces != "") {
+      setData({ ...data, ces: ces });
+      setStep(2);
+    }
+  };
 
   return (
     <Card
@@ -135,7 +138,12 @@ const PreventaStep3 = ({
             {error && <Text color="error">Seleccione un concesionario</Text>}
           </FormControl>
         )}
-        <FormCredito setValidate={setValidate} model={model} />
+        <FormCredito
+          setValidate={setValidate}
+          model={model}
+          setData={setData}
+          data={data}
+        />
         <Card.Divider css={{ margin: "24px 0" }}></Card.Divider>
         <Button
           disabled={!validate}

@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo, useEffect, useRef } from "react";
 
 import { Layout, PreventaLayout } from "../../../../components/Layouts";
 import { getVersionInfo, currency } from "../../../../utils";
@@ -18,7 +18,10 @@ import Image from "next/image";
 import NextLink from "next/link";
 import PreventaStep2 from "../../../../components/preventa/PaymentStep";
 import PreventaStep3 from "../../../../components/preventa/CreditStep";
-import { getVersionStoreInfo } from "../../../../utils/getVersionStoreInfo";
+import {
+  getSubsStoreInfo,
+  getVersionStoreInfo,
+} from "../../../../utils/getVersionStoreInfo";
 import { DownloadCar } from "./../../../../components/ui/DownloadCar";
 
 // interface Props {
@@ -27,12 +30,17 @@ import { DownloadCar } from "./../../../../components/ui/DownloadCar";
 
 const CarPage = ({ models, regions }) => {
   const [step, setStep] = useState(1);
-  const [user, setUser] = useState({
-    rut: "",
-    name: "",
-    lastname: "",
-    phone: "",
-    email: "",
+  const [data, setData] = useState({
+    user: {
+      rut: "",
+      first_name: "",
+      last_name: "",
+      phone: "",
+      email: "",
+    },
+    ces: "",
+    financial: "",
+    model: "",
   });
 
   const [model, setModel] = useState({});
@@ -50,6 +58,7 @@ const CarPage = ({ models, regions }) => {
   useEffect(() => {
     if (models.length > 0) {
       setModel(models[0]);
+      setData({ ...data, model: models[0] });
       setColors(
         models.map((model) => ({
           color_hex: model.color_hex,
@@ -74,6 +83,17 @@ const CarPage = ({ models, regions }) => {
   useMemo(() => {
     setScrollChange(true);
   }, [step]);
+
+  useMemo(() => {
+    const setModel = models.filter(
+      (model) => model.color_id === selectedColor.color_id
+    )[0];
+    setData({ ...data, model: setModel });
+  }, [selectedColor]);
+
+  useMemo(() => {
+    console.log("data", data);
+  }, [data]);
 
   return (
     <PreventaLayout
@@ -173,21 +193,23 @@ const CarPage = ({ models, regions }) => {
                 <PreventaStep3
                   model={model}
                   setStep={setStep}
-                  setUser={setUser}
+                  setData={setData}
                   setColor={setColor}
                   colors={colors}
-                  user={user}
+                  data={data}
                   regions={regions}
                 />
               )}
               {step == 2 && (
-                <PreventaStep2
-                  model={model}
-                  setStep={setStep}
-                  setUser={setUser}
-                  user={user}
-                  style={{ position: "absolute", top: 0, rigth: 0 }}
-                />
+                <>
+                  <PreventaStep2
+                    model={model}
+                    setStep={setStep}
+                    setData={setData}
+                    data={data}
+                    style={{ position: "absolute", top: 0, rigth: 0 }}
+                  />
+                </>
               )}
             </Grid>
           </Grid.Container>
@@ -196,7 +218,10 @@ const CarPage = ({ models, regions }) => {
               css={{
                 backgroundColor: "#EBEBEB",
                 width: "100%",
-                height: "311px",
+                minHeight: "311px",
+                padding: 0,
+                margin: 0,
+                maxWidth: "100%",
               }}
             >
               <Grid.Container
@@ -258,7 +283,7 @@ const CarPage = ({ models, regions }) => {
             justify={"flex-start"}
             css={{ flexDirection: "column" }}
           >
-            <Text h1>Este Auto no tiene Colores activados</Text>
+            <Text h1>Este Auto no tiene stock</Text>
             <NextLink href="/" passHref>
               <Link>Volver al Inicio</Link>
             </NextLink>
@@ -298,8 +323,8 @@ export const getStaticProps = async ({ params }) => {
 
   const models = await getVersionStoreInfo(version_slug);
 
-  const { status, data } = await cesApi.get(
-    `/pre-order/new-haval-dargo/subsidiaries`
+  const { status, data } = await getSubsStoreInfo(
+    `subsidiaries?brand_slug=${brand_slug}&services=venta`
   );
   let regions = [];
   if (status == 200) {
