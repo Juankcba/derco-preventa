@@ -26,6 +26,7 @@ import { validateRut } from "../../utils/rut";
 import CardHeader from "./CardHeader";
 import FormPersonal from "./FormPersonal";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 
 // interface Props {
 //   model: ModelResponse;
@@ -262,6 +263,16 @@ const PreventaStep2 = ({ model, setData, data, setStep }) => {
               value="Paga Online"
             />
           </form>
+        </div>
+        <Card.Divider css={{ margin: "24px 0" }}></Card.Divider>
+        <div>
+          <Button
+            icon={<ArrowBackIosNewIcon fill="currentColor" />}
+            className="btn-secondary grey big fit"
+            onPress={() => setStep(1)}
+          >
+            Volver al paso anterior
+          </Button>
         </div>
       </Card.Body>
     </Card>

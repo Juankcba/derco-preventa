@@ -20,6 +20,7 @@ import FormCredito from "./FormCredito";
 import HelperSwipper from "./HelperSwipper";
 import CardHeader from "./CardHeader";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+import Swal from "sweetalert2";
 import {
   FormControl,
   InputLabel,
@@ -47,6 +48,7 @@ const PreventaStep3 = ({
   selectedColor,
   setColor,
   colors,
+  loadingColors,
   regions,
 }) => {
   const [consecionario, setConsecionario] = useState(regions || []);
@@ -86,7 +88,12 @@ const PreventaStep3 = ({
   const handleStep = () => {
     if (ces == "") {
       setError(true);
-      alert("Seleccione un consecionario");
+      Swal.fire({
+        title: "Error!",
+        text: "Seleccione un consecionario",
+        icon: "error",
+        confirmButtonText: "Confirmar",
+      });
     }
     if (validate && ces != "") {
       setData({ ...data, ces: ces });
@@ -110,52 +117,63 @@ const PreventaStep3 = ({
       <Card.Body css={{ p: 0, overflow: "hidden" }}>
         <CardHeader model={model} title={"Por $200.000 reserva tu"} />
         <Card.Divider css={{ margin: "24px 0" }}></Card.Divider>
-        <SelectColor setColor={setColor} colors={colors} />
-        <Card.Divider css={{ margin: "24px 0" }}></Card.Divider>
-        <Text>Selecciona tu concesionario</Text>
-        {consecionario.length === 0 ? (
+        {loadingColors ? (
           <Loading />
         ) : (
-          <FormControl sx={{ m: 1, minWidth: 120 }}>
-            <Select
-              native
-              defaultValue=""
-              id="grouped-concesionario-select"
-              value={ces}
-              onChange={(e) => setCes(e.target.value)}
-            >
-              <option value={""} disabled>
-                Seleccione una opción
-              </option>
-              {consecionario.length > 0 &&
-                consecionario.map((region, index) => (
-                  <optgroup label={region.name} key={`region-${index + 1}`}>
-                    {region.subsidiaries.map((sub) => (
-                      <option value={sub.id} key={sub.id}>
-                        {sub.name}
-                      </option>
-                    ))}
-                  </optgroup>
-                ))}
-            </Select>
-            {error && <Text color="error">Seleccione un concesionario</Text>}
-          </FormControl>
+          <SelectColor setColor={setColor} colors={colors} />
         )}
-        <FormCredito
-          setValidate={setValidate}
-          model={model}
-          setData={setData}
-          data={data}
-        />
-        <Card.Divider css={{ margin: "24px 0" }}></Card.Divider>
-        <Button
-          disabled={!validate}
-          onPress={() => handleStep()}
-          className="btn-primary big"
-          iconRight={<NavigateNextIcon fill="currentColor" />}
-        >
-          Siguiente
-        </Button>
+
+        {!loadingColors && data.model.stock_availabe != 0 && (
+          <>
+            <Card.Divider css={{ margin: "24px 0" }}></Card.Divider>
+            <Text>Selecciona tu concesionario</Text>
+            {consecionario.length === 0 ? (
+              <Loading />
+            ) : (
+              <FormControl sx={{ m: 1, minWidth: 120 }}>
+                <Select
+                  native
+                  defaultValue=""
+                  id="grouped-concesionario-select"
+                  value={ces}
+                  onChange={(e) => setCes(e.target.value)}
+                >
+                  <option value={""} disabled>
+                    Seleccione una opción
+                  </option>
+                  {consecionario.length > 0 &&
+                    consecionario.map((region, index) => (
+                      <optgroup label={region.name} key={`region-${index + 1}`}>
+                        {region.subsidiaries.map((sub) => (
+                          <option value={sub.id} key={sub.id}>
+                            {sub.name}
+                          </option>
+                        ))}
+                      </optgroup>
+                    ))}
+                </Select>
+                {error && (
+                  <Text color="error">Seleccione un concesionario</Text>
+                )}
+              </FormControl>
+            )}
+            <FormCredito
+              setValidate={setValidate}
+              model={model}
+              setData={setData}
+              data={data}
+            />
+            <Card.Divider css={{ margin: "24px 0" }}></Card.Divider>
+            <Button
+              disabled={!validate}
+              onPress={() => handleStep()}
+              className="btn-primary big"
+              iconRight={<NavigateNextIcon fill="currentColor" />}
+            >
+              Siguiente
+            </Button>
+          </>
+        )}
         <Card.Divider css={{ margin: "24px 0" }}></Card.Divider>
         <HelperSwipper />
       </Card.Body>

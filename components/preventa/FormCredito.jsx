@@ -14,6 +14,7 @@ import * as Yup from "yup";
 import { currency } from "../../utils";
 import { Loading } from "@nextui-org/react";
 import { cesApi } from "../../apis";
+import Swal from "sweetalert2";
 const nacionalidad = [
   { value: "Chilena", label: "Chilena" },
   { value: "Extranjera", label: "Extranjera" },
@@ -145,7 +146,13 @@ const FormCredito = ({ setValidate, model, setData, data }) => {
             });
             setValidate(true);
           } else {
-            alert("Hubo un error");
+            Swal.fire({
+              title: "Error!",
+              text: "Hubo un error",
+              icon: "error",
+              confirmButtonText: "Confirmar",
+            });
+
             setValidate(false);
           }
           setLoading(false);
@@ -153,7 +160,13 @@ const FormCredito = ({ setValidate, model, setData, data }) => {
       } catch (error) {
         console.log("error", error);
         setValidate(false);
-        alert("Hubo un error");
+        Swal.fire({
+          title: "Error!",
+          text: "Hubo un error",
+          icon: "error",
+          confirmButtonText: "Confirmar",
+        });
+
         //setSubmit(false);
         setLoading(false);
       }

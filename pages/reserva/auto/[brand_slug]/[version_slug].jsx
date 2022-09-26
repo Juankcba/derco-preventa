@@ -13,6 +13,7 @@ import {
   Input,
   Spacer,
   Button,
+  Loading,
 } from "@nextui-org/react";
 import Image from "next/image";
 import NextLink from "next/link";
@@ -46,6 +47,7 @@ const CarPage = ({ models, regions }) => {
 
   const [model, setModel] = useState({});
   const [colors, setColors] = useState([]);
+  const [loadingColors, setLoadingColors] = useState(true);
   const [selectedColor, setColor] = useState("");
   const [scrollChange, setScrollChange] = useState(false);
   useEffect(() => {
@@ -55,6 +57,35 @@ const CarPage = ({ models, regions }) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [scrollChange]);
+
+  const getInfoActual = async () => {
+    try {
+      await getVersionStoreInfo(models[0].version_slug).then((response) => {
+        setColors(
+          response.map((model) => ({
+            color_hex: model.color_hex,
+            color_id: model.color_id,
+            color_name: model.color_name,
+            color_slug: model.color_slug,
+            stock: model.stock_availabe,
+            image: model.image_url,
+          }))
+        );
+        setColor({
+          color_hex: response[0].color_hex,
+          color_id: response[0].color_id,
+          color_name: response[0].color_name,
+          color_slug: response[0].color_slug,
+          stock: response[0].stock_availabe,
+          image: response[0].image_url,
+        });
+
+        setLoadingColors(false);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
     if (models.length > 0) {
@@ -75,9 +106,10 @@ const CarPage = ({ models, regions }) => {
         color_id: models[0].color_id,
         color_name: models[0].color_name,
         color_slug: models[0].color_slug,
-        stock: model.stock_availabe,
+        stock: models[0].stock_availabe,
         image: models[0].image_url,
       });
+      getInfoActual();
     }
   }, [models]);
 
@@ -192,6 +224,7 @@ const CarPage = ({ models, regions }) => {
             <Grid xs={12} md={5}>
               {step == 1 && (
                 <PreventaStep3
+                  loadingColors={loadingColors}
                   model={model}
                   setStep={setStep}
                   setData={setData}
@@ -224,7 +257,7 @@ const CarPage = ({ models, regions }) => {
               css={{
                 backgroundColor: "#EBEBEB",
                 width: "100%",
-                minHeight: "311px",
+                minHeight: "411px",
                 padding: 0,
                 margin: 0,
                 maxWidth: "100%",
