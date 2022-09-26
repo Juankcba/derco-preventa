@@ -1,4 +1,4 @@
-image: node:16.15.0
+image: node:16.14.2
 
 definitions:
     steps:
@@ -7,7 +7,6 @@ definitions:
               caches:
                   - node
               script:
-                  - apt-get update
                   - apt-get install zip
                   - cat $encoded_env | base64 -d > .env
                   - cat .env
