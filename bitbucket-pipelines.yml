@@ -1,0 +1,36 @@
+image: node:16.15.0
+
+definitions:
+    steps:
+        - step: &build
+              name: "Build and zip"
+              caches:
+                  - node
+              script:
+                  - apt-get update
+                  - apt-get install zip
+                  - base64 --decode $encoded_env > .env
+                  - npm install
+                  - npm run build
+                  - zip -r cyber_dercocenter_cl.zip . -x node_modules/\* src/\* .git/\*
+              artifacts:
+                  - cyber_dercocenter_cl.zip
+
+pipelines:
+  branches:
+    master:
+    - step: *build
+    - step:
+        name: "Deploy to Prod"
+        max-time: 20
+        deployment: Production
+        script:
+        - pipe: atlassian/aws-elasticbeanstalk-deploy:0.7.0
+          variables:
+            AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+            AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+            AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
+            APPLICATION_NAME: $APPLICATION_NAME
+            ENVIRONMENT_NAME: $ENVIRONMENT_NAME
+            ZIP_FILE: $ZIP_FILE
+            S3_BUCKET: $S3_BUCKET
