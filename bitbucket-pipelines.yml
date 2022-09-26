@@ -7,6 +7,7 @@ definitions:
               caches:
                   - node
               script:
+                  - apt-get update
                   - apt-get install zip
                   - cat $encoded_env | base64 -d > .env
                   - cat .env
