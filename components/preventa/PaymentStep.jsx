@@ -159,7 +159,7 @@ const PreventaStep2 = ({ model, setData, data, setStep }) => {
                 title: "Error!",
                 text: response.data.message,
                 icon: "error",
-                confirmButtonText: "Cool",
+                confirmButtonText: "Confirmar",
               });
               setStep(3);
             } else {
@@ -189,7 +189,17 @@ const PreventaStep2 = ({ model, setData, data, setStep }) => {
   }, [order]);
 
   return (
-    <Card css={{ w: "100%", h: "100%", p: "32px", maxWidth: "503px" }}>
+    <Card
+      css={{
+        w: "100%",
+        h: "100%",
+        p: "32px",
+        maxWidth: "100%",
+        "@mdMin": {
+          maxWidth: "503px",
+        },
+      }}
+    >
       <Card.Body css={{ p: 0 }}>
         <CardHeader model={model} title={"Reserva tu"} />
         <Card.Divider css={{ margin: "24px 0" }}></Card.Divider>

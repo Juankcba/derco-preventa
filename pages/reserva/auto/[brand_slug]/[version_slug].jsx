@@ -23,6 +23,7 @@ import {
   getVersionStoreInfo,
 } from "../../../../utils/getVersionStoreInfo";
 import { DownloadCar } from "./../../../../components/ui/DownloadCar";
+import ErrorStep from "../../../../components/preventa/ErrorStep";
 
 // interface Props {
 //   model: Auto;
@@ -212,12 +213,9 @@ const CarPage = ({ models, regions }) => {
                 </>
               )}
               {step == 3 && (
-                <Row css={{ justifyContent: "center", display: "flex" }}>
-                  <Text>No stock</Text>
-                  <Button onPress={() => setStep(1)}>
-                    Volver a seleccionar Color
-                  </Button>
-                </Row>
+                <>
+                  <ErrorStep setStep={setStep} />
+                </>
               )}
             </Grid>
           </Grid.Container>

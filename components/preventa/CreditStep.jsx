@@ -101,7 +101,10 @@ const PreventaStep3 = ({
         h: "100%",
         p: "32px",
         overflow: "hidden",
-        maxWidth: "503px",
+        maxWidth: "100%",
+        "@mdMin": {
+          maxWidth: "503px",
+        },
       }}
     >
       <Card.Body css={{ p: 0, overflow: "hidden" }}>
