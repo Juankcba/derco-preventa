@@ -10,6 +10,8 @@ definitions:
                   - apt-get update
                   - apt-get install zip
                   - echo 'NEXT_PUBLIC_BACKEND_URL='$NEXT_PUBLIC_BACKEND_URL >> .env
+                  - echo 'NEXTAUTH_URL='$NEXTAUTH_URL >> .env
+                  - echo 'NEXT_PUBLIC_STORE_URL='$NEXT_PUBLIC_STORE_URL >> .env
                   - cat .env
                   - npm install --force
                   - npm run build
