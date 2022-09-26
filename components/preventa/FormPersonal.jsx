@@ -9,27 +9,13 @@ import RutTextMask from "../../node_modules/rut-text-mask";
 import MaskedInput from "react-text-mask";
 import { validateRut } from "../../utils/rut";
 
-import {
-  isBrowser,
-  isMobile,
-  isIOS,
-  isTablet,
-  isAndroid,
-  osName,
-} from "react-device-detect";
+
 import { cesApi } from "../../apis";
 
 const FormPersonal = ({ setData, data, model, formik, selected }) => {
   const rutMask = createRutMask();
 
-  //transbank data
-  let returnUrl = `${process.env.NEXT_API_BASE_URL}/pre-order/transbank-return`;
-  let finalUrl = `${process.env.NEXT_API_BASE_URL}/pre-order/${model.model_slug}/transbank-final`;
-  let resultUrl = `${process.env.BASE_URL}/preventa/${model.model_slug}/respuesta-transbank`;
-
-  let device = isIOS ? "IOS" : isAndroid ? "Android" : osName;
-
-  //-----//
+ 
 
   const [loading, setLoading] = useState(true);
   const [rut, setRut] = useState("");
@@ -141,6 +127,11 @@ const FormPersonal = ({ setData, data, model, formik, selected }) => {
     }
   }, [rut]);
 
+  const handleChangeRut = (e) => {
+    formik.resetForm();
+    setRut(e.target.value);
+  };
+
   return (
     <Grid.Container gap={2} css={{ p: 0, width: "100%" }}>
       <Grid xs={12}>
@@ -152,8 +143,8 @@ const FormPersonal = ({ setData, data, model, formik, selected }) => {
           fullWidth
           required
           label="RUT"
-          onChange={(e) => setRut(e.target.value)}
-          onBlur={(e) => setRut(e.target.value)}
+          onChange={(e) => handleChangeRut(e)}
+          onBlur={(e) => handleChangeRut(e)}
         >
           {(inputProps) => <TextField {...inputProps} />}
         </InputMask>

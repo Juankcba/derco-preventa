@@ -211,6 +211,14 @@ const CarPage = ({ models, regions }) => {
                   />
                 </>
               )}
+              {step == 3 && (
+                <Row css={{ justifyContent: "center", display: "flex" }}>
+                  <Text>No stock</Text>
+                  <Button onPress={() => setStep(1)}>
+                    Volver a seleccionar Color
+                  </Button>
+                </Row>
+              )}
             </Grid>
           </Grid.Container>
           {step == 2 && (
