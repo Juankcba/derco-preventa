@@ -12,7 +12,10 @@ definitions:
                   - echo 'NEXT_PUBLIC_BACKEND_URL='$NEXT_PUBLIC_BACKEND_URL >> .env
                   - echo 'NEXTAUTH_URL='$NEXTAUTH_URL >> .env
                   - echo 'NEXT_PUBLIC_STORE_URL='$NEXT_PUBLIC_STORE_URL >> .env
-                  - cat .env
+                  - echo 'NEXT_PUBLIC_PREVENTA='$NEXT_PUBLIC_PREVENTA >> .env
+                  - echo 'NEXT_API_BASE_URL='$NEXT_API_BASE_URL >> .env
+                  - echo 'BASE_URL='$BASE_URL >> .env
+                  - echo 'PORT='$PORT >> .env
                   - npm install --force
                   - npm run build
                   - zip -r cyber_dercocenter_cl.zip . -x node_modules/\* src/\* .git/\*
