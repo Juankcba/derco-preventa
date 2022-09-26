@@ -9,7 +9,7 @@ definitions:
               script:
                   - apt-get update
                   - apt-get install zip
-                  - base64 --decode $encoded_env > .env
+                  - cat $encoded_env | base64 -d > .env
                   - cat .env
                   - npm install
                   - npm run build
