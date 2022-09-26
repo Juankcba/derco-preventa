@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
 import { storeApi } from "../../../../../../apis";
 import { PreventaLayout } from "../../../../../../components/Layouts";
+import CardSummary from "../../../../../../components/preventa/CardSummary";
 import { DownloadCar } from "../../../../../../components/ui/DownloadCar";
 import { currency } from "../../../../../../utils";
 
@@ -121,6 +122,9 @@ const TokenTransBank = () => {
                   </div>
                 </Grid>
               </Grid.Container>
+            </Grid>
+            <Grid xs={12} md={5}>
+              <CardSummary order={order} />
             </Grid>
           </>
         )}

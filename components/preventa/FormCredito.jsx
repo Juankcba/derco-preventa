@@ -53,17 +53,20 @@ const FormCredito = ({ setValidate, model, setData, data }) => {
   const [smart, setSmart] = useState(true);
   const [loading, setLoading] = useState(false);
   const [value, setValue] = useState(model.list_price * 0.2);
-  const [valueIncome, setValueIncome] = useState(
-    (model.list_price * (1 - 0.2)) / 11
-  );
+  const minPrice =
+    model.list_price -
+    (model.list_price -
+      model.brand_price +
+      (model.list_price - model.financial_price));
+  const [valueIncome, setValueIncome] = useState((minPrice * (1 - 0.2)) / 11);
   const [results, setResults] = useState(null);
 
   const formik = useFormik({
     initialValues: {
-      pie: model.list_price * 0.2,
+      pie: minPrice * 0.2,
       terms: "",
       nacionality: "Chilena",
-      income: (model.list_price * (1 - 0.2)) / 11,
+      income: (minPrice * (1 - 0.2)) / 11,
       workType: "Dependiente",
       workYears: 2,
     },
@@ -71,21 +74,15 @@ const FormCredito = ({ setValidate, model, setData, data }) => {
       terms: Yup.number().required("El plazo es obligatorio"),
       pie: Yup.number()
         .required("El pie es obligatorio")
-        .min(
-          model.list_price * 0.2,
-          `Pie minimo ${currency.format(model.list_price * 0.2)}`
-        )
-        .max(
-          model.list_price * 0.5,
-          `Pie maximo ${currency.format(model.list_price * 0.5)}`
-        ),
+        .min(minPrice * 0.2, `Pie minimo ${currency.format(minPrice * 0.2)}`)
+        .max(minPrice * 0.5, `Pie maximo ${currency.format(minPrice * 0.5)}`),
       nacionality: Yup.string().required("La nacionalidad es obligatoria"),
       income: Yup.number()
         .required("El ingreso es obligatorio")
         .min(
-          (model.list_price * (1 - 0.2)) / 11,
+          (minPrice * (1 - 0.2)) / 11,
           `El ingreso mínimo es ${currency.format(
-            (model.list_price * (1 - 0.2)) / 11
+            (minPrice * (1 - 0.2)) / 11
           )}  `
         ),
       workType: Yup.string().required("El tipo de trabajo es obligatoria"),
@@ -116,7 +113,7 @@ const FormCredito = ({ setValidate, model, setData, data }) => {
           },
           vehicle: {
             type: "NU",
-            price: model.financial_price,
+            price: minPrice,
           },
           loan: {
             type: !smart ? "CONVENTIONAL" : "SMART",
@@ -196,9 +193,9 @@ const FormCredito = ({ setValidate, model, setData, data }) => {
   }, [value]);
   useMemo(() => {
     const minIncome =
-      (model.list_price - formik.values.pie) / 11 <= 480000
+      (minPrice - formik.values.pie) / 11 <= 480000
         ? 480000
-        : (model.list_price * (1 - 0.2)) / 11;
+        : (minPrice * (1 - 0.2)) / 11;
 
     formik.setFieldValue("income", valueIncome);
   }, [valueIncome]);
@@ -398,7 +395,7 @@ const FormCredito = ({ setValidate, model, setData, data }) => {
                       (Object.keys(formik.errors).length >= 0 && formik.isDirty)
                     }
                   >
-                    Calcular {formik.isSubmitting}
+                    Calcular
                   </Button>
                 </div>
               </Grid>

@@ -46,6 +46,76 @@
   }
 }
 
+.preventa-error-title {
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 29px;
+  color: #191919;
+  margin-bottom: 8px;
+}
+.preventa-error-subtitle {
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  letter-spacing: 0.01em;
+  color: #57585c;
+}
+
+.reserva-summary-substitle {
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  letter-spacing: 0.01em;
+  color: #57585c;
+}
+.reserva-summary-code {
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.01em;
+  color: #191919;
+}
+
+.reserva-summary-title {
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 29px;
+  color: #191919;
+}
+
+.reserva-summary-subtitle {
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+  color: #191919;
+}
+
+.reserva-summary-detail {
+  p {
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 22px;
+    color: #000000;
+    span {
+      font-weight: 500;
+    }
+  }
+}
+
 .preventa-disclaimer {
   font-family: "Lato";
   font-style: normal;

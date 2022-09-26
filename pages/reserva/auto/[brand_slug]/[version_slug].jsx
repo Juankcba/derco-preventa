@@ -41,7 +41,10 @@ const CarPage = ({ models, regions }) => {
       email: "",
     },
     ces: "",
-    financial: "",
+    financial: {
+      financial_state: true,
+      results: {},
+    },
     model: "",
   });
 
@@ -161,17 +164,40 @@ const CarPage = ({ models, regions }) => {
                 <Grid xs={8}>
                   <Row className="preventa-prices">
                     <Text className="price-primary">
-                      {currency.format(model.brand_price)}*
+                      {data.financial.financial_state
+                        ? currency.format(
+                            model.list_price -
+                              (model.list_price -
+                                model.brand_price +
+                                model.list_price -
+                                model.financial_price)
+                          )
+                        : currency.format(
+                            model.list_price -
+                              (model.list_price - model.brand_price)
+                          )}
+                      *
                     </Text>
                     <Text className="price-before">
                       Antes <span>{currency.format(model.list_price)}</span>
                     </Text>
                     <Text className="price-bonos">
-                      Bono cyber: {currency.format(model.brand_price)}
+                      Bono cyber:{" "}
+                      {currency.format(model.list_price - model.brand_price)}
                     </Text>
-                    <Text className="price-bonos">
-                      Bono financiamiento: {currency.format(model.brand_price)}
-                    </Text>
+                    {data.financial.financial_state ? (
+                      <Text className="price-bonos">
+                        Bono financiamiento:{" "}
+                        {currency.format(
+                          model.list_price - model.financial_price
+                        )}
+                      </Text>
+                    ) : (
+                      <Text
+                        className="price-bonos"
+                        css={{ minHeight: "17px" }}
+                      ></Text>
+                    )}
                   </Row>
                 </Grid>
                 <Grid xs={12}>

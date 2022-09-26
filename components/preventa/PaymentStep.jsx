@@ -240,18 +240,21 @@ const PreventaStep2 = ({ model, setData, data, setStep }) => {
             }
             type="submit"
             className="btn-primary big"
+            css={{ width: "100%" }}
           >
             Paga online
           </Button>
           <Spacer y={1} />
           {loading}
-          <Image
-            src="/assets/img/cyber/tarjetas.svg"
-            alt="tarjetas"
-            width={"100%"}
-            height={48}
-            objectFit="contain"
-          />
+          <div>
+            <Image
+              src="/assets/img/cyber/tarjetas.svg"
+              alt="tarjetas"
+              width={300}
+              height={48}
+              objectFit="contain"
+            />
+          </div>
         </form>
         <div className="hidden">
           <form ref={transbankForm} method="post" action={order?.form_action}>
@@ -268,7 +271,8 @@ const PreventaStep2 = ({ model, setData, data, setStep }) => {
         <div>
           <Button
             icon={<ArrowBackIosNewIcon fill="currentColor" />}
-            className="btn-secondary grey big fit"
+            className="btn-secondary grey big "
+            css={{ width: "100%" }}
             onPress={() => setStep(1)}
           >
             Volver al paso anterior
