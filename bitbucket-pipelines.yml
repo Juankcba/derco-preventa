@@ -1,4 +1,4 @@
-image: node:16.15.0
+image: node:16.14.2
 
 definitions:
     steps:
@@ -9,9 +9,9 @@ definitions:
               script:
                   - apt-get update
                   - apt-get install zip
-                  - base64 --decode $encoded_env > .env
+                  - cat $encoded_env | base64 -d > .env
                   - cat .env
-                  - npm install
+                  - npm install --force
                   - npm run build
                   - zip -r cyber_dercocenter_cl.zip . -x node_modules/\* src/\* .git/\*
               artifacts:
