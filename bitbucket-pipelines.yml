@@ -10,6 +10,7 @@ definitions:
                   - apt-get update
                   - apt-get install zip
                   - base64 --decode $encoded_env > .env
+                  - cat .env
                   - npm install
                   - npm run build
                   - zip -r cyber_dercocenter_cl.zip . -x node_modules/\* src/\* .git/\*
