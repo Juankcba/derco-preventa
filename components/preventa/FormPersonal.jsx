@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 
 import { cesApi } from "../../apis";
 
-const TextMaskCustom = React.forwardRef(function TextMaskCustom(props, ref) {
+const TextMaskRut = React.forwardRef(function TextMaskRut(props, ref) {
   const { onChange, ...other } = props;
 
   return (
@@ -24,7 +24,29 @@ const TextMaskCustom = React.forwardRef(function TextMaskCustom(props, ref) {
   );
 });
 
-TextMaskCustom.propTypes = {
+TextMaskRut.propTypes = {
+  name: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+};
+
+const TextMaskPhone = React.forwardRef(function TextMaskPhone(props, ref) {
+  const { onChange, ...other } = props;
+
+  return (
+    <IMaskInput
+      {...other}
+      mask="+56 # #### ####"
+      definitions={{
+        '#': /[1-9]/,
+      }}
+      inputRef={ref}
+      onAccept={(value) => onChange({ target: { name: props.name, value } })}
+      overwrite
+    />
+  );
+});
+
+TextMaskPhone.propTypes = {
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
 };
@@ -32,42 +54,48 @@ TextMaskCustom.propTypes = {
 const FormPersonal = ({ setData, data, formik, selected }) => {
 
   const [loading, setLoading] = useState(true);
-  const [rut, setRut] = useState("");
-  const [errors, setErrors] = useState({});
 
   const getUserInfo = async () => {
-    formik.resetForm();
+    const rutAux = formik.values.rut
+    // formik.resetForm();
     formik.setFieldValue("opt", selected);
-    if (validateRut(rut) && rut.length > 1) {
+    if (validateRut(rutAux) && rutAux.length > 1) {
       setLoading(true);
       try {
         await cesApi
           .get("pre-order/customers", {
             params: {
-              rut: rut,
+              rut: rutAux,
             },
           })
           .then((response) => {
             if (response.status == 200) {
-              const { email, phone, first_name, last_name, rut } =
-                response.data;
-              setData({
-                ...data,
-                user: {
-                  email: email,
-                  phone: phone,
-                  first_name: first_name,
-                  last_name: last_name,
-                  rut: rut,
-                },
-              });
-              formik.setFieldValue("rut", rut);
-              formik.setFieldValue("email", email);
-              formik.setFieldValue("first_name", first_name);
-              formik.setFieldValue("last_name", last_name);
-              formik.setFieldValue("phone", phone);
+              const { email, phone, first_name, last_name, rut } = response.data;
+              if ( email && phone && first_name && last_name && rut ) {
+                setData({
+                  ...data,
+                  user: {
+                    email: email,
+                    phone: phone,
+                    first_name: first_name,
+                    last_name: last_name,
+                    rut: rut,
+                  },
+                });
+                formik.setFieldValue("rut", rut);
+                formik.setFieldValue("email", email);
+                formik.setFieldValue("first_name", first_name);
+                formik.setFieldValue("last_name", last_name);
+                formik.setFieldValue("phone", phone);
+              } else {
+                formik.setFieldValue("rut", rutAux);
+                formik.setFieldValue("email", "");
+                formik.setFieldValue("first_name", "");
+                formik.setFieldValue("last_name", "");
+                formik.setFieldValue("phone", "");
+              }
             } else {
-              formik.setFieldValue("rut", rut);
+              formik.setFieldValue("rut", rutAux);
             }
             setLoading(false);
           });
@@ -76,47 +104,39 @@ const FormPersonal = ({ setData, data, formik, selected }) => {
         setLoading(false);
       }
     } else {
-      formik.resetForm();
+      // formik.resetForm();
     }
   };
 
-  useEffect(() => {
-    if (rut.length === 0) {
+  const handlerRut = () => {
+    if ( !formik.values.rut ) {
       formik.resetForm();
+    } else {
+      getUserInfo();
     }
-
-    if ((rut?.length > 1 && !validateRut(rut)) ) {
-      setErrors({ ...errors, rut: "Ingrese un rut válido" });
-    } else if (validateRut(rut) ) {
-      setErrors((e) => {
-        const object = { ...e };
-        delete object["rut"];
-        getUserInfo();
-        return object;
-      });
-    }
-  }, [rut]);
-
-  const handleChangeRut = (e) => {
-    formik.resetForm();
-    setRut(e.target.value);
-  };
+  }
+  
 
   return (
     <Grid.Container gap={2} css={{ p: 0, width: "100%" }}>
       <Grid xs={12}>
         <TextField
           fullWidth
-          label="Rut:"
-          value={rut}
-          onChange={handleChangeRut}
+          label="Rut"
+          value={formik.values.rut}
+          onChange={formik.handleChange}
+          onBlur={ handlerRut }
           name="rut"
           id="formatted-rut-input"
           InputProps={{
-            inputComponent: TextMaskCustom,
+            inputComponent: TextMaskRut,
           }}
           helperColor={"error"}
-          helperText={ rut && errors?.rut ? errors.rut : "" }
+          helperText={
+            formik.errors.rut && formik.touched.rut
+              ? formik.errors.rut
+              : ""
+          }
         />
       </Grid>
       <Grid xs={12}>
@@ -157,21 +177,22 @@ const FormPersonal = ({ setData, data, formik, selected }) => {
       </Grid>
       <Grid xs={12}>
         <TextField
-          fullWidth
-          required
-          id="preventa-cars-phone"
-          name="phone"
-          label="Ingresa tu número de celular"
-          onChange={formik.handleChange}
-          value={formik.values.phone}
-          disabled={loading}
-          helperColor={"error"}
-          helperText={
-            formik.errors.phone && formik.touched.phone
-              ? formik.errors.phone
-              : ""
-          }
-        />
+            fullWidth
+            id="preventa-cars-phone"
+            label="Ingresa tu número de celular"
+            value={formik.values.phone}
+            onChange={formik.handleChange}
+            name="phone"
+            InputProps={{
+              inputComponent: TextMaskPhone,
+            }}
+            helperColor={"error"}
+            helperText={
+              formik.errors.phone && formik.touched.phone
+                ? formik.errors.phone
+                : ""
+            }
+          />
       </Grid>
       <Grid xs={12}>
         <TextField
