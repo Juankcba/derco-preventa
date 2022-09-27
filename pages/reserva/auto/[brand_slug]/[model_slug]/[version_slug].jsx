@@ -134,7 +134,10 @@ const CarPage = ({ models, regions }) => {
     console.log("data", data);
   }, [data]);
   const downloadFicha = () => {
-    window.open(`https://www.google.com`, "_blank");
+    window.open(
+      `https://s3.amazonaws.com/dercocenter.cl/cyber/fichas/ficha-tecnica-${model.brand_slug}-${model.model_slug}.pdf`,
+      "_blank"
+    );
   };
   return (
     <PreventaLayout
