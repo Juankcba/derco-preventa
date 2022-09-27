@@ -1,5 +1,5 @@
 import { Box, MenuItem, TextField } from "@mui/material";
-import { Row, Text, Button, Grid, useRef } from "@nextui-org/react";
+import { Row, Text, Card, Button, Grid, useRef } from "@nextui-org/react";
 import React, { useState, useEffect } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -8,18 +8,18 @@ import InputMask from "react-input-mask";
 import RutTextMask from "../../node_modules/rut-text-mask";
 import MaskedInput from "react-text-mask";
 import { validateRut } from "../../utils/rut";
-
+import Select, { SelectChangeEvent } from "@mui/material/Select";
 
 import { cesApi } from "../../apis";
 
-const FormPersonal = ({ setData, data, model, formik, selected }) => {
+const FormPersonal = ({ setData, data, model, regions, formik, selected }) => {
   const rutMask = createRutMask();
-
- 
 
   const [loading, setLoading] = useState(true);
   const [rut, setRut] = useState("");
   const [errors, setErrors] = useState({});
+
+  const km = parseInt(model.model_slug)
 
   const getUserInfo = async () => {
     formik.resetForm();
@@ -133,6 +133,76 @@ const FormPersonal = ({ setData, data, model, formik, selected }) => {
   };
 
   return (
+    <>
+    <Text h3 className="payment-header-subtitle">
+      Te solicitamos los últimos datos, para que todo este listo en tu mantencion de los { km.toLocaleString('es-CL') }
+    </Text>
+    <Grid.Container gap={2} css={{ p: 0, width: "100%" }}>
+      <Grid xs={12}>
+        <TextField
+          fullWidth
+          required
+          id="preventa-cars-plate"
+          name="patente"
+          label="Ingresa tu Patente"
+          onChange={formik.handleChange}
+          value={formik.values.plate}
+          helperColor={"error"}
+          helperText={
+            formik.errors.plate && formik.touched.plate
+              ? formik.errors.plate
+              : ""
+          }
+        />
+      </Grid>
+      <Grid xs={12}>
+        <TextField
+          fullWidth
+          required
+          id="preventa-cars-kms"
+          name="kilometraje"
+          label="Kilometraje actual"
+          onChange={formik.handleChange}
+          value={formik.values.kms}
+          helperColor={"error"}
+          helperText={
+            formik.errors.kms && formik.touched.kms
+              ? formik.errors.kms
+              : ""
+          }
+        />
+      </Grid>
+      <Grid xs={12}>
+        <Select
+          native
+          defaultValue=""
+          id="grouped-concesionario-select"
+          value={ces}
+          onChange={(e) => setCes(e.target.value)}
+        >
+          <option value={""} disabled>
+            Seleccione una opción
+          </option>
+          {consecionario.length > 0 &&
+            consecionario.map((region, index) => (
+              <optgroup label={region.name} key={`region-${index + 1}`}>
+                {region.subsidiaries.map((sub) => (
+                  <option value={sub.id} key={sub.id}>
+                    {sub.name}
+                  </option>
+                ))}
+              </optgroup>
+            ))}
+        </Select>
+        {error && (
+          <Text color="error">Seleccione un concesionario</Text>
+        )}
+      </Grid>
+    </Grid.Container>
+    <Card.Divider css={{ margin: "24px 0" }}></Card.Divider>
+    <Text h2 className="payment-header-title">
+      Datos de contacto
+    </Text>
     <Grid.Container gap={2} css={{ p: 0, width: "100%" }}>
       <Grid xs={12}>
         <InputMask
@@ -232,6 +302,7 @@ const FormPersonal = ({ setData, data, model, formik, selected }) => {
         />
       </Grid>
     </Grid.Container>
+    </>
   );
 };
 

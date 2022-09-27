@@ -21,12 +21,18 @@ import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import Image from "next/image";
 import * as Yup from "yup";
+import { validateRut } from "../../utils/rut";
+import { currency } from "../../utils";
 
-const SuccessVerifyMaintenance = ({ model, setStep, data, msg }) => {
+const SuccessVerifyMaintenance = ({ model, regions, setStep, msg }) => {
   const handleStep = (value) => {
     setStep(value);
   };
 
+  const [loading, setLoading] = useState(false);
+  const transbankForm = useRef();
+  const [order, setOrder] = useState(null);
+  
   const [data, setData] = useState({
     user: {
       rut: "",
@@ -43,6 +49,9 @@ const SuccessVerifyMaintenance = ({ model, setStep, data, msg }) => {
   const regex = /^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/g;
   const formik = useFormik({
     initialValues: {
+      kms: "",
+      plate: "",
+      regions: "",
       rut: "",
       first_name: "",
       last_name: "",
@@ -180,92 +189,85 @@ const SuccessVerifyMaintenance = ({ model, setStep, data, msg }) => {
         </div>
         )}
 
-  <Card
-      css={{
-        w: "100%",
-        h: "100%",
-        p: "32px",
-        maxWidth: "100%",
-        "@mdMin": {
-          maxWidth: "503px",
-        },
-      }}
-    >
-      <Card.Body css={{ p: 0 }}>
-        <CardHeader model={model} title={"Reserva tu"} />
-        <Card.Divider css={{ margin: "24px 0" }}></Card.Divider>
-        <Text h2 className="payment-header-title">
-          Ingresa tus datos personales
-        </Text>
-        <Text h3 className="payment-header-subtitle">
-          Para inscribirte en la reserva necesitamos datos de contacto.
-        </Text>
-        <form onSubmit={formik.handleSubmit}>
-          <FormPersonal
-            selected={selected}
-            data={data}
-            setData={setData}
-            model={model}
-            formik={formik}
-          />
-          <Card.Divider css={{ margin: "24px 0" }}></Card.Divider>
-
-          <div className="opt-disclaimer">
-            <Checkbox isSelected={selected} onChange={setSelected}></Checkbox>
-
-            <Text h6>
-              Acepto ser contactado por Derco SpA* Términos y condiciones de
-              privacidad terminos y condiciones
-            </Text>
-          </div>
-          {formik.errors.opt && (
-            <Text className="MuiFormHelperText-root">{formik.errors.opt}</Text>
-          )}
-          <Text h3 className="reserva-title-disclaimer">
-            Valor reserva $200.000
-          </Text>
-          <Button
-            iconRight={
-              loading ? <Loading /> : <NavigateNextIcon fill="currentColor" />
-            }
-            type="submit"
-            className="btn-primary big"
+        <Card
+            css={{
+              w: "100%",
+              h: "100%",
+              p: "32px",
+              maxWidth: "100%",
+              "@mdMin": {
+                maxWidth: "503px",
+              },
+            }}
           >
-            Paga online
-          </Button>
-          <Spacer y={1} />
-          {loading}
-          <Image
-            src="/assets/img/cyber/tarjetas.svg"
-            alt="tarjetas"
-            width={"100%"}
-            height={48}
-            objectFit="contain"
-          />
-        </form>
-        <div className="hidden">
-          <form ref={transbankForm} method="post" action={order?.form_action}>
-            <input type="hidden" name="token_ws" value={order?.token_ws} />
-            <input
-              className="button-next next hidden"
-              disabled={loading ? true : false}
-              type="submit"
-              value="Paga Online"
-            />
-          </form>
-        </div>
-        <Card.Divider css={{ margin: "24px 0" }}></Card.Divider>
-        <div>
-          <Button
-            icon={<ArrowBackIosNewIcon fill="currentColor" />}
-            className="btn-secondary grey big fit"
-            onPress={() => setStep(1)}
-          >
-            Volver al paso anterior
-          </Button>
-        </div>
-      </Card.Body>
-    </Card>
+            <Card.Body css={{ p: 0 }}>
+              <form onSubmit={formik.handleSubmit}>
+                <FormPersonal
+                  selected={selected}
+                  data={data}
+                  setData={setData}
+                  model={model}
+                  regions={regions}
+                  formik={formik}
+                />
+                <Card.Divider css={{ margin: "24px 0" }}></Card.Divider>
+
+                <div className="opt-disclaimer">
+                  <Checkbox isSelected={selected} onChange={setSelected}></Checkbox>
+
+                  <Text h6>
+                    Acepto ser contactado por Derco SpA* Términos y condiciones de
+                    privacidad terminos y condiciones
+                  </Text>
+                </div>
+                {formik.errors.opt && (
+                  <Text className="MuiFormHelperText-root">{formik.errors.opt}</Text>
+                )}
+                <Text h3 className="reserva-title-disclaimer">
+                  Valor reserva { currency.format(model.brand_price) }
+                </Text>
+                <Button
+                  iconRight={
+                    loading ? <Loading /> : <NavigateNextIcon fill="currentColor" />
+                  }
+                  type="submit"
+                  className="btn-primary big"
+                >
+                  Paga online
+                </Button>
+                <Spacer y={1} />
+                {loading}
+                <Image
+                  src="/assets/img/cyber/tarjetas.svg"
+                  alt="tarjetas"
+                  width={"100%"}
+                  height={48}
+                  objectFit="contain"
+                />
+              </form>
+              <div className="hidden">
+                <form ref={transbankForm} method="post" action={order?.form_action}>
+                  <input type="hidden" name="token_ws" value={order?.token_ws} />
+                  <input
+                    className="button-next next hidden"
+                    disabled={loading ? true : false}
+                    type="submit"
+                    value="Paga Online"
+                  />
+                </form>
+              </div>
+              <Card.Divider css={{ margin: "24px 0" }}></Card.Divider>
+              <div>
+                <Button
+                  icon={<ArrowBackIosNewIcon fill="currentColor" />}
+                  className="btn-secondary grey big fit"
+                  onPress={() => setStep(1)}
+                >
+                  Volver al paso anterior
+                </Button>
+              </div>
+            </Card.Body>
+          </Card>
 
         <Button className="button_verify btn-primary big" onPress={() => handleStep(4)}>Paga online</Button>
         <NextImage src="/assets/img/icon-transbank.svg" height={48} width={439} alt="cyber-coin" className="img_transbank" />

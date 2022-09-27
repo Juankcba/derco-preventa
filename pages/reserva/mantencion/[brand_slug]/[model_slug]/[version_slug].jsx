@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from "react";
 
-import { PreventaLayout } from "../../../../components/Layouts"
-import VerifyMaintenance from "../../../../components/mantencions/VerifyMaintenance";
-import ErrorVerifyMaintenance from "../../../../components/mantencions/ErrorVerifyMaintenance";
-import SuccessVerifyMaintenance from "../../../../components/mantencions/SuccessVerifyMaintenance";
-import ResultPayment from "../../../../components/mantencions/ResultPayment";
+import { PreventaLayout } from "../../../../../components/Layouts"
+import VerifyMaintenance from "../../../../../components/mantencions/VerifyMaintenance";
+import ErrorVerifyMaintenance from "../../../../../components/mantencions/ErrorVerifyMaintenance";
+import SuccessVerifyMaintenance from "../../../../../components/mantencions/SuccessVerifyMaintenance";
+import ResultPayment from "../../../../../components/mantencions/ResultPayment";
 
 import { Button } from "@nextui-org/react";
 
-import { storeApi } from "../../../../apis";
-import { currency } from "../../../../utils";
+import { storeApi } from "../../../../../apis";
+import { currency } from "../../../../../utils";
 import {
   getSubsStoreInfo,
   getVersionStoreInfo,
-} from "../../../../utils/getVersionStoreInfo";
+} from "../../../../../utils/getVersionStoreInfo";
 
-const MaintenancePage = ({ models }) => {
+const MaintenancePage = ({ models, regions }) => {
   const [step, setStep] = useState(1);
   const [model, setModel] = useState({})
   const [msg, setMsg] = useState(false);
@@ -81,7 +81,7 @@ const MaintenancePage = ({ models }) => {
               </div>
               {step == 1 && (<VerifyMaintenance model={model} setStep={setStep} setMsg={setMsg} />)}
               {step == 2 && (<ErrorVerifyMaintenance setStep={setStep} setMsg={setMsg} />)}
-              {step == 3 && (<SuccessVerifyMaintenance model={model} setStep={setStep} setMsg={setMsg} msg={msg} />)}
+              {step == 3 && (<SuccessVerifyMaintenance model={model} regions={ regions } setStep={setStep} setMsg={setMsg} msg={msg} />)}
               {(step == 4 || step == 5) && (<ResultPayment setStep={setStep} step={step} />)}
             </div>
             {step == 3 && (
@@ -111,6 +111,7 @@ export async function getStaticPaths() {
   const patchUrls = mantenciones.map((version) => ({
     version_slug: version.version_slug,
     brand_slug: version.brand_slug,
+    model_slug: version.model_slug
   }));
 
   console.log(patchUrls);
@@ -128,7 +129,7 @@ export async function getStaticPaths() {
 export const getStaticProps = async ({ params }) => {
   const { version_slug, brand_slug } = params;
 
-  const models = await getVersionStoreInfo(version_slug);
+  const models = await getVersionStoreInfo(`${model_slug}/${version_slug}`);
 
   const { status, data } = await getSubsStoreInfo(
     `subsidiaries?brand_slug=${brand_slug}&services=mantencion`
