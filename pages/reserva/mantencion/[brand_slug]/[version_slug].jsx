@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { PreventaLayout } from "../../../../components/Layouts"
 import VerifyMaintenance from "../../../../components/mantencions/VerifyMaintenance";
@@ -8,28 +8,68 @@ import ResultPayment from "../../../../components/mantencions/ResultPayment";
 
 import { Button } from "@nextui-org/react";
 
-const MaintenancePage = () => {
+import { storeApi } from "../../../../apis";
+import { currency } from "../../../../utils";
+import {
+  getSubsStoreInfo,
+  getVersionStoreInfo,
+} from "../../../../utils/getVersionStoreInfo";
+
+const MaintenancePage = ({ models }) => {
   const [step, setStep] = useState(1);
+  const [model, setModel] = useState({})
   const [msg, setMsg] = useState(false);
+
+  const percen = (model) => {
+    return  ( ( (model.brand_price - model.list_price) / model.list_price) * -100 ).toFixed(0)
+  }
+  
+  const [data, setData] = useState({
+    user: {
+      rut: "",
+      first_name: "",
+      last_name: "",
+      phone: "",
+      email: "",
+    },
+    ces: "",
+    financial: "",
+    model: "",
+  });
+
+  useEffect(() => {
+    if ( models?.length > 0 ) {
+      setModel( models[0] )
+      setData({ ...data, model: models[0] });
+    }
+  }, [models])
+  
+
   return (
     <PreventaLayout>
       <div className={`page_reserva_mantencion ${step == 3 || step == 4 || step == 5 ? 'success' : ''}`}>
         <div className={`container ${step == 3 || step == 4 || step == 5 ? 'success' : ''}`}>
           <img src="https://s3.amazonaws.com/dercocenter.cl/cyber/backgorund-page-maintenance.jpg" alt="mobile" className="img_mobile" />
           <div className="discount_mobile">
-            <span className="discount__number">35%</span>
+            <span className="discount__number">
+            {percen(model)}%
+            </span>
           </div>
           <div className="content">
             <div className="card">
               <div className="discount">
-                <span className="discount__number">35%</span>
+                <span className="discount__number">
+                  {percen(model)}%
+                </span>
               </div>
               <div className="card__header">
                 {(step == 1 || step == 2 || step == 3) && (
                   <div className="card__header__title">
-                    <h3>Mantención Citycar 30.000km</h3>
-                    <h4>$270.000*</h4>
-                    <span className="card__header__title__discount">Antes <span>$370.000</span></span>
+                    <h3>{ model.version_name  } km</h3>
+                    <h4> { currency.format(model.brand_price) }</h4>
+                    <span className="card__header__title__discount">Antes 
+                      <span>{currency.format(model.list_price)}</span>
+                    </span>
                   </div>
                 )}
                 {step == 4 && (
@@ -39,9 +79,9 @@ const MaintenancePage = () => {
                   </div>
                 )}
               </div>
-              {step == 1 && (<VerifyMaintenance setStep={setStep} setMsg={setMsg} />)}
+              {step == 1 && (<VerifyMaintenance model={model} setStep={setStep} setMsg={setMsg} />)}
               {step == 2 && (<ErrorVerifyMaintenance setStep={setStep} setMsg={setMsg} />)}
-              {step == 3 && (<SuccessVerifyMaintenance setStep={setStep} setMsg={setMsg} msg={msg} />)}
+              {step == 3 && (<SuccessVerifyMaintenance model={model} setStep={setStep} setMsg={setMsg} msg={msg} />)}
               {(step == 4 || step == 5) && (<ResultPayment setStep={setStep} step={step} />)}
             </div>
             {step == 3 && (
@@ -60,5 +100,59 @@ const MaintenancePage = () => {
     </PreventaLayout >
   )
 }
+
+export async function getStaticPaths() {
+  const {
+    data: { mantenciones },
+  } = await storeApi.get(
+    `/pre-order/cyber-dc/${process.env.NEXT_PUBLIC_PREVENTA}/cars`
+  );
+
+  const patchUrls = mantenciones.map((version) => ({
+    version_slug: version.version_slug,
+    brand_slug: version.brand_slug,
+  }));
+
+  console.log(patchUrls);
+
+  return {
+    paths: patchUrls.map((path) => ({
+      params: { ...path },
+    })),
+    // { fallback: false } means other routes should 404
+    fallback: false, // can also be true or 'blocking'
+  };
+}
+
+// `getStaticPaths` requires using `getStaticProps`
+export const getStaticProps = async ({ params }) => {
+  const { version_slug, brand_slug } = params;
+
+  const models = await getVersionStoreInfo(version_slug);
+
+  const { status, data } = await getSubsStoreInfo(
+    `subsidiaries?brand_slug=${brand_slug}&services=mantencion`
+  );
+  let regions = [];
+  if (status == 200) {
+    regions = data;
+  }
+
+  if (!models) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    // Passed to the page component as props
+    props: { models, regions },
+    revalidate: 1,
+  };
+};
+
 
 export default MaintenancePage;
