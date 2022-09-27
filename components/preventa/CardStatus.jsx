@@ -1,4 +1,5 @@
 import { Card, Row, Text } from "@nextui-org/react";
+import Image from "next/image";
 import React from "react";
 
 const CardStatus = ({ status, id }) => {
@@ -40,7 +41,22 @@ const CardStatus = ({ status, id }) => {
                 tarjeta.
               </Text>
             </div>
-            <div>icono</div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "100%",
+                width: "100%",
+              }}
+            >
+              <Image
+                src="/assets/img/warning-error.svg"
+                alt="error-warning"
+                width={64}
+                height={64}
+              />
+            </div>
           </Row>
         )}
       </Card.Body>
