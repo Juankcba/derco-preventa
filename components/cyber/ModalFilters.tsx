@@ -448,6 +448,7 @@ const ModalFilters: FC = () => {
               orientation={!modalMobile ? "horizontal" : "vertical"}
               onChange={handleMantenciones}
               defaultValue={mantencionesSelected}
+              value={mantencionesSelected}
             >
               <Checkbox value="10000">10mil Km</Checkbox>
               <Checkbox value="20000">20mil Km</Checkbox>
@@ -538,6 +539,7 @@ const ModalFilters: FC = () => {
             <Checkbox.Group
               orientation="horizontal"
               onChange={handleCombustible}
+              value={combustibleSelected}
               defaultValue={combustibleSelected}
             >
               <Checkbox value="diesel">Diesel</Checkbox>
