@@ -1,12 +1,22 @@
-import { Button, Card, Row, Text, Link } from "@nextui-org/react";
+import { Button, Card, Row, Text, Link, Image } from "@nextui-org/react";
 import React from "react";
 import { currency } from "../../utils";
 import CardStatus from "./CardStatus";
 import NextLink from "next/link";
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+import storeApi from "./../../apis/storeApi";
 
 const CardSummary = ({ order }) => {
   const { status } = order;
   const { first_name, last_name, rut, phone, email } = order.customer;
+
+  const handleButton = async () => {
+    await storeApi
+      .get(`pre-order/transaction/${order.token_ws}/retry`)
+      .then((response) => {
+        console.log("response", response);
+      });
+  };
 
   return (
     <Card
@@ -22,13 +32,80 @@ const CardSummary = ({ order }) => {
       }}
     >
       <Card.Body>
-        <Text h1 className="reserva-summary-title">
-          ¡Felicitaciones por tu reserva!
-        </Text>
-        <Text h2 className="reserva-summary-subtitle">
-          {first_name} {last_name}
-        </Text>
-        <CardStatus status={status} id={order.purchase_order} />
+        {status === "0" && (
+          <>
+            <Text h1 className="reserva-summary-title">
+              ¡Felicitaciones por tu reserva!
+            </Text>
+            <Text h2 className="reserva-summary-subtitle">
+              {first_name} {last_name}
+            </Text>
+            <CardStatus status={status} id={order.purchase_order} />
+          </>
+        )}
+        {status === "403" && (
+          <div className="reserva-summary-error-title">
+            <Text h1>
+              {first_name} {last_name}{" "}
+            </Text>
+            <Text h2>Quizas se agotó el tiempo de espera</Text>
+            <Text h3>
+              Tu reserva no se ha realizado, por favor selecciona el auto
+              nuevamente.
+            </Text>
+            <NextLink
+              href={`/reserva/auto/${order.car.brand.slug}/${order.car.version_slug}`}
+              passHref
+              css={{ width: "100%" }}
+            >
+              <Link css={{ maxWidth: "100%" }}>
+                <Button
+                  type="buton"
+                  className="btn-primary big"
+                  css={{ width: "100%" }}
+                >
+                  Ir a selección
+                </Button>
+              </Link>
+            </NextLink>
+          </div>
+        )}
+        {status != "0" && status != "403" && (
+          <div className="reserva-summary-error-title">
+            <Text h1>
+              {first_name} {last_name}{" "}
+            </Text>
+            <Text h2>Hemos tenido problemas al procesar el pago</Text>
+            <CardStatus status={status} />
+            <Text h3 css={{ marginTop: "24px" }}>
+              Tu reserva no se ha realizado
+            </Text>
+            <Text h4 css={{ marginTop: "8px" }}>
+              Valor reserva $200.000
+            </Text>
+            <div>
+              <Button
+                type="button"
+                className="btn-primary big"
+                css={{ width: "100%" }}
+                onPress={() => handleButton()}
+                iconRight={<NavigateNextIcon fill="currentColor" />}
+              >
+                Reintentar pago
+              </Button>
+              <div>
+                <Image
+                  src="/assets/img/cyber/tarjetas.svg"
+                  alt="tarjetas"
+                  width={300}
+                  height={48}
+                  objectFit="contain"
+                />
+              </div>
+            </div>
+          </div>
+        )}
+
         <Card.Divider css={{ margin: "24px 0" }}></Card.Divider>
         <Row
           css={{

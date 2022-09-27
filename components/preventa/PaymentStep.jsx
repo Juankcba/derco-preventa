@@ -245,7 +245,6 @@ const PreventaStep2 = ({ model, setData, data, setStep }) => {
             Paga online
           </Button>
           <Spacer y={1} />
-          {loading}
           <div>
             <Image
               src="/assets/img/cyber/tarjetas.svg"
