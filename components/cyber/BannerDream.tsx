@@ -62,7 +62,7 @@ const BannerDream = () => {
   };
   return (
     <Container css={{ padding: "20px" }} className="dreams-section">
-      <Text h1 className="title">
+      <Text h2 className="title">
         ¡Movemos tus sueños!
       </Text>
       <Text h4 className="subtitle">

@@ -30,6 +30,7 @@ const SelectedFilterGeneral: FC = () => {
     <Container css={{ padding: 0 }}>
       {!isMantenciones ? (
         <Text
+          h1
           className="text-reserva"
           css={{ color: "white", textAlign: "center" }}
         >
@@ -39,6 +40,7 @@ const SelectedFilterGeneral: FC = () => {
       ) : (
         <>
           <Text
+            h1
             className="text-reserva"
             css={{ color: "white", textAlign: "center" }}
           >
