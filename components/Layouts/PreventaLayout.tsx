@@ -55,7 +55,10 @@ export const PreventaLayout: FC<PropsWithChildren<Props>> = ({
           property="og:description"
           content={pageDescription || `${title}`}
         />
-        <meta property="og:image" content={image || `${origin}/logo.png`} />
+        <meta
+          property="og:image"
+          content={image || `${origin}/_next/image?url=${image}&w=1920$q=75`}
+        />
       </Head>
 
       <NavBarCustom titlePage={titleNavbar} />

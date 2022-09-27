@@ -139,8 +139,8 @@ const CarPage = ({ models, regions }) => {
   if (!model) return null;
   return (
     <PreventaLayout
-      title={`${model.model_name} | DercoCenter - ${model.brand_name}`}
-      image={model.image_url}
+      title={`${model.model_name} - ${model.version_name} | DercoCenter - ${model.brand_name}`}
+      image={selectedColor.image}
     >
       {colors?.length > 0 ? (
         <>
