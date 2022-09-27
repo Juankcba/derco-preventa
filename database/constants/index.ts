@@ -46,4 +46,9 @@ export const categorias = [
         name: "SUV",
         imagen: "/assets/img/carClasses/suv.png",
     },
+    {
+        id: 4,
+        name: "Citycar",
+        imagen: "/assets/img/carClasses/citycar.png",
+    },
 ];

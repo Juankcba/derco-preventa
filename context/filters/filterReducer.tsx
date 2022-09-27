@@ -16,7 +16,7 @@ type FilterActionType =
     }
   | {
       type: "[Filters] - Update Combustible Filter";
-      payload: boolean;
+      payload: string[];
     }
   | {
       type: "[Filters] - Update Order Filter";
@@ -24,7 +24,7 @@ type FilterActionType =
     }
   | {
       type: "[Filters] - Update Mantenciones Filter";
-      payload: string;
+      payload: string[];
     }
   | {
       type: "[Filters] - Update Index Cards";
@@ -70,7 +70,7 @@ export const filterReducer = (
     case "[Filters] - Update Combustible Filter":
       return {
         ...state,
-        isDiesel: action.payload,
+        fitlerCombustible: action.payload,
       };
     case "[Filters] - Update Order Filter":
       return {

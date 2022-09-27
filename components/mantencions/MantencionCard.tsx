@@ -31,9 +31,11 @@ const MantencionCard: FC<Props> = ({ mantencion }) => {
     <Card isHoverable isPressable className="cyber-card mantencion">
       <Card.Header className="cyber-card-header mantencion">
         <div className="cyber-badge">
-          {((mantencion.brand_price - mantencion.list_price) /
-            mantencion.list_price) *
-            -100}
+          {(
+            ((mantencion.brand_price - mantencion.list_price) /
+              mantencion.list_price) *
+            -100
+          ).toFixed(0)}
           %
         </div>
 

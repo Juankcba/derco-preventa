@@ -8,11 +8,11 @@ export interface filterState {
   isMantenciones: boolean;
   filterCarClass: string[];
   filterBrand: string[];
-  filterMantenciones: string;
+  filterMantenciones: string[];
+  fitlerCombustible: string[];
   indexOfCards: number;
   indexOfMantenciones: number;
   order: string;
-  isDiesel: boolean;
 }
 
 const FILTERS_INITIAL_STATE: filterState = {
@@ -22,11 +22,11 @@ const FILTERS_INITIAL_STATE: filterState = {
   isMantenciones: false,
   filterCarClass: [],
   filterBrand: [],
-  filterMantenciones: "10mil",
+  fitlerCombustible: [],
+  filterMantenciones: [],
   indexOfCards: 1,
   indexOfMantenciones: 1,
   order: "dsc",
-  isDiesel: false,
 };
 
 export const FilterProvider: FC<PropsWithChildren> = ({ children }) => {
@@ -50,7 +50,7 @@ export const FilterProvider: FC<PropsWithChildren> = ({ children }) => {
       payload: state,
     });
   };
-  const setFilterCombustible = (state: boolean) => {
+  const setFilterCombustible = (state: string[]) => {
     dispatch({
       type: "[Filters] - Update Combustible Filter",
       payload: state,
@@ -62,7 +62,7 @@ export const FilterProvider: FC<PropsWithChildren> = ({ children }) => {
       payload: state,
     });
   };
-  const setFilterMantenciones = (state: string) => {
+  const setFilterMantenciones = (state: string[]) => {
     dispatch({
       type: "[Filters] - Update Mantenciones Filter",
       payload: state,

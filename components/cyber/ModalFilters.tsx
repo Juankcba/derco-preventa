@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-target-blank */
 import {
   Modal,
   Text,
@@ -10,6 +11,7 @@ import {
   Badge,
   Avatar,
   Button,
+  Checkbox,
   Radio,
 } from "@nextui-org/react";
 import React, { FC, useContext, useState, useEffect } from "react";
@@ -31,7 +33,7 @@ const ModalFilters: FC = () => {
   const {
     filterCarClass,
     isMantenciones,
-    isDiesel,
+    filterCombustible,
     filterBrand,
     filterMantenciones,
     resultadosVersiones,
@@ -48,10 +50,10 @@ const ModalFilters: FC = () => {
   );
   const [marcasSelected, setMarcasSelected] = useState(filterBrand as string[]);
   const [mantencionesSelected, setMantencionesSelected] = useState(
-    filterMantenciones as string
+    filterMantenciones as string[]
   );
   const [combustibleSelected, setCombustibleSelected] = useState(
-    isDiesel as boolean
+    filterCombustible as string[]
   );
   const [modalMobile, setModalMobile] = useState(true as boolean);
 
@@ -131,36 +133,22 @@ const ModalFilters: FC = () => {
     //setFilterBrand(aux);
   };
   const handleCombustible = (state: any) => {
-    if (state == "diesel") {
-      router.replace({
-        pathname: "/",
-        query: {
-          card: isMantenciones,
-          brands: marcasSelected,
-          categories: categorySelected,
-          mantenciones: mantencionesSelected,
-          combustible: true,
-        },
-      });
-      setCombustibleSelected(true);
-      //setFilterCombustible(true);
-    } else {
-      router.replace({
-        pathname: "/",
-        query: {
-          card: isMantenciones,
-          brands: marcasSelected,
-          categories: categorySelected,
-          mantenciones: mantencionesSelected,
-          combustible: false,
-        },
-      });
-      setCombustibleSelected(false);
-      //setFilterCombustible(false);
-    }
+    console.log("state", state);
+    router.replace({
+      pathname: "/",
+      query: {
+        card: isMantenciones,
+        brands: marcasSelected,
+        categories: categorySelected,
+        mantenciones: mantencionesSelected,
+        combustible: state,
+      },
+    });
+    setCombustibleSelected(state);
+    //setFilterCombustible(true);
   };
 
-  const handleMantenciones = (state: string) => {
+  const handleMantenciones = (state: string[]) => {
     router.replace({
       pathname: "/",
       query: {
@@ -211,19 +199,39 @@ const ModalFilters: FC = () => {
             Filtros
           </Text>
           <Text className="subtitle-modal-filter">
-            Puedes seleccionar mas de una opción de filtro.
+            Puedes seleccionar mas de una opción de filtro.{" "}
+            {isMantenciones && (
+              <a
+                href="https://s3.amazonaws.com/dercocenter.cl/cyber/legals/pregunta-frecuentes-promocion-cyber-dercocenter-220926.pdf"
+                target="_blank"
+                className="matencion-link"
+              >
+                ¿Como elegir mi matención?
+              </a>
+            )}
           </Text>
         </Grid>
         <Grid
           xs={12}
-          md={4}
-          css={{ display: "flex", flexDirection: "column", width: "100%" }}
+          md={isMantenciones ? 6 : 4}
+          css={{
+            display: "flex",
+            flexDirection: "column",
+            width: "100%",
+            marginTop: "16px",
+          }}
         >
           <Text h4>{isMantenciones ? "¿Qué auto tienes?" : "Categorías"}</Text>
-          <Grid.Container gap={0.5} css={{ maxWidth: "390px" }}>
-            {categorias.map((categoria) => (
+          <Grid.Container
+            gap={0.5}
+            css={{
+              maxWidth: isMantenciones ? "510px" : "390px",
+              marginTop: "16px",
+            }}
+          >
+            {categorias.slice(0, isMantenciones ? 5 : 4).map((categoria) => (
               <Grid
-                xs={3}
+                xs
                 key={categoria.id}
                 css={{
                   flexDirection: "column",
@@ -283,11 +291,12 @@ const ModalFilters: FC = () => {
         {isMantenciones && (
           <Grid
             xs={12}
-            md={4}
+            md={6}
             css={{
               display: "flex",
               flexDirection: "column",
               width: "100%",
+              marginTop: "16px",
             }}
           >
             <Text h4 css={{ "@mdMax": { marginTop: "16px" } }}>
@@ -313,12 +322,16 @@ const ModalFilters: FC = () => {
               display: "flex",
               flexDirection: "column",
               width: "100%",
+              marginTop: "16px",
             }}
           >
             <Text h4 css={{ "@mdMax": { marginTop: "16px" } }}>
               Marcas
             </Text>
-            <Grid.Container gap={0.5} css={{ maxWidth: "390px" }}>
+            <Grid.Container
+              gap={0.5}
+              css={{ maxWidth: "390px", marginTop: "16px" }}
+            >
               {marcas.map((marca) => (
                 <Grid
                   xs={3}
@@ -371,19 +384,23 @@ const ModalFilters: FC = () => {
               display: "flex",
               flexDirection: "column",
               width: "100%",
+              marginTop: "16px",
             }}
           >
-            <Text h4 css={{ "@mdMax": { marginTop: "16px" } }}>
+            <Text
+              h4
+              css={{ "@mdMax": { marginTop: "16px" }, marginBottom: "16px" }}
+            >
               Tipo de combustible
             </Text>
-            <Radio.Group
+            <Checkbox.Group
               orientation="horizontal"
               onChange={handleCombustible}
-              value={combustibleSelected ? "diesel" : "gasolina"}
+              defaultValue={combustibleSelected}
             >
-              <Radio value="diesel">Diesel</Radio>
-              <Radio value="gasolina">Bencina</Radio>
-            </Radio.Group>
+              <Checkbox value="diesel">Diesel</Checkbox>
+              <Checkbox value="gasolina">Bencina</Checkbox>
+            </Checkbox.Group>
           </Grid>
         )}
       </Grid.Container>
