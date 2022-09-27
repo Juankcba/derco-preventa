@@ -36,7 +36,8 @@ const MaintenancePage = ({ models, regions }) => {
       email: "",
     },
     ces: "",
-    financial: "",
+    plate: "",
+    kms: "",
     model: "",
     verify: {
       modelo: "",
@@ -52,16 +53,8 @@ const MaintenancePage = ({ models, regions }) => {
 
   return (
     <PreventaLayout>
-      <div
-        className={`page_reserva_mantencion ${
-          step == 3 || step == 4 || step == 5 ? "success" : ""
-        }`}
-      >
-        <div
-          className={`container ${
-            step == 3 || step == 4 || step == 5 ? "success" : ""
-          }`}
-        >
+      <div className={`page_reserva_mantencion ${step == 3 ? "success" : ""}`}>
+        <div className={`container ${step == 3 ? "success" : ""}`}>
           <img
             src="https://s3.amazonaws.com/dercocenter.cl/cyber/backgorund-page-maintenance.jpg"
             alt="mobile"
@@ -84,12 +77,6 @@ const MaintenancePage = ({ models, regions }) => {
                       Antes
                       <span>{currency.format(model.list_price)}</span>
                     </span>
-                  </div>
-                )}
-                {step == 4 && (
-                  <div className="card__header__title payment">
-                    <h3>¡Compraste una mantención de 30.000 km!</h3>
-                    <span className="card__subtitle">Sofia Losada Luna</span>
                   </div>
                 )}
               </div>
@@ -121,11 +108,11 @@ const MaintenancePage = ({ models, regions }) => {
                   msg={msg}
                 />
               )}
-              {(step == 4 || step == 5) && (
+              {/* {(step == 4 || step == 5) && (
                 <ResultPayment setStep={setStep} step={step} />
-              )}
+              )} */}
             </div>
-            {step == 3 && (
+            {/* {step == 3 && (
               <div className="card_legals_desktop">
                 <h3 className="title">
                   Al llenar el formulario precedente, usted:
@@ -159,7 +146,7 @@ const MaintenancePage = ({ models, regions }) => {
                   </p>
                 </ul>
               </div>
-            )}
+            )} */}
           </div>
         </div>
       </div>

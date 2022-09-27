@@ -15,7 +15,7 @@ const ErrorVerifyMaintenance = ({ setStep, setMsg, data, setData }) => {
       <div className="card__body">
         <Text h3 className="card__body__title">
           Tu {data.verify.modelo.brand} {data.verify.modelo.model} corresponde a
-          la Categoría {data.verify.modelo.category}
+          la Categoría {data.verify.modelo.category.toLowerCase()}
         </Text>
         <div className="message_error error">
           <Text>

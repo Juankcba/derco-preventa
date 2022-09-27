@@ -52,13 +52,18 @@ const VerifyMaintenance = ({ model, setStep, setMsg, setData, data }) => {
 
       if (model.version_name.includes(values.modelo.category)) {
         setStep(3);
-        setMsg(false);
+        setMsg(true);
       } else {
         setStep(2);
         setMsg(true);
       }
     },
   });
+
+  const handleStep = (state) => {
+    setStep(state);
+    setMsg(false);
+  };
 
   return (
     <div className="verify_maintenance">
@@ -107,6 +112,14 @@ const VerifyMaintenance = ({ model, setStep, setMsg, setData, data }) => {
             helpercolor={"error"}
             label="Selecciona el modelo"
             name="modelo"
+            disabled={
+              modelos.filter((m) => m.brand == formik.values.marca).length == 0
+            }
+            SelectProps={{
+              MenuProps: {
+                sx: { maxHeight: "50%" },
+              },
+            }}
             helperText={
               formik.errors.modelo && formik.touched.modelo
                 ? formik.errors.modelo

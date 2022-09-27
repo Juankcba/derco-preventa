@@ -1,28 +1,18 @@
-import { Box, MenuItem, TextField } from "@mui/material";
-import { Row, Text, Card, Button, Grid, useRef } from "@nextui-org/react";
+import { Grid, Text } from "@nextui-org/react";
 import React, { useState, useEffect } from "react";
-import { useFormik } from "formik";
-import * as Yup from "yup";
+import { validateRut } from "../../utils/rut";
 import createRutMask from "text-mask-rut";
 import InputMask from "react-input-mask";
-import RutTextMask from "../../node_modules/rut-text-mask";
-import MaskedInput from "react-text-mask";
-import { validateRut } from "../../utils/rut";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
-
+import { Box, MenuItem, TextField } from "@mui/material";
 import { cesApi } from "../../apis";
 
-const FormPersonal = ({ setData, data, model, regions, formik, selected }) => {
+const FormPersonal = ({ formik, selected, data, setData }) => {
   const rutMask = createRutMask();
 
   const [loading, setLoading] = useState(true);
   const [rut, setRut] = useState("");
   const [errors, setErrors] = useState({});
-
-  const km = parseInt(model.model_slug)
-
   const getUserInfo = async () => {
-    formik.resetForm();
     formik.setFieldValue("opt", selected);
     if (validateRut(rut) && rut.length > 1) {
       setLoading(true);
@@ -61,8 +51,6 @@ const FormPersonal = ({ setData, data, model, regions, formik, selected }) => {
         console.log(error);
         setLoading(false);
       }
-    } else {
-      formik.resetForm();
     }
   };
 
@@ -131,94 +119,27 @@ const FormPersonal = ({ setData, data, model, regions, formik, selected }) => {
     formik.resetForm();
     setRut(e.target.value);
   };
-
   return (
-    <>
-    <Text h3 className="payment-header-subtitle">
-      Te solicitamos los últimos datos, para que todo este listo en tu mantencion de los { km.toLocaleString('es-CL') }
-    </Text>
-    <Grid.Container gap={2} css={{ p: 0, width: "100%" }}>
-      <Grid xs={12}>
-        <TextField
-          fullWidth
-          required
-          id="preventa-cars-plate"
-          name="patente"
-          label="Ingresa tu Patente"
-          onChange={formik.handleChange}
-          value={formik.values.plate}
-          helperColor={"error"}
-          helperText={
-            formik.errors.plate && formik.touched.plate
-              ? formik.errors.plate
-              : ""
-          }
-        />
-      </Grid>
-      <Grid xs={12}>
-        <TextField
-          fullWidth
-          required
-          id="preventa-cars-kms"
-          name="kilometraje"
-          label="Kilometraje actual"
-          onChange={formik.handleChange}
-          value={formik.values.kms}
-          helperColor={"error"}
-          helperText={
-            formik.errors.kms && formik.touched.kms
-              ? formik.errors.kms
-              : ""
-          }
-        />
-      </Grid>
-      <Grid xs={12}>
-        <Select
-          native
-          defaultValue=""
-          id="grouped-concesionario-select"
-          value={ces}
-          onChange={(e) => setCes(e.target.value)}
-        >
-          <option value={""} disabled>
-            Seleccione una opción
-          </option>
-          {consecionario.length > 0 &&
-            consecionario.map((region, index) => (
-              <optgroup label={region.name} key={`region-${index + 1}`}>
-                {region.subsidiaries.map((sub) => (
-                  <option value={sub.id} key={sub.id}>
-                    {sub.name}
-                  </option>
-                ))}
-              </optgroup>
-            ))}
-        </Select>
-        {error && (
-          <Text color="error">Seleccione un concesionario</Text>
-        )}
-      </Grid>
-    </Grid.Container>
-    <Card.Divider css={{ margin: "24px 0" }}></Card.Divider>
-    <Text h2 className="payment-header-title">
-      Datos de contacto
-    </Text>
-    <Grid.Container gap={2} css={{ p: 0, width: "100%" }}>
-      <Grid xs={12}>
-        <InputMask
-          id="preventa-cars-rut"
-          name="rut"
-          mask={rutMask}
-          value={rut}
-          fullWidth
-          required
-          label="RUT"
-          onChange={(e) => handleChangeRut(e)}
-          onBlur={(e) => handleChangeRut(e)}
-        >
-          {(inputProps) => <TextField {...inputProps} />}
-        </InputMask>
-        {/* <TextField
+    <div>
+      <Text h2 className="reserva-mantenciones-title">
+        Datos de contacto:
+      </Text>
+      <Grid.Container gap={2} css={{ p: 0, width: "100%" }}>
+        <Grid xs={12}>
+          <InputMask
+            id="preventa-cars-rut"
+            name="rut"
+            mask={rutMask}
+            value={rut}
+            fullWidth
+            required
+            label="RUT"
+            onChange={(e) => handleChangeRut(e)}
+            onBlur={(e) => handleChangeRut(e)}
+          >
+            {(inputProps) => <TextField {...inputProps} />}
+          </InputMask>
+          {/* <TextField
             id="preventa-cars-rut"
             name="rut"
             mask={RutTextMask}
@@ -228,81 +149,81 @@ const FormPersonal = ({ setData, data, model, regions, formik, selected }) => {
             required
             label="RUT"
           /> */}
-      </Grid>
-      <Grid xs={12}>
-        <TextField
-          fullWidth
-          required
-          id="preventa-cars-first-name"
-          name="first_name"
-          label="Ingresa tu Nombre"
-          onChange={formik.handleChange}
-          value={formik.values.first_name}
-          disabled={loading}
-          helperColor={"error"}
-          helperText={
-            formik.errors.first_name && formik.touched.first_name
-              ? formik.errors.first_name
-              : ""
-          }
-        />
-      </Grid>
-      <Grid xs={12}>
-        <TextField
-          fullWidth
-          required
-          id="preventa-cars-last-name"
-          name="last_name"
-          label="Ingresa tu Apellido"
-          onChange={formik.handleChange}
-          value={formik.values.last_name}
-          disabled={loading}
-          helperColor={"error"}
-          helperText={
-            formik.errors.last_name && formik.touched.last_name
-              ? formik.errors.last_name
-              : ""
-          }
-        />
-      </Grid>
-      <Grid xs={12}>
-        <TextField
-          fullWidth
-          required
-          id="preventa-cars-phone"
-          name="phone"
-          label="Ingresa tu número de celular"
-          onChange={formik.handleChange}
-          value={formik.values.phone}
-          disabled={loading}
-          helperColor={"error"}
-          helperText={
-            formik.errors.phone && formik.touched.phone
-              ? formik.errors.phone
-              : ""
-          }
-        />
-      </Grid>
-      <Grid xs={12}>
-        <TextField
-          fullWidth
-          required
-          id="preventa-cars-email"
-          name="email"
-          label="Ingresa tu correo"
-          onChange={formik.handleChange}
-          value={formik.values.email}
-          disabled={loading}
-          helperColor={"error"}
-          helperText={
-            formik.errors.email && formik.touched.email
-              ? formik.errors.email
-              : ""
-          }
-        />
-      </Grid>
-    </Grid.Container>
-    </>
+        </Grid>
+        <Grid xs={12}>
+          <TextField
+            fullWidth
+            required
+            id="preventa-cars-first-name"
+            name="first_name"
+            label="Ingresa tu Nombre"
+            onChange={formik.handleChange}
+            value={formik.values.first_name}
+            disabled={loading}
+            helperColor={"error"}
+            helperText={
+              formik.errors.first_name && formik.touched.first_name
+                ? formik.errors.first_name
+                : ""
+            }
+          />
+        </Grid>
+        <Grid xs={12}>
+          <TextField
+            fullWidth
+            required
+            id="preventa-cars-last-name"
+            name="last_name"
+            label="Ingresa tu Apellido"
+            onChange={formik.handleChange}
+            value={formik.values.last_name}
+            disabled={loading}
+            helperColor={"error"}
+            helperText={
+              formik.errors.last_name && formik.touched.last_name
+                ? formik.errors.last_name
+                : ""
+            }
+          />
+        </Grid>
+        <Grid xs={12}>
+          <TextField
+            fullWidth
+            required
+            id="preventa-cars-phone"
+            name="phone"
+            label="Ingresa tu número de celular"
+            onChange={formik.handleChange}
+            value={formik.values.phone}
+            disabled={loading}
+            helperColor={"error"}
+            helperText={
+              formik.errors.phone && formik.touched.phone
+                ? formik.errors.phone
+                : ""
+            }
+          />
+        </Grid>
+        <Grid xs={12}>
+          <TextField
+            fullWidth
+            required
+            id="preventa-cars-email"
+            name="email"
+            label="Ingresa tu correo"
+            onChange={formik.handleChange}
+            value={formik.values.email}
+            disabled={loading}
+            helperColor={"error"}
+            helperText={
+              formik.errors.email && formik.touched.email
+                ? formik.errors.email
+                : ""
+            }
+          />
+        </Grid>
+      </Grid.Container>
+    </div>
   );
 };
 
