@@ -35,6 +35,7 @@
     "react-device-detect": "^2.2.2",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.34.2",
+    "react-imask": "^6.4.3",
     "react-input-mask": "^2.0.4",
     "react-number-format": "^5.0.0-beta.5",
     "react-text-mask": "^5.4.3",

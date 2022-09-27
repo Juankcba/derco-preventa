@@ -1,21 +1,35 @@
-import { Box, MenuItem, TextField } from "@mui/material";
-import { Row, Text, Button, Grid, useRef } from "@nextui-org/react";
+import { TextField } from "@mui/material";
+import { Grid } from "@nextui-org/react";
 import React, { useState, useEffect } from "react";
-import { useFormik } from "formik";
-import * as Yup from "yup";
-import createRutMask from "text-mask-rut";
-import InputMask from "react-input-mask";
-import RutTextMask from "../../node_modules/rut-text-mask";
-import MaskedInput from "react-text-mask";
+import { IMaskInput } from 'react-imask';
 import { validateRut } from "../../utils/rut";
-
+import PropTypes from 'prop-types';
 
 import { cesApi } from "../../apis";
 
-const FormPersonal = ({ setData, data, model, formik, selected }) => {
-  const rutMask = createRutMask();
+const TextMaskCustom = React.forwardRef(function TextMaskCustom(props, ref) {
+  const { onChange, ...other } = props;
 
- 
+  return (
+    <IMaskInput
+      {...other}
+      mask="##.###.###-#"
+      definitions={{
+        '#': /[1-9]/,
+      }}
+      inputRef={ref}
+      onAccept={(value) => onChange({ target: { name: props.name, value } })}
+      overwrite
+    />
+  );
+});
+
+TextMaskCustom.propTypes = {
+  name: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+};
+
+const FormPersonal = ({ setData, data, formik, selected }) => {
 
   const [loading, setLoading] = useState(true);
   const [rut, setRut] = useState("");
@@ -66,61 +80,17 @@ const FormPersonal = ({ setData, data, model, formik, selected }) => {
     }
   };
 
-  const formatRut = (e) => {
-    console.log("format", e);
-    const regex = /[`~,.<>;':"\/\[\]\|{}()=_+-]/;
-    if (!regex.test(e.target.value)) {
-      return;
-    } else {
-      const last_value = e.target.value.slice(-1);
-      if (last_value === "_" || last_value === "-") {
-        setRut((v) =>
-          e.target.validity.valid
-            ? { ...formData, rut: e.target.value.slice(0, -1) }
-            : v
-        );
-      } else {
-        setRut((v) =>
-          e.target.validity.valid ? { ...formData, rut: e.target.value } : v
-        );
-      }
-    }
-  };
-
   useEffect(() => {
-    console.log("rut", rut);
-    const incluye_guion_alto = rut.includes("-");
-    const incluye_guion_bajo = rut.includes("_");
-
     if (rut.length === 0) {
       formik.resetForm();
     }
 
-    if (!incluye_guion_alto && !incluye_guion_bajo && rut.length === 10) {
-      const first_9_digits = rut.slice(0, -1);
-      const last_digit = rut.slice(-1);
-      setRut(first_9_digits + "-" + last_digit);
-    }
-    const two_values_rut = rut.split("-");
-    const first_value_check =
-      two_values_rut[0]?.length > 0 &&
-      two_values_rut[0] !== "_" &&
-      two_values_rut[0] !== undefined
-        ? true
-        : false;
-    const second_value_check =
-      two_values_rut[1]?.length > 0 &&
-      two_values_rut[1] !== "_" &&
-      two_values_rut[1] !== undefined
-        ? true
-        : false;
-    if ((rut?.length > 1 && !validateRut(rut)) || incluye_guion_bajo) {
+    if ((rut?.length > 1 && !validateRut(rut)) ) {
       setErrors({ ...errors, rut: "Ingrese un rut válido" });
-    } else if (validateRut(rut) && first_value_check && second_value_check) {
+    } else if (validateRut(rut) ) {
       setErrors((e) => {
         const object = { ...e };
         delete object["rut"];
-        console.log("valido");
         getUserInfo();
         return object;
       });
@@ -135,29 +105,19 @@ const FormPersonal = ({ setData, data, model, formik, selected }) => {
   return (
     <Grid.Container gap={2} css={{ p: 0, width: "100%" }}>
       <Grid xs={12}>
-        <InputMask
-          id="preventa-cars-rut"
-          name="rut"
-          mask={rutMask}
-          value={rut}
+        <TextField
           fullWidth
-          required
-          label="RUT"
-          onChange={(e) => handleChangeRut(e)}
-          onBlur={(e) => handleChangeRut(e)}
-        >
-          {(inputProps) => <TextField {...inputProps} />}
-        </InputMask>
-        {/* <TextField
-            id="preventa-cars-rut"
-            name="rut"
-            mask={RutTextMask}
-            onChange={(e) => formatRut(e)}
-            value={rut}
-            fullWidth
-            required
-            label="RUT"
-          /> */}
+          label="Rut:"
+          value={rut}
+          onChange={handleChangeRut}
+          name="rut"
+          id="formatted-rut-input"
+          InputProps={{
+            inputComponent: TextMaskCustom,
+          }}
+          helperColor={"error"}
+          helperText={ rut && errors?.rut ? errors.rut : "" }
+        />
       </Grid>
       <Grid xs={12}>
         <TextField
