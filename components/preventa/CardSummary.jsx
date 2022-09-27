@@ -1,5 +1,5 @@
 import { Button, Card, Row, Text, Link, Image } from "@nextui-org/react";
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { currency } from "../../utils";
 import CardStatus from "./CardStatus";
 import NextLink from "next/link";
@@ -9,14 +9,23 @@ import storeApi from "./../../apis/storeApi";
 const CardSummary = ({ order }) => {
   const { status } = order;
   const { first_name, last_name, rut, phone, email } = order.customer;
-
+  const [newOrden, setNewOrden] = useState(null);
+  const transbankForm = useRef();
   const handleButton = async () => {
     await storeApi
-      .get(`pre-order/transaction/${order.token_ws}/retry`)
+      .get(
+        `/pre-order/cyber-dc/${process.env.NEXT_PUBLIC_PREVENTA}/transaction/${order.token_ws}/retry`
+      )
       .then((response) => {
-        console.log("response", response);
+        setNewOrden(response.data);
       });
   };
+
+  useEffect(() => {
+    if (newOrden != null) {
+      transbankForm.current.submit();
+    }
+  }, [newOrden]);
 
   return (
     <Card
@@ -180,6 +189,20 @@ const CardSummary = ({ order }) => {
             </Button>
           </Link>
         </NextLink>
+        <div className="hidden">
+          <form
+            ref={transbankForm}
+            method="post"
+            action={newOrden?.form_action}
+          >
+            <input type="hidden" name="token_ws" value={newOrden?.token_ws} />
+            <input
+              className="button-next next hidden"
+              type="submit"
+              value="Paga Online"
+            />
+          </form>
+        </div>
       </Card.Body>
     </Card>
   );
