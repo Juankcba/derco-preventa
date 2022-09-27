@@ -113,6 +113,8 @@ const MaintenancePage = ({ models, regions }) => {
               {step == 3 && (
                 <SuccessVerifyMaintenance
                   model={model}
+                  data={data}
+                  setData={setData}
                   regions={regions}
                   setStep={setStep}
                   setMsg={setMsg}

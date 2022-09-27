@@ -42,11 +42,15 @@ const VerifyMaintenance = ({ model, setStep, setMsg, setData, data }) => {
     }),
     onSubmit: (values) => {
       console.log("submit", values);
+      console.log(
+        "verificar",
+        model.version_name,
+        values.modelo.category,
+        model.version_name.includes(values.modelo.category)
+      );
       setData({ ...data, verify: { modelo: { ...values.modelo } } });
-      if (
-        model.class_name === values.modelo.category &&
-        model.brand_name === values.marca
-      ) {
+
+      if (model.version_name.includes(values.modelo.category)) {
         setStep(3);
         setMsg(false);
       } else {

@@ -24,7 +24,14 @@ import * as Yup from "yup";
 import { validateRut } from "../../utils/rut";
 import { currency } from "../../utils";
 
-const SuccessVerifyMaintenance = ({ model, regions, setStep, msg }) => {
+const SuccessVerifyMaintenance = ({
+  model,
+  regions,
+  setStep,
+  msg,
+  data,
+  setData,
+}) => {
   const handleStep = (value) => {
     setStep(value);
   };
@@ -32,19 +39,6 @@ const SuccessVerifyMaintenance = ({ model, regions, setStep, msg }) => {
   const [loading, setLoading] = useState(false);
   const transbankForm = useRef();
   const [order, setOrder] = useState(null);
-  
-  const [data, setData] = useState({
-    user: {
-      rut: "",
-      first_name: "",
-      last_name: "",
-      phone: "",
-      email: "",
-    },
-    ces: "",
-    financial: "",
-    model: "",
-  });
 
   const regex = /^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/g;
   const formik = useFormik({
@@ -164,121 +158,38 @@ const SuccessVerifyMaintenance = ({ model, regions, setStep, msg }) => {
       }
     },
   });
-  
+
   const [selected, setSelected] = useState(false);
   useMemo(() => {
     formik.setFieldValue("opt", selected);
   }, [selected]);
 
-
   return (
     <div className="success_verify_maintenance">
       <hr></hr>
       <div className="card__body">
-        {msg && (<div>
-          <h3 className="card__body__title">Tu [Marca] [Modelo] corresponde a la Categoría [Categoria] y a la mantención de [kilometraje].</h3>
-          <div className="message_success success">
-            <span className="message_success__text">Seleccionaste correctamente tu mantención</span>
-            <NextImage
-              src="/assets/img/check.svg"
-              height={34}
-              width={34}
-              alt="cyber-coin"
-            />
+        {msg && (
+          <div>
+            <h3 className="card__body__title">
+              Tu [Marca] [Modelo] corresponde a la Categoría [Categoria] y a la
+              mantención de [kilometraje].
+            </h3>
+            <div className="message_success success">
+              <span className="message_success__text">
+                Seleccionaste correctamente tu mantención
+              </span>
+              <NextImage
+                src="/assets/img/check.svg"
+                height={34}
+                width={34}
+                alt="cyber-coin"
+              />
+            </div>
           </div>
-        </div>
         )}
-
-        <Card
-            css={{
-              w: "100%",
-              h: "100%",
-              p: "32px",
-              maxWidth: "100%",
-              "@mdMin": {
-                maxWidth: "503px",
-              },
-            }}
-          >
-            <Card.Body css={{ p: 0 }}>
-              <form onSubmit={formik.handleSubmit}>
-                <FormPersonal
-                  selected={selected}
-                  data={data}
-                  setData={setData}
-                  model={model}
-                  regions={regions}
-                  formik={formik}
-                />
-                <Card.Divider css={{ margin: "24px 0" }}></Card.Divider>
-
-                <div className="opt-disclaimer">
-                  <Checkbox isSelected={selected} onChange={setSelected}></Checkbox>
-
-                  <Text h6>
-                    Acepto ser contactado por Derco SpA* Términos y condiciones de
-                    privacidad terminos y condiciones
-                  </Text>
-                </div>
-                {formik.errors.opt && (
-                  <Text className="MuiFormHelperText-root">{formik.errors.opt}</Text>
-                )}
-                <Text h3 className="reserva-title-disclaimer">
-                  Valor reserva { currency.format(model.brand_price) }
-                </Text>
-                <Button
-                  iconRight={
-                    loading ? <Loading /> : <NavigateNextIcon fill="currentColor" />
-                  }
-                  type="submit"
-                  className="btn-primary big"
-                >
-                  Paga online
-                </Button>
-                <Spacer y={1} />
-                {loading}
-                <Image
-                  src="/assets/img/cyber/tarjetas.svg"
-                  alt="tarjetas"
-                  width={"100%"}
-                  height={48}
-                  objectFit="contain"
-                />
-              </form>
-              <div className="hidden">
-                <form ref={transbankForm} method="post" action={order?.form_action}>
-                  <input type="hidden" name="token_ws" value={order?.token_ws} />
-                  <input
-                    className="button-next next hidden"
-                    disabled={loading ? true : false}
-                    type="submit"
-                    value="Paga Online"
-                  />
-                </form>
-              </div>
-              <Card.Divider css={{ margin: "24px 0" }}></Card.Divider>
-              <div>
-                <Button
-                  icon={<ArrowBackIosNewIcon fill="currentColor" />}
-                  className="btn-secondary grey big fit"
-                  onPress={() => setStep(1)}
-                >
-                  Volver al paso anterior
-                </Button>
-              </div>
-            </Card.Body>
-          </Card>
-
-        <Button className="button_verify btn-primary big" onPress={() => handleStep(4)}>Paga online</Button>
-        <NextImage src="/assets/img/icon-transbank.svg" height={48} width={439} alt="cyber-coin" className="img_transbank" />
-      </div>
-      <div className="content_btn">
-        <Button light color="error" auto className="btn" onPress={() => handleStep(1)}>
-          Regresar a “Verificar mantención”
-        </Button>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default SuccessVerifyMaintenance
+export default SuccessVerifyMaintenance;
