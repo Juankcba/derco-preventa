@@ -140,6 +140,7 @@ const CarPage = ({ models, regions }) => {
     <PreventaLayout
       title={`${models[0].model_name} - ${models[0].version_name} | DercoCenter - ${models[0].brand_name}`}
       image={models[0].image_url}
+      keywords={`${models[0].model_name} - ${models[0].version_name} | DercoCenter - ${models[0].brand_name}`}
     >
       {colors?.length > 0 ? (
         <>
