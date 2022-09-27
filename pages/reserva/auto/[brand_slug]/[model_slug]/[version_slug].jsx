@@ -136,11 +136,10 @@ const CarPage = ({ models, regions }) => {
   const downloadFicha = () => {
     window.open(`https://www.google.com`, "_blank");
   };
-  if (!model) return null;
   return (
     <PreventaLayout
-      title={`${model.model_name} - ${model.version_name} | DercoCenter - ${model.brand_name}`}
-      image={selectedColor.image}
+      title={`${models[0].model_name} - ${models[0].version_name} | DercoCenter - ${models[0].brand_name}`}
+      image={models[0].image_url}
     >
       {colors?.length > 0 ? (
         <>
