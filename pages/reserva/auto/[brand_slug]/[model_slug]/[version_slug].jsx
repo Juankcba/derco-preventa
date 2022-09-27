@@ -49,7 +49,7 @@ const CarPage = ({ models, regions }) => {
     model: "",
   });
 
-  const [model, setModel] = useState({});
+  const [model, setModel] = useState(null);
   const [colors, setColors] = useState([]);
   const [loadingColors, setLoadingColors] = useState(true);
   const [selectedColor, setColor] = useState("");
@@ -136,6 +136,7 @@ const CarPage = ({ models, regions }) => {
   const downloadFicha = () => {
     window.open(`https://www.google.com`, "_blank");
   };
+  if (!model) return null;
   return (
     <PreventaLayout
       title={`${model.model_name} | DercoCenter - ${model.brand_name}`}
