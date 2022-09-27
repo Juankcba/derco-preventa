@@ -9,7 +9,8 @@ export interface filterState {
   filterCarClass: string[];
   filterBrand: string[];
   filterMantenciones: string[];
-  fitlerCombustible: string[];
+  filterMantencionesCarClass: string[];
+  filterCombustible: string[];
   indexOfCards: number;
   indexOfMantenciones: number;
   order: string;
@@ -22,8 +23,9 @@ const FILTERS_INITIAL_STATE: filterState = {
   isMantenciones: false,
   filterCarClass: [],
   filterBrand: [],
-  fitlerCombustible: [],
+  filterCombustible: [],
   filterMantenciones: [],
+  filterMantencionesCarClass: [],
   indexOfCards: 1,
   indexOfMantenciones: 1,
   order: "dsc",
@@ -65,6 +67,12 @@ export const FilterProvider: FC<PropsWithChildren> = ({ children }) => {
   const setFilterMantenciones = (state: string[]) => {
     dispatch({
       type: "[Filters] - Update Mantenciones Filter",
+      payload: state,
+    });
+  };
+  const setFilterMatencionesCarClass = (state: string[]) => {
+    dispatch({
+      type: "[Filters] - Update Mantenciones CarClass Filter",
       payload: state,
     });
   };
@@ -115,6 +123,7 @@ export const FilterProvider: FC<PropsWithChildren> = ({ children }) => {
         setIndex,
         setIndexMant,
         setFilterMantenciones,
+        setFilterMatencionesCarClass,
         setScrollChange,
       }}
     >

@@ -36,7 +36,9 @@ const ModalFilters: FC = () => {
     filterCombustible,
     filterBrand,
     filterMantenciones,
+    filterMantencionesCarClass,
     resultadosVersiones,
+    resultadosMantenciones,
     setIndex,
     setIndexMant,
     setFilterBrand,
@@ -48,6 +50,8 @@ const ModalFilters: FC = () => {
   const [categorySelected, setCategorySelected] = useState(
     filterCarClass as string[]
   );
+  const [categoryMantencionesSelected, setCategoryMatencionesSelected] =
+    useState(filterMantencionesCarClass as string[]);
   const [marcasSelected, setMarcasSelected] = useState(filterBrand as string[]);
   const [mantencionesSelected, setMantencionesSelected] = useState(
     filterMantenciones as string[]
@@ -77,9 +81,36 @@ const ModalFilters: FC = () => {
           brands: marcasSelected,
           categories: categorySelected,
           combustible: combustibleSelected,
+          categoriesMantenciones: categoryMantencionesSelected,
         },
       });
     }
+  };
+
+  const handleFilterCategoryMantenciones = (name: string) => {
+    let aux = [];
+    if (categoryMantencionesSelected.includes(name)) {
+      aux = categoryMantencionesSelected.filter((c) => c != name);
+    } else {
+      if (categoryMantencionesSelected.length > 0) {
+        aux = [...categoryMantencionesSelected, name];
+      } else {
+        aux.push(name);
+      }
+    }
+
+    router.replace({
+      pathname: "/",
+      query: {
+        card: isMantenciones,
+        brands: marcasSelected,
+        categories: categorySelected,
+        categoriesMantenciones: aux,
+        mantenciones: mantencionesSelected,
+        combustible: combustibleSelected,
+      },
+    });
+    setCategoryMatencionesSelected(aux);
   };
 
   const handleFilterCategory = (name: string) => {
@@ -102,6 +133,7 @@ const ModalFilters: FC = () => {
         categories: aux,
         mantenciones: mantencionesSelected,
         combustible: combustibleSelected,
+        categoriesMantenciones: categoryMantencionesSelected,
       },
     });
     setCategorySelected(aux);
@@ -126,7 +158,8 @@ const ModalFilters: FC = () => {
         categories: categorySelected,
         card: isMantenciones,
         mantenciones: mantencionesSelected,
-        combustible: true,
+        combustible: combustibleSelected,
+        categoriesMantenciones: categoryMantencionesSelected,
       },
     });
     setMarcasSelected(aux);
@@ -141,6 +174,7 @@ const ModalFilters: FC = () => {
         brands: marcasSelected,
         categories: categorySelected,
         mantenciones: mantencionesSelected,
+        categoriesMantenciones: categoryMantencionesSelected,
         combustible: state,
       },
     });
@@ -156,11 +190,11 @@ const ModalFilters: FC = () => {
         brands: marcasSelected,
         categories: categorySelected,
         combustible: combustibleSelected,
+        categoriesMantenciones: categoryMantencionesSelected,
         mantenciones: state,
       },
     });
     setMantencionesSelected(state);
-    setFilterMantenciones(state);
   };
 
   const handleFilters = () => {
@@ -229,63 +263,127 @@ const ModalFilters: FC = () => {
               marginTop: "16px",
             }}
           >
-            {categorias.slice(0, isMantenciones ? 5 : 4).map((categoria) => (
-              <Grid
-                xs
-                key={categoria.id}
-                css={{
-                  flexDirection: "column",
-                  width: "72px",
-                  maxW: "88px",
-                  maxH: "88px",
-                  height: "72px",
-                }}
-                justify="center"
-              >
-                <Badge
-                  onClick={() => handleFilterCategory(categoria.name)}
-                  disableOutline
-                  content="X"
-                  size="xs"
-                  css={{ p: "0", color: "white", bgColor: "black" }}
-                  horizontalOffset="0%"
-                  verticalOffset="2%"
-                  isInvisible={
-                    categorySelected.filter((c) => c === categoria.name)
-                      .length == 0
-                      ? true
-                      : false
-                  }
-                >
-                  <Card
-                    variant="flat"
-                    isPressable
-                    className="filter-card-category"
-                    onClick={() => handleFilterCategory(categoria.name)}
+            {isMantenciones
+              ? categorias.slice(0, 5).map((categoria) => (
+                  <Grid
+                    xs
+                    key={categoria.id}
                     css={{
+                      flexDirection: "column",
                       width: "72px",
+                      maxW: "88px",
+                      maxH: "88px",
                       height: "72px",
-                      margin: "0 auto",
-                      border:
-                        categorySelected.filter((c) => c === categoria.name)
-                          .length > 0
-                          ? "3px solid #E0102C"
-                          : "none",
                     }}
+                    justify="center"
                   >
-                    <Card.Image
-                      src={categoria.imagen}
-                      objectFit="contain"
-                      width={"90%"}
-                      height={50}
-                      alt={categoria.name}
-                    />
+                    <Badge
+                      onClick={() =>
+                        handleFilterCategoryMantenciones(categoria.name)
+                      }
+                      disableOutline
+                      content="X"
+                      size="xs"
+                      css={{ p: "0", color: "white", bgColor: "black" }}
+                      horizontalOffset="0%"
+                      verticalOffset="2%"
+                      isInvisible={
+                        categoryMantencionesSelected.filter(
+                          (c) => c === categoria.name
+                        ).length == 0
+                          ? true
+                          : false
+                      }
+                    >
+                      <Card
+                        variant="flat"
+                        isPressable
+                        className="filter-card-category"
+                        onClick={() =>
+                          handleFilterCategoryMantenciones(categoria.name)
+                        }
+                        css={{
+                          width: "72px",
+                          height: "72px",
+                          margin: "0 auto",
+                          border:
+                            categoryMantencionesSelected.filter(
+                              (c) => c === categoria.name
+                            ).length > 0
+                              ? "3px solid #E0102C"
+                              : "none",
+                        }}
+                      >
+                        <Card.Image
+                          src={categoria.imagen}
+                          objectFit="contain"
+                          width={"90%"}
+                          height={50}
+                          alt={categoria.name}
+                        />
 
-                    <Text className="img-name">{categoria.name}</Text>
-                  </Card>
-                </Badge>
-              </Grid>
-            ))}
+                        <Text className="img-name">{categoria.name}</Text>
+                      </Card>
+                    </Badge>
+                  </Grid>
+                ))
+              : categorias.slice(0, 4).map((categoria) => (
+                  <Grid
+                    xs
+                    key={categoria.id}
+                    css={{
+                      flexDirection: "column",
+                      width: "72px",
+                      maxW: "88px",
+                      maxH: "88px",
+                      height: "72px",
+                    }}
+                    justify="center"
+                  >
+                    <Badge
+                      onClick={() => handleFilterCategory(categoria.name)}
+                      disableOutline
+                      content="X"
+                      size="xs"
+                      css={{ p: "0", color: "white", bgColor: "black" }}
+                      horizontalOffset="0%"
+                      verticalOffset="2%"
+                      isInvisible={
+                        categorySelected.filter((c) => c === categoria.name)
+                          .length == 0
+                          ? true
+                          : false
+                      }
+                    >
+                      <Card
+                        variant="flat"
+                        isPressable
+                        className="filter-card-category"
+                        onClick={() => handleFilterCategory(categoria.name)}
+                        css={{
+                          width: "72px",
+                          height: "72px",
+                          margin: "0 auto",
+                          border:
+                            categorySelected.filter((c) => c === categoria.name)
+                              .length > 0
+                              ? "3px solid #E0102C"
+                              : "none",
+                        }}
+                      >
+                        <Card.Image
+                          src={categoria.imagen}
+                          objectFit="contain"
+                          width={"90%"}
+                          height={50}
+                          alt={categoria.name}
+                        />
+
+                        <Text className="img-name">{categoria.name}</Text>
+                      </Card>
+                    </Badge>
+                  </Grid>
+                ))}
           </Grid.Container>
         </Grid>
         {isMantenciones && (
@@ -302,15 +400,15 @@ const ModalFilters: FC = () => {
             <Text h4 css={{ "@mdMax": { marginTop: "16px" } }}>
               ¿Que mantención te corresponde?
             </Text>
-            <Radio.Group
+            <Checkbox.Group
               orientation={!modalMobile ? "horizontal" : "vertical"}
               onChange={handleMantenciones}
-              value={mantencionesSelected}
+              defaultValue={mantencionesSelected}
             >
-              <Radio value="10mil">10mil Km</Radio>
-              <Radio value="20mil">20mil Km</Radio>
-              <Radio value="30mil">30mil Km</Radio>
-            </Radio.Group>
+              <Checkbox value="10mil">10mil Km</Checkbox>
+              <Checkbox value="20mil">20mil Km</Checkbox>
+              <Checkbox value="30mil">30mil Km</Checkbox>
+            </Checkbox.Group>
           </Grid>
         )}
 
@@ -438,7 +536,10 @@ const ModalFilters: FC = () => {
             css={{ width: "100%" }}
             disabled={resultadosVersiones.length == 0 ? true : false}
           >
-            Ver ({resultadosVersiones.length}) Autos
+            Ver
+            {isMantenciones
+              ? " ( " + resultadosMantenciones.length + " ) " + "Mantenciones"
+              : " ( " + resultadosVersiones.length + " ) " + "Autos"}
           </Button>
         </Grid>
       </Grid.Container>

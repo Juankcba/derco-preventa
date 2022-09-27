@@ -27,6 +27,10 @@ type FilterActionType =
       payload: string[];
     }
   | {
+      type: "[Filters] - Update Mantenciones CarClass Filter";
+      payload: string[];
+    }
+  | {
       type: "[Filters] - Update Index Cards";
       payload: number;
     }
@@ -70,7 +74,7 @@ export const filterReducer = (
     case "[Filters] - Update Combustible Filter":
       return {
         ...state,
-        fitlerCombustible: action.payload,
+        filterCombustible: action.payload,
       };
     case "[Filters] - Update Order Filter":
       return {
@@ -83,6 +87,12 @@ export const filterReducer = (
         ...state,
         filterMantenciones: action.payload,
       };
+    case "[Filters] - Update Mantenciones CarClass Filter":
+      return {
+        ...state,
+        filterMantencionesCarClass: action.payload,
+      };
+
     case "[Filters] - Update Index Cards":
       return {
         ...state,

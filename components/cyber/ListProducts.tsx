@@ -33,7 +33,7 @@ const ListProducts: FC<Props> = ({ versions }) => {
     order,
     filterCarClass,
     filterBrand,
-    fitlerCombustible,
+    filterCombustible,
     indexOfCards,
     resultadosVersiones,
     scrollChange,
@@ -122,8 +122,8 @@ const ListProducts: FC<Props> = ({ versions }) => {
       auxResultados = aux;
     }
 
-    if (fitlerCombustible.length > 0) {
-      let combustibleFilter: string[] = fitlerCombustible;
+    if (filterCombustible.length > 0) {
+      let combustibleFilter: string[] = filterCombustible;
       console.log(
         "fuel",
         auxResultados.map((v) => v.fuel_slug)
@@ -143,11 +143,31 @@ const ListProducts: FC<Props> = ({ versions }) => {
     let finalResultados: Auto[] = [];
     if (order === "dsc") {
       finalResultados = auxResultados
-        .sort((a, b) => a.brand_price - b.brand_price)
+        .sort(
+          (a, b) =>
+            a.list_price -
+            (a.list_price -
+              a.brand_price +
+              (a.list_price - a.financial_price)) -
+            (b.list_price -
+              (b.list_price -
+                b.brand_price +
+                (b.list_price - b.financial_price)))
+        )
         .slice(0, 4 * indexOfCards);
     } else {
       finalResultados = auxResultados
-        .sort((a, b) => b.brand_price - a.brand_price)
+        .sort(
+          (a, b) =>
+            b.list_price -
+            (b.list_price -
+              b.brand_price +
+              (b.list_price - b.financial_price)) -
+            (a.list_price -
+              (a.list_price -
+                a.brand_price +
+                (a.list_price - a.financial_price)))
+        )
         .slice(0, 4 * indexOfCards);
     }
     setResultadosVersiones(auxResultados);
@@ -159,7 +179,7 @@ const ListProducts: FC<Props> = ({ versions }) => {
     console.log("despues del filtro", finalResultados);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [order, indexOfCards, filterCarClass, filterBrand, fitlerCombustible]);
+  }, [order, indexOfCards, filterCarClass, filterBrand, filterCombustible]);
 
   useEffect(() => {
     if (scrollChange) {
