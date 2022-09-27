@@ -16,8 +16,8 @@ definitions:
                   - echo 'NEXT_API_BASE_URL='$NEXT_API_BASE_URL >> .env
                   - echo 'BASE_URL='$BASE_URL >> .env
                   - echo 'PORT='$PORT >> .env
-                  - npm install --force
-                  - npm run build
+                  - yarn install --force
+                  - yarn build
                   - zip -r cyber_dercocenter_cl.zip . -x node_modules/\* src/\* .git/\*
               artifacts:
                   - cyber_dercocenter_cl.zip
