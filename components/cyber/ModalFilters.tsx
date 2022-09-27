@@ -70,21 +70,21 @@ const ModalFilters: FC = () => {
   }, []);
 
   const closeHandler = () => {
-    if (resultadosVersiones.length > 0) {
-      setVisible(false);
-      setScrollChange(true);
-      router.push({
-        pathname: "/",
-        query: {
-          card: isMantenciones,
-          mantenciones: mantencionesSelected,
-          brands: marcasSelected,
-          categories: categorySelected,
-          combustible: combustibleSelected,
-          categoriesMantenciones: categoryMantencionesSelected,
-        },
-      });
-    }
+    setVisible(false);
+    setScrollChange(true);
+    setIndexMant(1);
+    setIndex(1);
+    router.push({
+      pathname: "/",
+      query: {
+        card: isMantenciones,
+        mantenciones: mantencionesSelected,
+        brands: marcasSelected,
+        categories: categorySelected,
+        combustible: combustibleSelected,
+        categoriesMantenciones: categoryMantencionesSelected,
+      },
+    });
   };
 
   const handleFilterCategoryMantenciones = (name: string) => {
@@ -405,9 +405,9 @@ const ModalFilters: FC = () => {
               onChange={handleMantenciones}
               defaultValue={mantencionesSelected}
             >
-              <Checkbox value="10mil">10mil Km</Checkbox>
-              <Checkbox value="20mil">20mil Km</Checkbox>
-              <Checkbox value="30mil">30mil Km</Checkbox>
+              <Checkbox value="10000">10mil Km</Checkbox>
+              <Checkbox value="20000">20mil Km</Checkbox>
+              <Checkbox value="30000">30mil Km</Checkbox>
             </Checkbox.Group>
           </Grid>
         )}

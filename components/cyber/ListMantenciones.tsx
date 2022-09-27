@@ -25,8 +25,10 @@ const ListMantenciones: FC<Props> = ({ mantenciones }) => {
     order,
     indexOfMantenciones,
     filterMantencionesCarClass,
+    filterMantenciones,
     resultadosMantenciones,
     setFilterMatencionesCarClass,
+    setFilterMantenciones,
     setResultadosMantenciones,
     setScrollChange,
     setIndexMant,
@@ -38,7 +40,7 @@ const ListMantenciones: FC<Props> = ({ mantenciones }) => {
   useMemo(() => setResultadosMantenciones(mantenciones), [mantenciones]);
   const router = useRouter();
   useEffect(() => {
-    const { card, categoriesMantenciones, matenciones } = router.query;
+    const { card, categoriesMantenciones, mantenciones } = router.query;
 
     if (categoriesMantenciones && typeof categoriesMantenciones === "string") {
       setFilterMatencionesCarClass([categoriesMantenciones]);
@@ -48,6 +50,15 @@ const ListMantenciones: FC<Props> = ({ mantenciones }) => {
     }
     if (!categoriesMantenciones) {
       setFilterMatencionesCarClass([]);
+    }
+    if (mantenciones && typeof mantenciones === "string") {
+      setFilterMantenciones([mantenciones]);
+    }
+    if (mantenciones && typeof mantenciones === "object") {
+      setFilterMantenciones(mantenciones);
+    }
+    if (!mantenciones) {
+      setFilterMantenciones([]);
     }
     //if (brands) setFilterBrand(brands);
 
@@ -65,6 +76,21 @@ const ListMantenciones: FC<Props> = ({ mantenciones }) => {
       auxResultados.forEach((auxV) => {
         categoriasFilter.forEach((filtro) => {
           if (auxV.class_name === filtro) {
+            aux.push(auxV);
+          }
+        });
+      });
+
+      auxResultados = aux;
+    }
+    console.log("filter", indexOfMantenciones);
+    if (filterMantenciones.length > 0) {
+      let mantencionesFilter: string[] = filterMantenciones;
+      let aux: Auto[] = [];
+
+      auxResultados.forEach((auxV) => {
+        mantencionesFilter.forEach((filtro) => {
+          if (auxV.model_name === filtro) {
             aux.push(auxV);
           }
         });
@@ -111,7 +137,12 @@ const ListMantenciones: FC<Props> = ({ mantenciones }) => {
     }, 300);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [order, indexOfMantenciones, filterMantencionesCarClass, mantenciones]);
+  }, [
+    order,
+    indexOfMantenciones,
+    filterMantencionesCarClass,
+    filterMantenciones,
+  ]);
 
   useEffect(() => {
     if (scrollChange) {

@@ -42,6 +42,15 @@ const NavBar: FC<Props> = ({ titlePage }) => {
     }, 5000);
   }, [router, searchTerms]);
 
+  const handleClick = () => {
+    if (titlePage === "Preguntas Frecuentes") {
+      window.open(
+        "https://s3.amazonaws.com/dercocenter.cl/cyber/legals/pregunta-frecuentes-promocion-cyber-dercocenter-220926.pdf",
+        "_ blank"
+      );
+    }
+  };
+
   return (
     <Navbar
       maxWidth="fluid"
@@ -77,7 +86,16 @@ const NavBar: FC<Props> = ({ titlePage }) => {
           No te preocupes, el 6 de Octubre volvemos a la normalidad y puedes
           cotizar en dercocenter.cl
         </div>  */}
-        <div className="nav-white">{titlePage}</div>
+        <div
+          className={
+            titlePage === "Preguntas Frecuentes"
+              ? "nav-white link"
+              : "nav-white"
+          }
+          onClick={() => handleClick()}
+        >
+          {titlePage}
+        </div>
       </div>
     </Navbar>
   );
