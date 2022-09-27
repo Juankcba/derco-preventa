@@ -1,5 +1,5 @@
-import { Button } from "@nextui-org/react";
-import { useEffect, useState } from "react";
+import { Button, Text } from "@nextui-org/react";
+import { useEffect, useMemo, useState } from "react";
 import {
   isBrowser,
   isMobile,
@@ -10,65 +10,130 @@ import {
 } from "react-device-detect";
 
 import { modelos } from "../../database/constants";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { MenuItem, Select, TextField } from "@mui/material";
 
-let marcas = []
-modelos.map((modelo) => {
-  let  idx = marcas.findIndex( (m)=> m.brand == modelo.brand )
-  if ( idx == -1 ) {
-    marcas = [...marcas, modelo]
-  }
-})
+const VerifyMaintenance = ({ model, setStep, setMsg, setData, data }) => {
+  const [marcasOptions, setMarcasOptions] = useState([]);
 
-const VerifyMaintenance = ({ model, setStep, setMsg }) => {
-  const handleStep = (value, msg = false) => {
-    setStep(value);
-    setMsg(msg)
-    console.log(msg)
-  };
+  useEffect(() => {
+    let marcasAux = modelos.map((m) => m.brand);
 
-  const [models, setModels] = useState([])
+    const dataArr = new Set(marcasAux);
+    setMarcasOptions([...dataArr]);
+  }, [modelos]);
 
-  const handleBrand = (e) => {
-    let id = e.target.value
-    let idx = marcas.findIndex( (m) => m.id == id )
-    if ( idx > -1 ) {
-      const  brand = marcas[idx].brand
-      setModels( modelos.filter((m)=> m.brand ==  brand ) )
-    }
-  }
+  // useMemo(() => {
+  //   if (selectMarca != "") {
+  //     setModelosOptions(modelos.filter((m) => m.brand == selectMarca));
+  //     formik.resetForm();
+  //   }
+  // }, [selectMarca]);
+
+  const formik = useFormik({
+    initialValues: {
+      marca: "",
+      modelo: "",
+    },
+    validationSchema: Yup.object().shape({
+      marca: Yup.string().required("La marca es requerido"),
+      modelo: Yup.object().required("El modelo es requerido"),
+    }),
+    onSubmit: (values) => {
+      console.log("submit", values);
+      setData({ ...data, verify: { modelo: { ...values.modelo } } });
+      if (
+        model.class_name === values.modelo.category &&
+        model.brand_name === values.marca
+      ) {
+        setStep(3);
+        setMsg(false);
+      } else {
+        setStep(2);
+        setMsg(true);
+      }
+    },
+  });
 
   return (
     <div className="verify_maintenance">
-      <Button className="card__header__button btn-primary big" onPress={ ()=> handleStep(3) }>Pagar mantención</Button>
+      <Button
+        className="card__header__button btn-primary big"
+        onPress={() => handleStep(3)}
+      >
+        Pagar mantención
+      </Button>
       <hr></hr>
       <div className="card__body">
-        <h3 className="card__body__title">Si no estas seguro de que la mantención sea compatible con tu vehículo</h3>
-        <span className="card__body__text">Ingresa los siguientes datos:</span>
-        <div className="card__body__form">
-          <select className="select_options" onChange={ handleBrand } >
-            <option value="0" selected disabled>Selecciona la Marca</option>
-            { marcas.map( (m, idx) => (
-              <option key={ idx } value={m.id}>{m.brand}</option>
-            )) }
-          </select>
-          <select className="select_options">
-            <option value="0" selected disabled>Selecciona el Modelo</option>
-            { models.map( (model, idx) => (
-              <option key={ idx } value={model.id}>{model.model}</option>
-            )) }
-          </select>
-          <Button className="button_verify btn-primary big" onPress={() => handleStep(2)}>Verificar mantención</Button>
-        </div>
+        <Text h3 className="card__body__title">
+          Si no estas seguro de que la mantención sea compatible con tu vehículo
+        </Text>
+        <Text className="card__body__text">Ingresa los siguientes datos:</Text>
+        <form onSubmit={formik.handleSubmit} className="card__body__form">
+          <TextField
+            style={{ marginBottom: "16px" }}
+            fullWidth
+            select
+            value={formik.values.marca}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            helpercolor={"error"}
+            name="marca"
+            label="Selecciona la Marca"
+            helperText={
+              formik.errors.marca && formik.touched.marca
+                ? formik.errors.marca
+                : ""
+            }
+          >
+            {marcasOptions.map((marca) => (
+              <MenuItem key={marca} value={marca}>
+                {marca}
+              </MenuItem>
+            ))}
+          </TextField>
+          <TextField
+            fullWidth
+            style={{ marginBottom: "16px" }}
+            select
+            value={formik.values.modelo}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            helpercolor={"error"}
+            label="Selecciona el modelo"
+            name="modelo"
+            helperText={
+              formik.errors.modelo && formik.touched.modelo
+                ? formik.errors.modelo
+                : ""
+            }
+          >
+            {modelos
+              .filter((m) => m.brand == formik.values.marca)
+              .map((modelo) => (
+                <MenuItem key={modelo.id} value={modelo}>
+                  {modelo.model}
+                </MenuItem>
+              ))}
+          </TextField>
+
+          <Button type="submit" className="button_verify btn-primary big">
+            Verificar mantención
+          </Button>
+        </form>
       </div>
-      <div className="card_footer">
+      {/* <div className="card_footer">
         <div className="card_footer__text">
           <span className="card_footer__text__title">Bases legales</span>
           <br />
-          <span className="card_footer__text__subtitle">Hacer referencia a si mentiste o te equivocaste </span>
+          <span className="card_footer__text__subtitle">
+            Hacer referencia a si mentiste o te equivocaste{" "}
+          </span>
         </div>
-      </div>
+      </div> */}
     </div>
-  )
-}
+  );
+};
 
-export default VerifyMaintenance
+export default VerifyMaintenance;
