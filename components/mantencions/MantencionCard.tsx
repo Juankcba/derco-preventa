@@ -43,7 +43,7 @@ const MantencionCard: FC<Props> = ({ mantencion }) => {
         </div>
 
         <Card.Image
-          src={`/assets/img/mantenciones/${mantencion.class_name}.svg`}
+          src={mantencion.image_url}
           width="100%"
           height={73}
           alt={mantencion.class_name}
