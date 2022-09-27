@@ -64,18 +64,42 @@ const TokenTransBank = () => {
                 <Grid xs={8}>
                   <Row className="preventa-prices">
                     <Text className="price-primary">
-                      {currency.format(order.car.brand_price)}*
+                      {order.request_financing == 1
+                        ? currency.format(
+                            order.car.list_price -
+                              (order.car.list_price -
+                                order.car.brand_price +
+                                order.car.list_price -
+                                order.car.financial_price)
+                          )
+                        : currency.format(
+                            order.car.list_price -
+                              (order.car.list_price - order.brand_price)
+                          )}
+                      *
                     </Text>
                     <Text className="price-before">
                       Antes <span>{currency.format(order.car.list_price)}</span>
                     </Text>
                     <Text className="price-bonos">
-                      Bono cyber: {currency.format(order.car.brand_price)}
+                      Bono cyber:{" "}
+                      {currency.format(
+                        order.car.list_price - order.car.brand_price
+                      )}
                     </Text>
-                    <Text className="price-bonos">
-                      Bono financiamiento:{" "}
-                      {currency.format(order.car.brand_price)}
-                    </Text>
+                    {order.request_financing == 1 ? (
+                      <Text className="price-bonos">
+                        Bono financiamiento:{" "}
+                        {currency.format(
+                          order.car.list_price - order.car.financial_price
+                        )}
+                      </Text>
+                    ) : (
+                      <Text
+                        className="price-bonos"
+                        css={{ minHeight: "17px" }}
+                      ></Text>
+                    )}
                   </Row>
                 </Grid>
                 <Grid xs={12}>
