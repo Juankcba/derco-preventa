@@ -46,7 +46,7 @@ const HomePage: NextPage<PropsWithChildren<Props>> = ({
   mantencions,
 }) => {
   const [visible, setVisible] = useState<boolean>(false);
-  const { isMantenciones, filterCarClass, isDiesel, filterBrand } =
+  const { isMantenciones, filterCarClass, filterBrand } =
     useContext(FilterContext);
 
   return (

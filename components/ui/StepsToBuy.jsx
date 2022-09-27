@@ -13,6 +13,8 @@ const StepsToBuy = () => {
       </Text>
       <Grid.Container
         css={{
+          maxW: "264px",
+          margin: "0 auto",
           "@mdMin": {
             maxW: "900px",
             margin: "0 auto",
@@ -25,18 +27,29 @@ const StepsToBuy = () => {
           css={{
             display: "flex",
             justifyContent: "center",
-            flexDirection: "column",
-            alignContent: "center",
+            "@mdMin": {
+              flexDirection: "column",
+              alignContent: "center",
+            },
           }}
         >
           <Row
             css={{
-              w: "100%",
               display: "flex",
               justifyContent: "center",
               marginBottom: "16px",
+              w: "33%",
+              "@mdMin": { w: "100%" },
             }}
           >
+            <Text
+              className="box-title mobile"
+              css={{
+                "@mdMin": { display: "none" },
+              }}
+            >
+              1
+            </Text>
             <Image
               src="/assets/img/cyber/step-1.svg"
               alt="step-1"
@@ -45,8 +58,19 @@ const StepsToBuy = () => {
               objectPosition="center"
             />
           </Row>
-          <Row css={{ w: "100%", display: "flex", justifyContent: "center" }}>
-            <Text className="box-title">1</Text>
+          <Row
+            css={{
+              display: "flex",
+              justifyContent: "flex-start",
+              alignItems: "center",
+              height: "64px",
+              w: "66%",
+              "@mdMin": { w: "100%", justifyContent: "center" },
+            }}
+          >
+            <Text className="box-title" css={{ "@mdMax": { display: "none" } }}>
+              1
+            </Text>
             <Text className="box-subtitle">
               Selecciona un vehículo o mantención.
             </Text>
@@ -58,18 +82,29 @@ const StepsToBuy = () => {
           css={{
             display: "flex",
             justifyContent: "center",
-            flexDirection: "column",
-            alignContent: "center",
+            "@mdMin": {
+              flexDirection: "column",
+              alignContent: "center",
+            },
           }}
         >
           <Row
             css={{
-              w: "100%",
               display: "flex",
               justifyContent: "center",
               marginBottom: "16px",
+              w: "33%",
+              "@mdMin": { w: "100%" },
             }}
           >
+            <Text
+              className="box-title mobile"
+              css={{
+                "@mdMin": { display: "none" },
+              }}
+            >
+              2
+            </Text>
             <Image
               src="/assets/img/cyber/step-2.svg"
               alt="step-1"
@@ -78,8 +113,19 @@ const StepsToBuy = () => {
               objectPosition="center"
             />
           </Row>
-          <Row css={{ w: "100%", display: "flex", justifyContent: "center" }}>
-            <Text className="box-title">2</Text>
+          <Row
+            css={{
+              display: "flex",
+              justifyContent: "flex-start",
+              alignItems: "center",
+              height: "64px",
+              w: "66%",
+              "@mdMin": { w: "100%", justifyContent: "center" },
+            }}
+          >
+            <Text className="box-title" css={{ "@mdMax": { display: "none" } }}>
+              2
+            </Text>
             <Text className="box-subtitle">
               Verifica los datos seleccionados.
             </Text>
@@ -91,18 +137,29 @@ const StepsToBuy = () => {
           css={{
             display: "flex",
             justifyContent: "center",
-            flexDirection: "column",
-            alignContent: "center",
+            "@mdMin": {
+              flexDirection: "column",
+              alignContent: "center",
+            },
           }}
         >
           <Row
             css={{
-              w: "100%",
               display: "flex",
               justifyContent: "center",
               marginBottom: "16px",
+              w: "33%",
+              "@mdMin": { w: "100%" },
             }}
           >
+            <Text
+              className="box-title mobile"
+              css={{
+                "@mdMin": { display: "none" },
+              }}
+            >
+              3
+            </Text>
             <Image
               src="/assets/img/cyber/step-3.svg"
               alt="step-1"
@@ -111,8 +168,19 @@ const StepsToBuy = () => {
               objectPosition="center"
             />
           </Row>
-          <Row css={{ w: "100%", display: "flex", justifyContent: "center" }}>
-            <Text className="box-title">3</Text>
+          <Row
+            css={{
+              display: "flex",
+              justifyContent: "flex-start",
+              alignItems: "center",
+              height: "64px",
+              w: "66%",
+              "@mdMin": { w: "100%", justifyContent: "center" },
+            }}
+          >
+            <Text className="box-title" css={{ "@mdMax": { display: "none" } }}>
+              3
+            </Text>
             <Text className="box-subtitle">Ingresa tus datos de contacto.</Text>
           </Row>
         </Grid>
@@ -122,18 +190,29 @@ const StepsToBuy = () => {
           css={{
             display: "flex",
             justifyContent: "center",
-            flexDirection: "column",
-            alignContent: "center",
+            "@mdMin": {
+              flexDirection: "column",
+              alignContent: "center",
+            },
           }}
         >
           <Row
             css={{
-              w: "100%",
               display: "flex",
               justifyContent: "center",
               marginBottom: "16px",
+              w: "33%",
+              "@mdMin": { w: "100%" },
             }}
           >
+            <Text
+              className="box-title mobile"
+              css={{
+                "@mdMin": { display: "none" },
+              }}
+            >
+              4
+            </Text>
             <Image
               src="/assets/img/cyber/step-4.svg"
               alt="step-1"
@@ -142,8 +221,19 @@ const StepsToBuy = () => {
               objectPosition="center"
             />
           </Row>
-          <Row css={{ w: "100%", display: "flex", justifyContent: "center" }}>
-            <Text className="box-title">4</Text>
+          <Row
+            css={{
+              display: "flex",
+              justifyContent: "flex-start",
+              alignItems: "center",
+              height: "64px",
+              w: "66%",
+              "@mdMin": { w: "100%", justifyContent: "center" },
+            }}
+          >
+            <Text className="box-title" css={{ "@mdMax": { display: "none" } }}>
+              4
+            </Text>
             <Text className="box-subtitle">Realiza el pago en Transbank.</Text>
           </Row>
         </Grid>
@@ -177,8 +267,18 @@ const StepsToBuy = () => {
               ¿Quieres toda la informacion de como comprar en CyberDerco?
             </Text>
 
-            <NextLink href="#">
-              <Link css={{ width: "100%", margin: "16px auto" }}>
+            <NextLink
+              passHref
+              href="https://s3.amazonaws.com/dercocenter.cl/cyber/legals/pregunta-frecuentes-promocion-cyber-dercocenter-220926.pdf"
+            >
+              <Link
+                target="_blank"
+                css={{
+                  minWidth: "312px",
+                  maxWidth: "312px",
+                  margin: "16px auto",
+                }}
+              >
                 <Button
                   color="secondary"
                   css={{
@@ -188,6 +288,7 @@ const StepsToBuy = () => {
                     display: "flex",
                     justifyContent: "space-between",
                     color: "$primary",
+                    "@mdMax": { minWidth: "100%", justifyContent: "center" },
                   }}
                   iconRight={<DownloadIcon />}
                 >

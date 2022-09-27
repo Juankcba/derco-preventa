@@ -46,6 +46,7 @@ export const categorias = [
         name: "SUV",
         imagen: "/assets/img/carClasses/suv.png",
     },
+<<<<<<< HEAD
 ];
 
 export  const modelos = [
@@ -873,3 +874,11 @@ export  const modelos = [
     "category": "SUV XL"
     }
 ]
+=======
+    {
+        id: 4,
+        name: "Citycar",
+        imagen: "/assets/img/carClasses/citycar.png",
+    },
+];
+>>>>>>> master

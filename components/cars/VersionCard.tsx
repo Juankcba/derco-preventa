@@ -25,15 +25,15 @@ const VersionCard: FC<Props> = ({ version }) => {
   const onClickReserva = () => {
     router.push(
       `/reserva/auto/${version.brand_slug.toLowerCase()}/${
-        version.version_slug
-      }`
+        version.model_slug
+      }/${version.version_slug}`
     );
   };
 
   const stock = Math.floor(Math.random() * 2);
 
   return (
-    <Card isHoverable isPressable className="cyber-card">
+    <Card isHoverable className="cyber-card">
       <Card.Header
         className="cyber-card-header"
         onClick={() => onClickReserva()}
@@ -48,6 +48,7 @@ const VersionCard: FC<Props> = ({ version }) => {
           objectFit="contain"
           id={version.image_url}
           css={{
+            cursor: "pointer",
             "@mdMax": {
               height: "78px",
               objectFit: "scale-down",
@@ -89,7 +90,13 @@ const VersionCard: FC<Props> = ({ version }) => {
           className="prices-card"
         >
           <Text className="price-primary" color="#e0102c">
-            {currency.format(version.brand_price)}*
+            {currency.format(
+              version.list_price -
+                (version.list_price -
+                  version.brand_price +
+                  (version.list_price - version.financial_price))
+            )}
+            *
           </Text>
           <Text className="price-before">
             Antes{" "}
@@ -111,7 +118,7 @@ const VersionCard: FC<Props> = ({ version }) => {
             <Text className="price-bonus" color="#e0102c">
               Bono financiamiento:
               <span style={{ paddingLeft: "0.25rem" }}>
-                {currency.format(version.brand_price - version.financial_price)}
+                {currency.format(version.list_price - version.financial_price)}
               </span>
             </Text>
           )}

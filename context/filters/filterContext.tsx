@@ -8,10 +8,12 @@ interface ContextProps {
   isMantenciones: boolean;
   filterCarClass: string[];
   filterBrand: string[];
-  filterMantenciones: string;
+  filterMantenciones: string[];
+  filterMantencionesCarClass: string[];
+  filterCombustible: string[];
   indexOfCards: number;
   indexOfMantenciones: number;
-  isDiesel: boolean;
+
   order: string;
 
   // Methods
@@ -21,8 +23,9 @@ interface ContextProps {
   setMantencionesState: (state: boolean) => void;
   setFilterCarClass: (state: string[]) => void;
   setFilterBrand: (state: string[]) => void;
-  setFilterCombustible: (state: boolean) => void;
-  setFilterMantenciones: (state: string) => void;
+  setFilterCombustible: (state: string[]) => void;
+  setFilterMantenciones: (state: string[]) => void;
+  setFilterMatencionesCarClass: (state: string[]) => void;
   setIndex: (state: number) => void;
   setIndexMant: (state: number) => void;
   setFilterOrder: (state: string) => void;

@@ -24,6 +24,7 @@ interface Props {
   title?: string;
   pageDescription?: string;
   image?: string;
+  keywords?: string;
   titleNavbar?: string;
 }
 
@@ -34,6 +35,7 @@ export const PreventaLayout: FC<PropsWithChildren<Props>> = ({
   title,
   titleNavbar,
   pageDescription,
+  keywords,
   image,
 }) => {
   const { theme } = useTheme();
@@ -48,14 +50,17 @@ export const PreventaLayout: FC<PropsWithChildren<Props>> = ({
         <title>{title || "DercoCenter"}</title>
         <meta name="author" content="Soho" />
         <meta name="description" content={pageDescription || ` | ${title}`} />
-        <meta name="keywords" content={`${title}, autos, dercocenter`} />
+        <meta name="keywords" content={`${keywords}, autos, dercocenter`} />
 
         <meta property="og:title" content={`${title}`} />
         <meta
           property="og:description"
           content={pageDescription || `${title}`}
         />
-        <meta property="og:image" content={image || `${origin}/logo.png`} />
+        <meta
+          property="og:image"
+          content={image || `${origin}/_next/image?url=${image}&w=1920$q=75`}
+        />
       </Head>
 
       <NavBarCustom titlePage={titleNavbar} />

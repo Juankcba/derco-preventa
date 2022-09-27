@@ -107,7 +107,7 @@ const PreventaStep2 = ({ model, setData, data, setStep }) => {
     onSubmit: async (values) => {
       let returnUrl = `${process.env.NEXT_PUBLIC_STORE_URL}/pre-order/transbank-return`;
       let finalUrl = `${process.env.NEXT_PUBLIC_STORE_URL}/pre-order/${process.env.NEXT_PUBLIC_PREVENTA}/transbank-final`;
-      let resultUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/reserva/auto/${model.brand_slug}/${model.version_slug}/respuesta-transbank`;
+      let resultUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/reserva/auto/${model.brand_slug}/${model.model_slug}/${model.version_slug}/respuesta-transbank`;
 
       let device = isIOS ? "IOS" : isAndroid ? "Android" : osName;
       const dataRequest = {
@@ -240,18 +240,20 @@ const PreventaStep2 = ({ model, setData, data, setStep }) => {
             }
             type="submit"
             className="btn-primary big"
+            css={{ width: "100%" }}
           >
             Paga online
           </Button>
           <Spacer y={1} />
-          {loading}
-          <Image
-            src="/assets/img/cyber/tarjetas.svg"
-            alt="tarjetas"
-            width={"100%"}
-            height={48}
-            objectFit="contain"
-          />
+          <div>
+            <Image
+              src="/assets/img/cyber/tarjetas.svg"
+              alt="tarjetas"
+              width={300}
+              height={48}
+              objectFit="contain"
+            />
+          </div>
         </form>
         <div className="hidden">
           <form ref={transbankForm} method="post" action={order?.form_action}>
@@ -268,7 +270,8 @@ const PreventaStep2 = ({ model, setData, data, setStep }) => {
         <div>
           <Button
             icon={<ArrowBackIosNewIcon fill="currentColor" />}
-            className="btn-secondary grey big fit"
+            className="btn-secondary grey big "
+            css={{ width: "100%" }}
             onPress={() => setStep(1)}
           >
             Volver al paso anterior

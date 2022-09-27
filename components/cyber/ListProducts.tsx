@@ -33,7 +33,7 @@ const ListProducts: FC<Props> = ({ versions }) => {
     order,
     filterCarClass,
     filterBrand,
-    isDiesel,
+    filterCombustible,
     indexOfCards,
     resultadosVersiones,
     scrollChange,
@@ -73,6 +73,16 @@ const ListProducts: FC<Props> = ({ versions }) => {
       setFilterCarClass([]);
     }
 
+    if (combustible && typeof combustible === "string") {
+      setFilterCombustible([combustible]);
+    }
+    if (combustible && typeof combustible === "object") {
+      setFilterCombustible(combustible);
+    }
+    if (!combustible) {
+      setFilterCombustible([]);
+    }
+
     //if (brands) setFilterBrand(brands);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -104,7 +114,6 @@ const ListProducts: FC<Props> = ({ versions }) => {
       auxResultados.forEach((auxV) => {
         brandsFilter.forEach((filtro) => {
           if (auxV.brand_name == filtro) {
-            console.log("este");
             aux.push(auxV);
           }
         });
@@ -113,23 +122,52 @@ const ListProducts: FC<Props> = ({ versions }) => {
       auxResultados = aux;
     }
 
-    if (isDiesel) {
-      auxResultados = auxResultados.filter(
-        (auxV) => auxV.fuel_name == "diesel"
+    if (filterCombustible.length > 0) {
+      let combustibleFilter: string[] = filterCombustible;
+      console.log(
+        "fuel",
+        auxResultados.map((v) => v.fuel_slug)
       );
-    } else {
-      auxResultados = auxResultados.filter(
-        (auxV) => auxV.fuel_name != "diesel"
-      );
+      let aux: Auto[] = [];
+      auxResultados.forEach((auxV) => {
+        combustibleFilter.forEach((filtro) => {
+          if (auxV.fuel_slug == filtro) {
+            aux.push(auxV);
+          }
+        });
+      });
+
+      auxResultados = aux;
     }
+
     let finalResultados: Auto[] = [];
     if (order === "dsc") {
       finalResultados = auxResultados
-        .sort((a, b) => a.brand_price - b.brand_price)
+        .sort(
+          (a, b) =>
+            a.list_price -
+            (a.list_price -
+              a.brand_price +
+              (a.list_price - a.financial_price)) -
+            (b.list_price -
+              (b.list_price -
+                b.brand_price +
+                (b.list_price - b.financial_price)))
+        )
         .slice(0, 4 * indexOfCards);
     } else {
       finalResultados = auxResultados
-        .sort((a, b) => b.brand_price - a.brand_price)
+        .sort(
+          (a, b) =>
+            b.list_price -
+            (b.list_price -
+              b.brand_price +
+              (b.list_price - b.financial_price)) -
+            (a.list_price -
+              (a.list_price -
+                a.brand_price +
+                (a.list_price - a.financial_price)))
+        )
         .slice(0, 4 * indexOfCards);
     }
     setResultadosVersiones(auxResultados);
@@ -141,7 +179,7 @@ const ListProducts: FC<Props> = ({ versions }) => {
     console.log("despues del filtro", finalResultados);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [order, indexOfCards, filterCarClass, filterBrand, isDiesel]);
+  }, [order, indexOfCards, filterCarClass, filterBrand, filterCombustible]);
 
   useEffect(() => {
     if (scrollChange) {

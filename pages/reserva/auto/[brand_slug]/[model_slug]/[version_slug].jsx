@@ -1,8 +1,8 @@
 import React, { useState, useMemo, useEffect, useRef } from "react";
 
-import { Layout, PreventaLayout } from "../../../../components/Layouts";
-import { getVersionInfo, currency } from "../../../../utils";
-import { cesApi, cmsApi, storeApi } from "../../../../apis";
+import { Layout, PreventaLayout } from "../../../../../components/Layouts";
+import { getVersionInfo, currency } from "../../../../../utils";
+import { cesApi, cmsApi, storeApi } from "../../../../../apis";
 import {
   Grid,
   Text,
@@ -17,14 +17,15 @@ import {
 } from "@nextui-org/react";
 import Image from "next/image";
 import NextLink from "next/link";
-import PreventaStep2 from "../../../../components/preventa/PaymentStep";
-import PreventaStep3 from "../../../../components/preventa/CreditStep";
+import PreventaStep2 from "../../../../../components/preventa/PaymentStep";
+import PreventaStep3 from "../../../../../components/preventa/CreditStep";
 import {
+  getModelVersionStoreInfo,
   getSubsStoreInfo,
   getVersionStoreInfo,
-} from "../../../../utils/getVersionStoreInfo";
-import { DownloadCar } from "./../../../../components/ui/DownloadCar";
-import ErrorStep from "../../../../components/preventa/ErrorStep";
+} from "../../../../../utils/getVersionStoreInfo";
+import { DownloadCar } from "../../../../../components/ui/DownloadCar";
+import ErrorStep from "../../../../../components/preventa/ErrorStep";
 
 // interface Props {
 //   model: Auto;
@@ -41,11 +42,14 @@ const CarPage = ({ models, regions }) => {
       email: "",
     },
     ces: "",
-    financial: "",
+    financial: {
+      financial_state: true,
+      results: {},
+    },
     model: "",
   });
 
-  const [model, setModel] = useState({});
+  const [model, setModel] = useState(null);
   const [colors, setColors] = useState([]);
   const [loadingColors, setLoadingColors] = useState(true);
   const [selectedColor, setColor] = useState("");
@@ -60,7 +64,9 @@ const CarPage = ({ models, regions }) => {
 
   const getInfoActual = async () => {
     try {
-      await getVersionStoreInfo(models[0].version_slug).then((response) => {
+      await getModelVersionStoreInfo(
+        `${models[0].model_slug}/${models[0].version_slug}`
+      ).then((response) => {
         setColors(
           response.map((model) => ({
             color_hex: model.color_hex,
@@ -127,11 +133,14 @@ const CarPage = ({ models, regions }) => {
   useMemo(() => {
     console.log("data", data);
   }, [data]);
-
+  const downloadFicha = () => {
+    window.open(`https://www.google.com`, "_blank");
+  };
   return (
     <PreventaLayout
-      title={`${model.model_name} | DercoCenter - ${model.brand_name}`}
-      image={model.image_url}
+      title={`${models[0].model_name} - ${models[0].version_name} | DercoCenter - ${models[0].brand_name}`}
+      image={models[0].image_url}
+      keywords={`${models[0].model_name} - ${models[0].version_name} | DercoCenter - ${models[0].brand_name}`}
     >
       {colors?.length > 0 ? (
         <>
@@ -161,17 +170,40 @@ const CarPage = ({ models, regions }) => {
                 <Grid xs={8}>
                   <Row className="preventa-prices">
                     <Text className="price-primary">
-                      {currency.format(model.brand_price)}*
+                      {data.financial.financial_state
+                        ? currency.format(
+                            model.list_price -
+                              (model.list_price -
+                                model.brand_price +
+                                model.list_price -
+                                model.financial_price)
+                          )
+                        : currency.format(
+                            model.list_price -
+                              (model.list_price - model.brand_price)
+                          )}
+                      *
                     </Text>
                     <Text className="price-before">
                       Antes <span>{currency.format(model.list_price)}</span>
                     </Text>
                     <Text className="price-bonos">
-                      Bono cyber: {currency.format(model.brand_price)}
+                      Bono cyber:{" "}
+                      {currency.format(model.list_price - model.brand_price)}
                     </Text>
-                    <Text className="price-bonos">
-                      Bono financiamiento: {currency.format(model.brand_price)}
-                    </Text>
+                    {data.financial.financial_state ? (
+                      <Text className="price-bonos">
+                        Bono financiamiento:{" "}
+                        {currency.format(
+                          model.list_price - model.financial_price
+                        )}
+                      </Text>
+                    ) : (
+                      <Text
+                        className="price-bonos"
+                        css={{ minHeight: "17px" }}
+                      ></Text>
+                    )}
                   </Row>
                 </Grid>
                 <Grid xs={12}>
@@ -206,16 +238,18 @@ const CarPage = ({ models, regions }) => {
                     {model.model_name}
                   </Text>
                   {step == 1 && (
-                    <div>
+                    <>
                       <Button
                         light
                         css={{ marginLeft: "auto" }}
                         iconRight={<DownloadCar />}
                         className="btn-primary-outline big wauto"
+                        id={`cyber22-cta-ficha-${model.brand_slug}-${model.model_slug}-${model.version_slug}`}
+                        onPress={() => downloadFicha()}
                       >
                         Descargar Ficha técnica
                       </Button>
-                    </div>
+                    </>
                   )}
                 </Grid>
               </Grid.Container>
@@ -343,6 +377,7 @@ export async function getStaticPaths() {
   const patchUrls = autos.map((version) => ({
     version_slug: version.version_slug,
     brand_slug: version.brand_slug,
+    model_slug: version.model_slug,
   }));
 
   console.log(patchUrls);
@@ -358,9 +393,11 @@ export async function getStaticPaths() {
 
 // `getStaticPaths` requires using `getStaticProps`
 export const getStaticProps = async ({ params }) => {
-  const { version_slug, brand_slug } = params;
+  const { version_slug, brand_slug, model_slug } = params;
 
-  const models = await getVersionStoreInfo(version_slug);
+  const models = await getModelVersionStoreInfo(
+    `${model_slug}/${version_slug}`
+  );
 
   const { status, data } = await getSubsStoreInfo(
     `subsidiaries?brand_slug=${brand_slug}&services=venta`

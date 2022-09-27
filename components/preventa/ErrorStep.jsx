@@ -10,16 +10,26 @@ const ErrorStep = ({ setStep }) => {
         p: "32px",
         overflow: "hidden",
         maxWidth: "100%",
+        maxH: "200px",
         "@mdMin": {
           maxWidth: "503px",
         },
       }}
     >
       <Card.Body css={{ p: 0, overflow: "hidden" }}>
-        <Text h2>No stock</Text>
+        <Text h1 className="preventa-error-title">
+          ¡Vaya! Tuvimos un inconveniente
+        </Text>
+        <Text h2 className="preventa-error-subtitle">
+          Por favor selecciona el auto nuevamente.
+        </Text>
         <div>
-          <Button className="btn-primary big" onPress={() => setStep(1)}>
-            Volver a seleccionar Color
+          <Button
+            className="btn-primary big"
+            css={{ width: "100%" }}
+            onPress={() => setStep(1)}
+          >
+            Volver a seleccionar
           </Button>
         </div>
       </Card.Body>

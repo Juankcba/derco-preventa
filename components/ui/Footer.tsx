@@ -14,18 +14,58 @@ import Image from "next/image";
 import NextLink from "next/link";
 const Footer = () => {
   const links = [
-    { id: 1, url: "", name: "Descargar Instructivo Cyber Derco Center" },
-    { id: 2, url: "", name: "Politicas de Privacidad" },
-    { id: 3, url: "", name: "Información Corporativa" },
-    { id: 4, url: "", name: "Términos y Condiciones" },
-    { id: 5, url: "", name: "Bases Legales" },
+    {
+      id: 1,
+      url: "https://s3.amazonaws.com/dercocenter.cl/cyber/legals/pregunta-frecuentes-promocion-cyber-dercocenter-220926.pdf",
+      name: "Descargar Instructivo Cyber Derco Center",
+    },
+    {
+      id: 2,
+      url: "https://s3.amazonaws.com/dercocenter.cl/cyber/legals/politica-de-privacidad-y-tratamiento-de-datos-cyber-220926.pdf",
+      name: "Politicas de Privacidad",
+    },
+    {
+      id: 3,
+      url: "https://www.dercocenter.cl/informacion-corporativa",
+      name: "Información Corporativa",
+    },
+    {
+      id: 4,
+      url: "https://s3.amazonaws.com/dercocenter.cl/cyber/legals/terminos-y-condiciones-dercocenter-cyber-220915.pdf",
+      name: "Términos y Condiciones",
+    },
+    {
+      id: 5,
+      url: "https://www.dercocenter.cl/bases-legales",
+      name: "Bases Legales",
+    },
   ];
 
   const socials = [
-    { id: 1, image: "facebook", name: "Facebook" },
-    { id: 2, image: "instagram", name: "Instragram" },
-    { id: 3, image: "twitter", name: "Twitter" },
-    { id: 4, image: "youtube", name: "Youtube" },
+    {
+      id: 1,
+      image: "facebook",
+      name: "Facebook",
+      url: "https://www.facebook.com/DercoCenter",
+    },
+    {
+      id: 2,
+      image: "instagram",
+      name: "Instragram",
+      url: "https://www.instagram.com/dercocentercl",
+    },
+    {
+      id: 3,
+      image: "twitter",
+      name: "Twitter",
+      url: "https://twitter.com/DercoCenter/",
+    },
+    {
+      id: 4,
+      image: "youtube",
+      name: "Youtube",
+      url: "https://www.youtube.com/channel/UC02s7CbIT5wpNeE-ekJq-Wg",
+    },
   ];
   return (
     <footer className="footer-container">
@@ -78,13 +118,16 @@ const Footer = () => {
             }}
           >
             {socials.map((social) => (
-              <Image
-                key={social.id}
-                src={`/assets/img/socials/${social.image}.svg`}
-                alt={social.name}
-                width={24}
-                height={24}
-              />
+              <NextLink key={social.id} href={social.url} passHref>
+                <Link target={"_blank"}>
+                  <Image
+                    src={`/assets/img/socials/${social.image}.svg`}
+                    alt={social.name}
+                    width={24}
+                    height={24}
+                  />
+                </Link>
+              </NextLink>
             ))}
           </Row>
         </Grid>

@@ -26,22 +26,28 @@ const MantencionCard: FC<Props> = ({ mantencion }) => {
     );
   };
   return (
-    <Card isHoverable isPressable className="cyber-card mantencion">
-      <Card.Header className="cyber-card-header mantencion">
+    <Card isHoverable className="cyber-card mantencion">
+      <Card.Header
+        className="cyber-card-header mantencion"
+        onClick={() => onClickReserva()}
+      >
         <div className="cyber-badge">
-          {((mantencion.brand_price - mantencion.list_price) /
-            mantencion.list_price) *
-            -100}
+          {(
+            ((mantencion.brand_price - mantencion.list_price) /
+              mantencion.list_price) *
+            -100
+          ).toFixed(0)}
           %
         </div>
 
         <Card.Image
-          src={`/assets/img/mantenciones/${mantencion.class_name}.svg`}
+          src={mantencion.image_url}
           width="100%"
           height={73}
           alt={mantencion.class_name}
           objectFit="contain"
           css={{
+            cursor: "pointer",
             "@mdMax": {
               marginTop: "7px",
               height: "44px",
