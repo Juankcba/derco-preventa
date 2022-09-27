@@ -29,6 +29,7 @@
 
       &.swiper-pagination-bullet-active {
         background: #E0102C;
+        opacity: unset;
       }
     }
   }
@@ -37,5 +38,23 @@
 .mySwiper-helper-Reserva {
   .swiper-slide {
     min-height: 90px;
+  }
+
+  .swiper-pagination {
+    display: flex;
+    justify-content: center;
+
+    .swiper-pagination-bullet {
+      width: 12px;
+      height: 12px;
+      background: #C4C4C4;
+      border-radius: 50%;
+      opacity: unset;
+      margin: 0 5px;
+
+      &.swiper-pagination-bullet-active {
+        background: #E0102C;
+      }
+    }
   }
 }
