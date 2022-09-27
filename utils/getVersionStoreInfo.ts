@@ -20,7 +20,7 @@ export const getModelVersionStoreInfo = async (pathUrl: string) => {
 export const getVersionStoreInfo = async (pathUrl: string) => {
     console.log("path", `/pre-order/cyber-dc/${process.env.NEXT_PUBLIC_PREVENTA}/cars/${pathUrl}`)
     try {
-        const { data } = await storeApi.get<StoreCar[]>(`/pre-order/cyber-dc/${process.env.NEXT_PUBLIC_PREVENTA}/cars/version/${pathUrl}`)
+        const { data } = await storeApi.get<StoreCar[]>(`/pre-order/cyber-dc/${process.env.NEXT_PUBLIC_PREVENTA}/cars/${pathUrl}`)
         console.log("data", data)
 
         return data
