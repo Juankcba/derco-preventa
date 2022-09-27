@@ -22,6 +22,8 @@ import { FilterIcon } from "../ui/FilterIcon";
 import FiltersOnBottom from "./../ui/FiltersOnBottom";
 import CloseIcon from "@mui/icons-material/Close";
 import { useRouter } from "next/router";
+import NextLink from "next/link";
+import { Link } from "@nextui-org/react";
 
 interface CateorySelected {
   id: Number[];
@@ -29,6 +31,15 @@ interface CateorySelected {
 
 const ModalFilters: FC = () => {
   const router = useRouter();
+  const [size, setSize] = useState(true as boolean);
+  useEffect(() => {
+    if (window.screen.availWidth < 1281) {
+      setSize(true);
+    } else {
+      setSize(false);
+    }
+  }, []);
+  const [visibleModal, setVisibleModal] = useState(false as boolean);
   const { isModalOpen, setVisible } = useContext(UiContext);
   const {
     filterCarClass,
@@ -166,7 +177,6 @@ const ModalFilters: FC = () => {
     //setFilterBrand(aux);
   };
   const handleCombustible = (state: any) => {
-    console.log("state", state);
     router.replace({
       pathname: "/",
       query: {
@@ -203,7 +213,24 @@ const ModalFilters: FC = () => {
     closeHandler();
   };
 
-  console.log(resultadosVersiones);
+  const handleLimpiar = () => {
+    setMantencionesSelected([]);
+    setCombustibleSelected([]);
+    setMarcasSelected([]);
+    setCategorySelected([]);
+    setCategoryMatencionesSelected([]);
+    router.replace({
+      pathname: "/",
+      query: {
+        card: isMantenciones,
+        brands: [],
+        categories: [],
+        combustible: [],
+        categoriesMantenciones: [],
+        mantenciones: [],
+      },
+    });
+  };
 
   return (
     <Container
@@ -234,14 +261,25 @@ const ModalFilters: FC = () => {
           </Text>
           <Text className="subtitle-modal-filter">
             Puedes seleccionar mas de una opción de filtro.{" "}
-            {isMantenciones && (
-              <a
-                href="https://s3.amazonaws.com/dercocenter.cl/cyber/legals/pregunta-frecuentes-promocion-cyber-dercocenter-220926.pdf"
-                target="_blank"
+            {isMantenciones && resultadosMantenciones.length === 0 ? (
+              <span>
+                {" "}
+                ¿No sabes que mantencion te corresponde?{" "}
+                <a
+                  href="https://s3.amazonaws.com/dercocenter.cl/cyber/legals/pregunta-frecuentes-promocion-cyber-dercocenter-220926.pdf"
+                  target="_blank"
+                  className="matencion-link"
+                >
+                  click acá.
+                </a>
+              </span>
+            ) : (
+              <span
+                onClick={() => setVisibleModal(true)}
                 className="matencion-link"
               >
                 ¿Como elegir mi matención?
-              </a>
+              </span>
             )}
           </Text>
         </Grid>
@@ -259,7 +297,9 @@ const ModalFilters: FC = () => {
           <Grid.Container
             gap={0.5}
             css={{
-              maxWidth: isMantenciones ? "510px" : "390px",
+              maxWidth: "325px",
+              "@mdMin": { maxWidth: isMantenciones ? "510px" : "390px" },
+
               marginTop: "16px",
             }}
           >
@@ -267,6 +307,7 @@ const ModalFilters: FC = () => {
               ? categorias.slice(0, 5).map((categoria) => (
                   <Grid
                     xs
+                    md
                     key={categoria.id}
                     css={{
                       flexDirection: "column",
@@ -274,6 +315,9 @@ const ModalFilters: FC = () => {
                       maxW: "88px",
                       maxH: "88px",
                       height: "72px",
+                      "@mdMax": {
+                        marginBottom: "16px",
+                      },
                     }}
                     justify="center"
                   >
@@ -528,7 +572,28 @@ const ModalFilters: FC = () => {
         >
           <FiltersOnBottom />
         </Grid>
-        <Grid xs={12} md={3} css={{ width: "100%" }}>
+        <Grid xs={12} md={0} css={{ width: "100%", marginBottom: "16px" }}>
+          <Button
+            className="btn-link"
+            css={{ width: "100%" }}
+            onPress={() => handleLimpiar()}
+          >
+            Limpiar Filtros
+          </Button>
+        </Grid>
+        <Grid xs={12} md={2} css={{ width: "100%", alignContent: "center" }}>
+          <Button
+            className="btn-link"
+            css={{
+              width: "100%",
+              minHeight: "48px",
+              marginBottom: "16px",
+              "@mdMax": { display: "none" },
+            }}
+            onPress={() => handleLimpiar()}
+          >
+            Limpiar Filtros
+          </Button>
           <Button
             auto
             onPress={closeHandler}
@@ -543,6 +608,94 @@ const ModalFilters: FC = () => {
           </Button>
         </Grid>
       </Grid.Container>
+      <Modal
+        closeButton
+        scroll
+        width={size ? "312px" : "897px"}
+        aria-labelledby="modal-matenciones"
+        open={visibleModal}
+        onClose={() => setVisibleModal(false)}
+      >
+        <Modal.Header>
+          <Text id="modal-title" size={20} b>
+            Criterios para elegir la mantención para tu auto
+          </Text>
+        </Modal.Header>
+        <Modal.Body>
+          <Text>
+            Durante este Cyber Derco Center ofrecemos mantenciones desde
+            10.000km hasta 30.000 km. Es muy importante que selecciones la
+            Categoría y kilometraje correcto para tu vehículo, así mantiene en
+            vigencia la garantía de tu motor.
+          </Text>
+          <Text b>Para tener en cuenta </Text>
+          <Text>
+            Primero revisa la pauta de mantenimiento en el manual de tu
+            vehículo. Recuerda que para mantener la garantía de tu vehículo
+            debes realizar la mantención cada 10.000km o 12 meses.
+          </Text>
+          <Text>
+            Es importante recalcar que el servicio técnico o mantenciones en
+            Derco Center, sólo está disponible para los vehículos que sean de
+            las marcas que se comercializan en Derco Center. Es decir, si tu
+            vehículo es Suzuki, Mazda, Renault, JAC, Haval, GWM o Changan puedes
+            realizar tu mantención en nuestras instalaciones.
+          </Text>
+
+          <Text b>¿Como se de que categoria es mi auto?</Text>
+          <Text>
+            Puedes utilizar el Verificador de Mantenciones, ingresando Marca y
+            Modelo de tu vehículo, podremos decirte a qué categoría corresponde.
+          </Text>
+          <Text b>
+            ¿Puedo hacer mi mantención de los 10.000km si mi vehículo tiene más
+            kilómetros?
+          </Text>
+          <Text>
+            La tolerancia para ajustar el servicio técnico entre kilometrajes es
+            de 999km y mantener la garantía de motor. Es decir, si tu vehículo
+            tiene 10.100km y haces la mantención de los 10.000km, aun conserva
+            tu garantía oficial.
+          </Text>
+          <Text b>
+            Mi vehículo no llega a los 10.000km pero ya pasó un año. ¿Debo hacer
+            la siguiente mantención?
+          </Text>
+          <Text>
+            Las mantenciones deben realizarse cada 10.000km o cada 12 meses, lo
+            que suceda primero. Por lo que si tu vehículo es nuevo y aun no
+            llega a sus 10.000km, pero lo tienes hace más de un año, le
+            corresponde su primera mantención. Lo mismo aplica para los
+            vehículos que ya hicieron alguna mantención, si aún no llegan a los
+            10.000km desde el último servicio, pero fue hace más de 12 meses,
+            deben realizar la siguiente mantención.
+          </Text>
+
+          <div
+            className=" fit btn-primary red big auto"
+            style={{ cursor: "pointer" }}
+            onClick={() => setVisibleModal(false)}
+          >
+            Verificar mi Manteción
+          </div>
+
+          <Text b>
+            ¿Y si mi vehículo necesita la mantención de 40.000km o más?
+          </Text>
+          <Text>
+            Para agendar mantenciones de 40.000km o más puedes realizar tu
+            consulta o agendar un turno en nuestra web:
+          </Text>
+          <NextLink
+            passHref
+            href="https://serviciotecnico.dercocenter.cl/ReservaHora.aspx"
+          >
+            <Link target="_blank" className="fit btn-primary-outline auto">
+              Mantención de 40.000km o más
+            </Link>
+          </NextLink>
+        </Modal.Body>
+      </Modal>
     </Container>
   );
 };
