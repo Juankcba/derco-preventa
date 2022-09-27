@@ -130,7 +130,9 @@ const CarPage = ({ models, regions }) => {
   useMemo(() => {
     console.log("data", data);
   }, [data]);
-
+  const downloadFicha = () => {
+    window.open(`https://www.google.com`, "_blank");
+  };
   return (
     <PreventaLayout
       title={`${model.model_name} | DercoCenter - ${model.brand_name}`}
@@ -232,16 +234,18 @@ const CarPage = ({ models, regions }) => {
                     {model.model_name}
                   </Text>
                   {step == 1 && (
-                    <div>
+                    <>
                       <Button
                         light
                         css={{ marginLeft: "auto" }}
                         iconRight={<DownloadCar />}
                         className="btn-primary-outline big wauto"
+                        id={`cyber22-cta-ficha-${model.brand_slug}-${model.model_slug}-${model.version_slug}`}
+                        onPress={() => downloadFicha()}
                       >
                         Descargar Ficha técnica
                       </Button>
-                    </div>
+                    </>
                   )}
                 </Grid>
               </Grid.Container>

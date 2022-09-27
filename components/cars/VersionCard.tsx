@@ -33,7 +33,7 @@ const VersionCard: FC<Props> = ({ version }) => {
   const stock = Math.floor(Math.random() * 2);
 
   return (
-    <Card isHoverable isPressable className="cyber-card">
+    <Card isHoverable className="cyber-card">
       <Card.Header
         className="cyber-card-header"
         onClick={() => onClickReserva()}
@@ -48,6 +48,7 @@ const VersionCard: FC<Props> = ({ version }) => {
           objectFit="contain"
           id={version.image_url}
           css={{
+            cursor: "pointer",
             "@mdMax": {
               height: "78px",
               objectFit: "scale-down",

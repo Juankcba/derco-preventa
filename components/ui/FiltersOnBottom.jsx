@@ -37,6 +37,7 @@ const FiltersOnBottom = () => {
               !isMantenciones ? "btn-active group" : "btn-deactive group"
             }
             onPress={() => handleClick(false)}
+            id="cyber22-cta-home-reservacion-verfiltro"
           >
             Vehículos
           </Button>
@@ -46,6 +47,7 @@ const FiltersOnBottom = () => {
               isMantenciones ? "btn-active group" : "btn-deactive group"
             }
             onPress={() => handleClick(true)}
+            id="cyber22-cta-home-mantenimiento-verfiltro"
           >
             Mantenciones
           </Button>

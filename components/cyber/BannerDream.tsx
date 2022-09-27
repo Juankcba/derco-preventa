@@ -20,6 +20,7 @@ const BannerDream = () => {
       description:
         "Los mejores todo terreno estan con descuento en Derco Center.",
       id: 1,
+      buttonId: "cyber22-cta-home-todoterreno",
       filter: [{ card: false, categories: "Camioneta" }],
     },
     {
@@ -28,6 +29,7 @@ const BannerDream = () => {
       description:
         "Has tu primer mantención en el mejor lugar, en Derco Center.",
       id: 2,
+      buttonId: "cyber22-cta-home-mantenciones",
       filter: [{ card: true, mantencion: "10000" }],
     },
     {
@@ -36,6 +38,7 @@ const BannerDream = () => {
       description:
         "Te mostramos los autos perfectos para llevar a tus seres queridos.",
       id: 3,
+      buttonId: "cyber22-cta-home-familiar",
       filter: [{ card: false, categories: ["Camioneta", "SUV"] }],
     },
     {
@@ -44,6 +47,7 @@ const BannerDream = () => {
       description:
         "Consumir menos combustible? Estos autos son perfectos para ti.",
       id: 4,
+      buttonId: "cyber22-cta-home-economico",
       filter: [{ card: false, brands: "Haval" }],
     },
   ]);
@@ -120,6 +124,7 @@ const BannerDream = () => {
                 <Button
                   onPress={() => handleFilter(slide.filter)}
                   css={{ marginTop: "24px", width: "100%" }}
+                  id={slide.buttonId}
                 >
                   Ver
                 </Button>

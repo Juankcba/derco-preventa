@@ -28,8 +28,11 @@ const MantencionCard: FC<Props> = ({ mantencion }) => {
     );
   };
   return (
-    <Card isHoverable isPressable className="cyber-card mantencion">
-      <Card.Header className="cyber-card-header mantencion">
+    <Card isHoverable className="cyber-card mantencion">
+      <Card.Header
+        className="cyber-card-header mantencion"
+        onClick={() => onClickReserva()}
+      >
         <div className="cyber-badge">
           {(
             ((mantencion.brand_price - mantencion.list_price) /
@@ -46,6 +49,7 @@ const MantencionCard: FC<Props> = ({ mantencion }) => {
           alt={mantencion.class_name}
           objectFit="contain"
           css={{
+            cursor: "pointer",
             "@mdMax": {
               marginTop: "7px",
               height: "44px",
