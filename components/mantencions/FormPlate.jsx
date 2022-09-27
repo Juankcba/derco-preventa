@@ -2,7 +2,7 @@ import { FormControl, Select, TextField } from "@mui/material";
 import { Text, Grid } from "@nextui-org/react";
 import React, { useState, useEffect } from "react";
 
-const FormPlate = ({ data, setData, formik, regions }) => {
+const FormPlate = ({ data, formik, regions }) => {
   const [ces, setCes] = useState("");
   const [consecionario, setConsecionario] = useState(regions || []);
   const [error, setError] = useState(false);
@@ -10,6 +10,7 @@ const FormPlate = ({ data, setData, formik, regions }) => {
   useEffect(() => {
     if (ces != "") {
       setError(false);
+      formik.setFieldValue("regions", ces);
       setData({ ...data, ces: ces });
     }
   }, [ces]);
