@@ -14,6 +14,7 @@ import MantencionCard from "./../mantencions/MantencionCard";
 
 import { FilterContext } from "../../context/filters/filterContext";
 import { useRouter } from "next/router";
+import UpsError from "../ui/UpsError";
 interface Props {
   mantenciones: Auto[];
 }
