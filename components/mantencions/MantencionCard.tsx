@@ -23,8 +23,8 @@ const MantencionCard: FC<Props> = ({ mantencion }) => {
   const onClickReserva = () => {
     router.push(
       `/reserva/mantencion/${mantencion.brand_slug.toLowerCase()}/${
-        mantencion.version_slug
-      }`
+        mantencion.model_slug
+      }/${mantencion.version_slug}`
     );
   };
   return (

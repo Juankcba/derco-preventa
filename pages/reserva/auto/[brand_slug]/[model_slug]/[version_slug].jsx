@@ -1,8 +1,8 @@
 import React, { useState, useMemo, useEffect, useRef } from "react";
 
-import { Layout, PreventaLayout } from "../../../../components/Layouts";
-import { getVersionInfo, currency } from "../../../../utils";
-import { cesApi, cmsApi, storeApi } from "../../../../apis";
+import { Layout, PreventaLayout } from "../../../../../components/Layouts";
+import { getVersionInfo, currency } from "../../../../../utils";
+import { cesApi, cmsApi, storeApi } from "../../../../../apis";
 import {
   Grid,
   Text,
@@ -17,14 +17,15 @@ import {
 } from "@nextui-org/react";
 import Image from "next/image";
 import NextLink from "next/link";
-import PreventaStep2 from "../../../../components/preventa/PaymentStep";
-import PreventaStep3 from "../../../../components/preventa/CreditStep";
+import PreventaStep2 from "../../../../../components/preventa/PaymentStep";
+import PreventaStep3 from "../../../../../components/preventa/CreditStep";
 import {
+  getModelVersionStoreInfo,
   getSubsStoreInfo,
   getVersionStoreInfo,
-} from "../../../../utils/getVersionStoreInfo";
-import { DownloadCar } from "./../../../../components/ui/DownloadCar";
-import ErrorStep from "../../../../components/preventa/ErrorStep";
+} from "../../../../../utils/getVersionStoreInfo";
+import { DownloadCar } from "../../../../../components/ui/DownloadCar";
+import ErrorStep from "../../../../../components/preventa/ErrorStep";
 
 // interface Props {
 //   model: Auto;
@@ -63,7 +64,9 @@ const CarPage = ({ models, regions }) => {
 
   const getInfoActual = async () => {
     try {
-      await getVersionStoreInfo(models[0].version_slug).then((response) => {
+      await getModelVersionStoreInfo(
+        `${models[0].model_slug}/${models[0].version_slug}`
+      ).then((response) => {
         setColors(
           response.map((model) => ({
             color_hex: model.color_hex,
@@ -373,6 +376,7 @@ export async function getStaticPaths() {
   const patchUrls = autos.map((version) => ({
     version_slug: version.version_slug,
     brand_slug: version.brand_slug,
+    model_slug: version.model_slug,
   }));
 
   console.log(patchUrls);
@@ -388,9 +392,11 @@ export async function getStaticPaths() {
 
 // `getStaticPaths` requires using `getStaticProps`
 export const getStaticProps = async ({ params }) => {
-  const { version_slug, brand_slug } = params;
+  const { version_slug, brand_slug, model_slug } = params;
 
-  const models = await getVersionStoreInfo(version_slug);
+  const models = await getModelVersionStoreInfo(
+    `${model_slug}/${version_slug}`
+  );
 
   const { status, data } = await getSubsStoreInfo(
     `subsidiaries?brand_slug=${brand_slug}&services=venta`

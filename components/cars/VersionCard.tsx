@@ -25,8 +25,8 @@ const VersionCard: FC<Props> = ({ version }) => {
   const onClickReserva = () => {
     router.push(
       `/reserva/auto/${version.brand_slug.toLowerCase()}/${
-        version.version_slug
-      }`
+        version.model_slug
+      }/${version.version_slug}`
     );
   };
 

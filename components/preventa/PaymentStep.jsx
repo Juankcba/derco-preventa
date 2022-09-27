@@ -107,7 +107,7 @@ const PreventaStep2 = ({ model, setData, data, setStep }) => {
     onSubmit: async (values) => {
       let returnUrl = `${process.env.NEXT_PUBLIC_STORE_URL}/pre-order/transbank-return`;
       let finalUrl = `${process.env.NEXT_PUBLIC_STORE_URL}/pre-order/${process.env.NEXT_PUBLIC_PREVENTA}/transbank-final`;
-      let resultUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/reserva/auto/${model.brand_slug}/${model.version_slug}/respuesta-transbank`;
+      let resultUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/reserva/auto/${model.brand_slug}/${model.model_slug}/${model.version_slug}/respuesta-transbank`;
 
       let device = isIOS ? "IOS" : isAndroid ? "Android" : osName;
       const dataRequest = {

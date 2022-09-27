@@ -2,11 +2,11 @@ import { Container, Grid, Loading, Row, Text, Button } from "@nextui-org/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
-import { storeApi } from "../../../../../../apis";
-import { PreventaLayout } from "../../../../../../components/Layouts";
-import CardSummary from "../../../../../../components/preventa/CardSummary";
-import { DownloadCar } from "../../../../../../components/ui/DownloadCar";
-import { currency } from "../../../../../../utils";
+import { storeApi } from "../../../../../../../apis";
+import { PreventaLayout } from "../../../../../../../components/Layouts";
+import CardSummary from "../../../../../../../components/preventa/CardSummary";
+import { DownloadCar } from "../../../../../../../components/ui/DownloadCar";
+import { currency } from "../../../../../../../utils";
 
 const TokenTransBank = () => {
   const [loading, setLoading] = useState(true);
