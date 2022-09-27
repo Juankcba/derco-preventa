@@ -1,14 +1,36 @@
 .mySwiper-home-dreams {
   margin-top: 40px;
   min-height: 420px;
+
   .swiper-wrapper {
     @media screen and (min-width: 1200px) {
       justify-content: center;
     }
   }
+
   .swiper-slide {
     height: 360px;
     min-height: 360px;
+    width: 70%;
+  }
+
+  .swiper-pagination {
+    display: flex;
+    bottom: 0 !important;
+    justify-content: center;
+
+    .swiper-pagination-bullet {
+      width: 88px;
+      height: 5px;
+      background: #EBEBEB;
+      opacity: 0.5;
+      border-radius: 10px;
+      margin: 0 4px;
+
+      &.swiper-pagination-bullet-active {
+        background: #E0102C;
+      }
+    }
   }
 }
 

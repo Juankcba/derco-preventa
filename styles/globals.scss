@@ -54,6 +54,10 @@
     max-width: 240px;
     min-height: 380px;
 
+    @media screen and (max-width: 640px) {
+      max-width: unset;
+    }
+
     .title {
       font-family: "Lato";
       font-style: normal;
@@ -251,6 +255,7 @@
   display: flex;
   justify-content: center;
   flex-direction: column;
+
   .title {
     font-family: "Lato";
     font-style: normal;
@@ -262,6 +267,7 @@
     width: 100%;
     margin: 28px 0 0;
   }
+
   .subtitle {
     margin: 0;
     width: 100%;
@@ -281,13 +287,16 @@
   display: flex;
   justify-content: center;
   flex-direction: column;
+
   .container-img {
     width: 100%;
     margin: 0 auto 16px;
+
     img {
       margin: 0 auto;
     }
   }
+
   .title {
     font-family: "Lato";
     font-style: normal;
@@ -298,6 +307,7 @@
     color: #ffffff;
     margin-bottom: 56px;
   }
+
   .box-title {
     font-family: "Lato";
     font-style: normal;
@@ -305,11 +315,13 @@
     font-size: 32px;
     line-height: 20px;
     color: #ffffff;
+
     &.mobile {
       line-height: 64px;
       margin-right: 8px;
     }
   }
+
   .box-subtitle {
     font-family: "Lato";
     font-style: normal;
@@ -322,6 +334,7 @@
     max-width: 150px;
     padding-left: 16px;
   }
+
   .footer-title {
     font-family: "Lato";
     font-style: normal;
@@ -333,10 +346,12 @@
     color: #ffffff;
     margin-top: 56px;
     max-width: 330px;
+
     span {
       font-weight: 900;
     }
   }
+
   .footer-info {
     font-family: "Lato";
     font-style: normal;
@@ -363,20 +378,16 @@
 
 /** Add Examples for breakpoint mixins for mobile */
 // Extra small devices (portrait phones, less than 576px)
-@media (max-width: 575.98px) {
-}
+@media (max-width: 575.98px) {}
 
 // Small devices (landscape phones, less than 768px)
-@media (max-width: 767.98px) {
-}
+@media (max-width: 767.98px) {}
 
 // Medium devices (tablets, less than 992px)
-@media (max-width: 991.98px) {
-}
+@media (max-width: 991.98px) {}
 
 // Large devices (desktops, less than 1200px)
-@media (max-width: 1199.98px) {
-}
+@media (max-width: 1199.98px) {}
 
 .hidden {
   display: none;
