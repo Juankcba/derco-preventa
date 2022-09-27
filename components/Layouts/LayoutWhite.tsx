@@ -49,13 +49,21 @@ export const LayoutWhite: FC<PropsWithChildren<Props>> = ({
         <meta name="author" content="Soho" />
         <meta name="description" content={pageDescription || ` | ${title}`} />
         <meta name="keywords" content={`${title}, autos, dercocenter`} />
-
+        <meta itemProp="image" content={image || `${origin}/logo.png`} />
         <meta property="og:title" content={`${title}`} />
         <meta
           property="og:description"
           content={pageDescription || `${title}`}
         />
         <meta property="og:image" content={image || `${origin}/logo.png`} />
+        <meta name="twitter:card" content={title || "Dercocenter"} />
+        <meta name="twitter:site" content={title || "Dercocenter"} />
+        <meta name="twitter:title" content={title || "Dercocenter"} />
+        <meta
+          name="twitter:description"
+          content={pageDescription || "Dercocenter"}
+        />
+        <meta name="twitter:image" content={image || `${origin}/logo.png`} />
       </Head>
 
       <NavBarCustom titlePage={titleNavbar} />

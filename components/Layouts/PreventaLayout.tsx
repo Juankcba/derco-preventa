@@ -61,6 +61,14 @@ export const PreventaLayout: FC<PropsWithChildren<Props>> = ({
           property="og:image"
           content={image || `${origin}/_next/image?url=${image}&w=1920$q=75`}
         />
+        <meta name="twitter:card" content={title || "Dercocenter"} />
+        <meta name="twitter:site" content={title || "Dercocenter"} />
+        <meta name="twitter:title" content={title || "Dercocenter"} />
+        <meta
+          name="twitter:description"
+          content={pageDescription || "Dercocenter"}
+        />
+        <meta name="twitter:image" content={image || `${origin}/logo.png`} />
       </Head>
 
       <NavBarCustom titlePage={titleNavbar} />
