@@ -1,19 +1,28 @@
-import { Button } from "@nextui-org/react";
+import { Button, Text } from "@nextui-org/react";
 import NextImage from "next/image";
+import { useRouter } from "next/router";
 
-const ErrorVerifyMaintenance = ({ setStep, setMsg }) => {
+const ErrorVerifyMaintenance = ({ setStep, setMsg, data, setData }) => {
+  const router = useRouter();
   const handleStep = (value, msg = false) => {
     setStep(value);
-    setMsg(msg)
-    console.log(msg)
+    setMsg(msg);
+    console.log(msg);
   };
   return (
     <div className="error_verify_maintenance">
       <hr></hr>
       <div className="card__body">
-        <h3 className="card__body__title">Tu [Marca][Modelo] corresponde a la Categoría [Categoria] y a la mantenciónmantención de [kilometraje].</h3>
+        <Text h3 className="card__body__title">
+          Tu {data.verify.modelo.brand} {data.verify.modelo.model} corresponde a
+          la Categoría {data.verify.modelo.category}
+        </Text>
         <div className="message_error error">
-          <span className="message_error__text">La mantención seleccionada no aplica a tu vehículo.</span>
+          <Text>
+            <span className="message_error__text">
+              La mantención seleccionada no aplica a tu vehículo.
+            </span>
+          </Text>
           <NextImage
             src="/assets/img/ion_warning-outline.svg"
             height={23.78}
@@ -21,15 +30,33 @@ const ErrorVerifyMaintenance = ({ setStep, setMsg }) => {
             alt="cyber-coin"
           />
         </div>
-        <span className="card__body__text">Por favor, cambia tu selección de mantención, asi cohincide con la Categoria de tu vehículo.</span>
-        <Button className="card__header__button btn-primary big" onPress={() => handleStep(1)}>Volver a seleccionar mantención</Button>
+        <Text className="card__body__text">
+          Por favor, cambia tu selección de mantención, asi coincide con la
+          categoria de tu vehículo.
+        </Text>
+        <Button
+          className="card__header__button btn-primary big"
+          onPress={() => router.push("/?card=true")}
+        >
+          Volver a seleccionar mantención
+        </Button>
         <hr></hr>
-        <span className="card__body__text">¿Algún dato ingresado es incorrecto?</span> <br />
-        <span className="card__body__text">Vuelve a verificar la Categoria de tu vehículo.</span>
-        <Button className="button_verify btn-primary big" onPress={() => handleStep(3, true)}>Volver a verificar</Button>
+        <Text className="card__body__text">
+          ¿Algún dato ingresado es incorrecto?
+        </Text>{" "}
+        <br />
+        <Text className="card__body__text">
+          Vuelve a verificar la Categoria de tu vehículo.
+        </Text>
+        <Button
+          className="button_verify btn-primary big"
+          onPress={() => handleStep(1, true)}
+        >
+          Volver a verificar
+        </Button>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ErrorVerifyMaintenance
+export default ErrorVerifyMaintenance;
