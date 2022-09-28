@@ -45,6 +45,7 @@ const TokenMantencionesPage = () => {
             `https://s3.amazonaws.com/dercocenter.cl/cyber/backgorund-page-maintenance.jpg` +
             ")",
           backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
         }}
       >
         {loading ? (

@@ -134,8 +134,7 @@ const CardSummaryReserva = ({ order, mantencion }) => {
             Patente: <span>{order.patente}</span>
           </Text>
           <Text>
-            Kilometraje actual:{" "}
-            <span>{numberMil.format(parseInt(order.km, 10))} km</span>
+            Kilometraje actual: <span>{order.km} km</span>
           </Text>
           <Text>Concesionario seleccionado:</Text>
           <Text>
