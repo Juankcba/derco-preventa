@@ -54,6 +54,337 @@ export const categorias = [
 ];
 
 
+export const titleSeo = [
+
+    {
+        "brand": "changan",
+        "model_slug": "alsvin",
+        "version_slug": "alsvin-luxury-mt",
+        "title": "Changan alsvin sedan cyber 2022 | Dercocenter",
+        "description": "Este cyber monday 2022 descubre nuestro nuevo Changan alsvin sedan, explora todos los beneficios exclusivos que tenemos para tí."
+    },
+    {
+        "brand": "changan",
+        "model_slug": "hunter",
+        "version_slug": "hunter-19t-mt-4x4-comfort",
+        "title": "Camioneta Changan hunter 4x4 nueva cyber 2022| Dercocenter",
+        "description": "Este cyber monday 2022 descubre nuestra nueva Camioneta Changan hunter 4x4, explora todos los beneficios exclusivos que tenemos para tí.",
+        "keywords (separados x coma)": "CYBER, CYBERMONDAY, CYBERDAY, DERCO, DERCOCENTER, HUNTER, CHANGAN, 4X4"
+    },
+    {
+        "brand": "changan",
+        "model_slug": "hunter",
+        "version_slug": "hunter-4x2-comfort",
+        "title": "Camioneta Changan hunter 4x2 comfort nueva cyber 2022| Dercocenter",
+        "description": "Este cyber monday 2022 descubre nuestra nueva Camioneta Changan hunter 4x2 comfort, explora todos los beneficios exclusivos que tenemos para tí.",
+        "keywords (separados x coma)": "CYBER, CYBERMONDAY, CYBERDAY, DERCO, DERCOCENTER, HUNTER, CHANGAN, 4X2"
+    },
+    {
+        "brand": "changan",
+        "model_slug": "hunter",
+        "version_slug": "hunter-4x2-luxury",
+        "title": "Camioneta Changan hunter 4x2 doble cabina nuevas cyber 2022| Dercocenter",
+        "description": "Este cyber monday 2022 descubre nuestra nueva Camioneta Changan hunter 4x2 doble cabina, explora todos los beneficios exclusivos que tenemos para tí.",
+        "keywords (separados x coma)": "CYBER, CYBERMONDAY, CYBERDAY, DERCO, DERCOCENTER, HUNTER, CHANGAN, 4X2"
+    },
+    {
+        "brand": "dercocenter",
+        "model_slug": "10000",
+        "version_slug": "camioneta-diesel-10000",
+        "title": "Cyber 2022 Mantención de 10.000 kms para Camionetas diesel | Dercocenter",
+        "description": "Este cyber monday 2022 descubre los beneficios que tenemos en la Mantención de 10.000 kms para Camionetas diesel",
+        "keywords (separados x coma)": "CYBER, CYBERMONDAY, CYBERDAY, DERCO, DERCOCENTER, MANTENCION, CAMIONETA, 10.000, DIESEL, PICKUP"
+    },
+    {
+        "brand": "dercocenter",
+        "model_slug": "10000",
+        "version_slug": "camioneta-gasolina-10000",
+        "title": "Cyber 2022 Mantención de 10.000 kms para Camioneta  | Dercocenter",
+        "description": "Este cyber monday 2022 descubre los beneficios que tenemos en la Mantención de 10.000 kms para Camioneta",
+        "keywords (separados x coma)": "CYBER, CYBERMONDAY, CYBERDAY, DERCO, DERCOCENTER, MANTENCION, CAMIONETA, 10.000, GASOLINA, PICKUP"
+    },
+    {
+        "brand": "dercocenter",
+        "model_slug": "10000",
+        "version_slug": "citycar-10000",
+        "title": "Cyber 2022 Mantención de 10.000 kms para Citycar | Dercocenter",
+        "description": "Este cyber monday 2022 descubre los beneficios que tenemos en la Mantención de 10.000 kms para Citycar",
+        "keywords (separados x coma)": "CYBER, CYBERMONDAY, CYBERDAY, DERCO, DERCOCENTER, MANTENCION, CITYCAR, 10.000"
+    },
+    {
+        "brand": "dercocenter",
+        "model_slug": "10000",
+        "version_slug": "hatchback-10000",
+        "title": "Cyber 2022 Mantención de 10.000 kms para Hatchback | Dercocenter",
+        "description": "Este cyber monday 2022 descubre los beneficios que tenemos en la Mantención de 10.000 kms para Hatchback",
+        "keywords (separados x coma)": "CYBER, CYBERMONDAY, CYBERDAY, DERCO, DERCOCENTER, MANTENCION, HATCHBACK, 10.000"
+    },
+    {
+        "brand": "dercocenter",
+        "model_slug": "10000",
+        "version_slug": "sedan-10000",
+        "title": "Cyber 2022 Mantención de 10.000 kms para Autos Sedan | Dercocenter",
+        "description": "Este cyber monday 2022 descubre los beneficios que tenemos en la Mantención de 10.000 kms para Autos Sedan",
+        "keywords (separados x coma)": "CYBER, CYBERMONDAY, CYBERDAY, DERCO, DERCOCENTER, MANTENCION, SEDAN, 10.000"
+    },
+    {
+        "brand": "dercocenter",
+        "model_slug": "10000",
+        "version_slug": "suv-mediano-10000",
+        "title": "Cyber 2022 Mantención de 10.000 kms para SUV economicos compactos | Dercocenter",
+        "description": "Este cyber monday 2022 descubre los beneficios que tenemos en la Mantención de 10.000 kms para SUV economicos compactos",
+        "keywords (separados x coma)": "CYBER, CYBERMONDAY, CYBERDAY, DERCO, DERCOCENTER, MANTENCION, SUV, MEDIANO, 10.000"
+    },
+    {
+        "brand": "dercocenter",
+        "model_slug": "10000",
+        "version_slug": "suv-xl-10000",
+        "title": "Cyber 2022 Mantención de 10.000 kms para SUV familiar automaticos | Dercocenter",
+        "description": "Este cyber monday 2022 descubre los beneficios que tenemos en la Mantención de 10.000 kms para SUV familiar automaticos",
+        "keywords (separados x coma)": "CYBER, CYBERMONDAY, CYBERDAY, DERCO, DERCOCENTER, MANTENCION, SUV, XL, 10.000"
+    },
+    {
+        "brand": "dercocenter",
+        "model_slug": "20000",
+        "version_slug": "camioneta-diesel-20000",
+        "title": "Cyber 2022 Mantención de 20.000 kms para Camionetas diesel | Dercocenter",
+        "description": "Este cyber monday 2022 descubre los beneficios que tenemos en la Mantención de 20.000 kms para Camionetas diesel",
+        "keywords (separados x coma)": "CYBER, CYBERMONDAY, CYBERDAY, DERCO, DERCOCENTER, MANTENCION, CAMIONETA, 20.000, DIESEL, PICKUP"
+    },
+    {
+        "brand": "dercocenter",
+        "model_slug": "20000",
+        "version_slug": "camioneta-gasolina-20000",
+        "title": "Cyber 2022 Mantención de 20.000 kms para Camionetas bencineras | Dercocenter",
+        "description": "Este cyber monday 2022 descubre los beneficios que tenemos en la Mantención de 20.000 kms para Camionetas bencineras",
+        "keywords (separados x coma)": "CYBER, CYBERMONDAY, CYBERDAY, DERCO, DERCOCENTER, MANTENCION, CAMIONETA, 20.000, GASOLINA, PICKUP"
+    },
+    {
+        "brand": "dercocenter",
+        "model_slug": "20000",
+        "version_slug": "citycar-20000",
+        "title": "Cyber 2022 Mantención de 20.000 kms para Autos Citycar | Dercocenter",
+        "description": "Este cyber monday 2022 descubre los beneficios que tenemos en la Mantención de 20.000 kms para Autos Citycar",
+        "keywords (separados x coma)": "CYBER, CYBERMONDAY, CYBERDAY, DERCO, DERCOCENTER, MANTENCION, CITYCAR, 20.000"
+    },
+    {
+        "brand": "dercocenter",
+        "model_slug": "20000",
+        "version_slug": "hatchback-20000",
+        "title": "Cyber 2022 Mantención de 20.000 kms para Autos Hatchback | Dercocenter",
+        "description": "Este cyber monday 2022 descubre los beneficios que tenemos en la Mantención de 20.000 kms para Autos Hatchback",
+        "keywords (separados x coma)": "CYBER, CYBERMONDAY, CYBERDAY, DERCO, DERCOCENTER, MANTENCION, HATCHBACK, 20.000"
+    },
+    {
+        "brand": "dercocenter",
+        "model_slug": "20000",
+        "version_slug": "sedan-20000",
+        "title": "Cyber 2022 Mantención de 20.000 kms para auto sedan | Dercocenter",
+        "description": "Este cyber monday 2022 descubre los beneficios que tenemos en la Mantención de 20.000 kms para auto sedan",
+        "keywords (separados x coma)": "CYBER, CYBERMONDAY, CYBERDAY, DERCO, DERCOCENTER, MANTENCION, SEDAN, 20.000"
+    },
+    {
+        "brand": "dercocenter",
+        "model_slug": "20000",
+        "version_slug": "suv-mediano-20000",
+        "title": "Cyber 2022 Mantención de 20.000 kms para SUV | Dercocenter",
+        "description": "Este cyber monday 2022 descubre los beneficios que tenemos en la Mantención de 20.000 kms para SUV cyber monday 2022",
+        "keywords (separados x coma)": "CYBER, CYBERMONDAY, CYBERDAY, DERCO, DERCOCENTER, MANTENCION, SUV, MEDIANO, 20.000"
+    },
+    {
+        "brand": "dercocenter",
+        "model_slug": "20000",
+        "version_slug": "suv-xl-20000",
+        "title": "Cyber 2022 Mantención de 20.000 kms SUV familiares | Dercocenter",
+        "description": "Este cyber monday 2022 descubre los beneficios que tenemos en la Mantención de 20.000 kms SUV familiares cyber monday 2022",
+        "keywords (separados x coma)": "CYBER, CYBERMONDAY, CYBERDAY, DERCO, DERCOCENTER, MANTENCION, SUV, XL, 20.000"
+    },
+    {
+        "brand": "dercocenter",
+        "model_slug": "30000",
+        "version_slug": "camioneta-diesel-30000",
+        "title": "Cyber 2022 Mantención de 30.000 kms Camionetas diesel | Dercocenter",
+        "description": "Este cyber monday 2022 descubre los beneficios que tenemos en la Mantención de 30.000 kms Camionetas diesel",
+        "keywords (separados x coma)": "CYBER, CYBERMONDAY, CYBERDAY, DERCO, DERCOCENTER, MANTENCION, CAMIONETA, 30.000, DIESEL, PICKUP"
+    },
+    {
+        "brand": "dercocenter",
+        "model_slug": "30000",
+        "version_slug": "camioneta-gasolina-30000",
+        "title": "Cyber 2022 Mantención de 30.000 kms para Camionetas  | Dercocenter",
+        "description": "Este cyber monday 2022 descubre los beneficios que tenemos en la Mantención de 30.000 kms para Camionetas",
+        "keywords (separados x coma)": "CYBER, CYBERMONDAY, CYBERDAY, DERCO, DERCOCENTER, MANTENCION, CAMIONETA, 30.000, GASOLINA, PICKUP"
+    },
+    {
+        "brand": "dercocenter",
+        "model_slug": "30000",
+        "version_slug": "citycar-30000",
+        "title": "Cyber 2022 Mantención de 30.000 kms para Citycar | Dercocenter",
+        "description": "Este cyber monday 2022 descubre los beneficios que tenemos en la Mantención de 30.000 kms para Citycar",
+        "keywords (separados x coma)": "CYBER, CYBERMONDAY, CYBERDAY, DERCO, DERCOCENTER, MANTENCION, CITYCAR, 30.000"
+    },
+    {
+        "brand": "dercocenter",
+        "model_slug": "30000",
+        "version_slug": "hatchback-30000",
+        "title": "Cyber 2022 Mantención de 30.000 kms para Hatchback | Dercocenter",
+        "description": "Este cyber monday 2022 descubre los beneficios que tenemos en la Mantención de 30.000 kms para Hatchback",
+        "keywords (separados x coma)": "CYBER, CYBERMONDAY, CYBERDAY, DERCO, DERCOCENTER, MANTENCION, HATCHBACK, 30.000"
+    },
+    {
+        "brand": "dercocenter",
+        "model_slug": "30000",
+        "version_slug": "sedan-30000",
+        "title": "Cyber 2022 Mantención de 30.000 kms para  Sedan familiares | Dercocenter",
+        "description": "Este cyber monday 2022 descubre los beneficios que tenemos en la Mantención de 30.000 kms para Sedan familiares",
+        "keywords (separados x coma)": "CYBER, CYBERMONDAY, CYBERDAY, DERCO, DERCOCENTER, MANTENCION, SEDAN, 30.000"
+    },
+    {
+        "brand": "dercocenter",
+        "model_slug": "30000",
+        "version_slug": "suv-mediano-30000",
+        "title": "Cyber 2022 Mantención de 30.000 kms para SUV medianos | Dercocenter",
+        "description": "Este cyber monday 2022 descubre los beneficios que tenemos en la Mantención de 30.000 kms para SUV medianos",
+        "keywords (separados x coma)": "CYBER, CYBERMONDAY, CYBERDAY, DERCO, DERCOCENTER, MANTENCION, SUV, MEDIANO, 30.000"
+    },
+    {
+        "brand": "dercocenter",
+        "model_slug": "30000",
+        "version_slug": "suv-xl-30000",
+        "title": "Cyber 2022 Mantención de 30.000 kms para SUV familiares | Dercocenter",
+        "description": "Este cyber monday 2022 descubre los beneficios que tenemos en la Mantención de 30.000 kms para SUV familiares",
+        "keywords (separados x coma)": "CYBER, CYBERMONDAY, CYBERDAY, DERCO, DERCOCENTER, MANTENCION, SUV, XL, 30.000"
+    },
+    {
+        "brand": "great-wall",
+        "model_slug": "poer-mt",
+        "version_slug": "poer-20-td-4x2-elite",
+        "title": "Camioneta Greatwall Poer nueva cyber 2022 | Dercocenter",
+        "description": "Este cyber monday 2022 descubre nuestra nueva Camioneta Greatwall Poer, explora todos los beneficios exclusivos que tenemos para tí.",
+        "keywords (separados x coma)": "CYBER, CYBERMONDAY, CYBERDAY, DERCO, DERCOCENTER, POER, GREATWALL, 4X2"
+    },
+    {
+        "brand": "haval",
+        "model_slug": "jolion-mt",
+        "version_slug": "haval-jolion-15t-mt-4x2-active",
+        "title": "SUV Haval Jolion active compactos cyber 2022 | Dercocenter",
+        "description": "Este cyber monday 2022 descubre nuestro nuevo SUV Haval Jolion active compacto, explora aquí todos los beneficios exclusivos que tenemos para tí.",
+        "keywords (separados x coma)": "CYBER, CYBERMONDAY, CYBERDAY, DERCO, DERCOCENTER, JOLION, HAVAL, 4X2"
+    },
+    {
+        "brand": "haval",
+        "model_slug": "jolion-mt",
+        "version_slug": "haval-jolion-15t-mt-4x2-elite",
+        "title": "SUV Haval Jolion elite compactos cyber 2022 | Dercocenter",
+        "description": "Este cyber monday 2022 descubre nuestro nuevo SUV Haval Jolion elite compacto, explora aquí todos los beneficios exclusivos que tenemos para tí.",
+        "keywords (separados x coma)": "CYBER, CYBERMONDAY, CYBERDAY, DERCO, DERCOCENTER, JOLION, HAVAL, 4X2"
+    },
+    {
+        "brand": "jac",
+        "model_slug": "js2",
+        "version_slug": "comfort-smart",
+        "title": "SUV JAC JS2 pequeño nuevo cyber 2022 | Dercocenter",
+        "description": "Este cyber monday 2022 descubre nuestro nuevo SUV JAC JS2 pequeño, explora aquí todos los beneficios exclusivos que tenemos para tí.",
+        "keywords (separados x coma)": "CYBER, CYBERMONDAY, CYBERDAY, DERCO, DERCOCENTER, JS2, JAC"
+    },
+    {
+        "brand": "jac",
+        "model_slug": "js3",
+        "version_slug": "16-comfort",
+        "title": "SUV JAC JS3 mediano nuevo cyber 2022 | Dercocenter",
+        "description": "Este cyber monday 2022 descubre nuestro nuevo SUV JAC JS3 mediano, explora aquí todos los beneficios exclusivos que tenemos para tí.",
+        "keywords (separados x coma)": "CYBER, CYBERMONDAY, CYBERDAY, DERCO, DERCOCENTER, JS3, JAC"
+    },
+    {
+        "brand": "jac",
+        "model_slug": "js4",
+        "version_slug": "15-luxury",
+        "title": "SUV JAC JS4 compacto luxury nuevo cyber 2022 | Dercocenter",
+        "description": "Este cyber monday 2022 descubre nuestro nuevo SUV JAC JS4 compacto luxury, explora aquí todos los beneficios exclusivos que tenemos para tí.",
+        "keywords (separados x coma)": "CYBER, CYBERMONDAY, CYBERDAY, DERCO, DERCOCENTER, JS4, JAC"
+    },
+    {
+        "brand": "jac",
+        "model_slug": "js4",
+        "version_slug": "16-comfort",
+        "title": "SUV JAC JS4 compacto comfort nuevo cyber 2022 | Dercocenter",
+        "description": "Este cyber monday 2022 descubre nuestro nuevo SUV JAC JS4 compacto comfort, explora aquí todos los beneficios exclusivos que tenemos para tí.",
+        "keywords (separados x coma)": "CYBER, CYBERMONDAY, CYBERDAY, DERCO, DERCOCENTER, JS4, JAC"
+    },
+    {
+        "brand": "jac",
+        "model_slug": "js8",
+        "version_slug": "comfort-ce-6mt",
+        "title": "SUV JAC JS8 familiar comfort nuevo 3 filas cyber 2022| Dercocenter",
+        "description": "Este cyber monday 2022 descubre nuestro nuevo SUV JAC JS8 familiar comfort 3 filas, explora aquí todos los beneficios exclusivos que tenemos para tí.",
+        "keywords (separados x coma)": "CYBER, CYBERMONDAY, CYBERDAY, DERCO, DERCOCENTER, JS8, JAC"
+    },
+    {
+        "brand": "jac",
+        "model_slug": "js8",
+        "version_slug": "luxury-se-6mt",
+        "title": "SUV JAC JS8 luxury familiar nuevo 3 filas cyber 2022 | Dercocenter",
+        "description": "Este cyber monday 2022 descubre nuestro nuevo SUV JAC JS8 luxury familiar 3 filas, explora aquí todos los beneficios exclusivos que tenemos para tí.",
+        "keywords (separados x coma)": "CYBER, CYBERMONDAY, CYBERDAY, DERCO, DERCOCENTER, JS8, JAC"
+    },
+    {
+        "brand": "jac",
+        "model_slug": "t6-diesel",
+        "version_slug": "ce-comfort-20t-diesel-mt-4x2",
+        "title": "Camioneta JAC T6 diesel doble cabina nueva cyber 2022 | Dercocenter",
+        "description": "Este cyber monday 2022 descubre nuestra nueva Camioneta JAC T6 diesel doble cabina, explora todos los beneficios exclusivos que tenemos para tí.",
+        "keywords (separados x coma)": "CYBER, CYBERMONDAY, CYBERDAY, DERCO, DERCOCENTER, T6, JAC"
+    },
+    {
+        "brand": "jac",
+        "model_slug": "t8",
+        "version_slug": "ce-comfort-20t-diesel-mt-4x2",
+        "title": "Camioneta JAC T8 comfort 4x2 diesel cyber 2022 | Dercocenter",
+        "description": "Este cyber monday 2022 descubre nuestra nueva Camioneta JAC T8 comfort 4x2 diesel, explora todos los beneficios exclusivos que tenemos para tí.",
+        "keywords (separados x coma)": "CYBER, CYBERMONDAY, CYBERDAY, DERCO, DERCOCENTER, T8, JAC"
+    },
+    {
+        "brand": "jac",
+        "model_slug": "t8",
+        "version_slug": "ce-comfort-20t-diesel-mt-4x4",
+        "title": "Camioneta JAC T8 comfort 4x4 diesel cyber 2022 | Dercocenter",
+        "description": "Este cyber monday 2022 descubre nuestra nueva Camioneta JAC T8 comfort 4x4 diesel, explora todos los beneficios exclusivos que tenemos para tí.",
+        "keywords (separados x coma)": "CYBER, CYBERMONDAY, CYBERDAY, DERCO, DERCOCENTER, T8, JAC"
+    },
+    {
+        "brand": "jac",
+        "model_slug": "t8",
+        "version_slug": "xe-advance-20t-diesel-mt-4x2-ii",
+        "title": "Camioneta JAC T8 advance 4x2 diesel cyber 2022 | Dercocenter",
+        "description": "Este cyber monday 2022 descubre nuestra nueva Camioneta JAC T8 advance 4x2 diesel, explora todos los beneficios exclusivos que tenemos para tí.",
+        "keywords (separados x coma)": "CYBER, CYBERMONDAY, CYBERDAY, DERCO, DERCOCENTER, T8, JAC"
+    },
+    {
+        "brand": "jac",
+        "model_slug": "t8",
+        "version_slug": "xe-advance-20t-diesel-mt-4x4-ii",
+        "title": "Camioneta JAC T8 advance 4x4 diesel cyber 2022 | Dercocenter",
+        "description": "Este cyber monday 2022 descubre nuestra nueva Camioneta JAC T8 advance 4x4 diesel, explora todos los beneficios exclusivos que tenemos para tí.",
+        "keywords (separados x coma)": "CYBER, CYBERMONDAY, CYBERDAY, DERCO, DERCOCENTER, T8, JAC"
+    },
+    {
+        "brand": "jac",
+        "model_slug": "t8-pro",
+        "version_slug": "diesel-luxury-4x2",
+        "title": "Camioneta JAC T8 pro 4x2 nueva diesel cyber 2022 | Dercocenter",
+        "description": "Este cyber monday 2022 descubre nuestra nueva Camioneta JAC T8 pro 4x2 diesel, explora todos los beneficios exclusivos que tenemos para tí.",
+        "keywords (separados x coma)": "CYBER, CYBERMONDAY, CYBERDAY, DERCO, DERCOCENTER, T8 PRO, JAC, CAMIONETA, PICKUP, 4X2, DIESEL, PRECIO, FINANCIAMIENTO, STOCK, SEGURIDAD, ISOFIX, CAMIONETA CHINA, MEJOR CAMIONETA CHINA, CAMIONETA BUENA, CAMIONETA SEGURA, CAMIONETA POTENTE, CAMIONETA BARATA, CAMIONETA 4X2"
+    },
+    {
+        "brand": "jac",
+        "model_slug": "t8-pro",
+        "version_slug": "diesel-luxury-4x4",
+        "title": "Camioneta JAC T8 pro 4x4 nueva diesel cyber 2022 | Dercocenter",
+        "description": "Este cyber monday 2022 descubre nuestra nueva Camioneta JAC T8 pro 4x4 diesel, explora todos los beneficios exclusivos que tenemos para tí.",
+        "keywords (separados x coma)": "CYBER, CYBERMONDAY, CYBERDAY, DERCO, DERCOCENTER, T8 PRO, JAC, CAMIONETA, PICKUP, 4X2, DIESEL, PRECIO, FINANCIAMIENTO, STOCK, SEGURIDAD, ISOFIX, CAMIONETA CHINA, MEJOR CAMIONETA CHINA, CAMIONETA BUENA, CAMIONETA SEGURA, CAMIONETA POTENTE, CAMIONETA BARATA, CAMIONETA 4X2"
+    }
+]
+
 
 export const modelos = [
     {

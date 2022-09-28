@@ -15,8 +15,9 @@ import {
   getSubsStoreInfo,
   getVersionStoreInfo,
 } from "../../../../../utils/getVersionStoreInfo";
+import { titleSeo } from "../../../../../database/constants";
 
-const MaintenancePage = ({ models, regions }) => {
+const MaintenancePage = ({ models, regions, titleSEO }) => {
   const [step, setStep] = useState(1);
   const [model, setModel] = useState({});
   const [msg, setMsg] = useState(false);
@@ -57,6 +58,7 @@ const MaintenancePage = ({ models, regions }) => {
       title={`Cyber 2022 Mantención de ${models[0].version_name} km  | DercoCenter  `}
       image={models[0].image_url}
       keywords={`${models[0].model_name} - ${models[0].version_name} | DercoCenter - ${models[0].brand_name}`}
+      pageDescription={titleSEO.description}
     >
       <div className={`page_reserva_mantencion ${step == 3 ? "success" : ""}`}>
         <div className={`container ${step == 3 ? "success" : ""}`}>
@@ -207,10 +209,16 @@ export const getStaticProps = async ({ params }) => {
       },
     };
   }
+  const titleSEO = titleSeo.filter(
+    (t) =>
+      t.brand === brand_slug &&
+      t.model_slug === model_slug &&
+      t.version_slug === version_slug
+  )[0];
 
   return {
     // Passed to the page component as props
-    props: { models, regions },
+    props: { models, regions, titleSEO },
     revalidate: 1,
   };
 };

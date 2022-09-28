@@ -26,12 +26,13 @@ import {
 } from "../../../../../utils/getVersionStoreInfo";
 import { DownloadCar } from "../../../../../components/ui/DownloadCar";
 import ErrorStep from "../../../../../components/preventa/ErrorStep";
+import { titleSeo } from "../../../../../database/constants";
 
 // interface Props {
 //   model: Auto;
 // }
 
-const CarPage = ({ models, regions }) => {
+const CarPage = ({ models, regions, titleSEO }) => {
   const [step, setStep] = useState(1);
   const [data, setData] = useState({
     user: {
@@ -144,6 +145,7 @@ const CarPage = ({ models, regions }) => {
       title={`${models[0].brand_name} ${models[0].model_name} ${models[0].version_name} cyber 2022 | DercoCenter - `}
       image={models[0].image_url}
       keywords={`${models[0].model_name} - ${models[0].version_name} | DercoCenter - ${models[0].brand_name}`}
+      pageDescription={titleSEO.description}
     >
       {colors?.length > 0 ? (
         <>
@@ -410,9 +412,16 @@ export const getStaticProps = async ({ params }) => {
     };
   }
 
+  const titleSEO = titleSeo.filter(
+    (t) =>
+      t.brand === brand_slug &&
+      t.model_slug === model_slug &&
+      t.version_slug === version_slug
+  )[0];
+
   return {
     // Passed to the page component as props
-    props: { models, regions },
+    props: { models, regions, titleSEO },
     revalidate: 1,
   };
 };
