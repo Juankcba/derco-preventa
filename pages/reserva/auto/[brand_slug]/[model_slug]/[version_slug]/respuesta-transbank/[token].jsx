@@ -65,17 +65,8 @@ const TokenTransBank = () => {
                   <Row className="preventa-prices">
                     <Text className="price-primary">
                       {order.request_financing == 1
-                        ? currency.format(
-                            order.car.list_price -
-                              (order.car.list_price -
-                                order.car.brand_price +
-                                order.car.list_price -
-                                order.car.financial_price)
-                          )
-                        : currency.format(
-                            order.car.list_price -
-                              (order.car.list_price - order.brand_price)
-                          )}
+                        ? currency.format(order.car.financial_price)
+                        : currency.format(order.brand_price)}
                       *
                     </Text>
                     <Text className="price-before">
@@ -91,7 +82,7 @@ const TokenTransBank = () => {
                       <Text className="price-bonos">
                         Bono financiamiento:{" "}
                         {currency.format(
-                          order.car.list_price - order.car.financial_price
+                          order.car.brand_price - order.car.financial_price
                         )}
                       </Text>
                     ) : (
@@ -148,7 +139,7 @@ const TokenTransBank = () => {
               </Grid.Container>
             </Grid>
             <Grid xs={12} md={5}>
-              <CardSummary order={order} />
+              <CardSummary order={order} mantencion={false} />
             </Grid>
           </>
         )}

@@ -2,7 +2,7 @@ import { Card, Row, Text } from "@nextui-org/react";
 import Image from "next/image";
 import React from "react";
 
-const CardStatus = ({ status, id, matencion }) => {
+const CardStatusReserva = ({ status, id }) => {
   return (
     <Card
       variant="bordered"
@@ -17,7 +17,7 @@ const CardStatus = ({ status, id, matencion }) => {
         {status === "0" && (
           <>
             <Text css={{ textAlign: "center" }}>
-              Tu código de {matencion ? "mantención " : "reserva"} es
+              Tu código de mantención es
             </Text>
             <Text
               h5
@@ -70,4 +70,4 @@ const CardStatus = ({ status, id, matencion }) => {
   );
 };
 
-export default CardStatus;
+export default CardStatusReserva;

@@ -1,12 +1,12 @@
 import { Button, Card, Row, Text, Link, Image } from "@nextui-org/react";
 import React, { useState, useEffect, useRef } from "react";
-import { currency } from "../../utils";
-import CardStatus from "./CardStatus";
+import { currency, numberMil } from "../../utils";
+import CardStatusReserva from "./CardStatusReserva";
 import NextLink from "next/link";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import storeApi from "./../../apis/storeApi";
 
-const CardSummary = ({ order, mantencion }) => {
+const CardSummaryReserva = ({ order, mantencion }) => {
   const { status } = order;
   const { first_name, last_name, rut, phone, email } = order.customer;
   const [newOrden, setNewOrden] = useState(null);
@@ -41,34 +41,20 @@ const CardSummary = ({ order, mantencion }) => {
       }}
     >
       <Card.Body>
-        {status === "0" && !mantencion && (
-          <>
-            <Text h1 className="reserva-summary-title">
-              ¡Felicitaciones por tu reserva!
-            </Text>
-            <Text h2 className="reserva-summary-subtitle">
-              {first_name} {last_name}
-            </Text>
-            <CardStatus status={status} id={order.purchase_order} />
-          </>
-        )}
-        {status === "0" && mantencion && (
+        {status === "0" && (
           <>
             <Text h1 className="reserva-summary-title">
               ¡Compraste una mantencion de{" "}
-              {new Intl.NumberFormat("es-CL").format(
-                parseInt(order.car.model_name, 10)
-              )}{" "}
-              km!
+              {numberMil.format(parseInt(order.car.model_name, 10))} km!
             </Text>
             <Text h2 className="reserva-summary-subtitle">
               {first_name} {last_name}
             </Text>
-            <CardStatus
-              status={status}
-              id={order.purchase_order}
-              matencion={mantencion}
-            />
+            <CardStatusReserva status={status} id={order.purchase_order} />
+            <Text h3 className="reserva-mantencion-summary-subtitle">
+              Te enviaremos los detalles a tu correo junto con la factura de tu
+              compra, en las siguientes 48hs.
+            </Text>
           </>
         )}
         {status === "403" && (
@@ -78,11 +64,11 @@ const CardSummary = ({ order, mantencion }) => {
             </Text>
             <Text h2>Quizas se agotó el tiempo de espera</Text>
             <Text h3>
-              Tu reserva no se ha realizado, por favor selecciona el auto
+              Tu reserva no se ha realizado, por favor selecciona una mantención
               nuevamente.
             </Text>
             <NextLink
-              href={`/reserva/auto/${order.car.brand.slug}/${order.car.model_slug}/${order.car.version_slug}`}
+              href={`/reserva/mantencion/${order.car.brand.slug}/${order.car.model_slug}/${order.car.version_slug}`}
               passHref
               css={{ width: "100%" }}
             >
@@ -104,12 +90,12 @@ const CardSummary = ({ order, mantencion }) => {
               {first_name} {last_name}{" "}
             </Text>
             <Text h2>Hemos tenido problemas al procesar el pago</Text>
-            <CardStatus status={status} />
+            <CardStatusReserva status={status} id={order.purchase_order} />
             <Text h3 css={{ marginTop: "24px" }}>
               Tu reserva no se ha realizado
             </Text>
             <Text h4 css={{ marginTop: "8px" }}>
-              Valor reserva $200.000
+              Valor reserva {currency.format(order.amount)}
             </Text>
             <div>
               <Button
@@ -140,6 +126,28 @@ const CardSummary = ({ order, mantencion }) => {
             display: "flex",
             justifyContent: "flex-start",
             flexDirection: "column",
+            marginBottom: "16px",
+          }}
+          className="reserva-summary-detail"
+        >
+          <Text>
+            Patente: <span>{order.patente}</span>
+          </Text>
+          <Text>
+            Kilometraje actual:{" "}
+            <span>{numberMil.format(parseInt(order.km, 10))} km</span>
+          </Text>
+          <Text>Concesionario seleccionado:</Text>
+          <Text>
+            <span>{order.subsidiary.name}</span>
+          </Text>
+        </Row>
+
+        <Row
+          css={{
+            display: "flex",
+            justifyContent: "flex-start",
+            flexDirection: "column",
           }}
           className="reserva-summary-detail"
         >
@@ -157,10 +165,6 @@ const CardSummary = ({ order, mantencion }) => {
           </Text>
           <Text>
             Email: <span>{email}</span>
-          </Text>
-          <Text>Concesionario seleccionado:</Text>
-          <Text>
-            <span>{order.subsidiary.name}</span>
           </Text>
         </Row>
         <Card.Divider css={{ margin: "24px 0" }}></Card.Divider>
@@ -227,4 +231,4 @@ const CardSummary = ({ order, mantencion }) => {
   );
 };
 
-export default CardSummary;
+export default CardSummaryReserva;
