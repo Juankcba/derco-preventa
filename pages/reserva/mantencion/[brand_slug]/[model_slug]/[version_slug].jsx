@@ -11,6 +11,7 @@ import { Button } from "@nextui-org/react";
 import { storeApi } from "../../../../../apis";
 import { currency } from "../../../../../utils";
 import {
+  getModelVersionStoreInfo,
   getSubsStoreInfo,
   getVersionStoreInfo,
 } from "../../../../../utils/getVersionStoreInfo";
@@ -182,7 +183,9 @@ export async function getStaticPaths() {
 export const getStaticProps = async ({ params }) => {
   const { version_slug, brand_slug, model_slug } = params;
 
-  const models = await getVersionStoreInfo(`${model_slug}/${version_slug}`);
+  const models = await getModelVersionStoreInfo(
+    `${model_slug}/${version_slug}`
+  );
 
   const { status, data } = await getSubsStoreInfo(
     `subsidiaries?brand_slug=${brand_slug}&services=mantencion`
