@@ -25,6 +25,7 @@ interface Props {
   pageDescription?: string;
   image?: string;
   titleNavbar?: string;
+  start?: boolean;
 }
 
 const origin = typeof window === "undefined" ? "" : window.location.origin;
@@ -35,6 +36,7 @@ export const Layout: FC<PropsWithChildren<Props>> = ({
   titleNavbar,
   pageDescription,
   image,
+  start,
 }) => {
   const { theme } = useTheme();
 
@@ -51,11 +53,20 @@ export const Layout: FC<PropsWithChildren<Props>> = ({
         <meta name="keywords" content={`${title}, autos, dercocenter`} />
 
         <meta property="og:title" content={`${title}`} />
+        <meta itemProp="image" content={image || `${origin}/logo.png`} />
         <meta
           property="og:description"
           content={pageDescription || `${title}`}
         />
         <meta property="og:image" content={image || `${origin}/logo.png`} />
+        <meta name="twitter:card" content={title || "Dercocenter"} />
+        <meta name="twitter:site" content={title || "Dercocenter"} />
+        <meta name="twitter:title" content={title || "Dercocenter"} />
+        <meta
+          name="twitter:description"
+          content={pageDescription || "Dercocenter"}
+        />
+        <meta name="twitter:image" content={image || `${origin}/logo.png`} />
       </Head>
 
       <NavBarCustom titlePage={titleNavbar} />
@@ -71,7 +82,7 @@ export const Layout: FC<PropsWithChildren<Props>> = ({
       </main>
       <Footer />
 
-      <FilterNavBar />
+      {!start && <FilterNavBar />}
     </Box>
   );
 };

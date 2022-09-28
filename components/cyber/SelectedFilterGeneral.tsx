@@ -30,6 +30,7 @@ const SelectedFilterGeneral: FC = () => {
     <Container css={{ padding: 0 }}>
       {!isMantenciones ? (
         <Text
+          h1
           className="text-reserva"
           css={{ color: "white", textAlign: "center" }}
         >
@@ -39,6 +40,7 @@ const SelectedFilterGeneral: FC = () => {
       ) : (
         <>
           <Text
+            h1
             className="text-reserva"
             css={{ color: "white", textAlign: "center" }}
           >
@@ -48,7 +50,7 @@ const SelectedFilterGeneral: FC = () => {
           <Button
             color="secondary"
             className="btn-secondary"
-            onClick={() => handlerModal(true)}
+            onPress={() => handlerModal(true)}
             css={{
               margin: "16px auto 0",
               fontWeight: 900,
@@ -76,7 +78,7 @@ const SelectedFilterGeneral: FC = () => {
             className={
               !isMantenciones ? "btn-active group" : "btn-deactive group"
             }
-            onClick={() => handleClick(false)}
+            onPress={() => handleClick(false)}
           >
             Vehículos
           </Button>
@@ -85,7 +87,7 @@ const SelectedFilterGeneral: FC = () => {
             className={
               isMantenciones ? "btn-active group" : "btn-deactive group"
             }
-            onClick={() => handleClick(true)}
+            onPress={() => handleClick(true)}
           >
             Mantenciones
           </Button>

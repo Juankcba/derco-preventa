@@ -1,0 +1,631 @@
+.page_reserva_mantencion {
+  background-image: url("https://s3.amazonaws.com/dercocenter.cl/cyber/backgorund-page-maintenance.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  padding: 40px 100px;
+  position: relative;
+
+  &.success {
+    background-size: 100% auto;
+    background-position: initial;
+    background-color: #f6f5f5;
+  }
+
+  &.success,
+  .success {
+    height: auto !important;
+  }
+
+  .container {
+    height: 100vh;
+  }
+
+  .img_mobile {
+    display: none;
+  }
+
+  @media (max-width: 575.98px) {
+    background-image: unset;
+    width: 100%;
+    padding: 80px 16px 100px;
+    //margin-bottom: 24px;
+    height: unset;
+
+    .container {
+      height: auto;
+    }
+
+    .img_mobile {
+      display: block;
+      margin: 0 auto;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+  }
+
+  .discount_mobile {
+    display: none;
+  }
+
+  @media (max-width: 575.98px) {
+    .discount_mobile {
+      display: block;
+      position: absolute;
+      justify-content: center;
+      align-items: center;
+      padding: 4px 16px;
+      width: 80px;
+      height: 37px;
+      background: #e0102c;
+      border-radius: 0px 0px 0px 32px;
+      top: 0;
+      right: 0;
+
+      .discount__number {
+        font-family: "Lato";
+        font-style: normal;
+        font-weight: 700;
+        font-size: 24px;
+        line-height: 29px;
+        color: #ffffff;
+      }
+    }
+  }
+
+  .content {
+    display: flex;
+    justify-content: flex-end;
+    position: relative;
+
+    @media (max-width: 575.98px) {
+      position: relative;
+    }
+
+    .card {
+      width: 503px;
+      height: auto;
+      background: #ffffff;
+      box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 16px;
+      position: relative;
+      padding: 32px;
+      z-index: 99;
+      margin-bottom: 60px;
+
+      @media (max-width: 575.98px) {
+        margin-bottom: unset;
+        padding: 16px;
+      }
+
+      .error_verify_maintenance,
+      .success_verify_maintenance {
+        .card__body .card__body__title {
+          font-weight: 700;
+          font-size: 20px;
+          line-height: 24px;
+        }
+
+        .card__body .card__body__text {
+          font-weight: 400;
+          font-size: 14px;
+          line-height: 17px;
+          color: #57585c;
+        }
+
+        .message_error,
+        .message_success {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 16px 20px;
+          gap: 8px;
+          border-radius: 6px;
+
+          .message_error__text {
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 23px;
+            color: #191919;
+          }
+
+          &.error {
+            border: 2px solid #ff4242;
+            background: #fff0f0;
+            margin: 16px 0;
+          }
+
+          &.success {
+            border: 2px solid #1edc48;
+            background: #edfdf0;
+            margin: 8px 0;
+          }
+
+          &.result {
+            justify-content: center;
+            flex-direction: column;
+
+            .message_success__text {
+              font-weight: 400;
+              font-size: 16px;
+              line-height: 24px;
+            }
+
+            .code {
+              font-weight: 700;
+              font-size: 16px;
+              line-height: 24px;
+            }
+          }
+        }
+
+        .button_verify {
+          padding: 10px 24px;
+          gap: 8px;
+          height: 48px;
+          width: 100%;
+          border: 1px solid transparent;
+          border-radius: 8px;
+          background-color: #f6f5f5;
+          font-weight: 900;
+          font-size: 16px;
+          line-height: 24px;
+          color: #e0102c;
+          cursor: pointer;
+          margin-top: 16px;
+        }
+      }
+
+      .success_verify_maintenance {
+        &.result {
+          .title {
+            font-weight: 400;
+            font-size: 20px;
+            line-height: 24px;
+            margin-top: 12px;
+            margin-bottom: 20px;
+          }
+
+          .info {
+            font-weight: 600;
+          }
+
+          .btn-primary {
+            width: 100%;
+            margin-top: 16px;
+
+            img {
+              margin-left: 4px !important;
+            }
+          }
+
+          .title_help {
+            font-weight: 700;
+            font-size: 24px;
+            line-height: 29px;
+            color: #191919;
+            margin-bottom: 4px;
+          }
+
+          .info_help {
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 17px;
+            color: #57585c;
+          }
+
+          .result_info {
+            .title {
+              font-weight: 300;
+              font-size: 14px;
+              line-height: 22px;
+              margin: 0;
+
+              .text {
+                font-weight: 700;
+              }
+            }
+          }
+
+          .card__body__title {
+            font-weight: 700;
+            font-size: 24px;
+            line-height: 29px;
+            color: #191919;
+            margin-bottom: 4px;
+          }
+
+          .card__body__text {
+            font-weight: 400;
+            font-size: 20px;
+            line-height: 24px;
+            margin-top: 0;
+            color: #191919;
+          }
+
+          .message_success,
+          .error {
+            .message_success__text {
+              font-weight: 700;
+              font-size: 16px;
+              line-height: 24px;
+              color: #191919;
+            }
+
+            span {
+              font-size: 16px;
+              line-height: 24px;
+              color: #191919;
+              font-weight: 400;
+            }
+          }
+
+          .error_info {
+            font-weight: 700;
+            font-size: 24px;
+            line-height: 29px;
+            margin-bottom: 8px;
+          }
+
+          .error_text {
+            font-weight: 700;
+            font-size: 24px;
+            line-height: 29px;
+            color: #e0102c;
+            margin-bottom: 16px;
+          }
+
+          .btn-primary {
+            margin-bottom: 16px;
+          }
+
+          .button_verify {
+            margin-bottom: 0;
+          }
+        }
+
+        .card__body .card__body__text {
+          font-weight: 400;
+          font-size: 16px;
+          line-height: 19px;
+          color: #57585c;
+        }
+
+        .card__body__form__success {
+          .form_input {
+            width: 100%;
+            background: #f6f5f5;
+            border-radius: 6px;
+            border: unset;
+            height: 56px;
+            margin: 8px 0;
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 24px;
+            padding-left: 16px;
+          }
+        }
+
+        hr {
+          border: 2px solid #f6f5f5;
+          margin: 16px 0;
+        }
+
+        .checkbox_acept {
+          .nextui-checkbox-container {
+            border: 2px solid #191919;
+            border-radius: 2px;
+
+            .nextui-checkbox-mask {
+              &::after {
+                border-radius: unset;
+              }
+
+              &::before {
+                border: unset;
+              }
+            }
+          }
+
+          span {
+            font-weight: 400;
+            font-size: 12px;
+            line-height: 14px;
+
+            .danger {
+              color: #e0102c;
+              text-decoration: underline;
+            }
+          }
+        }
+
+        .title_price {
+          font-weight: 700;
+          font-size: 24px;
+          line-height: 29px;
+          color: #e0102c;
+          margin: 16px 0;
+        }
+
+        .button_verify {
+          margin-bottom: 16px;
+        }
+
+        .content_btn {
+          position: absolute;
+          bottom: 0;
+          width: 100%;
+          left: 0;
+          bottom: -45px;
+
+          .btn {
+            width: 100%;
+            color: #db0526;
+            text-decoration-line: underline;
+            font-weight: 700;
+            font-size: 16px;
+            line-height: 24px;
+          }
+
+          @media (max-width: 575.98px) {
+            display: none;
+          }
+        }
+      }
+
+      .discount {
+        position: absolute;
+        justify-content: center;
+        align-items: center;
+        padding: 8px 24px;
+        width: 111px;
+        height: 54px;
+        background: #e0102c;
+        border-radius: 0px 0px 0px 32px;
+        right: 0;
+        top: 0;
+
+        .discount__number {
+          font-family: "Lato";
+          font-style: normal;
+          font-weight: 700;
+          font-size: 32px;
+          line-height: 38px;
+          color: #ffffff;
+        }
+
+        @media (max-width: 575.98px) {
+          display: none;
+        }
+      }
+
+      .card__header {
+        .card__header__title {
+          &.payment {
+            h3 {
+              font-weight: 700;
+              font-size: 24px;
+              line-height: 29px;
+              color: #191919;
+              width: 80%;
+
+              @media (max-width: 575.98px) {
+                width: 100%;
+                margin-bottom: 8px;
+              }
+            }
+
+            .card__subtitle {
+              font-weight: 400;
+              font-size: 20px;
+              line-height: 24px;
+              color: #191919;
+            }
+          }
+
+          h3 {
+            font-weight: 400;
+            font-size: 24px;
+            line-height: 29px;
+            color: #191919;
+            margin: 0;
+            width: 50%;
+
+            @media (max-width: 575.98px) {
+              width: 100%;
+            }
+          }
+
+          h4 {
+            font-weight: 700;
+            font-size: 32px;
+            line-height: 38px;
+            color: #e0102c;
+            margin: 0;
+          }
+
+          .card__header__title__discount {
+            font-style: italic;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 19px;
+
+            span {
+              text-decoration: line-through;
+            }
+          }
+        }
+      }
+
+      .card__header__button {
+        width: 100%;
+        background-color: #e0102c;
+        border-color: #e0102c;
+        border-radius: 8px;
+        height: 48px;
+        color: #fff;
+        font-weight: 900;
+        font-size: 16px;
+        line-height: 24px;
+        margin-top: 16px;
+        cursor: pointer;
+      }
+
+      hr {
+        border: 2px solid #f6f5f5;
+        margin: 24px 0;
+      }
+
+      .card__body {
+        .card__body__title {
+          color: #191919;
+          font-weight: 700;
+          font-size: 24px;
+          line-height: 24px;
+          margin-bottom: 8px;
+        }
+
+        .card__body__text {
+          font-weight: 400;
+          font-size: 16px;
+          line-height: 19px;
+          color: #57585c;
+        }
+
+        .card__body__form,
+        .card__body__form__success {
+          margin-top: 8px;
+
+          .select_options {
+            margin: 8px 0;
+            width: 100%;
+            background: #f6f5f5;
+            border-radius: 6px;
+            height: 56px;
+            border: unset;
+            padding-left: 16px;
+            border-right: 16px solid transparent;
+          }
+
+          .button_verify {
+            padding: 10px 24px;
+            gap: 8px;
+            height: 48px;
+            width: 100%;
+            border: 1px solid #e0102c;
+            border-radius: 8px;
+            background-color: transparent;
+            font-weight: 900;
+            font-size: 16px;
+            line-height: 24px;
+            color: #e0102c;
+            cursor: pointer;
+            margin-top: 8px;
+          }
+        }
+      }
+
+      .card_footer {
+        position: absolute;
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(7.5px);
+        border-radius: 0px 0px 16px 16px;
+        width: 100%;
+        height: 88px;
+        display: flex;
+        align-items: center;
+        padding: 16px;
+        gap: 8px;
+        right: 0;
+        bottom: -79px;
+        z-index: 1;
+
+        .card_footer__text__title {
+          font-weight: 400;
+          font-size: 16px;
+          line-height: 19px;
+          color: #ffffff;
+          margin: 0;
+        }
+
+        .card_footer__text__subtitle {
+          font-weight: 400;
+          font-size: 12px;
+          line-height: 14px;
+          letter-spacing: 0.01em;
+          color: #ffffff;
+          margin: 0;
+        }
+      }
+    }
+
+    .card_legals_desktop {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 50%;
+      padding: 24px;
+      background: #ebebeb;
+      border-radius: 16px;
+
+      @media (max-width: 575.98px) {
+        display: none;
+      }
+
+      .title {
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 19px;
+        color: #191919;
+      }
+
+      .list_legals {
+        margin: 0;
+
+        p {
+          margin-bottom: 10px;
+          line-height: 16px;
+          font-weight: 400;
+          font-size: 12px;
+          letter-spacing: 0.01em;
+          color: #57585c;
+        }
+      }
+    }
+  }
+}
+
+.text-form-solict {
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  color: #57585c;
+  margin-bottom: 8px;
+}
+.reserva-mantenciones-title {
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+  color: #191919;
+}
+.reserva-mantencion-summary-subtitle {
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+  display: flex;
+  align-items: center;
+
+  margin: 16px 0;
+
+  color: #191919;
+}

@@ -1,0 +1,356 @@
+.preventa-prices {
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+  align-items: flex-end;
+  .price-primary {
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 38px;
+    text-align: right;
+    color: #e0102c;
+    margin: 0px;
+
+    @media screen and (min-width: 1281px) {
+      font-size: 32px;
+      line-height: 38px;
+    }
+  }
+  .price-before {
+    font-family: "Lato";
+    font-style: italic;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    display: flex;
+    align-items: flex-end;
+    text-align: right;
+    color: #57585c;
+    span {
+      text-decoration: line-through;
+      padding-left: 4px;
+    }
+  }
+  .price-bonos {
+    font-family: "Lato";
+    font-style: italic;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    display: flex;
+    align-items: flex-end;
+    text-align: right;
+    color: #e0102c;
+  }
+}
+
+.preventa-error-title {
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 29px;
+  color: #191919;
+  margin-bottom: 8px;
+}
+.preventa-error-subtitle {
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  letter-spacing: 0.01em;
+  color: #57585c;
+}
+.reserva-summary-error-title {
+  h1 {
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 29px;
+    color: #191919;
+    margin-bottom: 4px;
+  }
+  h2 {
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    color: #191919;
+    margin-bottom: 24px;
+  }
+  h3 {
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 29px;
+    color: #191919;
+    margin-bottom: 16px;
+  }
+}
+
+.reserva-summary-substitle {
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  letter-spacing: 0.01em;
+  color: #57585c;
+}
+.reserva-summary-code {
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.01em;
+  color: #191919;
+}
+
+.reserva-summary-title {
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 29px;
+  color: #191919;
+}
+
+.reserva-summary-subtitle {
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+  color: #191919;
+}
+
+.reserva-summary-detail {
+  p {
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 22px;
+    color: #000000;
+    span {
+      font-weight: 500;
+    }
+  }
+}
+
+.preventa-disclaimer {
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: #57585c;
+  margin-bottom: 16px;
+}
+.label-reserva-colors {
+  margin-top: 8px;
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  color: #191919;
+  text-transform: capitalize;
+
+  &.disabled {
+    color: #c8c8c8;
+  }
+}
+
+.color-btn {
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+}
+
+.helper-card {
+  display: flex;
+  justify-content: flex-start;
+  min-height: 70px;
+  cursor: pointer;
+  .helper-circle {
+    margin-right: 8px;
+    min-width: 46px;
+    min-height: 46px;
+    width: 46px;
+    height: 46px;
+    max-width: 46px;
+    max-height: 46px;
+    background: #f6f5f5;
+    -moz-border-radius: 23px;
+    -webkit-border-radius: 23px;
+    border-radius: 23px;
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 46px;
+    text-align: center;
+    color: #e0102c;
+  }
+  p {
+    min-height: 46px;
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    color: #57585c;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+}
+
+.card-reserva-header {
+  .title {
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 29px;
+    color: #e0102c;
+    margin: 0;
+  }
+  .subtitle {
+    margin: 0;
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 29px;
+    color: #191919;
+    align-self: stretch;
+  }
+  .subtitle-version {
+    margin: 0;
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    color: #57585c;
+  }
+}
+
+.subject-container {
+  background: #f6f5f5;
+  border-radius: 6px;
+  width: 100%;
+  padding: 16px;
+  display: flex;
+  justify-content: "center";
+  flex-direction: column;
+
+  .title {
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 24px;
+    width: 100%;
+    letter-spacing: 0.01em;
+    color: #e0102c;
+    text-align: center;
+    margin-bottom: 4px;
+  }
+  .subtitle {
+    text-align: center;
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    width: 100%;
+    letter-spacing: 0.01em;
+    color: #57585c;
+    margin-bottom: 0;
+    span {
+      font-weight: 700;
+    }
+  }
+}
+
+.opt-disclaimer {
+  display: flex;
+  justify-content: "flex-start";
+  flex-direction: "row";
+  align-content: "center";
+
+  h6 {
+    padding-left: 18px;
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    letter-spacing: 0.01em;
+    color: #57585c;
+    margin: 0;
+  }
+}
+.reserva-title-disclaimer {
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 29px;
+  color: #e0102c;
+  margin: 16px 0;
+}
+.disclaimer-form {
+  .title {
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    display: flex;
+    align-items: center;
+    color: #191919;
+  }
+  .subtitle {
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 14px;
+    letter-spacing: 0.01em;
+    color: #57585c;
+  }
+}
+.payment-header-title {
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 29px;
+  color: #191919;
+  margin-bottom: 4px;
+}
+.payment-header-subtitle {
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  letter-spacing: 0.01em;
+  color: #57585c;
+  margin-bottom: 16px;
+}

@@ -58,6 +58,21 @@
   padding: 14px 12px;
   min-height: 160px;
   width: 240px;
+  &.mantencion {
+    min-height: 217px;
+    @media screen and (min-width: 360px) and (max-width: 1100px) {
+      min-width: 160px;
+      width: 160px;
+      min-height: 217px;
+      max-height: 242px;
+    }
+
+    @media screen and (min-width: 1285px) {
+      min-height: 333px;
+      padding: 16px;
+      max-height: 373px;
+    }
+  }
   @media screen and (min-width: 360px) and (max-width: 1100px) {
     min-width: 160px;
     width: 160px;
@@ -65,7 +80,7 @@
   }
 
   @media screen and (min-width: 1285px) {
-    min-height: 411px;
+    min-height: 421px;
     padding: 16px;
   }
   .card-spacer-1 {
@@ -81,6 +96,13 @@
     height: 275px;
     width: 100%;
     padding: 0;
+    &.mantencion {
+      height: 272px;
+      @media screen and (min-width: 1280px) {
+        height: 120px;
+        padding-top: 14px;
+      }
+    }
     @media screen and (min-width: 1280px) {
       height: 128px;
     }
@@ -94,10 +116,11 @@
       border-radius: 0px 0px 0px 16px;
       width: 65px;
       height: 24px;
+
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 18px;
+      padding: 3.5px 10px;
       font-family: "Lato";
       font-style: normal;
       font-weight: 700;
@@ -124,12 +147,32 @@
     z-index: 1000;
     left: 0;
     border-radius: 0 0 12px 12px;
-    height: 172px;
+    height: 190px;
     background-color: white;
     padding: 0 16px 16px;
+    &.mantencion {
+      height: 138px;
+      @media screen and (min-width: 1280px) {
+        height: 194px;
+      }
+    }
 
     @media screen and (min-width: 1280px) {
-      height: 230px;
+      height: 248px;
+    }
+    .title-matencion {
+      font-family: "Lato";
+      font-style: normal;
+      font-weight: 400;
+      font-size: 13px;
+      line-height: 16px;
+      color: #191919;
+      margin-bottom: 0;
+
+      @media screen and (min-width: 1280px) {
+        font-size: 19px;
+        line-height: 23px;
+      }
     }
     .title {
       font-family: "Lato";
@@ -170,6 +213,9 @@
     }
     .prices-card {
       min-height: 75px;
+      &.mantencion {
+        min-height: 55px;
+      }
       @media screen and (min-width: 1280px) {
         min-height: 94px;
         margin-bottom: 12px;
@@ -228,17 +274,18 @@
       }
     }
     .disclaimer {
+      height: 24px;
       font-style: italic;
       font-weight: 400;
       font-size: 10px;
-      line-height: 60%;
+      line-height: 100%;
       display: flex;
       align-items: flex-end;
       color: #57585c;
       margin-top: 8px;
       @media screen and (min-width: 1280px) {
         font-size: 14px;
-        line-height: 60%;
+        line-height: 100%;
       }
     }
   }
@@ -269,4 +316,26 @@
   font-size: 13px;
   line-height: 24px;
   color: #000000;
+}
+
+.trans-rec-title {
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.01em;
+  color: #191919;
+  text-align: left;
+  margin-bottom: 0px !important;
+}
+.trans-rec-subtitle {
+  text-align: left;
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 24px;
+  letter-spacing: 0.01em;
+  color: #191919;
 }

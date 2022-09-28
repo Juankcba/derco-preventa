@@ -1,18 +1,19 @@
 import { FC, useEffect, useReducer, PropsWithChildren } from "react";
-import { Mantencion, Version } from "../../interfaces";
+import { Auto, Mantencion, Version } from "../../interfaces";
 import { filterReducer, FilterContext } from "./";
 export interface filterState {
   scrollChange: boolean;
-  resultadosVersiones: Version[];
-  resultadosMantenciones: Mantencion[];
+  resultadosVersiones: Auto[];
+  resultadosMantenciones: Auto[];
   isMantenciones: boolean;
-  filterCarClass: number[];
-  filterBrand: number[];
-  filterMantenciones: string;
+  filterCarClass: string[];
+  filterBrand: string[];
+  filterMantenciones: string[];
+  filterMantencionesCarClass: string[];
+  filterCombustible: string[];
   indexOfCards: number;
   indexOfMantenciones: number;
   order: string;
-  isDiesel: boolean;
 }
 
 const FILTERS_INITIAL_STATE: filterState = {
@@ -22,11 +23,12 @@ const FILTERS_INITIAL_STATE: filterState = {
   isMantenciones: false,
   filterCarClass: [],
   filterBrand: [],
-  filterMantenciones: "10mil",
+  filterCombustible: [],
+  filterMantenciones: [],
+  filterMantencionesCarClass: [],
   indexOfCards: 1,
   indexOfMantenciones: 1,
   order: "dsc",
-  isDiesel: false,
 };
 
 export const FilterProvider: FC<PropsWithChildren> = ({ children }) => {
@@ -38,19 +40,19 @@ export const FilterProvider: FC<PropsWithChildren> = ({ children }) => {
       payload: state,
     });
   };
-  const setFilterCarClass = (state: number[]) => {
+  const setFilterCarClass = (state: string[]) => {
     dispatch({
       type: "[Filters] - Update CarClass Filter",
       payload: state,
     });
   };
-  const setFilterBrand = (state: number[]) => {
+  const setFilterBrand = (state: string[]) => {
     dispatch({
       type: "[Filters] - Update Brands Filter",
       payload: state,
     });
   };
-  const setFilterCombustible = (state: boolean) => {
+  const setFilterCombustible = (state: string[]) => {
     dispatch({
       type: "[Filters] - Update Combustible Filter",
       payload: state,
@@ -62,9 +64,15 @@ export const FilterProvider: FC<PropsWithChildren> = ({ children }) => {
       payload: state,
     });
   };
-  const setFilterMantenciones = (state: string) => {
+  const setFilterMantenciones = (state: string[]) => {
     dispatch({
       type: "[Filters] - Update Mantenciones Filter",
+      payload: state,
+    });
+  };
+  const setFilterMatencionesCarClass = (state: string[]) => {
+    dispatch({
+      type: "[Filters] - Update Mantenciones CarClass Filter",
       payload: state,
     });
   };
@@ -80,13 +88,13 @@ export const FilterProvider: FC<PropsWithChildren> = ({ children }) => {
       payload: state,
     });
   };
-  const setResultadosVersiones = (state: Version[]) => {
+  const setResultadosVersiones = (state: Auto[]) => {
     dispatch({
       type: "[Filters] - Update Resultados Versiones",
       payload: state,
     });
   };
-  const setResultadosMantenciones = (state: Mantencion[]) => {
+  const setResultadosMantenciones = (state: Auto[]) => {
     dispatch({
       type: "[Filters] - Update Resultados Mantenciones",
       payload: state,
@@ -115,6 +123,7 @@ export const FilterProvider: FC<PropsWithChildren> = ({ children }) => {
         setIndex,
         setIndexMant,
         setFilterMantenciones,
+        setFilterMatencionesCarClass,
         setScrollChange,
       }}
     >

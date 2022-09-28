@@ -3,6 +3,13 @@
 @import "./swipper-styles.scss";
 @import "./modals.scss";
 @import "./nav-bar.scss";
+@import "./preventa-styles.scss";
+@import "./material-custom.scss";
+@import "./error-styles.scss";
+@import "./page_reserva_mantencion.scss";
+@import "./swal-styles.scss";
+@import "./countdown.scss";
+
 * {
   font-family: "Lato" !important;
 }
@@ -17,17 +24,21 @@
     height: 88px;
   }
 }
+
 .filter-avatar {
   background: #f6f5f5 !important;
+
   .nextui-avatar-bg {
     background: #f6f5f5 !important;
   }
+
   img {
     padding: 6px;
     background: #f6f5f5 !important;
     object-fit: contain;
   }
 }
+
 .img-name {
   font-family: "Lato";
   font-style: normal;
@@ -38,28 +49,37 @@
   text-align: center;
   color: #000000;
 }
+
 .dreams-section {
   .card-post {
     max-width: 240px;
-    min-height: 200px;
+    min-height: 380px;
+
+    @media screen and (max-width: 640px) {
+      max-width: unset;
+    }
 
     .title {
       font-family: "Lato";
       font-style: normal;
       font-weight: 700;
-      font-size: 18px;
-      line-height: 125%;
+      font-size: 24px;
+      line-height: 29px;
       color: #191919;
+      text-align: left;
+      margin-bottom: 4px;
     }
+
     .description {
       font-family: "Lato";
       font-style: normal;
       font-weight: 400;
-      font-size: 12px;
-      line-height: 16px;
+      font-size: 14px;
+      line-height: 18px;
       color: #57585c;
     }
   }
+
   .title {
     font-family: "Lato";
     font-style: normal;
@@ -70,10 +90,12 @@
     color: #ffffff;
     width: 100%;
     margin-bottom: 0;
+
     @media screen and (min-width: 1281px) {
       text-align: center;
     }
   }
+
   .subtitle {
     font-family: "Lato";
     font-style: normal;
@@ -82,11 +104,13 @@
     line-height: 19px;
     letter-spacing: 0.01em;
     color: #ffffff;
+
     @media screen and (min-width: 1281px) {
       text-align: center;
     }
   }
 }
+
 .banner-finder {
   .title {
     width: 100%;
@@ -100,6 +124,7 @@
     text-align: center;
     margin-bottom: 16px;
   }
+
   .subtitle {
     width: 100%;
     font-family: "Lato";
@@ -124,6 +149,7 @@
   background: #191919;
   padding: 40px 24px;
   height: fit-content;
+
   .title {
     font-family: "Lato";
     font-style: normal;
@@ -134,6 +160,7 @@
     color: #ffffff;
     margin-bottom: 4px;
   }
+
   .subtitle {
     font-family: "Lato";
     font-style: normal;
@@ -142,15 +169,18 @@
     line-height: 24px;
     color: #ffffff;
   }
+
   .phone-container {
     display: flex;
     justify-content: flex-start;
     align-items: center;
     gap: 21px;
+
     @media screen and (min-width: 1282px) {
       flex-direction: column;
     }
   }
+
   .link-content {
     font-family: "Lato";
     font-style: normal;
@@ -159,6 +189,7 @@
     line-height: 30px;
     color: #a4a4a6;
   }
+
   .socials {
     display: flex;
     flex-direction: column;
@@ -167,6 +198,7 @@
     @media screen and (min-width: 1282px) {
       margin: 0;
     }
+
     .social-links {
       font-family: "Lato";
       font-style: normal;
@@ -177,23 +209,28 @@
       color: #ffffff;
     }
   }
+
   .spacer-2 {
     width: 100%;
     border: 1px solid #a4a4a6;
     margin: 20px auto;
+
     @media screen and (min-width: 1282px) {
       display: none;
     }
   }
+
   .spacer-1 {
     height: 1px;
     width: 100%;
     background: #a4a4a6;
     margin: 0 auto;
+
     @media screen and (min-width: 1282px) {
       margin-top: 20px;
     }
   }
+
   .text-copy {
     font-family: "Lato";
     font-style: normal;
@@ -211,4 +248,163 @@
   background: #d9d9d9;
   border-radius: 10px;
   margin: 4px auto 8px;
+}
+
+.banner-derco-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+
+  .title {
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    text-align: center;
+    color: #ffffff;
+    width: 100%;
+    margin: 28px 0 0;
+  }
+
+  .subtitle {
+    margin: 0;
+    width: 100%;
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    text-align: center;
+    color: #ffffff;
+  }
+}
+
+.banner-steps-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+
+  .container-img {
+    width: 100%;
+    margin: 0 auto 16px;
+
+    img {
+      margin: 0 auto;
+    }
+  }
+
+  .title {
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 900;
+    font-size: 32px;
+    line-height: 30px;
+    text-align: center;
+    color: #ffffff;
+    margin-bottom: 56px;
+  }
+
+  .box-title {
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 900;
+    font-size: 32px;
+    line-height: 20px;
+    color: #ffffff;
+
+    &.mobile {
+      line-height: 64px;
+      margin-right: 8px;
+    }
+  }
+
+  .box-subtitle {
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    display: flex;
+    align-items: center;
+    color: #ffffff;
+    max-width: 150px;
+    padding-left: 16px;
+  }
+
+  .footer-title {
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+    margin: 0 auto;
+    text-align: center;
+    color: #ffffff;
+    margin-top: 56px;
+    max-width: 330px;
+
+    span {
+      font-weight: 900;
+    }
+  }
+
+  .footer-info {
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    text-align: center;
+    letter-spacing: 0.01em;
+    color: #f6f5f5;
+    width: 100%;
+    margin: 0 auto 16px;
+  }
+}
+
+.divider-component {
+  height: 3px;
+
+  background: #393939;
+  width: 100%;
+  max-width: 1091px;
+
+  margin: 40px auto;
+}
+
+/** Add Examples for breakpoint mixins for mobile */
+// Extra small devices (portrait phones, less than 576px)
+@media (max-width: 575.98px) {
+}
+
+// Small devices (landscape phones, less than 768px)
+@media (max-width: 767.98px) {
+}
+
+// Medium devices (tablets, less than 992px)
+@media (max-width: 991.98px) {
+}
+
+// Large devices (desktops, less than 1200px)
+@media (max-width: 1199.98px) {
+}
+
+.hidden {
+  display: none;
+}
+
+.matencion-link {
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 19px;
+  text-decoration: underline;
+  color: #e0102c;
+  cursor: pointer;
 }

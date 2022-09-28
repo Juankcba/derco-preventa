@@ -1,4 +1,4 @@
-import { Mantencion, Version } from "../../interfaces";
+import { Auto, Mantencion, Version } from "../../interfaces";
 import { filterState } from "./";
 
 type FilterActionType =
@@ -8,15 +8,15 @@ type FilterActionType =
     }
   | {
       type: "[Filters] - Update CarClass Filter";
-      payload: number[];
+      payload: string[];
     }
   | {
       type: "[Filters] - Update Brands Filter";
-      payload: number[];
+      payload: string[];
     }
   | {
       type: "[Filters] - Update Combustible Filter";
-      payload: boolean;
+      payload: string[];
     }
   | {
       type: "[Filters] - Update Order Filter";
@@ -24,7 +24,11 @@ type FilterActionType =
     }
   | {
       type: "[Filters] - Update Mantenciones Filter";
-      payload: string;
+      payload: string[];
+    }
+  | {
+      type: "[Filters] - Update Mantenciones CarClass Filter";
+      payload: string[];
     }
   | {
       type: "[Filters] - Update Index Cards";
@@ -36,11 +40,11 @@ type FilterActionType =
     }
   | {
       type: "[Filters] - Update Resultados Versiones";
-      payload: Version[];
+      payload: Auto[];
     }
   | {
       type: "[Filters] - Update Resultados Mantenciones";
-      payload: Mantencion[];
+      payload: Auto[];
     }
   | {
       type: "[Filters] - Update Scroll State";
@@ -70,7 +74,7 @@ export const filterReducer = (
     case "[Filters] - Update Combustible Filter":
       return {
         ...state,
-        isDiesel: action.payload,
+        filterCombustible: action.payload,
       };
     case "[Filters] - Update Order Filter":
       return {
@@ -83,6 +87,12 @@ export const filterReducer = (
         ...state,
         filterMantenciones: action.payload,
       };
+    case "[Filters] - Update Mantenciones CarClass Filter":
+      return {
+        ...state,
+        filterMantencionesCarClass: action.payload,
+      };
+
     case "[Filters] - Update Index Cards":
       return {
         ...state,

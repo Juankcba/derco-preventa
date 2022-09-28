@@ -1,4 +1,5 @@
+/* eslint-disable */
+
 const cli = require("next/dist/cli/next-start");
 
-cli.nextStart(["-p", process.env.PORT || 3333]);
-
+cli.nextStart(["-p", process.env.PORT || 4551]);

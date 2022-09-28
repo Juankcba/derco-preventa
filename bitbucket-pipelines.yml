@@ -1,0 +1,42 @@
+image: node:16.14.2
+
+definitions:
+    steps:
+        - step: &build
+              name: "Build and zip"
+              caches:
+                  - node
+              script:
+                  - apt-get update
+                  - apt-get install zip
+                  - echo 'NEXT_PUBLIC_BACKEND_URL='$NEXT_PUBLIC_BACKEND_URL >> .env
+                  - echo 'NEXTAUTH_URL='$NEXTAUTH_URL >> .env
+                  - echo 'NEXT_PUBLIC_STORE_URL='$NEXT_PUBLIC_STORE_URL >> .env
+                  - echo 'NEXT_PUBLIC_PREVENTA='$NEXT_PUBLIC_PREVENTA >> .env
+                  - echo 'NEXT_API_BASE_URL='$NEXT_API_BASE_URL >> .env
+                  - echo 'BASE_URL='$BASE_URL >> .env
+                  - echo 'PORT='$PORT >> .env
+                  - npm install --force
+                  - npm run build
+                  - zip -r cyber_dercocenter_cl.zip . -x node_modules/\* src/\* .git/\*
+              artifacts:
+                  - cyber_dercocenter_cl.zip
+
+pipelines:
+  branches:
+    master:
+    - step: *build
+    - step:
+        name: "Deploy to Prod"
+        max-time: 20
+        deployment: Production
+        script:
+        - pipe: atlassian/aws-elasticbeanstalk-deploy:0.7.0
+          variables:
+            AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+            AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+            AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
+            APPLICATION_NAME: $APPLICATION_NAME
+            ENVIRONMENT_NAME: $ENVIRONMENT_NAME
+            ZIP_FILE: $ZIP_FILE
+            S3_BUCKET: $S3_BUCKET

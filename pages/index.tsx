@@ -2,7 +2,7 @@ import { useEffect, useMemo, useContext } from "react";
 import { NextPage, GetStaticProps } from "next";
 import Head from "next/head";
 import Image from "next/image";
-import { cmsApi } from "../apis";
+import { cmsApi, storeApi } from "../apis";
 import { Layout } from "../components/Layouts";
 import { Version, VersionResponse } from "../interfaces";
 import { PropsWithChildren, useState } from "react";
@@ -31,87 +31,96 @@ import BannerDream from "../components/cyber/BannerDream";
 import BrandsFinder from "../components/cyber/BrandsFinder";
 import HomeBanner from "../components/cyber/HomeBanner";
 import { Typography } from "@mui/material";
+import { Auto, StoreResponse } from "../interfaces/store-full";
+import { useRouter } from "next/router";
+import BannerDerco from "../components/cyber/BannerDerco";
+import StepsToBuy from "./../components/ui/StepsToBuy";
+import { LayoutPreStart } from "../components/Layouts/LayoutPreStart";
+import CountdownTimer from "./../components/ui/CountdownTimer";
+
 interface Props {
-  versions: Version[];
+  cars: Auto[];
+  mantencions: Auto[];
 }
 
-const HomePage: NextPage<PropsWithChildren<Props>> = ({ versions }) => {
+const HomePage: NextPage<PropsWithChildren<Props>> = ({
+  cars,
+  mantencions,
+}) => {
   const [visible, setVisible] = useState<boolean>(false);
-  const { isMantenciones } = useContext(FilterContext);
-
-  const mantenciones: Mantencion[] = [
-    {
-      id: 1,
-      name: "Mantencion",
-      kms: 30000,
-      category: "Citycar",
-      price: 270000,
-    },
-    {
-      id: 2,
-      name: "Mantencion",
-      kms: 10000,
-      category: "Camioneta",
-      price: 270000,
-    },
-    { id: 3, name: "Mantencion", kms: 20000, category: "Sedán", price: 270000 },
-    {
-      id: 4,
-      name: "Mantencion",
-      kms: 40000,
-      category: "SUV",
-      price: 270000,
-    },
-    {
-      id: 5,
-      name: "Mantencion",
-      kms: 20000,
-      category: "Citycar",
-      price: 270000,
-    },
-    { id: 6, name: "Mantencion", kms: 30000, category: "Suv", price: 270000 },
-    { id: 7, name: "Mantencion", kms: 40000, category: "Sedán", price: 270000 },
-    {
-      id: 8,
-      name: "Mantencion",
-      kms: 10000,
-      category: "Camioneta",
-      price: 270000,
-    },
-  ];
+  const [start, setStart] = useState(true);
+  const [endTime, setEndTime] = useState<any>("");
+  const { isMantenciones, filterCarClass, filterBrand } =
+    useContext(FilterContext);
+  useEffect(() => {
+    setEndTime(new Date(Date.UTC(2022, 9, 3, 3, 0, 0, 0)).getTime());
+  }, []);
 
   return (
     <Layout
-      title="CiberMonday | DercoCenter"
+      title="Cyber | DercoCenter"
       titleNavbar="Preguntas Frecuentes"
+      start={start}
     >
       <HomeBanner />
-      <Grid.Container css={{ margin: "0" }}>
-        <Grid xs={12} justify={"center"} css={{ paddingTop: "20px" }}>
-          <SelectedFilterGeneral />
-        </Grid>
-      </Grid.Container>
-      <Container justify={"center"} css={{ marginTop: "20px" }}>
-        {isMantenciones ? (
-          <ListMantenciones manteciones={mantenciones} />
-        ) : (
-          <ListProducts versions={versions} />
-        )}
-      </Container>
-      <BannerDream />
-      <BrandsFinder />
+      {start ? (
+        <>
+          {endTime != "" && (
+            <CountdownTimer targetDate={endTime} setStart={setStart} />
+          )}
+          <Row
+            css={{
+              margin: "20px auto",
+              w: "100%",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <Button type="button" onPress={() => setStart(false)}>
+              Ingresar
+            </Button>
+          </Row>
+        </>
+      ) : (
+        <>
+          <Grid.Container css={{ margin: "0" }}>
+            <Grid xs={12} justify={"center"} css={{ paddingTop: "20px" }}>
+              <SelectedFilterGeneral />
+            </Grid>
+          </Grid.Container>
+          <Container justify={"center"} css={{ marginTop: "20px" }}>
+            {isMantenciones ? (
+              <ListMantenciones mantenciones={mantencions} />
+            ) : (
+              <ListProducts versions={cars} />
+            )}
+          </Container>
+          {/* 
+      <BrandsFinder /> */}
+          <BannerDream />
+          <BannerDerco />
+          <StepsToBuy />
+        </>
+      )}
     </Layout>
   );
 };
 
 export async function getStaticProps() {
-  const { data } = await cmsApi.get<VersionResponse>("/versions");
+  //const { data } = await cmsApi.get<VersionResponse>("/versions");
+  const {
+    data: { autos, mantenciones },
+  } = await storeApi.get<StoreResponse>(
+    `/pre-order/cyber-dc/${process.env.NEXT_PUBLIC_PREVENTA}/cars`
+  );
 
-  const versions: VersionResponse = data;
+  //const versions: VersionResponse = data;
+  const mantencions: Auto[] = mantenciones;
+  const cars: Auto[] = autos;
 
   return {
-    props: { versions },
-    revalidate: 1,
+    props: { cars, mantencions },
+    revalidate: 60,
   };
 }
 

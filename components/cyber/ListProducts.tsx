@@ -1,18 +1,31 @@
 import React, { useEffect, useMemo, FC, useContext } from "react";
 import { NextPage, GetStaticProps } from "next";
 
-import { Version, VersionResponse } from "../../interfaces";
+import { Auto, Version, VersionResponse } from "../../interfaces";
 import { PropsWithChildren, useState } from "react";
 
-import { Grid, Card, Text, Row, styled, Button } from "@nextui-org/react";
+import {
+  Grid,
+  Card,
+  Text,
+  Row,
+  styled,
+  Button,
+  StyledLoadingContainer,
+  Loading,
+} from "@nextui-org/react";
 import { cmsApi } from "../../apis";
 import Filters from "../ui/Filters";
 import VersionCard from "./../cars/VersionCard";
 import { FilterContext } from "./../../context/filters/filterContext";
 import { categorias, marcas } from "../../database/constants";
+import { useRouter } from "next/router";
+import { FilterIcon } from "../ui/FilterIcon";
+import { UiContext } from "../../context";
+import UpsError from "./../ui/UpsError";
 
 interface Props {
-  versions: Version[];
+  versions: Auto[];
 }
 
 const ListProducts: FC<Props> = ({ versions }) => {
@@ -20,36 +33,72 @@ const ListProducts: FC<Props> = ({ versions }) => {
     order,
     filterCarClass,
     filterBrand,
-    isDiesel,
+    filterCombustible,
     indexOfCards,
     resultadosVersiones,
     scrollChange,
     setScrollChange,
     setResultadosVersiones,
+    setFilterBrand,
+    setFilterCombustible,
+    setFilterCarClass,
     setIndex,
   } = useContext(FilterContext);
-  const [versiones, setVersiones] = useState(versions.slice(0, 4));
+  const { isModalOpen, setVisible } = useContext(UiContext);
+  const [versiones, setVersiones] = useState<Auto[]>([]);
+  const [loading, setLoading] = useState<Boolean>(true);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useMemo(() => setResultadosVersiones(versions), [versions]);
+  const router = useRouter();
 
   useEffect(() => {
-    let auxResultados: Version[] = versions;
+    const { card, categories, brands, combustible, matenciones } = router.query;
+    console.log(typeof brands);
+    if (brands && typeof brands === "string") {
+      setFilterBrand([brands]);
+    }
+    if (brands && typeof brands === "object") {
+      setFilterBrand(brands);
+    }
+    if (!brands) {
+      setFilterBrand([]);
+    }
+    if (categories && typeof categories === "string") {
+      setFilterCarClass([categories]);
+    }
+    if (categories && typeof categories === "object") {
+      setFilterCarClass(categories);
+    }
+    if (!categories) {
+      setFilterCarClass([]);
+    }
+
+    if (combustible && typeof combustible === "string") {
+      setFilterCombustible([combustible]);
+    }
+    if (combustible && typeof combustible === "object") {
+      setFilterCombustible(combustible);
+    }
+    if (!combustible) {
+      setFilterCombustible([]);
+    }
+
+    //if (brands) setFilterBrand(brands);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [router]);
+
+  useEffect(() => {
+    setLoading(true);
+    let auxResultados: Auto[] = versions;
 
     if (filterCarClass.length > 0) {
-      let categoriasFilter: string[] = [];
-      categorias.forEach((element) => {
-        filterCarClass.forEach((id) => {
-          if (element.id === id) {
-            categoriasFilter.push(element.name);
-          }
-        });
-      });
-
-      let aux: Version[] = [];
+      let categoriasFilter: string[] = filterCarClass;
+      let aux: Auto[] = [];
 
       auxResultados.forEach((auxV) => {
         categoriasFilter.forEach((filtro) => {
-          if (auxV.model.carClass.filter((mcC) => mcC === filtro).length > 0) {
+          if (auxV.class_name === filtro) {
             aux.push(auxV);
           }
         });
@@ -58,21 +107,13 @@ const ListProducts: FC<Props> = ({ versions }) => {
       auxResultados = aux;
     }
     if (filterBrand.length > 0) {
-      let brandsFilter: string[] = [];
-      marcas.forEach((element) => {
-        filterBrand.forEach((id) => {
-          if (element.id === id) {
-            brandsFilter.push(element.slug);
-          }
-        });
-      });
+      let brandsFilter: string[] = filterBrand;
 
-      let aux: Version[] = [];
+      let aux: Auto[] = [];
 
       auxResultados.forEach((auxV) => {
         brandsFilter.forEach((filtro) => {
-          if (auxV.model.brandName == filtro) {
-            console.log("este");
+          if (auxV.brand_name == filtro) {
             aux.push(auxV);
           }
         });
@@ -81,29 +122,64 @@ const ListProducts: FC<Props> = ({ versions }) => {
       auxResultados = aux;
     }
 
-    if (isDiesel) {
-      auxResultados = auxResultados.filter((auxV) => auxV.fuel == "diesel");
-    } else {
-      auxResultados = auxResultados.filter((auxV) => auxV.fuel != "diesel");
+    if (filterCombustible.length > 0) {
+      let combustibleFilter: string[] = filterCombustible;
+      console.log(
+        "fuel",
+        auxResultados.map((v) => v.fuel_slug)
+      );
+      let aux: Auto[] = [];
+      auxResultados.forEach((auxV) => {
+        combustibleFilter.forEach((filtro) => {
+          if (auxV.fuel_slug == filtro) {
+            aux.push(auxV);
+          }
+        });
+      });
+
+      auxResultados = aux;
     }
 
+    let finalResultados: Auto[] = [];
     if (order === "dsc") {
-      setVersiones(
-        auxResultados
-          .sort((a, b) => a.minPrice - b.minPrice)
-          .slice(0, 4 * indexOfCards)
-      );
+      finalResultados = auxResultados
+        .sort(
+          (a, b) =>
+            a.list_price -
+            (a.list_price -
+              a.brand_price +
+              (a.list_price - a.financial_price)) -
+            (b.list_price -
+              (b.list_price -
+                b.brand_price +
+                (b.list_price - b.financial_price)))
+        )
+        .slice(0, 4 * indexOfCards);
     } else {
-      setVersiones(
-        auxResultados
-          .sort((a, b) => b.minPrice - a.minPrice)
-          .slice(0, 4 * indexOfCards)
-      );
+      finalResultados = auxResultados
+        .sort(
+          (a, b) =>
+            b.list_price -
+            (b.list_price -
+              b.brand_price +
+              (b.list_price - b.financial_price)) -
+            (a.list_price -
+              (a.list_price -
+                a.brand_price +
+                (a.list_price - a.financial_price)))
+        )
+        .slice(0, 4 * indexOfCards);
     }
     setResultadosVersiones(auxResultados);
+    setVersiones(finalResultados);
+    setTimeout(() => {
+      setLoading(false);
+    }, 300);
+
+    console.log("despues del filtro", finalResultados);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [order, indexOfCards, filterCarClass, filterBrand, isDiesel]);
+  }, [order, indexOfCards, filterCarClass, filterBrand, filterCombustible]);
 
   useEffect(() => {
     if (scrollChange) {
@@ -117,6 +193,10 @@ const ListProducts: FC<Props> = ({ versions }) => {
     let indexData = indexOfCards + 1;
     setIndex(indexData);
   };
+  const handler = () => {
+    setVisible(!isModalOpen);
+  };
+
   return (
     <Grid.Container
       gap={2}
@@ -130,21 +210,28 @@ const ListProducts: FC<Props> = ({ versions }) => {
         },
       }}
     >
-      {versiones.map((version: Version) => (
-        <Grid
-          xs
-          md={3}
-          key={version.id}
-          css={{
-            display: "flex",
-            justifyContent: "center",
-            paddingLeft: 0,
-            paddingRight: "8px",
-          }}
-        >
-          <VersionCard version={version} />
+      {loading && (
+        <Grid xs={12} css={{ display: "flex", justifyContent: "center" }}>
+          <Loading />
         </Grid>
-      ))}
+      )}
+      {!loading &&
+        versiones.length > 0 &&
+        versiones.map((version: Auto) => (
+          <Grid
+            xs
+            md={3}
+            key={version.sap}
+            css={{
+              display: "flex",
+              justifyContent: "center",
+              paddingLeft: 0,
+              paddingRight: "8px",
+            }}
+          >
+            <VersionCard version={version} />
+          </Grid>
+        ))}
       <Grid
         xs={12}
         justify="center"
@@ -154,13 +241,14 @@ const ListProducts: FC<Props> = ({ versions }) => {
       >
         {versiones.length > 0 && (
           <Button
-            onClick={handleMore}
+            onPress={handleMore}
             color="secondary"
             className="btn-secondary"
           >
             Ver más
           </Button>
         )}
+        {!loading && versiones.length == 0 && <UpsError />}
       </Grid>
     </Grid.Container>
   );

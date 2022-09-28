@@ -69,7 +69,7 @@ const FilterNavBar = () => {
       >
         <Button
           auto
-          onClick={handler}
+          onPress={handler}
           css={{ width: "100%" }}
           className="btn-primary big"
           iconRight={<FilterIcon />}
