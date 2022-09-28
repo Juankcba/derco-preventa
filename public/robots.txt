@@ -1,4 +1,4 @@
-Sitemap: http://cl-derco-cyber.staging.soho.cl/api/posts-sitemap
+Sitemap: https://cl-derco-cyber-marcas.staging.soho.cl/api/posts-sitemap
 
 User-agent: *
 Allow: /*
