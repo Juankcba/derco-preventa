@@ -8,6 +8,10 @@
 # testing
 /coverage
 
+#sitemap
+/public/robots.txt
+/public/sitemap*
+
 # next.js
 /.next/
 /out/
