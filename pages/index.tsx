@@ -35,6 +35,8 @@ import { Auto, StoreResponse } from "../interfaces/store-full";
 import { useRouter } from "next/router";
 import BannerDerco from "../components/cyber/BannerDerco";
 import StepsToBuy from "./../components/ui/StepsToBuy";
+import { LayoutPreStart } from "../components/Layouts/LayoutPreStart";
+import CountdownTimer from "./../components/ui/CountdownTimer";
 
 interface Props {
   cars: Auto[];
@@ -46,8 +48,37 @@ const HomePage: NextPage<PropsWithChildren<Props>> = ({
   mantencions,
 }) => {
   const [visible, setVisible] = useState<boolean>(false);
+  const [start, setStart] = useState(true);
   const { isMantenciones, filterCarClass, filterBrand } =
     useContext(FilterContext);
+
+  const THREE_DAYS_IN_MS = new Date("2022-10-03").getTime();
+  const NOW_IN_MS = new Date().getTime();
+
+  const dateTimeAfterThreeDays = THREE_DAYS_IN_MS;
+
+  if (start)
+    return (
+      <LayoutPreStart
+        title="CyberMonday | DercoCenter"
+        titleNavbar="Preguntas Frecuentes"
+      >
+        <HomeBanner />
+        <CountdownTimer targetDate={dateTimeAfterThreeDays} />
+        <Row
+          css={{
+            margin: "20px auto",
+            w: "100%",
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <Button type="button" onPress={() => setStart(false)}>
+            Ingresar
+          </Button>
+        </Row>
+      </LayoutPreStart>
+    );
 
   return (
     <Layout
