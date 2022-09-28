@@ -1,10 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import DateTimeDisplay from "./DataTimeDisplay";
 import { useCountdown } from "../../hooks/useCountdown";
 import { Row } from "@nextui-org/react";
 
-const CountdownTimer = ({ targetDate }) => {
+const CountdownTimer = ({ targetDate, setStart }) => {
   const [days, hours, minutes, seconds] = useCountdown(targetDate);
+  useEffect(() => {
+    //console.log("suma", days + hours + minutes + seconds);
+    if (days + hours + minutes + seconds <= 0) {
+      setStart(false);
+    }
+  }, [days, hours, minutes, seconds]);
 
   if (days + hours + minutes + seconds <= 0) {
     return <ExpiredNotice />;

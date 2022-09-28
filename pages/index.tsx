@@ -65,7 +65,9 @@ const HomePage: NextPage<PropsWithChildren<Props>> = ({
       <HomeBanner />
       {start ? (
         <>
-          {endTime != "" && <CountdownTimer targetDate={endTime} />}
+          {endTime != "" && (
+            <CountdownTimer targetDate={endTime} setStart={setStart} />
+          )}
           <Row
             css={{
               margin: "20px auto",
