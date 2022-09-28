@@ -1,9 +1,7 @@
 import { FormControl, MenuItem, Select, TextField } from "@mui/material";
 import { Text, Grid } from "@nextui-org/react";
 import React, { useState, useEffect } from "react";
-<<<<<<< HEAD
 import { modelos } from "../../database/constants";
-=======
 import { IMaskInput } from 'react-imask';
 import PropTypes from 'prop-types';
 
@@ -29,7 +27,6 @@ TextMaskNumber.propTypes = {
 };
 
 
->>>>>>> bugfix/NU3-736-desarrollo-mantenciones-rut
 const FormPlate = ({ data, setData, formik, regions }) => {
   const [ces, setCes] = useState("");
   const [consecionario, setConsecionario] = useState(regions || []);
