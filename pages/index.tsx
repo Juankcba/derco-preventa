@@ -54,7 +54,6 @@ const HomePage: NextPage<PropsWithChildren<Props>> = ({
 
   const THREE_DAYS_IN_MS = new Date("2022-10-03").getTime();
 
-
   return (
     <Layout
       title="CyberMonday | DercoCenter"
@@ -64,43 +63,41 @@ const HomePage: NextPage<PropsWithChildren<Props>> = ({
       <HomeBanner />
       {start ? (
         <>
-        <CountdownTimer targetDate={THREE_DAYS_IN_MS} />
-        <Row
-          css={{
-            margin: "20px auto",
-            w: "100%",
-            display: "flex",
-            justifyContent: "center",
-          }}
-        >
-          <Button type="button" onPress={() => setStart(false)}>
-            Ingresar
-          </Button>
-        </Row>
+          <CountdownTimer targetDate={THREE_DAYS_IN_MS} />
+          <Row
+            css={{
+              margin: "20px auto",
+              w: "100%",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <Button type="button" onPress={() => setStart(false)}>
+              Ingresar
+            </Button>
+          </Row>
         </>
-
-      ):(
+      ) : (
         <>
-        <Grid.Container css={{ margin: "0" }}>
-        <Grid xs={12} justify={"center"} css={{ paddingTop: "20px" }}>
-          <SelectedFilterGeneral />
-        </Grid>
-      </Grid.Container>
-      <Container justify={"center"} css={{ marginTop: "20px" }}>
-        {isMantenciones ? (
-          <ListMantenciones mantenciones={mantencions} />
-        ) : (
-          <ListProducts versions={cars} />
-        )}
-      </Container>
-      {/* 
+          <Grid.Container css={{ margin: "0" }}>
+            <Grid xs={12} justify={"center"} css={{ paddingTop: "20px" }}>
+              <SelectedFilterGeneral />
+            </Grid>
+          </Grid.Container>
+          <Container justify={"center"} css={{ marginTop: "20px" }}>
+            {isMantenciones ? (
+              <ListMantenciones mantenciones={mantencions} />
+            ) : (
+              <ListProducts versions={cars} />
+            )}
+          </Container>
+          {/* 
       <BrandsFinder /> */}
-      <BannerDream />
-      <BannerDerco />
-      <StepsToBuy />
-      </>
+          <BannerDream />
+          <BannerDerco />
+          <StepsToBuy />
+        </>
       )}
-      
     </Layout>
   );
 };
