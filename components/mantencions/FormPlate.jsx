@@ -1,7 +1,35 @@
 import { FormControl, MenuItem, Select, TextField } from "@mui/material";
 import { Text, Grid } from "@nextui-org/react";
 import React, { useState, useEffect } from "react";
+<<<<<<< HEAD
 import { modelos } from "../../database/constants";
+=======
+import { IMaskInput } from 'react-imask';
+import PropTypes from 'prop-types';
+
+const TextMaskNumber = React.forwardRef(function TextMaskNumber(props, ref) {
+  const { onChange, ...other } = props;
+
+  return (
+    <IMaskInput
+      {...other}
+      mask={Number}
+      thousandsSeparator="."
+      inputRef={ref}
+      max="9999999"
+      onAccept={(value) => onChange({ target: { name: props.name, value } })}
+      overwrite
+    />
+  );
+});
+
+TextMaskNumber.propTypes = {
+  name: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+};
+
+
+>>>>>>> bugfix/NU3-736-desarrollo-mantenciones-rut
 const FormPlate = ({ data, setData, formik, regions }) => {
   const [ces, setCes] = useState("");
   const [consecionario, setConsecionario] = useState(regions || []);
@@ -68,16 +96,16 @@ const FormPlate = ({ data, setData, formik, regions }) => {
         <Grid xs={12}>
           <TextField
             fullWidth
-            required
-            id="preventa-mantenciones-kms"
-            name="kms"
             label="Kilometraje actual"
-            onChange={formik.handleChange}
             value={formik.values.kms}
+            onChange={formik.handleChange}
+            name="kms"
+            id="formatted-kms-input"
+            InputProps={{
+              inputComponent: TextMaskNumber,
+            }}
             helperColor={"error"}
-            helperText={
-              formik.errors.kms && formik.touched.kms ? formik.errors.kms : ""
-            }
+            helperText={ formik.errors.kms && formik.values.kms ? formik.errors.kms : "" }
           />
         </Grid>
         <Grid xs={12}>
