@@ -22,7 +22,9 @@ const MantencionCard: FC<Props> = ({ mantencion }) => {
   const router = useRouter();
   const onClickReserva = () => {
     router.push(
-      `/reserva/mantencion/${mantencion.brand_slug.toLowerCase()}/${mantencion.model_slug}/${mantencion.version_slug}`
+      `/reserva/mantencion/${mantencion.brand_slug.toLowerCase()}/${
+        mantencion.model_slug
+      }/${mantencion.version_slug}`
     );
   };
   return (
@@ -103,7 +105,7 @@ const MantencionCard: FC<Props> = ({ mantencion }) => {
           css={{ flexDirection: "column", width: "100%" }}
         >
           <Button
-            id={`cyber22-cta-home-mantenimiento-${mantencion.brand_name}-${mantencion.class_name}-${mantencion.version_name}`}
+            id={`cyber22-cta-home-mantenimiento-${mantencion.model_name}-${mantencion.version_name}`}
             auto
             type="button"
             light

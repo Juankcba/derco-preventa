@@ -58,7 +58,7 @@ const HomePage: NextPage<PropsWithChildren<Props>> = ({
 
   return (
     <Layout
-      title="CyberMonday | DercoCenter"
+      title="Cyber | DercoCenter"
       titleNavbar="Preguntas Frecuentes"
       start={start}
     >

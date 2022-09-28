@@ -135,7 +135,11 @@ const VerifyMaintenance = ({ model, setStep, setMsg, setData, data }) => {
               ))}
           </TextField>
 
-          <Button type="submit" className="button_verify btn-primary big">
+          <Button
+            id="cyber22-cta-verificar-categoria-km"
+            type="submit"
+            className="button_verify btn-primary big"
+          >
             Verificar mantención
           </Button>
         </form>

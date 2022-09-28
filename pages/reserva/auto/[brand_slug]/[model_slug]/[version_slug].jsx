@@ -141,7 +141,7 @@ const CarPage = ({ models, regions }) => {
   };
   return (
     <PreventaLayout
-      title={`${models[0].model_name} - ${models[0].version_name} | DercoCenter - ${models[0].brand_name}`}
+      title={`${models[0].brand_name} ${models[0].model_name} ${models[0].version_name} cyber 2022 | DercoCenter - `}
       image={models[0].image_url}
       keywords={`${models[0].model_name} - ${models[0].version_name} | DercoCenter - ${models[0].brand_name}`}
     >

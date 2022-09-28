@@ -53,7 +53,11 @@ const MaintenancePage = ({ models, regions }) => {
   }, [models]);
 
   return (
-    <PreventaLayout>
+    <PreventaLayout
+      title={`Cyber 2022 Mantención de ${models[0].version_name} km  | DercoCenter  `}
+      image={models[0].image_url}
+      keywords={`${models[0].model_name} - ${models[0].version_name} | DercoCenter - ${models[0].brand_name}`}
+    >
       <div className={`page_reserva_mantencion ${step == 3 ? "success" : ""}`}>
         <div className={`container ${step == 3 ? "success" : ""}`}>
           <img
