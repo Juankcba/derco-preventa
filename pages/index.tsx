@@ -49,10 +49,12 @@ const HomePage: NextPage<PropsWithChildren<Props>> = ({
 }) => {
   const [visible, setVisible] = useState<boolean>(false);
   const [start, setStart] = useState(true);
+  const [endTime, setEndTime] = useState<any>("");
   const { isMantenciones, filterCarClass, filterBrand } =
     useContext(FilterContext);
-
-  const THREE_DAYS_IN_MS = new Date("2022-10-03").getTime();
+  useEffect(() => {
+    setEndTime(new Date(Date.UTC(2022, 9, 3, 3, 0, 0, 0)).getTime());
+  }, []);
 
   return (
     <Layout
@@ -63,7 +65,7 @@ const HomePage: NextPage<PropsWithChildren<Props>> = ({
       <HomeBanner />
       {start ? (
         <>
-          <CountdownTimer targetDate={THREE_DAYS_IN_MS} />
+          {endTime != "" && <CountdownTimer targetDate={endTime} />}
           <Row
             css={{
               margin: "20px auto",

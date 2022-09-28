@@ -25,7 +25,7 @@ interface Props {
   pageDescription?: string;
   image?: string;
   titleNavbar?: string;
-  start: boolean;
+  start?: boolean;
 }
 
 const origin = typeof window === "undefined" ? "" : window.location.origin;
