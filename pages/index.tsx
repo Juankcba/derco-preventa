@@ -53,18 +53,18 @@ const HomePage: NextPage<PropsWithChildren<Props>> = ({
     useContext(FilterContext);
 
   const THREE_DAYS_IN_MS = new Date("2022-10-03").getTime();
-  const NOW_IN_MS = new Date().getTime();
 
-  const dateTimeAfterThreeDays = THREE_DAYS_IN_MS;
 
-  if (start)
-    return (
-      <LayoutPreStart
-        title="CyberMonday | DercoCenter"
-        titleNavbar="Preguntas Frecuentes"
-      >
-        <HomeBanner />
-        <CountdownTimer targetDate={dateTimeAfterThreeDays} />
+  return (
+    <Layout
+      title="CyberMonday | DercoCenter"
+      titleNavbar="Preguntas Frecuentes"
+      start={start}
+    >
+      <HomeBanner />
+      {start ? (
+        <>
+        <CountdownTimer targetDate={THREE_DAYS_IN_MS} />
         <Row
           css={{
             margin: "20px auto",
@@ -77,16 +77,11 @@ const HomePage: NextPage<PropsWithChildren<Props>> = ({
             Ingresar
           </Button>
         </Row>
-      </LayoutPreStart>
-    );
+        </>
 
-  return (
-    <Layout
-      title="CyberMonday | DercoCenter"
-      titleNavbar="Preguntas Frecuentes"
-    >
-      <HomeBanner />
-      <Grid.Container css={{ margin: "0" }}>
+      ):(
+        <>
+        <Grid.Container css={{ margin: "0" }}>
         <Grid xs={12} justify={"center"} css={{ paddingTop: "20px" }}>
           <SelectedFilterGeneral />
         </Grid>
@@ -103,6 +98,9 @@ const HomePage: NextPage<PropsWithChildren<Props>> = ({
       <BannerDream />
       <BannerDerco />
       <StepsToBuy />
+      </>
+      )}
+      
     </Layout>
   );
 };

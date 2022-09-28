@@ -25,6 +25,7 @@ interface Props {
   pageDescription?: string;
   image?: string;
   titleNavbar?: string;
+  start: boolean;
 }
 
 const origin = typeof window === "undefined" ? "" : window.location.origin;
@@ -35,6 +36,7 @@ export const Layout: FC<PropsWithChildren<Props>> = ({
   titleNavbar,
   pageDescription,
   image,
+  start,
 }) => {
   const { theme } = useTheme();
 
@@ -80,7 +82,7 @@ export const Layout: FC<PropsWithChildren<Props>> = ({
       </main>
       <Footer />
 
-      <FilterNavBar />
+      {!start && <FilterNavBar />}
     </Box>
   );
 };

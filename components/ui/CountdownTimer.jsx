@@ -34,13 +34,13 @@ const ShowCounter = ({ days, hours, minutes, seconds }) => {
         justifyContent: "center",
       }}
     >
-      <DateTimeDisplay value={days} type={"Days"} isDanger={days <= 3} />
+      <DateTimeDisplay value={days} type={"Dias"} isDanger={days <= 3} />
       <p>:</p>
-      <DateTimeDisplay value={hours} type={"Hours"} isDanger={false} />
+      <DateTimeDisplay value={hours} type={"Horas"} isDanger={false} />
       <p>:</p>
       <DateTimeDisplay value={minutes} type={"Mins"} isDanger={false} />
       <p>:</p>
-      <DateTimeDisplay value={seconds} type={"Seconds"} isDanger={false} />
+      <DateTimeDisplay value={seconds} type={"Segundos"} isDanger={false} />
     </Row>
   );
 };
