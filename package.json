@@ -6,7 +6,8 @@
     "dev": "node serverDev.js",
     "build": "next build",
     "start": "node server.js",
-    "lint": "next lint"
+    "lint": "next lint",
+    "postbuild": "next-sitemap"
   },
   "dependencies": {
     "@emotion/react": "^11.10.4",
@@ -31,6 +32,7 @@
     "mongoose": "^6.5.4",
     "next": "12.2.5",
     "next-auth": "^4.10.3",
+    "next-sitemap": "^3.1.23",
     "react": "18.2.0",
     "react-device-detect": "^2.2.2",
     "react-dom": "18.2.0",
