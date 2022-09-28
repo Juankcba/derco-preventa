@@ -80,17 +80,17 @@ const FormPersonal = ({ formik, selected, data, setData }) => {
                     rut: rut,
                   },
                 });
-                formik.setFieldValue("rut", rut);
-                formik.setFieldValue("email", email);
-                formik.setFieldValue("first_name", first_name);
-                formik.setFieldValue("last_name", last_name);
-                formik.setFieldValue("phone", phone);
+                formik.values.rut = rut;
+                formik.values.email = email;
+                formik.values.first_name = first_name;
+                formik.values.last_name = last_name;
+                formik.values.phone = phone;
               } else {
-                formik.setFieldValue("rut", rutAux);
-                formik.setFieldValue("email", "");
-                formik.setFieldValue("first_name", "");
-                formik.setFieldValue("last_name", "");
-                formik.setFieldValue("phone", "");
+                formik.values.rut = rutAux;
+                formik.values.email = '';
+                formik.values.first_name = '';
+                formik.values.last_name = '';
+                formik.values.phone = '';
               }
             } else {
               formik.setFieldValue("rut", rutAux);
