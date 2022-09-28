@@ -174,17 +174,8 @@ const CarPage = ({ models, regions }) => {
                   <Row className="preventa-prices">
                     <Text className="price-primary">
                       {data.financial.financial_state
-                        ? currency.format(
-                            model.list_price -
-                              (model.list_price -
-                                model.brand_price +
-                                model.list_price -
-                                model.financial_price)
-                          )
-                        : currency.format(
-                            model.list_price -
-                              (model.list_price - model.brand_price)
-                          )}
+                        ? currency.format(model.financial_price)
+                        : currency.format(model.brand_price)}
                       *
                     </Text>
                     <Text className="price-before">
@@ -198,7 +189,7 @@ const CarPage = ({ models, regions }) => {
                       <Text className="price-bonos">
                         Bono financiamiento:{" "}
                         {currency.format(
-                          model.list_price - model.financial_price
+                          model.brand_price - model.financial_price
                         )}
                       </Text>
                     ) : (

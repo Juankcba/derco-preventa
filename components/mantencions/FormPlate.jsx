@@ -1,11 +1,19 @@
-import { FormControl, Select, TextField } from "@mui/material";
+import { FormControl, MenuItem, Select, TextField } from "@mui/material";
 import { Text, Grid } from "@nextui-org/react";
 import React, { useState, useEffect } from "react";
-
+import { modelos } from "../../database/constants";
 const FormPlate = ({ data, setData, formik, regions }) => {
   const [ces, setCes] = useState("");
   const [consecionario, setConsecionario] = useState(regions || []);
+
   const [error, setError] = useState(false);
+  const [marcasOptions, setMarcasOptions] = useState([]);
+  useEffect(() => {
+    let marcasAux = modelos.map((m) => m.brand);
+
+    const dataArr = new Set(marcasAux);
+    setMarcasOptions([...dataArr]);
+  }, [modelos]);
 
   useEffect(() => {
     if (ces != "") {
@@ -14,6 +22,20 @@ const FormPlate = ({ data, setData, formik, regions }) => {
       setData({ ...data, ces: ces });
     }
   }, [ces]);
+
+  useEffect(() => {
+    console.log(formik.values.brandFilter);
+    if (formik.values.brandFilter != "") {
+      setConsecionario(
+        regions.map((region) => ({
+          name: region.name,
+          subsidiaries: region.subsidiaries.filter((subs) =>
+            subs.brands.includes(formik.values.brandFilter)
+          ),
+        }))
+      );
+    }
+  }, [formik.values.brandFilter]);
 
   return (
     <div>
@@ -59,8 +81,32 @@ const FormPlate = ({ data, setData, formik, regions }) => {
           />
         </Grid>
         <Grid xs={12}>
+          <TextField
+            fullWidth
+            select
+            value={formik.values.brandFilter}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            helpercolor={"error"}
+            name="brandFilter"
+            label="Selecciona la Marca"
+            helperText={
+              formik.errors.brandFilter && formik.touched.brandFilter
+                ? formik.errors.brandFilter
+                : ""
+            }
+          >
+            {marcasOptions.map((marca) => (
+              <MenuItem key={marca} value={marca}>
+                {marca}
+              </MenuItem>
+            ))}
+          </TextField>
+        </Grid>
+        <Grid xs={12}>
           <FormControl fullWidth>
             <Select
+              disabled={formik.values.brandFilter == ""}
               native
               defaultValue=""
               id="grouped-concesionario-select"

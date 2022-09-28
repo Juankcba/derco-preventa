@@ -55,6 +55,7 @@ const SuccessVerifyMaintenance = ({
       kms: "",
       plate: "",
       regions: "",
+      brandFilter: "",
       rut: "",
       first_name: "",
       last_name: "",
@@ -63,6 +64,7 @@ const SuccessVerifyMaintenance = ({
       opt: false,
     },
     validationSchema: Yup.object().shape({
+      brandFilter: Yup.string().required("Este campo es obligatorio"),
       rut: Yup.string()
         .min(8, "El RUT debe de tener al menos 8 caracteres")
         .required("El RUT es requerido")

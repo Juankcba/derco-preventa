@@ -90,13 +90,7 @@ const VersionCard: FC<Props> = ({ version }) => {
           className="prices-card"
         >
           <Text className="price-primary" color="#e0102c">
-            {currency.format(
-              version.list_price -
-                (version.list_price -
-                  version.brand_price +
-                  (version.list_price - version.financial_price))
-            )}
-            *
+            {currency.format(version.financial_price)}*
           </Text>
           <Text className="price-before">
             Antes{" "}
@@ -118,7 +112,7 @@ const VersionCard: FC<Props> = ({ version }) => {
             <Text className="price-bonus" color="#e0102c">
               Bono financiamiento:
               <span style={{ paddingLeft: "0.25rem" }}>
-                {currency.format(version.list_price - version.financial_price)}
+                {currency.format(version.brand_price - version.financial_price)}
               </span>
             </Text>
           )}

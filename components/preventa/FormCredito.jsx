@@ -52,12 +52,8 @@ const FormCredito = ({ setValidate, model, setData, data }) => {
   const [creditState, setCreditState] = useState(true);
   const [smart, setSmart] = useState(true);
   const [loading, setLoading] = useState(false);
-  const [value, setValue] = useState(model.list_price * 0.2);
-  const minPrice =
-    model.list_price -
-    (model.list_price -
-      model.brand_price +
-      (model.list_price - model.financial_price));
+  const [value, setValue] = useState(model.financial_price * 0.2);
+  const minPrice = model.financial_price;
   const [valueIncome, setValueIncome] = useState((minPrice * (1 - 0.2)) / 11);
   const [results, setResults] = useState(null);
 
