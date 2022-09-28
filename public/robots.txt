@@ -1,6 +1,0 @@
-Sitemap: https://cl-derco-cyber-marcas.staging.soho.cl/api/posts-sitemap
-
-User-agent: *
-Allow: /*
-
-Disallow: /api/*
