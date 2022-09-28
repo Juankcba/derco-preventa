@@ -15,7 +15,7 @@ const TextMaskRut = React.forwardRef(function TextMaskRut(props, ref) {
       {...other}
       mask="##.###.###-#"
       definitions={{
-        '#': /[1-9]/,
+        '#': /[0-9]/,
       }}
       inputRef={ref}
       onAccept={(value) => onChange({ target: { name: props.name, value } })}
@@ -37,7 +37,7 @@ const TextMaskPhone = React.forwardRef(function TextMaskPhone(props, ref) {
       {...other}
       mask="+56 # #### ####"
       definitions={{
-        '#': /[1-9]/,
+        '#': /[0-9]/,
       }}
       inputRef={ref}
       onAccept={(value) => onChange({ target: { name: props.name, value } })}
@@ -57,7 +57,6 @@ const FormPersonal = ({ setData, data, formik, selected }) => {
 
   const getUserInfo = async () => {
     const rutAux = formik.values.rut
-    // formik.resetForm();
     formik.setFieldValue("opt", selected);
     if (validateRut(rutAux) && rutAux.length > 1) {
       setLoading(true);
@@ -103,8 +102,6 @@ const FormPersonal = ({ setData, data, formik, selected }) => {
         console.log(error);
         setLoading(false);
       }
-    } else {
-      // formik.resetForm();
     }
   };
 
@@ -132,11 +129,7 @@ const FormPersonal = ({ setData, data, formik, selected }) => {
             inputComponent: TextMaskRut,
           }}
           helperColor={"error"}
-          helperText={
-            formik.errors.rut && formik.touched.rut
-              ? formik.errors.rut
-              : ""
-          }
+          helperText={ formik.errors.rut && formik.values.rut ? formik.errors.rut : "" }
         />
       </Grid>
       <Grid xs={12}>
@@ -150,11 +143,7 @@ const FormPersonal = ({ setData, data, formik, selected }) => {
           value={formik.values.first_name}
           disabled={loading}
           helperColor={"error"}
-          helperText={
-            formik.errors.first_name && formik.touched.first_name
-              ? formik.errors.first_name
-              : ""
-          }
+          helperText={ formik.errors.first_name && formik.values.first_name ? formik.errors.first_name : "" }
         />
       </Grid>
       <Grid xs={12}>
@@ -168,11 +157,7 @@ const FormPersonal = ({ setData, data, formik, selected }) => {
           value={formik.values.last_name}
           disabled={loading}
           helperColor={"error"}
-          helperText={
-            formik.errors.last_name && formik.touched.last_name
-              ? formik.errors.last_name
-              : ""
-          }
+          helperText={ formik.errors.last_name && formik.values.last_name ? formik.errors.last_name : "" }
         />
       </Grid>
       <Grid xs={12}>
@@ -187,11 +172,7 @@ const FormPersonal = ({ setData, data, formik, selected }) => {
               inputComponent: TextMaskPhone,
             }}
             helperColor={"error"}
-            helperText={
-              formik.errors.phone && formik.touched.phone
-                ? formik.errors.phone
-                : ""
-            }
+            helperText={ formik.errors.phone && formik.values.phone ? formik.errors.phone : "" }
           />
       </Grid>
       <Grid xs={12}>
@@ -205,11 +186,7 @@ const FormPersonal = ({ setData, data, formik, selected }) => {
           value={formik.values.email}
           disabled={loading}
           helperColor={"error"}
-          helperText={
-            formik.errors.email && formik.touched.email
-              ? formik.errors.email
-              : ""
-          }
+          helperText={ formik.errors.email && formik.values.email ? formik.errors.email : "" }
         />
       </Grid>
     </Grid.Container>

@@ -1,49 +1,99 @@
 import { Grid, Text } from "@nextui-org/react";
 import React, { useState, useEffect } from "react";
 import { validateRut } from "../../utils/rut";
-import createRutMask from "text-mask-rut";
-import InputMask from "react-input-mask";
+import { IMaskInput } from 'react-imask';
 import { Box, MenuItem, TextField } from "@mui/material";
 import { cesApi } from "../../apis";
+import PropTypes from 'prop-types';
+
+const TextMaskRut = React.forwardRef(function TextMaskRut(props, ref) {
+  const { onChange, ...other } = props;
+
+  return (
+    <IMaskInput
+      {...other}
+      mask="##.###.###-#"
+      definitions={{
+        '#': /[0-9]/,
+      }}
+      inputRef={ref}
+      onAccept={(value) => onChange({ target: { name: props.name, value } })}
+      overwrite
+    />
+  );
+});
+
+TextMaskRut.propTypes = {
+  name: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+};
+
+const TextMaskPhone = React.forwardRef(function TextMaskPhone(props, ref) {
+  const { onChange, ...other } = props;
+
+  return (
+    <IMaskInput
+      {...other}
+      mask="+56 # #### ####"
+      definitions={{
+        '#': /[0-9]/,
+      }}
+      inputRef={ref}
+      onAccept={(value) => onChange({ target: { name: props.name, value } })}
+      overwrite
+    />
+  );
+});
+
+TextMaskPhone.propTypes = {
+  name: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+};
 
 const FormPersonal = ({ formik, selected, data, setData }) => {
-  const rutMask = createRutMask();
 
   const [loading, setLoading] = useState(true);
-  const [rut, setRut] = useState("");
-  const [errors, setErrors] = useState({});
+
   const getUserInfo = async () => {
+    const rutAux = formik.values.rut
     formik.setFieldValue("opt", selected);
-    if (validateRut(rut) && rut.length > 1) {
+    if (validateRut(rutAux) && rutAux.length > 1) {
       setLoading(true);
       try {
         await cesApi
           .get("pre-order/customers", {
             params: {
-              rut: rut,
+              rut: rutAux,
             },
           })
           .then((response) => {
             if (response.status == 200) {
-              const { email, phone, first_name, last_name, rut } =
-                response.data;
-              setData({
-                ...data,
-                user: {
-                  email: email,
-                  phone: phone,
-                  first_name: first_name,
-                  last_name: last_name,
-                  rut: rut,
-                },
-              });
-              formik.setFieldValue("rut", rut);
-              formik.setFieldValue("email", email);
-              formik.setFieldValue("first_name", first_name);
-              formik.setFieldValue("last_name", last_name);
-              formik.setFieldValue("phone", phone);
+              const { email, phone, first_name, last_name, rut } = response.data;
+              if ( email && phone && first_name && last_name && rut ) {
+                setData({
+                  ...data,
+                  user: {
+                    email: email,
+                    phone: phone,
+                    first_name: first_name,
+                    last_name: last_name,
+                    rut: rut,
+                  },
+                });
+                formik.setFieldValue("rut", rut);
+                formik.setFieldValue("email", email);
+                formik.setFieldValue("first_name", first_name);
+                formik.setFieldValue("last_name", last_name);
+                formik.setFieldValue("phone", phone);
+              } else {
+                formik.setFieldValue("rut", rutAux);
+                formik.setFieldValue("email", "");
+                formik.setFieldValue("first_name", "");
+                formik.setFieldValue("last_name", "");
+                formik.setFieldValue("phone", "");
+              }
             } else {
-              formik.setFieldValue("rut", rut);
+              formik.setFieldValue("rut", rutAux);
             }
             setLoading(false);
           });
@@ -53,72 +103,15 @@ const FormPersonal = ({ formik, selected, data, setData }) => {
       }
     }
   };
-
-  const formatRut = (e) => {
-    console.log("format", e);
-    const regex = /[`~,.<>;':"\/\[\]\|{}()=_+-]/;
-    if (!regex.test(e.target.value)) {
-      return;
-    } else {
-      const last_value = e.target.value.slice(-1);
-      if (last_value === "_" || last_value === "-") {
-        setRut((v) =>
-          e.target.validity.valid
-            ? { ...formData, rut: e.target.value.slice(0, -1) }
-            : v
-        );
-      } else {
-        setRut((v) =>
-          e.target.validity.valid ? { ...formData, rut: e.target.value } : v
-        );
-      }
-    }
-  };
-
-  useEffect(() => {
-    console.log("rut", rut);
-    const incluye_guion_alto = rut.includes("-");
-    const incluye_guion_bajo = rut.includes("_");
-
-    if (rut.length === 0) {
+  
+  const handlerRut = () => {
+    if ( !formik.values.rut ) {
       formik.resetForm();
+    } else {
+      getUserInfo();
     }
+  }
 
-    if (!incluye_guion_alto && !incluye_guion_bajo && rut.length === 10) {
-      const first_9_digits = rut.slice(0, -1);
-      const last_digit = rut.slice(-1);
-      setRut(first_9_digits + "-" + last_digit);
-    }
-    const two_values_rut = rut.split("-");
-    const first_value_check =
-      two_values_rut[0]?.length > 0 &&
-      two_values_rut[0] !== "_" &&
-      two_values_rut[0] !== undefined
-        ? true
-        : false;
-    const second_value_check =
-      two_values_rut[1]?.length > 0 &&
-      two_values_rut[1] !== "_" &&
-      two_values_rut[1] !== undefined
-        ? true
-        : false;
-    if ((rut?.length > 1 && !validateRut(rut)) || incluye_guion_bajo) {
-      setErrors({ ...errors, rut: "Ingrese un rut válido" });
-    } else if (validateRut(rut) && first_value_check && second_value_check) {
-      setErrors((e) => {
-        const object = { ...e };
-        delete object["rut"];
-        console.log("valido");
-        getUserInfo();
-        return object;
-      });
-    }
-  }, [rut]);
-
-  const handleChangeRut = (e) => {
-    formik.resetForm();
-    setRut(e.target.value);
-  };
   return (
     <div>
       <Text h2 className="reserva-mantenciones-title">
@@ -126,29 +119,20 @@ const FormPersonal = ({ formik, selected, data, setData }) => {
       </Text>
       <Grid.Container gap={2} css={{ p: 0, width: "100%" }}>
         <Grid xs={12}>
-          <InputMask
-            id="preventa-cars-rut"
-            name="rut"
-            mask={rutMask}
-            value={rut}
+          <TextField
             fullWidth
-            required
-            label="RUT"
-            onChange={(e) => handleChangeRut(e)}
-            onBlur={(e) => handleChangeRut(e)}
-          >
-            {(inputProps) => <TextField {...inputProps} />}
-          </InputMask>
-          {/* <TextField
-            id="preventa-cars-rut"
+            label="Rut"
+            value={formik.values.rut}
+            onChange={formik.handleChange}
+            onBlur={ handlerRut }
             name="rut"
-            mask={RutTextMask}
-            onChange={(e) => formatRut(e)}
-            value={rut}
-            fullWidth
-            required
-            label="RUT"
-          /> */}
+            id="formatted-rut-input"
+            InputProps={{
+              inputComponent: TextMaskRut,
+            }}
+            helperColor={"error"}
+            helperText={ formik.errors.rut && formik.values.rut ? formik.errors.rut : "" }
+          />
         </Grid>
         <Grid xs={12}>
           <TextField
@@ -161,11 +145,7 @@ const FormPersonal = ({ formik, selected, data, setData }) => {
             value={formik.values.first_name}
             disabled={loading}
             helperColor={"error"}
-            helperText={
-              formik.errors.first_name && formik.touched.first_name
-                ? formik.errors.first_name
-                : ""
-            }
+            helperText={ formik.errors.first_name && formik.values.first_name ? formik.errors.first_name : "" }
           />
         </Grid>
         <Grid xs={12}>
@@ -179,29 +159,22 @@ const FormPersonal = ({ formik, selected, data, setData }) => {
             value={formik.values.last_name}
             disabled={loading}
             helperColor={"error"}
-            helperText={
-              formik.errors.last_name && formik.touched.last_name
-                ? formik.errors.last_name
-                : ""
-            }
+            helperText={ formik.errors.last_name && formik.values.last_name ? formik.errors.last_name : "" }
           />
         </Grid>
         <Grid xs={12}>
           <TextField
             fullWidth
-            required
             id="preventa-cars-phone"
-            name="phone"
             label="Ingresa tu número de celular"
-            onChange={formik.handleChange}
             value={formik.values.phone}
-            disabled={loading}
+            onChange={formik.handleChange}
+            name="phone"
+            InputProps={{
+              inputComponent: TextMaskPhone,
+            }}
             helperColor={"error"}
-            helperText={
-              formik.errors.phone && formik.touched.phone
-                ? formik.errors.phone
-                : ""
-            }
+            helperText={ formik.errors.phone && formik.values.phone ? formik.errors.phone : "" }
           />
         </Grid>
         <Grid xs={12}>
@@ -215,11 +188,7 @@ const FormPersonal = ({ formik, selected, data, setData }) => {
             value={formik.values.email}
             disabled={loading}
             helperColor={"error"}
-            helperText={
-              formik.errors.email && formik.touched.email
-                ? formik.errors.email
-                : ""
-            }
+            helperText={ formik.errors.email && formik.values.email ? formik.errors.email : "" }
           />
         </Grid>
       </Grid.Container>

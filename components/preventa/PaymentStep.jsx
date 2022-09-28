@@ -96,10 +96,6 @@ const PreventaStep2 = ({ model, setData, data, setStep }) => {
           "Ingrese un celular válido"
         )
         .required("El teléfono es requerido"),
-      rut: Yup.string()
-        .min(9, "El RUT debe de tener al menos 9 caracteres")
-        .required("El RUT es requerido")
-        .test((val) => validateRut(val)),
       opt: Yup.boolean()
         .required("Debe de aceptar los Términos y condiciones")
         .oneOf([true], "Debe de aceptar los Términos y condiciones"),
