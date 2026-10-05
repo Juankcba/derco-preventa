@@ -1,9 +1,4 @@
-# *
+# Sitio no indexable: el noindex va por meta robots y cabecera X-Robots-Tag.
+# No se usa Disallow para que los buscadores puedan rastrear y ver el noindex.
 User-agent: *
 Allow: /
-
-# Host
-Host: http://localhost
-
-# Sitemaps
-Sitemap: http://localhost/sitemap.xml

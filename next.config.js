@@ -10,6 +10,14 @@ const nextConfig = {
       "s3.amazonaws.com",
     ],
   },
+  async headers() {
+    return [
+      {
+        source: "/:path*",
+        headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
+      },
+    ];
+  },
 };
 
 module.exports = nextConfig;
